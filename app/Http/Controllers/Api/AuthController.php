@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function Register(Request $request)
+    public function register(Request $request)
     {
         if ($request->role === 'recruter') {
             $validator = Validator::make($request->all(), [
@@ -106,7 +107,7 @@ class AuthController extends Controller
             return $this->sendError('Invalid Credentials');
         }
     }
-    public function Login(Request $request){
+    public function login(Request $request){
 
             $validator = Validator::make($request->all(), [
                 'email' => 'required',
@@ -134,11 +135,14 @@ class AuthController extends Controller
                 return $this->sendSuccess('User Login Successfully', $response);
             }
     }
-    public function Logout(){
-        Auth::logout();
+    public function logout(){
 
-        return $this->sendSuccess('User Logout Successfully');
+        DB::table('personal_access_tokens')->where(['tokenable_id' => Auth::id()])->delete();
+        return $this->sendSuccess('User Logout Successfully',Auth::id());
+    }
+    public function forgetPassword(){
 
     }
+
 
 }
