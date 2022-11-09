@@ -20,12 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Api'], function () {
 
-    Route::get('register', 'AuthController@register');
-
-    Route::middleware(['auth:sanctum'])->group(function () {
-
+    Route::post('register', 'AuthController@Register');
+    Route::post('login', 'AuthController@Login');
 
 
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('logout', 'AuthController@Logout');
+        Route::get('data','AuthController@data');
 
     });
 });

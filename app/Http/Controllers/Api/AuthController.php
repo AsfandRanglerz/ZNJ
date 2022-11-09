@@ -6,17 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
 {
-    public function create(Request $request)
+    public function Register(Request $request)
     {
-        if ($request->role_type === 'recruter') {
+        if ($request->role === 'recruter') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'company_name' => 'required',
+                'company' => 'required',
                 'designation' => 'required',
                 'email' => 'required|unique:users,email|email',
                 'phone' => 'required',
@@ -28,9 +29,9 @@ class AuthController extends Controller
             }
             $recruter_data = [
                 'name' => $request->name,
-                'company_name' => $request->company_name,
+                'company' => $request->company,
                 'designation' => $request->designation,
-                'role_type'=>$request->role_type,
+                'role'=>$request->role,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password)
@@ -43,7 +44,7 @@ class AuthController extends Controller
                 'token' => $token
             ];
             return $this->sendSuccess('Recruter Register Successfully', $response);
-        } elseif ($request->role_type === 'entertainer') {
+        } elseif ($request->role === 'entertainer') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|unique:users,email|email',
@@ -56,9 +57,9 @@ class AuthController extends Controller
             }
             $entertainer_data = [
                 'name' => $request->name,
-                'company_name' => $request->company_name,
+                'company' => $request->company,
                 'designation' => $request->designation,
-                'role_type'=>$request->role_type,
+                'role'=>$request->role,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password)
@@ -71,11 +72,11 @@ class AuthController extends Controller
                 'token' => $token
             ];
             return $this->sendSuccess('Entertainer Register Successfully', $response);
-        } elseif ($request->role_type === 'venue') {
+        } elseif ($request->role === 'venue') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|unique:users,email|email',
-                'venue_name' => 'required',
+                'venue' => 'required',
                 'phone' => 'required',
                 'password' => 'required|confirmed',
                 'password_confirmation' => 'required'
@@ -85,8 +86,8 @@ class AuthController extends Controller
             }
             $venue_data = [
                 'name' => $request->name,
-                'venue_name' => $request->company_name,
-                'role_type'=>$request->role_type,
+                'venue' => $request->company,
+                'role'=>$request->role,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password)
@@ -99,8 +100,45 @@ class AuthController extends Controller
                 'token' => $token
             ];
             return $this->sendSuccess('Venue Register Successfully', $response);
-        } else {
+        }
+        else
+        {
             return $this->sendError('Invalid Credentials');
         }
     }
+    public function Login(Request $request){
+
+            $validator = Validator::make($request->all(), [
+                'email' => 'required',
+                'password' => 'required',
+
+
+            ]);
+            $user = User::where('email',$request->email)->first();
+
+            if ($validator->fails())
+            {
+                return $this->sendError($validator->errors()->first());
+            }
+            elseif (!$user || !Hash::check($request->password, $user->password))
+            {
+                return $this->sendError('Invalid Credentials');
+            }
+            else
+            {
+                $token = $user->createToken('znjToken')->plainTextToken;
+                $response = [
+                    'user' => $user,
+                    'token' => $token
+                ];
+                return $this->sendSuccess('User Login Successfully', $response);
+            }
+    }
+    public function Logout(){
+        Auth::logout();
+
+        return $this->sendSuccess('User Logout Successfully');
+
+    }
+
 }
