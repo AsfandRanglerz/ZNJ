@@ -15,7 +15,7 @@ class AdminController extends Controller
 {
     //
     public function getdashboard(){
-
+        // dd('kk');
         return view('admin.index');
     }
     public function getProfile(){

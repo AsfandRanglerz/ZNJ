@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\TeamAController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\RecruiterController;
+use App\Http\Controllers\Admin\EntertainerController;
+use App\Http\Controllers\Admin\VenueController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +38,12 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     Route::get('term-condition-edit',[SecurityController::class,'TermConditionEdit']);
     Route::post('term-condition-update',[SecurityController::class,'TermConditionUpdate']);
     Route::get('logout',[AdminController::class,'logout']);
+//Recruiter
+    Route::resource('recruiter', RecruiterController::class);
+//Entertainer
+    Route::resource('entertainer', EntertainerController::class);
+//Venue
+    Route::resource('venue', VenueController::class);
 });
 /*Team A routes
  * */

@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('public/admin/assets/toastr/css/toastr.css')}}">
     <link rel="stylesheet" href="{{ asset('public/admin/assets/css/custom.css') }}">
     <link rel='shortcut icon' type='image/x-icon' href='{{ asset('public/admin/assets/img/favicon.ico') }}' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('public/admin/assets/css/datatables.css') }}">
 
 </head>
 
@@ -28,6 +30,7 @@
         @include('admin.common.footer')
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- General JS Scripts -->
 <script src="{{ asset('public/admin/assets/js/app.min.js')}}"></script>
 <!-- JS Libraies -->
@@ -39,6 +42,7 @@
 <!-- Custom JS File -->
 <script src="{{ asset('public/admin/assets/js/custom.js')}}"></script>
 <script src="{{asset('public/admin/assets/toastr/js/toastr.min.js')}}"></script>
+<script src="{{ asset('public/admin/assets/js/datatables.js') }}"></script>
 <script>
     /*toastr popup function*/
     function toastrPopUp() {
@@ -66,6 +70,12 @@
 
 </script>
 @yield('js')
+<script>window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove();
+    });
+}, 4000);</script>
+@yield('scripts')
 </body>
 
 
