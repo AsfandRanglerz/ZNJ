@@ -90,11 +90,40 @@
                                                     @enderror
                                                 </div>
                                             </div>
+
+                                        <div class="card-footer text-right">
+                                            <button type="submit" class="btn btn-primary">Profile Changes</button>
+                                        </div>
+
+                                    </div>
+                                    </form>
+
+                                        <form method="post" action="{{ route('profile.change-password',[$data->id,$data->slug]) }}" enctype="multipart/form-data">
+                                            @csrf
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Old Password</label>
+                                            <input type="password" name="current_password" id="current_password" value="" class="form-control" >
+                                            @error('old password')
+                                            <div class="text-danger">
+                                                Please fill the old password
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>New Password</label>
+                                            <input type="password" name="new_password" id="new_password" value="" class="form-control">
+                                            @error('new password')
+                                            <div class="text-danger">
+                                                Please fill the new password
+                                            </div>
+                                            @enderror
                                         </div>
                                         <div class="card-footer text-right">
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            <button type="submit" class="btn btn-primary">Password Changes</button>
                                         </div>
-                                    </form>
+                                    </div>
+                                </form>
                                 </div>
                             </div>
                         </div>

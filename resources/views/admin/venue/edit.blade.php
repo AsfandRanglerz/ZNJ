@@ -85,7 +85,7 @@
                                     <div class="card-footer text-center row">
                                         <div class="col">
                                             <button type="submit" class="btn btn-success mr-1 btn-bg"
-                                                id="submit">Edit</button>
+                                                id="submit">Update</button>
                                         </div>
                                     </div>
                                 </div>

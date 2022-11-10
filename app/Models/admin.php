@@ -9,5 +9,5 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class admin extends Authenticatable
 {
     use HasFactory;
-    protected $guarded=[];
+    //protected $guarded=[];
 }

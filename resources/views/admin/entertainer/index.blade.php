@@ -47,7 +47,7 @@
                                                         <form method="POST" action="{{ route('entertainer.destroy', $entertainer->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
-                                                            <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
+                                                            <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                         </form>
                                                            </td>
                                                         </tr>
