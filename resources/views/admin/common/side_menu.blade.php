@@ -1,9 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html"> <img alt="image" src="{{ asset('public/admin/assets/img/logo.png')}}" class="header-logo" /> <span
-                    class="logo-name">The Riser</span>
-            </a>
+            <a href="{{ URL::TO('admin/dashboard')}}"><img alt="image" src="{{ asset('public/admin/assets/img/logo.jpg')}}" class="header-logo" /></a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
@@ -34,5 +32,5 @@
                 <a href="{{url('/admin/term-condition')}}" class="nav-link"><i data-feather="monitor"></i><span>Term&Condition</span></a>
             </li>
         </ul>
-    </aside>
+        </aside>
 </div>
