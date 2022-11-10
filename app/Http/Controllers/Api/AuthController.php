@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -36,7 +35,6 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password)
-
             ];
             $user = User::create($recruter_data);
             $token = $user->createToken('znjToken')->plainTextToken;
@@ -45,6 +43,7 @@ class AuthController extends Controller
                 'token' => $token
             ];
             return $this->sendSuccess('Recruter Register Successfully', $response);
+
         } elseif ($request->role === 'entertainer') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
