@@ -26,7 +26,7 @@ class EntertainerController extends Controller
      */
     public function create()
     {
-       
+
     }
 
     /**
@@ -72,14 +72,7 @@ class EntertainerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'name'=>'required',
-            'email'=>'required|email',
-            'phone'=>'required',
-            'company'=>'required',
-            'designation'=>'required',
-            'venue'=>'required',
-         ]);
+       
 
         $entertainer=User::find($id);
 
@@ -102,7 +95,7 @@ class EntertainerController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return back();
+        User::destroy($id);
+        return redirect()->back();
     }
 }
