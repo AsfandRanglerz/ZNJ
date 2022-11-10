@@ -23,7 +23,6 @@
                                             <th>Sr.</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Password</th>
                                             <th>Phone</th>
                                             <th>Company</th>
                                             <th>Designation</th>
@@ -37,7 +36,6 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $venue->name }}</td>
                                                 <td>{{ $venue->email }}</td>
-                                                <td>{{ $venue->password }}</td>
                                                 <td>{{ $venue->phone }}</td>
                                                 <td>{{ $venue->company }}</td>
                                                 <td>{{ $venue->designation }}</td>
@@ -45,7 +43,7 @@
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                                        href="{{url('/admin/venue/create')}}">Edit</a>
+                                                        href="{{route('venue.edit', $venue->id)}}">Edit</a>
                                                         <form method="POST" action="{{ route('venue.destroy', $venue->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">

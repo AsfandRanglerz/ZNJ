@@ -27,7 +27,7 @@ class VenueController extends Controller
      */
     public function create()
     {
-        return view('admin.venue.edit');
+
     }
 
     /**
@@ -60,7 +60,8 @@ class VenueController extends Controller
      */
     public function edit($id)
     {
-        //
+        $venue=User::find($id);
+        return view('admin.venue.edit',compact('venue'));
     }
 
     /**
@@ -72,7 +73,26 @@ class VenueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required|email',
+            'phone'=>'required',
+            'company'=>'required',
+            'designation'=>'required',
+            'venue'=>'required',
+         ]);
+
+        $recruiter=User::find($id);
+
+        $recruiter->name       =    $request->input('name');
+        $recruiter->email      =    $request->input('email');
+        $recruiter->phone      =    $request->input('phone');
+        $recruiter->company    =    $request->input('company');
+        $recruiter->designation=    $request->input('designation');
+        $recruiter->venue      =    $request->input('venue');
+        $recruiter->update();
+
+        return redirect("/admin/venue")->with('status','data updated sucessfully');
     }
 
     /**

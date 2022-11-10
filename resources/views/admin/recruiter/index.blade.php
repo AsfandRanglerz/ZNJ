@@ -23,7 +23,6 @@
                                             <th>Sr.</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Password</th>
                                             <th>Phone</th>
                                             <th>Company</th>
                                             <th>Designation</th>
@@ -37,7 +36,6 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $recruiter->name }}</td>
                                                 <td>{{ $recruiter->email }}</td>
-                                                <td>{{ $recruiter->password }}</td>
                                                 <td>{{ $recruiter->phone }}</td>
                                                 <td>{{ $recruiter->company }}</td>
                                                 <td>{{ $recruiter->designation }}</td>

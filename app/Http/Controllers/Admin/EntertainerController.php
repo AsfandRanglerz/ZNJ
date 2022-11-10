@@ -26,7 +26,7 @@ class EntertainerController extends Controller
      */
     public function create()
     {
-        return view('admin.entertainer.edit');
+       
     }
 
     /**
@@ -59,7 +59,8 @@ class EntertainerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $entertainer=User::find($id);
+        return view('admin.entertainer.edit',compact('entertainer'));
     }
 
     /**
@@ -71,7 +72,26 @@ class EntertainerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required|email',
+            'phone'=>'required',
+            'company'=>'required',
+            'designation'=>'required',
+            'venue'=>'required',
+         ]);
+
+        $entertainer=User::find($id);
+
+        $entertainer->name       =    $request->input('name');
+        $entertainer->email      =    $request->input('email');
+        $entertainer->phone      =    $request->input('phone');
+        $entertainer->company    =    $request->input('company');
+        $entertainer->designation=    $request->input('designation');
+        $entertainer->venue      =    $request->input('venue');
+        $entertainer->update();
+
+        return redirect("/admin/entertainer")->with('status','data updated sucessfully');
     }
 
     /**
