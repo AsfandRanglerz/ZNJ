@@ -84,7 +84,7 @@ class EntertainerController extends Controller
         $entertainer->venue      =    $request->input('venue');
         $entertainer->update();
 
-        return redirect("/admin/entertainer")->with('status','data updated sucessfully');
+        return redirect("/admin/entertainer")->with(['status'=>true, 'message' => 'Entertainer Updated sucessfully']);
     }
 
     /**

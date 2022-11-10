@@ -106,6 +106,7 @@
     </div>
 
 @endsection
+
 @section('js')
     @if(\Illuminate\Support\Facades\Session::has('message'))
         <script>

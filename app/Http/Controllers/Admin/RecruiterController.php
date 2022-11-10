@@ -87,7 +87,8 @@ class RecruiterController extends Controller
         $recruiter->venue      =    $request->input('venue');
         $recruiter->update();
 
-        return redirect("/admin/recruiter")->with('status','data updated sucessfully');
+        return redirect("/admin/recruiter")->with(['status'=>true, 'message' => 'Recruiter Updated sucessfully']);
+    
     }
 
     /**
