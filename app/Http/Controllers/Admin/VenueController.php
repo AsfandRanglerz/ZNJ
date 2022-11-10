@@ -27,7 +27,7 @@ class VenueController extends Controller
      */
     public function create()
     {
-
+        return view('admin.venue.edit');
     }
 
     /**

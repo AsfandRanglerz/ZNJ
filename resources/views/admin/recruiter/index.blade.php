@@ -45,7 +45,7 @@
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                                        href="">Edit</a>
+                                                        href="{{route('recruiter.edit', $recruiter->id)}}">Edit</a>
                                                         <form method="POST" action="{{ route('recruiter.destroy', $recruiter->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">

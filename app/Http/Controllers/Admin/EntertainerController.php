@@ -26,7 +26,7 @@ class EntertainerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.entertainer.edit');
     }
 
     /**

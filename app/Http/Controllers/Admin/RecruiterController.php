@@ -27,7 +27,7 @@ class RecruiterController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.recruiter.edit');
     }
 
     /**
@@ -60,7 +60,9 @@ class RecruiterController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $recruiter=User::find($id);
+        return view('admin.recruiter.edit',compact('recruiter'));
     }
 
     /**
@@ -72,7 +74,27 @@ class RecruiterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
+            'company'=>'required',
+            'designation'=>'required',
+            'venue'=>'required',
+         ]);
+
+        $recruiter=User::find($id);
+
+        $recruiter->name       =    $request->input('name');
+        $recruiter->email      =    $request->input('email');
+        $recruiter->phone      =    $request->input('phone');
+        $recruiter->company    =    $request->input('company');
+        $recruiter->designation=    $request->input('designation');
+        $recruiter->venue      =    $request->input('venue');
+        $recruiter->update();
+
+        return redirect("/admin/recruiter")->with('status','data updated sucessfully');
     }
 
     /**

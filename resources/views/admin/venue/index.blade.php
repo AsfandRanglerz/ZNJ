@@ -20,7 +20,7 @@
                                 <table class="table" id="table_id">
                                     <thead>
                                         <tr>
-                                            <th>Sr</th>
+                                            <th>Sr.</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Password</th>
@@ -45,7 +45,7 @@
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                                        href="">Edit</a>
+                                                        href="{{url('/admin/venue/create')}}">Edit</a>
                                                         <form method="POST" action="{{ route('venue.destroy', $venue->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">

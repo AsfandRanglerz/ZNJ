@@ -45,7 +45,7 @@
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                                        href="">Edit</a>
+                                                        href="{{url('/admin/entertainer/create')}}">Edit</a>
                                                         <form method="POST" action="{{ route('entertainer.destroy', $entertainer->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
