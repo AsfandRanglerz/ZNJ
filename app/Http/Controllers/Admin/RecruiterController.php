@@ -15,8 +15,8 @@ class RecruiterController extends Controller
      */
     public function index()
     {
-        
-        $data=User::where('role','recruiter')->get();
+
+        $data=User::where('role','Recruiter')->get();
         return view('admin.recruiter.index',['data'=>$data]);
     }
 

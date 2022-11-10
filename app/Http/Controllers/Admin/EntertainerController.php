@@ -15,7 +15,7 @@ class EntertainerController extends Controller
      */
     public function index()
     {
-        $data=User::where('role','entertainer')->get();
+        $data=User::where('role','Entertainer')->get();
         return view('admin.entertainer.index',['data'=>$data]);
     }
 
@@ -82,6 +82,7 @@ class EntertainerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        return back();
     }
 }

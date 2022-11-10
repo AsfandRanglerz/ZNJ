@@ -20,7 +20,7 @@
                                 <table class="table" id="table_id">
                                     <thead>
                                         <tr>
-                                            <th>Sr</th>
+                                            <th>Sr.</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Password</th>
