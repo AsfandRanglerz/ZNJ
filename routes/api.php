@@ -22,6 +22,10 @@ Route::group(['namespace' => 'Api'], function () {
 
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
+    Route::post('forget-password','AuthController@forgetPassword');
+    Route::post('confirm-token','AuthController@confirmToken');
+    Route::post('submit-reset-password','AuthController@submitResetPassword');
+
 
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
