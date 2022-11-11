@@ -26,7 +26,7 @@
                     <li><a class="nav-link" href="{{url('/admin/venue')}}">venue</a></li>
                 </ul>
             </li>
-           
+
             <li class="dropdown {{ (request()->is('admin/term-condition')) ? 'active' : '' }}">
                 <a href="{{url('/admin/term-condition')}}" class="nav-link"><i data-feather="monitor"></i><span>Term&Condition</span></a>
             </li>

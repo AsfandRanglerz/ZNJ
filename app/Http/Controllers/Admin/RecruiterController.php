@@ -88,7 +88,7 @@ class RecruiterController extends Controller
         $recruiter->update();
 
         return redirect("/admin/recruiter")->with(['status'=>true, 'message' => 'Recruiter Updated sucessfully']);
-    
+
     }
 
     /**

@@ -163,7 +163,7 @@ class AuthController extends Controller
                 ]);
                 Mail::to($email)->send(new ResetPasswordUser($token));
 
-                return $this->sendSuccess('Email Sent Successfully Successfully',['email'=> $user->email]);
+                return $this->sendSuccess('Email Sent Successfully Successfully', ['email' => $user->email]);
             } catch (\Throwable $th) {
 
                 return $this->sendError('Something Went Wrong');
@@ -177,7 +177,7 @@ class AuthController extends Controller
             'email' => 'required|email',
         ]);
 
-        $token_data = DB::table('password_resets')->where('token', $request->token)->where('email',$request->email)->first();
+        $token_data = DB::table('password_resets')->where('token', $request->token)->where('email', $request->email)->first();
 
 
         if ($validator->fails()) {
@@ -186,36 +186,28 @@ class AuthController extends Controller
 
             return $this->sendError('Token Invalid or Expired or Invalid Email');
         } else {
-            DB::table('password_resets')->where('token', $request->token)->where('email',$request->email)->delete();
+            DB::table('password_resets')->where('token', $request->token)->where('email', $request->email)->delete();
 
             return $this->sendSuccess('Token Confirmed Successfully', ['email' => $token_data->email]);
         }
     }
-    public function submitResetPassword(Request $request){
+    public function submitResetPassword(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'
         ]);
 
-        $user = User::where('email',$request->email)->update(['password'=>Hash::make($request->password)]);
+        $user = User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
-        }
-         else if (!$user)
-         {
+        } else if (!$user) {
 
             return $this->sendError('Invalid Credentials');
-        }
-        else
-        {
+        } else {
             return $this->sendSuccess('Reset Password Updated Successfully');
-
-
         }
-
     }
-
 }
