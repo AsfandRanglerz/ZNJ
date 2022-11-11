@@ -8,19 +8,19 @@
             <li class="dropdown {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
                 <a href="{{url('/admin/dashboard')}}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
-            <li class="dropdown {{ (request()->is('admin/recruiter')) ? 'active' : '' }}">
+            <li class="dropdown {{ (request()->is('admin/recruiter*')) ? 'active' : '' }}">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Recruiter</span></a>
                 <ul class="dropdown-menu active">
                     <li><a class="nav-link" href="{{url('/admin/recruiter')}}">recruiter</a></li>
                 </ul>
             </li>
-            <li class="dropdown {{ (request()->is('admin/entertainer')) ? 'active' : '' }}">
+            <li class="dropdown {{ (request()->is('admin/entertainer*')) ? 'active' : '' }}">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Entertainer</span></a>
                 <ul class="dropdown-menu active">
                     <li><a class="nav-link" href="{{url('/admin/entertainer')}}">entertainer</a></li>
                 </ul>
             </li>
-            <li class="dropdown {{ (request()->is('admin/venue')) ? 'active' : '' }}">
+            <li class="dropdown {{ (request()->is('admin/venue*')) ? 'active' : '' }}">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Venue</span></a>
                 <ul class="dropdown-menu active">
                     <li><a class="nav-link" href="{{url('/admin/venue')}}">venue</a></li>

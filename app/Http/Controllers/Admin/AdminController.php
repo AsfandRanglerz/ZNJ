@@ -15,123 +15,107 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    //
-    public function getdashboard(){
-        // dd('kk');
+    public function getdashboard()
+    {
         return view('admin.index');
     }
-    public function getProfile(){
-        $data=Admin::find(Auth::guard('admin')->id());
-        return view('admin.auth.profile',compact('data'));
+    public function getProfile()
+    {
+        $data = Admin::find(Auth::guard('admin')->id());
+        return view('admin.auth.profile', compact('data'));
     }
-    public function update_profile(Request $request){
+    public function update_profile(Request $request)
+    {
         $request->validate([
-            'name'=>'required',
-            'email'=>'required',
-            'phone'=>'required'
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required'
         ]);
-        $data = $request->only(['name','email','phone']);
-        if ($request->hasfile('image'))
-        {
-            $file =$request->file('image');
+        $data = $request->only(['name', 'email', 'phone']);
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
-            $filename = time().'.' . $extension;
-            $file->move(public_path('/'),$filename);
-            $data['image']='public/uploads/'.$filename;
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('/'), $filename);
+            $data['image'] = 'public/uploads/' . $filename;
         }
         Admin::find(Auth::guard('admin')->id())->update($data);
-        return back()->with(['status'=>true, 'message' => 'Profile Updated Successfully']);
+        return back()->with(['status' => true, 'message' => 'Profile Updated Successfully']);
     }
-    public function forgetPassword(){
+    public function forgetPassword()
+    {
         return view('admin.auth.forgetPassword');
     }
-    public function adminResetPasswordLink(Request $request){
+    public function adminResetPasswordLink(Request $request)
+    {
         $request->validate([
-            'email'=>'required|exists:admins,email',
+            'email' => 'required|exists:admins,email',
         ]);
-        $exists = DB::table('password_resets')->where('email',$request->email)->first();
-        if ($exists){
-            return back()->with('message','Reset Password link has been already sent');
-        }else{
+        $exists = DB::table('password_resets')->where('email', $request->email)->first();
+        if ($exists) {
+            return back()->with('message', 'Reset Password link has been already sent');
+        } else {
             $token = Str::random(30);
             DB::table('password_resets')->insert([
-                'email'=>$request->email,
-                'token'=>$token,
+                'email' => $request->email,
+                'token' => $token,
             ]);
 
-            $data['url'] = url('change_password',$token);
+            $data['url'] = url('change_password', $token);
             Mail::to($request->email)->send(new ResetPasswordMail($data));
-            return back()->with('message','Reset Password Link Send Successfully');
+            return back()->with('message', 'Reset Password Link Send Successfully');
         }
     }
     public function change_password($id)
     {
 
-        $user = DB::table('password_resets')->where('token',$id)->first();
-
-        if(isset($user))
-        {
-            return view('admin.auth.chnagePassword',compact('user'));
+        $user = DB::table('password_resets')->where('token', $id)->first();
+        if (isset($user)) {
+            return view('admin.auth.chnagePassword', compact('user'));
         }
     }
-
-    public function resetPassword (Request $request)
+    public function resetPassword(Request $request)
     {
-
-       $request->validate([
+        $request->validate([
             'password' => 'required|min:8',
             'confirmed' => 'required',
 
         ]);
-       if ($request->password !=$request->confirmed)
-       {
-
-           return back()->with(['error_message' => 'Password not matched']);
-       }
-        $password=bcrypt($request->password);
+        if ($request->password != $request->confirmed) {
+            return back()->with(['error_message' => 'Password not matched']);
+        }
+        $password = bcrypt($request->password);
         $tags_data = [
             'password' => bcrypt($request->password)
         ];
-        if (Admin::where('email',$request->email)->update($tags_data)){
-            DB::table('password_resets')->where('email',$request->email)->delete();
+        if (Admin::where('email', $request->email)->update($tags_data)) {
+            DB::table('password_resets')->where('email', $request->email)->delete();
             return redirect('admin');
         }
-
-
     }
-    public function logout(){
+    public function logout()
+    {
         Auth::guard('admin')->logout();
         return redirect('admin');
     }
-    //Change Password
 
+    //Change Password
     public function changePasswordSave(Request $request)
     {
-        //dd('kk');
-
         $this->validate($request, [
             'current_password' => 'required',
             'new_password' => 'required'
         ]);
-        $auth = Auth::guard('admin')->user()->password;
- // The passwords matches
-
-        if (!Hash::check($request->current_password, $auth));
-        // if (!Hash::check($request->current_password, $auth->password))
-        {
-            return back()->with('error', "Current Password is Invalid");
+        $auth = Auth::guard('admin')->user();
+        if (!Hash::check($request->current_password, $auth->password)) {
+            return back()->with(['status' => false, 'message' => "Current Password is Invalid"]);
+        } else if (strcmp($request->get('current_password'), $request->new_password) == 0) {
+            return redirect()->back()->with(['status' => false, 'message' => "New Password cannot be same as your current password."]);
+        } else {
+            $user =  admin::find($auth->id);
+            $user->password =  Hash::make($request->new_password);
+            $user->save();
+            return back()->with(['status' => true, 'message' => 'Password Updated Successfully']);
         }
-    
-// Current password and new password same
-        if (strcmp($request->get('current_password'), $request->new_password) == 0)
-        {
-            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
-        }
-
-        $user =  admin::find($auth->id);
-        $user->password =  Hash::make($request->new_password);
-        $user->save();
-        return back()->with(['status'=>true, 'message' => 'Password Updated Successfully']);
     }
-
 }

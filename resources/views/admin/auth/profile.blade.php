@@ -104,16 +104,16 @@
                                         <div class="form-group col-md-6 col-12">
                                             <label>Old Password</label>
                                             <input type="password" name="current_password" id="current_password" value="" class="form-control" >
-                                            @error('old password')
+                                            {{-- @error('current_password')
                                             <div class="text-danger">
-                                                Please fill the old password
+                                                The old password is incorrect
                                             </div>
-                                            @enderror
+                                            @enderror --}}
                                         </div>
                                         <div class="form-group col-md-6 col-12">
                                             <label>New Password</label>
                                             <input type="password" name="new_password" id="new_password" value="" class="form-control">
-                                            @error('new password')
+                                            @error('new_password')
                                             <div class="text-danger">
                                                 Please fill the new password
                                             </div>
