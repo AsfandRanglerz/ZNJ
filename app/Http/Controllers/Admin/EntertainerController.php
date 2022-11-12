@@ -72,7 +72,7 @@ class EntertainerController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
 
         $entertainer=User::find($id);
 

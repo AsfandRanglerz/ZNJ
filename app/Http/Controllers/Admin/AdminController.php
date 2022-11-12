@@ -109,7 +109,7 @@ class AdminController extends Controller
         $auth = Auth::guard('admin')->user();
         if (!Hash::check($request->current_password, $auth->password)) {
             return back()->with(['status' => false, 'message' => "Current Password is Invalid"]);
-        } else if (strcmp($request->get('current_password'), $request->new_password) == 0) {
+        } else if (strcmp($request->current_password, $request->new_password) == 0) {
             return redirect()->back()->with(['status' => false, 'message' => "New Password cannot be same as your current password."]);
         } else {
             $user =  admin::find($auth->id);
