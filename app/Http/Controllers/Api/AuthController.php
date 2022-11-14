@@ -31,23 +31,11 @@ class AuthController extends Controller
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
-            $recruter_data = [
-                'name' => $request->name,
-                'company' => $request->company,
-                'designation' => $request->designation,
-                'role' => $request->role,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => Hash::make($request->password)
-
-            ];
+            $recruter_data = $request->only(['name', 'email', 'phone', 'password', 'role', 'company', 'designation']);
+            $recruter_data['password'] = Hash::make($request->password);
             $user = User::create($recruter_data);
-            $token = $user->createToken('znjToken')->plainTextToken;
-            $response = [
-                'token' => $token,
-                'user' => $user
-            ];
-            return $this->sendSuccess('Recruter Register Successfully', $response);
+            $user['token'] = $user->createToken('znjToken')->plainTextToken;
+            return $this->sendSuccess('Recruter Register Successfully', $user);
         } elseif ($request->role === 'entertainer') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -61,21 +49,16 @@ class AuthController extends Controller
             }
             $entertainer_data = [
                 'name' => $request->name,
-                'company' => $request->company,
-                'designation' => $request->designation,
                 'role' => $request->role,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password)
-
             ];
+            $entertainer_data = $request->only(['name', 'email', 'role', 'phone', 'password']);
+            $entertainer_data['password'] = Hash::make($request->password);
             $user = User::create($entertainer_data);
-            $token = $user->createToken('znjToken')->plainTextToken;
-            $response = [
-                'token' => $token,
-                'user' => $user
-            ];
-            return $this->sendSuccess('Entertainer Register Successfully', $response);
+            $user['token'] = $user->createToken('znjToken')->plainTextToken;
+            return $this->sendSuccess('Entertainer Register Successfully', $user);
         } elseif ($request->role === 'venue') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -88,84 +71,61 @@ class AuthController extends Controller
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
-            $venue_data = [
-                'name' => $request->name,
-                'venue' => $request->company,
-                'role' => $request->role,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => Hash::make($request->password)
-
-            ];
+            $venue_data = $request->only(['name', 'email', 'phone', 'password', 'role', 'venue']);
+            $venue_data['password'] = Hash::make($request->password);
             $user = User::create($venue_data);
-            $token = $user->createToken('znjToken')->plainTextToken;
-            $response = [
-                'token' => $token,
-                'user' => $user
-            ];
-            return $this->sendSuccess('Venue Register Successfully', $response);
+            $user['token'] = $user->createToken('authToken')->plainTextToken;
+            return $this->sendSuccess('Venue Register Successfully', $user);
         } else {
             return $this->sendError('Invalid Credentials');
         }
     }
     public function login(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required',
-
-
         ]);
-        $user = User::where('email', $request->email)->first();
-
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
-        } elseif (!$user || !Hash::check($request->password, $user->password)) {
-            return $this->sendError('Invalid Credentials');
-        } else {
-            $token = $user->createToken('znjToken')->plainTextToken;
-            $response = [
-                'token' => $token,
-                'user' => $user
-            ];
-            return $this->sendSuccess('User Login Successfully', $response);
         }
+        if (!auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return  $this->sendError('Invalid email or password');
+        }
+        $user = User::find(auth()->id());
+        $user['token'] = $user->createToken('authToken')->plainTextToken;
+        return $this->sendSuccess('Login Successfully', $user);
     }
-    public function logout()
-    {
+    // public function logout()
+    // {
+    //     Auth::logout();
 
-        DB::table('personal_access_tokens')->where(['tokenable_id' => Auth::id()])->delete();
-        return $this->sendSuccess('User Logout Successfully', Auth::id());
-    }
+
+    //     DB::table('personal_access_tokens')->where(['tokenable_id' => Auth::id()])->delete();
+
+    //     return $this->sendSuccess('User Logout Successfully', Auth::id());
+    // }
     public function forgetPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required',
         ]);
-        $email = $request->email;
-
-        $user = User::where('email', $email)->first();
-
+        $user = User::where('email', $request->email)->first();
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         } else if (!$user) {
             return $this->sendError('Invalid Credentials');
         } else {
             try {
-
                 $token = random_int(1000, 9999);
-
                 DB::table('password_resets')->insert([
-                    'email' => $email,
+                    'email' => $request->email,
                     'token' => $token,
                     'created_at' => Carbon::now()
                 ]);
-                Mail::to($email)->send(new ResetPasswordUser($token));
-
+                Mail::to($request->email)->send(new ResetPasswordUser($token));
                 return $this->sendSuccess('Email Sent Successfully Successfully', ['email' => $user->email]);
             } catch (\Throwable $th) {
-
                 return $this->sendError('Something Went Wrong');
             }
         }
@@ -178,16 +138,12 @@ class AuthController extends Controller
         ]);
 
         $token_data = DB::table('password_resets')->where('token', $request->token)->where('email', $request->email)->first();
-
-
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         } else if (!$token_data) {
-
-            return $this->sendError('Token Invalid or Expired or Invalid Email');
+            return $this->sendError('Token Invalid or Expired or Email not exist');
         } else {
             DB::table('password_resets')->where('token', $request->token)->where('email', $request->email)->delete();
-
             return $this->sendSuccess('Token Confirmed Successfully', ['email' => $token_data->email]);
         }
     }
@@ -204,8 +160,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         } else if (!$user) {
-
-            return $this->sendError('Invalid Credentials');
+            return $this->sendError('Email not exist');
         } else {
             return $this->sendSuccess('Reset Password Updated Successfully');
         }

@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Api'], function () {
 
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        Route::get('logout', 'AuthController@logout');
+        // Route::get('logout', 'AuthController@logout');
 
 
     });
