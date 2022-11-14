@@ -30,6 +30,12 @@
             <li class="dropdown {{ (request()->is('admin/term-condition')) ? 'active' : '' }}">
                 <a href="{{url('/admin/term-condition')}}" class="nav-link"><i data-feather="monitor"></i><span>Term&Condition</span></a>
             </li>
+            <li class="dropdown {{ (request()->is('admin/pages/intro-video*')) ? 'active' : '' }}">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Pages</span></a>
+                <ul class="dropdown-menu active">
+                    <li><a class="nav-link" href="{{url('/admin/pages/intro-video')}}">Introduction Video</a></li>
+                </ul>
+            </li>
         </ul>
         </aside>
 </div>

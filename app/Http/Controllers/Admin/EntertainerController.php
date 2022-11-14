@@ -17,6 +17,7 @@ class EntertainerController extends Controller
     {
         $data=User::where('role','Entertainer')->get();
         return view('admin.entertainer.index',['data'=>$data]);
+
     }
 
     /**

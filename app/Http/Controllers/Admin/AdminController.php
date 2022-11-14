@@ -100,7 +100,7 @@ class AdminController extends Controller
     }
 
     //Change Password
-    public function changePasswordSave(Request $request)
+    public function profile_change_password(Request $request)
     {
         $this->validate($request, [
             'current_password' => 'required',

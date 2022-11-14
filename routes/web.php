@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\RecruiterController;
 use App\Http\Controllers\Admin\EntertainerController;
 use App\Http\Controllers\Admin\VenueController;
+use App\Http\Controllers\Admin\IntrovideoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +32,7 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     Route::get('dashboard',[AdminController::class,'getdashboard']);
     Route::get('profile',[AdminController::class,'getProfile']);
     Route::post('update-profile',[AdminController::class,'update_profile']);
-    Route::post('update-password', [AdminController::class, 'changePasswordSave'])->name('profile.change-password');
+    Route::post('update-password', [AdminController::class, 'profile_change_password'])->name('profile.change-password');
     Route::get('Privacy-policy',[SecurityController::class,'PrivacyPolicy']);
     Route::get('privacy-policy-edit',[SecurityController::class,'PrivacyPolicyEdit']);
     Route::post('privacy-policy-update',[SecurityController::class,'PrivacyPolicyUpdate']);
@@ -45,6 +46,10 @@ Route::prefix('admin')->middleware('admin')->group(function (){
     Route::resource('entertainer', EntertainerController::class);
 //Venue
     Route::resource('venue', VenueController::class);
+ //introVideo
+    Route::resource('/pages/intro-video', IntrovideoController::class);
+    //
+
 });
 /*Team A routes
  * */
