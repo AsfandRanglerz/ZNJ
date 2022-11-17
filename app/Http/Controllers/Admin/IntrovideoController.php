@@ -17,7 +17,7 @@ class IntrovideoController extends Controller
      */
     public function index()
     {
-        $data=Introvideo::all();
+        $data=Introvideo::first();
         return view('admin.pages.introVideo.index',['data'=>$data]);
     }
 
@@ -61,8 +61,7 @@ class IntrovideoController extends Controller
      */
     public function edit($id)
     {
-        $introvideo=Introvideo::find($id);
-        return view('admin.pages.introVideo.index',compact('introvideo'));
+
     }
 
     /**
@@ -75,13 +74,12 @@ class IntrovideoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'video' => 'required|file|mimetypes:video/mp4',
+            'video' => 'required|file',
         ]);
         $fileName = $request->video->getClientOriginalName();
         $filePath = 'video/'. $fileName;
         $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
         // File URL to access the video in frontend
-       // $url = Storage::disk('public')->url($filePath);
         if ($isFileUploaded) {
             $video=Introvideo::find($id);
             $video->video = $filePath;

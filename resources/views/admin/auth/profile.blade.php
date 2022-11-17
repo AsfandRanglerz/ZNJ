@@ -42,7 +42,7 @@
                                     <form method="post" action="{{url('admin/update-profile')}}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="card-header">
-                                            <h4>Edit Profile</h4>
+                                            <h4>Profile</h4>
                                         </div>
 {{--                                        @if(\Illuminate\Support\Facades\Session::has('errors'))--}}
 {{--                                            {{dd($errors)}}--}}
@@ -92,7 +92,7 @@
                                             </div>
 
                                         <div class="card-footer text-right">
-                                            <button type="submit" class="btn btn-primary">Profile Changes</button>
+                                            <button type="submit" class="btn btn-primary">Update Profile</button>
                                         </div>
 
                                     </div>
@@ -119,8 +119,18 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <div class="card-footer text-right">
-                                            <button type="submit" class="btn btn-primary">Password Changes</button>
+
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <div class="card-footer text-right mr-3">
+                                                <button type="submit"  class="btn btn-primary">Update Password</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

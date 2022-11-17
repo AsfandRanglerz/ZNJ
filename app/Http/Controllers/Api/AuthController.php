@@ -18,7 +18,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        if ($request->role === 'recruter') {
+        if ($request->role === 'recruiter') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'company' => 'required',
@@ -77,7 +77,7 @@ class AuthController extends Controller
             $user['token'] = $user->createToken('authToken')->plainTextToken;
             return $this->sendSuccess('Venue Register Successfully', $user);
         } else {
-            return $this->sendError('Invalid Credentials');
+            return $this->sendError('Role Is Invalid');
         }
     }
     public function login(Request $request)
@@ -114,7 +114,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         } else if (!$user) {
-            return $this->sendError('Invalid Credentials');
+            return $this->sendError('Email Does Not Exist');
         } else {
             try {
                 $token = random_int(1000, 9999);

@@ -8,7 +8,7 @@
             <li class="dropdown {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
                 <a href="{{url('/admin/dashboard')}}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
-            <li class="dropdown {{ (request()->is('admin/recruiter*')) ? 'active' : '' }}">
+            {{-- <li class="dropdown {{ (request()->is('admin/recruiter*')) ? 'active' : '' }}">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Recruiter</span></a>
                 <ul class="dropdown-menu active">
                     <li><a class="nav-link" href="{{url('/admin/recruiter')}}">recruiter</a></li>
@@ -19,22 +19,30 @@
                 <ul class="dropdown-menu active">
                     <li><a class="nav-link" href="{{url('/admin/entertainer')}}">entertainer</a></li>
                 </ul>
+            </li> --}}
+            <li class="dropdown {{ (request()->is('admin/users/index*')) ? 'active' : '' }}">
+                <a href="{{route('admin.user.index')}}" class="nav-link"><i data-feather="layout"></i><span>User</span></a>
+                {{-- <ul class="dropdown-menu active"> --}}
+                {{-- <ul class="dropdown-menu active ">
+                    <li><a class="nav-link"  href="{{route('admin.user.index')}}">user</a></li>
+                </ul> --}}
             </li>
-            <li class="dropdown {{ (request()->is('admin/venue*')) ? 'active' : '' }}">
-                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Venue</span></a>
-                <ul class="dropdown-menu active">
-                    <li><a class="nav-link" href="{{url('/admin/venue')}}">venue</a></li>
-                </ul>
-            </li>
+            {{-- <li class="dropdown {{ (request()->is('admin/Privacy-policy')) ? 'active' : '' }}">
+                <a href="{{url('/admin/Privacy-policy')}}" class="nav-link"><i data-feather="monitor"></i><span>Privacy&Policy</span></a>
+            </li> --}}
 
             <li class="dropdown {{ (request()->is('admin/term-condition')) ? 'active' : '' }}">
                 <a href="{{url('/admin/term-condition')}}" class="nav-link"><i data-feather="monitor"></i><span>Term&Condition</span></a>
             </li>
-            <li class="dropdown {{ (request()->is('admin/pages/intro-video*')) ? 'active' : '' }}">
-                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Pages</span></a>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown">
+                    <i data-feather="layout"></i><span>Pages</span></a>
                 <ul class="dropdown-menu active">
-                    <li><a class="nav-link" href="{{url('/admin/pages/intro-video')}}">Introduction Video</a></li>
+                    <li class="{{ (request()->is('admin/pages/intro-video*')) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{url('/admin/pages/intro-video')}}">Introduction Video</a>
+                    </li>
                 </ul>
+
             </li>
         </ul>
         </aside>

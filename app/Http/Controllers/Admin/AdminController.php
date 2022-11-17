@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPasswordMail;
-use App\Models\admin;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
@@ -12,12 +12,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+
 
 class AdminController extends Controller
 {
     public function getdashboard()
-    {
-        return view('admin.index');
+    {   $data['venue']=User::where('role','Venue')->count();
+        $data['recruiter']=User::where('role','Recruiter')->count();
+        $data['entertainer']=User::where('role','Entertainer')->count();
+        // dd($data);
+        return view('admin.index',compact('data'));
     }
     public function getProfile()
     {
@@ -28,7 +33,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'phone' => 'required'
         ]);
         $data = $request->only(['name', 'email', 'phone']);
@@ -36,8 +41,8 @@ class AdminController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename = time() . '.' . $extension;
-            $file->move(public_path('/'), $filename);
-            $data['image'] = 'public/uploads/' . $filename;
+            $file->move(public_path('/admin/assets/img'), $filename);
+            $data['image'] = 'public/admin/assets/img/' . $filename;
         }
         Admin::find(Auth::guard('admin')->id())->update($data);
         return back()->with(['status' => true, 'message' => 'Profile Updated Successfully']);
@@ -112,7 +117,7 @@ class AdminController extends Controller
         } else if (strcmp($request->current_password, $request->new_password) == 0) {
             return redirect()->back()->with(['status' => false, 'message' => "New Password cannot be same as your current password."]);
         } else {
-            $user =  admin::find($auth->id);
+            $user =  Admin::find($auth->id);
             $user->password =  Hash::make($request->new_password);
             $user->save();
             return back()->with(['status' => true, 'message' => 'Password Updated Successfully']);
