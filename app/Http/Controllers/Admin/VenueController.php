@@ -15,8 +15,7 @@ class VenueController extends Controller
      */
     public function index()
     {
-        $data=User::where('role','Venue')->get();
-        return view('admin.venue.index',['data'=>$data]);
+
 
     }
 
@@ -80,12 +79,10 @@ class VenueController extends Controller
         $recruiter->name       =    $request->input('name');
         $recruiter->email      =    $request->input('email');
         $recruiter->phone      =    $request->input('phone');
-        $recruiter->company    =    $request->input('company');
-        $recruiter->designation=    $request->input('designation');
         $recruiter->venue      =    $request->input('venue');
         $recruiter->update();
 
-        return redirect("/admin/venue")->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
+        return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
     }
 
     /**
@@ -97,6 +94,6 @@ class VenueController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->back();
+        return redirect()->back()->with(['status'=>true, 'message' => 'Venue Deleted sucessfully']);
     }
 }

@@ -13,37 +13,34 @@
                             <div class="card-header">
                                 <div class="col-6">
                                     <h4>Introduction Video</h4>
-
                                 </div>
                             </div>
                             <div class="card-body table-striped table-bordered table-responsive">
                                 <table class="table" id="table_id">
                                     <thead>
                                         <tr>
-                                            <th>Sr.</th>
                                             <th>Video</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     @foreach($data as $introvideo)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-
-                                                <td>
-                                                    <video width="320" height="240" controls></video>
-                                                   <source  src="{{URL::asset("video/$introvideo->video")}}" type="video/mp4" >
-                                                    </video> </td>
-                                                        </tr>
-                                      @endforeach
-
+                                               <td>
+                                                <video id="video" controls="controls autoplay"  width="300" height="150">
+                                                    <source id="mp4" src="{{ asset('public/storage/'.$data->video)}}">
+                                                    </video>
+                                                  </td>
+                                                    </tr>
                                     </tbody>
+
+
+
+
+
                                 </table>
-                                <form id="add_student" action="{{ route('intro-video.update', $introvideo->id) }}" method="POST"
+                                <form id="add_student" action="{{ route('intro-video.update', $data->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @method('PATCH')
                                     @csrf
-
                                     <div class="card">
                                         <h4 class="text-center my-4"></h4>
                                         <div class="row mx-0 px-4">
@@ -52,7 +49,7 @@
                                                     <label>Video Upload</label>
                                                     <input type="file" name="video" id="video"
 
-                                                        Value="{{ $introvideo['video'] }}" class="form-control">
+                                                         class="form-control">
                                                     @error('video')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

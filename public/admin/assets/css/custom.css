@@ -179,7 +179,7 @@ body .form-control[type=number]::-webkit-outer-spin-button {
     background-color: var(--theme-color);
 }
 .main-sidebar .sidebar-brand a .header-logo {
-    width: 120px;
+    width: 45px;
     height: unset;
 }
 .main-sidebar .sidebar-brand {

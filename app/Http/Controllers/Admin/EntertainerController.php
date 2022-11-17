@@ -15,8 +15,7 @@ class EntertainerController extends Controller
      */
     public function index()
     {
-        $data=User::where('role','Entertainer')->get();
-        return view('admin.entertainer.index',['data'=>$data]);
+
 
     }
 
@@ -80,12 +79,9 @@ class EntertainerController extends Controller
         $entertainer->name       =    $request->input('name');
         $entertainer->email      =    $request->input('email');
         $entertainer->phone      =    $request->input('phone');
-        $entertainer->company    =    $request->input('company');
-        $entertainer->designation=    $request->input('designation');
-        $entertainer->venue      =    $request->input('venue');
         $entertainer->update();
 
-        return redirect("/admin/entertainer")->with(['status'=>true, 'message' => 'Entertainer Updated sucessfully']);
+        return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Entertainer Updated sucessfully']);
     }
 
     /**
@@ -97,6 +93,6 @@ class EntertainerController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->back();
+        return redirect()->back()->with(['status'=>true, 'message' => 'Entertainer Deleted sucessfully']);
     }
 }

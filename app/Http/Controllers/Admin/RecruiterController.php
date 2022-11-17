@@ -15,9 +15,6 @@ class RecruiterController extends Controller
      */
     public function index()
     {
-
-        $data=User::where('role','Recruiter')->get();
-        return view('admin.recruiter.index',['data'=>$data]);
     }
 
     /**
@@ -27,7 +24,7 @@ class RecruiterController extends Controller
      */
     public function create()
     {
-        return view('admin.recruiter.edit');
+
     }
 
     /**
@@ -36,7 +33,7 @@ class RecruiterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         //
     }
@@ -74,9 +71,6 @@ class RecruiterController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
-
         $recruiter=User::find($id);
 
         $recruiter->name       =    $request->input('name');
@@ -84,10 +78,9 @@ class RecruiterController extends Controller
         $recruiter->phone      =    $request->input('phone');
         $recruiter->company    =    $request->input('company');
         $recruiter->designation=    $request->input('designation');
-        $recruiter->venue      =    $request->input('venue');
         $recruiter->update();
 
-        return redirect("/admin/recruiter")->with(['status'=>true, 'message' => 'Recruiter Updated sucessfully']);
+        return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Recruiter Updated sucessfully']);
 
     }
 
@@ -100,6 +93,6 @@ class RecruiterController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->back();
+        return redirect()->back()->with(['status'=>true, 'message' => 'Recruiter Deleted sucessfully']);
     }
 }
