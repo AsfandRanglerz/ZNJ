@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\IntrovideoController;
 */
 /*Admin routes
  * */
+
 Route::get('/admin',[AuthController::class,'getLoginPage']);
 Route::post('/login',[AuthController::class,'Login']);
 Route::get('/admin-forgot-password',[AdminController::class,'forgetPassword']);

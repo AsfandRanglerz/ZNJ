@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'Api'], function () {
 
     Route::post('register', 'AuthController@register');
-    Route::post('login', 'AuthController@login');
+    Route::post('user-login', 'AuthController@login');
+    Route::post('social-login','AuthController@userSocialLogin');
     Route::post('forget-password','AuthController@forgetPassword');
     Route::post('confirm-token','AuthController@confirmToken');
     Route::post('submit-reset-password','AuthController@submitResetPassword');
@@ -29,8 +30,9 @@ Route::group(['namespace' => 'Api'], function () {
 
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        // Route::get('logout', 'AuthController@logout');
-
-
+        Route::post('user-location','AuthController@userLocation');
+        Route::get('edit-profile','AuthController@editProfile');
+        Route::post('update-profile','AuthController@updateProfile');
+        Route::get('term-of-use','HomeController@terms');
     });
 });
