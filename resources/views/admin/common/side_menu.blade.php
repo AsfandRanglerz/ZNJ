@@ -4,7 +4,6 @@
             <a href="{{ URL::TO('admin/dashboard')}}"><img alt="image" src="{{ asset('public/admin/assets/img/logo.png')}}" class="header-logo"/></a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">Main</li>
             <li class="dropdown {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
                 <a href="{{url('/admin/dashboard')}}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
@@ -21,7 +20,7 @@
                 </ul>
             </li> --}}
             <li class="dropdown {{ (request()->is('admin/users/index*')) ? 'active' : '' }}">
-                <a href="{{route('admin.user.index')}}" class="nav-link"><i data-feather="layout"></i><span>User</span></a>
+                <a href="{{route('admin.user.index')}}" class="nav-link"><i class="fa fa-users"></i><span>Users</span></a>
                 {{-- <ul class="dropdown-menu active"> --}}
                 {{-- <ul class="dropdown-menu active ">
                     <li><a class="nav-link"  href="{{route('admin.user.index')}}">user</a></li>
@@ -31,19 +30,22 @@
                 <a href="{{url('/admin/Privacy-policy')}}" class="nav-link"><i data-feather="monitor"></i><span>Privacy&Policy</span></a>
             </li> --}}
 
-            <li class="dropdown {{ (request()->is('admin/term-condition')) ? 'active' : '' }}">
+            {{-- <li class="dropdown {{ (request()->is('admin/term-condition')) ? 'active' : '' }}">
                 <a href="{{url('/admin/term-condition')}}" class="nav-link"><i data-feather="monitor"></i><span>Term&Condition</span></a>
+            </li> --}}
+            <li class="{{ (request()->is('admin/pages/intro-video*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{url('/admin/pages/intro-video')}}"> <i class="fa fa-play-circle-o"></i> Introduction Video</a>
             </li>
-            <li class="dropdown">
+
+
+            {{-- <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown">
                     <i data-feather="layout"></i><span>Pages</span></a>
                 <ul class="dropdown-menu active">
-                    <li class="{{ (request()->is('admin/pages/intro-video*')) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{url('/admin/pages/intro-video')}}">Introduction Video</a>
-                    </li>
+
                 </ul>
 
-            </li>
+            </li> --}}
         </ul>
         </aside>
 </div>

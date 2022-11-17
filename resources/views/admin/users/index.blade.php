@@ -12,13 +12,13 @@
             <div class="card-body">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Recruiter</a>
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Recruiters</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Entertainer</a>
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Entertainers</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Venue</a>
+                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Venue Providers</a>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
@@ -91,6 +91,8 @@
 
                                         <td
                                         style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
+                                        <a class="btn btn-danger"
+                                                href="{{route('entertainer.edit', $entertainer->id)}}">Talent</a>
                                         <a class="btn btn-info"
                                                 href="{{route('entertainer.edit', $entertainer->id)}}">Edit</a>
                                                 <form method="POST" action="{{ route('entertainer.destroy', $entertainer->id) }}">

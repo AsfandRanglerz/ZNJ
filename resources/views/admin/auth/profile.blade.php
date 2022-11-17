@@ -19,7 +19,7 @@
                             </ul>
                             <div class="tab-content tab-bordered" id="myTab3Content">
                                 <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="home-tab2">
-                                    <div class="row">
+                                    <div class="row mx-0 pt-3">
                                         <div class="col-md-3 col-6 b-r">
                                             <strong>Full Name</strong>
                                             <br>
@@ -69,7 +69,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-md-7 col-12">
+                                                <div class="form-group col-md-6 col-12">
                                                     <label>Profile Image</label>
                                                     <div class="custom-file">
                                                         <input type="file" name="image" class="custom-file-input" id="customFile">
@@ -80,7 +80,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-md-5 col-12">
+                                                <div class="form-group col-md-6 col-12">
                                                     <label>Phone</label>
                                                     <input type="tel" name="phone" value="{{$data->phone}}"  class="form-control" value="">
                                                     @error('phone')
@@ -91,7 +91,7 @@
                                                 </div>
                                             </div>
 
-                                        <div class="card-footer text-right">
+                                        <div class="row justify-content-center">
                                             <button type="submit" class="btn btn-primary">Update Profile</button>
                                         </div>
 
@@ -100,37 +100,30 @@
 
                                         <form method="post" action="{{ route('profile.change-password',[$data->id,$data->slug]) }}" enctype="multipart/form-data">
                                             @csrf
-                                    <div class="row">
-                                        <div class="form-group col-md-6 col-12">
-                                            <label>Old Password</label>
-                                            <input type="password" name="current_password" id="current_password" value="" class="form-control" >
-                                            {{-- @error('current_password')
-                                            <div class="text-danger">
-                                                The old password is incorrect
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>Old Password</label>
+                                                    <input type="password" name="current_password" id="current_password" value="" class="form-control" >
+                                                    {{-- @error('current_password')
+                                                    <div class="text-danger">
+                                                        The old password is incorrect
+                                                    </div>
+                                                    @enderror --}}
+                                                </div>
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label>New Password</label>
+                                                    <input type="password" name="new_password" id="new_password" value="" class="form-control">
+                                                    @error('new_password')
+                                                    <div class="text-danger">
+                                                        Please fill the new password
+                                                    </div>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            @enderror --}}
                                         </div>
-                                        <div class="form-group col-md-6 col-12">
-                                            <label>New Password</label>
-                                            <input type="password" name="new_password" id="new_password" value="" class="form-control">
-                                            @error('new_password')
-                                            <div class="text-danger">
-                                                Please fill the new password
-                                            </div>
-                                            @enderror
-                                        </div>
-
-
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6 col-12">
-
-                                        </div>
-                                        <div class="form-group col-md-6 col-12">
-                                            <div class="card-footer text-right mr-3">
-                                                <button type="submit"  class="btn btn-primary">Update Password</button>
-                                            </div>
+                                        <div class="row mb-4 justify-content-center">
+                                            <button type="submit"  class="btn btn-primary">Update Password</button>
                                         </div>
                                     </div>
                                 </form>

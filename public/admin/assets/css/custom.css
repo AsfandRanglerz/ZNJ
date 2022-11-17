@@ -1,5 +1,5 @@
 :root {
-    --theme-color: #2c3192;
+    --theme-color: #e7b522;
     --theme-color-dark: #4d4d4d;
 }
 body {
@@ -7,6 +7,17 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+}
+.nav-tabs .nav-item .nav-link.active {
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
+    color: #FFF;
+}
+.card-body .nav-tabs {
+    border-bottom: none;
+}
+.tab-content>.tab-pane {
+    padding: 0!important;
 }
 .text-danger {
     color: #bb2324!important;
@@ -44,7 +55,8 @@ th {
     white-space: nowrap;
 }
 .card .card-header {
-    padding: 10px!important;
+    padding: 16px 24px!important;
+    border-bottom: 1px solid #80808045;
 }
 body .custom-file-input:focus~.custom-file-label, body .form-control:focus {
     border-color: var(--theme-color)!important;
@@ -190,10 +202,6 @@ body .form-control[type=number]::-webkit-outer-spin-button {
 table.dataTable {
     width: 100%!important;
 }
-.custom-file, .custom-file-label, .custom-select, .custom-file-label:after, .form-control[type="color"], select.form-control:not([size]):not([multiple]) {
-    height: calc(3.45rem + 7px);
-}
-
 .toast-message{
     font-size:14px!important;
 }

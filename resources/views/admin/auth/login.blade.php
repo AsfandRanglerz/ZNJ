@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mb-2">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                                         Login
                                     </button>
