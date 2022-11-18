@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Venue;
+
 
 
 class AdminController extends Controller
@@ -21,6 +23,7 @@ class AdminController extends Controller
     {   $data['venue']=User::where('role','Venue')->count();
         $data['recruiter']=User::where('role','Recruiter')->count();
         $data['entertainer']=User::where('role','Entertainer')->count();
+        $data['venues'] = Venue::count();
         // dd($data);
         return view('admin.index',compact('data'));
     }

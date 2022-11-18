@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class RecruiterController extends Controller
 {
@@ -24,6 +27,7 @@ class RecruiterController extends Controller
      */
     public function create()
     {
+        return view('admin.recruiter.add');
 
     }
 
@@ -33,9 +37,20 @@ class RecruiterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $validator = $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email|email',
+            'phone' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
+            $data['role'] = 'recruiter';
+            $data['password'] = Hash::make($request->password);
+            $user = User::create($data);
+            return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Recruiter Created sucessfully']);
     }
 
     /**
@@ -71,6 +86,12 @@ class RecruiterController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+
+        ]);
         $recruiter=User::find($id);
 
         $recruiter->name       =    $request->input('name');

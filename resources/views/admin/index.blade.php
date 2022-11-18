@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
                                         <div class="banner-img">
-                                           <img src="{{ asset('public/admin/assets/img/banner/1.png')}}" alt="Recruiter Pic">
+                                           <img src="{{ asset('public/admin/assets/img/reqruiters.jpg')}}" alt="Recruiter Pic">
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
                                         <div class="banner-img">
-                                            <img src="{{ asset('public/admin/assets/img/entertainer.webp')}}"
+                                            <img src="{{ asset('public/admin/assets/img/entertainers2.jpg')}}"
                                             height="105px" alt="entertainer pic" >
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
                                         <div class="banner-img">
-                                            <img src="{{ asset('public/admin/assets/img/venue.jfif')}}" alt="Venue pic" height="102px">
+                                            <img src="{{ asset('public/admin/assets/img/venue-provider.jpg')}}" alt="Venue pic" height="102px">
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                                         <div class="card-content">
                                             <h6 class="">Venues</h6>
                                             @if ($data['venue']>0)
-                                            <h4 class="mb-3">{{ $data['venue'] }}</h4>
+                                            <h4 class="mb-3">{{ $data['venues'] }}</h4>
                                             @else
                                             <h4 class="mb-3">0</h4>
                                             @endif
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
                                         <div class="banner-img">
-                                            <img src="{{ asset('public/admin/assets/img/venue.jfif')}}" alt="Venue pic" height="102px">
+                                            <img src="{{ asset('public/admin/assets/img/venues.jpg')}}" alt="Venue pic" height="102px">
                                         </div>
                                     </div>
                                 </div>

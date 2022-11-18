@@ -11,7 +11,7 @@ body {
 .nav-tabs .nav-item .nav-link.active {
     background-color: var(--theme-color);
     border-color: var(--theme-color);
-    color: #FFF;
+    color: #FFF!important;
 }
 .card-body .nav-tabs {
     border-bottom: none;
@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700!important;
     color: #6c757d!important;
 }
-.theme-white .btn-primary, .btn-info, .btn-success {
+.theme-white .btn-primary, .btn-info {
     background-color: var(--theme-color)!important;
     border-color: var(--theme-color)!important;
 }

@@ -23,7 +23,11 @@
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+
                     <div class="card-body table-striped table-bordered table-responsive">
+                        <a class="btn btn-success mb-3"
+                        href="{{route('recruiter.create')}}">Add</a>
+                        {{-- <a class="btn btn-success"  href="">Add</a> --}}
                         <table class="table" id="table_id_1">
                             <thead>
                                 <tr>
@@ -69,6 +73,8 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="card-body table-striped table-bordered table-responsive">
+                        <a class="btn btn-success mb-3"
+                                       href="{{route('entertainer.create')}}">Add</a>
                         <table class="table" id="table_id_2">
                             <thead>
                                 <tr>
@@ -76,25 +82,36 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Category</th>
                                     <th>Created at</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                              @foreach($data['entertainer'] as $entertainer)
+
+
+
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $entertainer->name }}</td>
                                         <td>{{ $entertainer->email }}</td>
                                         <td>{{ $entertainer->phone }}</td>
+                                        @if (count($entertainer['entertainerDetail']) === 0)
+                                        <td></td>
+                                        @elseif (count($entertainer['entertainerDetail']) > 1 )
+                                          <td>{{ implode(',',array_column(json_decode($entertainer['entertainerDetail'], true), 'category'))  }}</td>
+                                        @else
+                                        <td>{{ $entertainer['entertainerDetail'][0]['category'] }}</td>
+                                        @endif
                                         <td>{{ $entertainer->created_at }}</td>
 
                                         <td
                                         style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
-                                        <a class="btn btn-danger"
-                                                href="{{route('entertainer.edit', $entertainer->id)}}">Talent</a>
+                                        <a class="btn btn-success"
+                                       href="{{route('entertainer.show', $entertainer->id)}}">Talent</a>
                                         <a class="btn btn-info"
-                                                href="{{route('entertainer.edit', $entertainer->id)}}">Edit</a>
+                                       href="{{route('entertainer.edit', $entertainer->id)}}">Edit</a>
                                                 <form method="POST" action="{{ route('entertainer.destroy', $entertainer->id) }}">
                                                     @csrf
                                                     <input name="_method" type="hidden" value="DELETE">
@@ -115,6 +132,8 @@
 
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <div class="card-body table-striped table-bordered table-responsive">
+                        <a class="btn btn-success mb-3"
+                        href="{{route('venue.create')}}">Add</a>
                         <table class="table" id="table_id_3">
                             <thead>
                                 <tr>
@@ -122,23 +141,32 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Venue</th>
+                                    <th>Venues</th>
                                     <th>Created At</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                              @foreach($data['venue'] as $venue)
+                             {{-- @dd($venue['venues']) --}}
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $venue->name }}</td>
                                         <td>{{ $venue->email }}</td>
                                         <td>{{ $venue->phone }}</td>
-                                        <td>{{ $venue->venue}}</td>
+                                        @if (count($venue['venues']) === 0)
+                                        <td></td>
+                                        @elseif (count($venue['venues']) > 1 )
+                                          <td>{{ implode(',',array_column(json_decode($venue['venues'], true), 'category'))  }}</td>
+                                        @else
+                                        <td>{{ $venue['venues'][0]['category'] }}</td>
+                                        @endif
                                         <td>{{ $venue->created_at }}</td>
 
                                         <td
                                         style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
+                                        <a class="btn btn-success"
+                                                href="{{route('venue.show', $venue->id)}}">Venue</a>
                                         <a class="btn btn-info"
                                                 href="{{route('venue.edit', $venue->id)}}">Edit</a>
                                                 <form method="POST" action="{{ route('venue.destroy', $venue->id) }}">

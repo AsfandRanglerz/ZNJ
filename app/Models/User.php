@@ -11,5 +11,15 @@ class User extends Authenticatable
 {
     use HasApiTokens,HasFactory,Notifiable;
     protected $guarded =[];
+    public function entertainerDetail()
+    {
+        return $this->hasMany('App\Models\entertainerDetail','user_id');
+    }
+    public function venues()
+    {
+        return $this->hasMany('App\Models\Venue','user_id');
+    }
+
+
 
 }

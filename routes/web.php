@@ -50,8 +50,12 @@ Route::prefix('admin')->middleware('admin')->group(function (){
      Route::resource('recruiter', RecruiterController::class);
 //Entertainer
      Route::resource('entertainer', EntertainerController::class);
+     Route::get('/entertainer/talent/add/{id}',[EntertainerController::class,'createTalentIndex'])->name('entertainer.talent.add');
+     Route::post('/entertainer/talent/store/{id}',[EntertainerController::class,'storeTalent'])->name('entertainer.talent.store');
 //Venue
      Route::resource('venue', VenueController::class);
+     Route::get('/venue-providers/venue/add/{id}',[VenueController::class,'createVenueIndex'])->name('venue-providers.venue.add');
+     Route::post('/venue-providers/venue/store/{id}',[VenueController::class,'storeVenue'])->name('venue-providers.venue.store');
  //introVideo
      Route::resource('/pages/intro-video', IntrovideoController::class);
     //

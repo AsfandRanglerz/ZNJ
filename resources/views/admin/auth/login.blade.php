@@ -30,9 +30,9 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" tabindex="3" id="remember-me" name="remember">
+                                        {{-- <input type="checkbox" class="custom-control-input" tabindex="3" id="remember-me" name="remember"> --}}
                                         <div class="d-block">
-                                            <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                            {{-- <label class="custom-control-label" for="remember-me">Remember Me</label> --}}
                                             <div class="float-right">
                                                 <a href="{{url('admin-forgot-password')}}" class="text-small">
                                                     Forgot Password?
