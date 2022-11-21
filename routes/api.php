@@ -34,7 +34,10 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('edit-profile','AuthController@editProfile');
         Route::post('update-profile','AuthController@updateProfile');
         Route::post('create-event','EventController@createEvent');
-        Route::post('create-entertainer','EventController@createEvent');
+        Route::get('events','EventController@getEvents');
+        Route::get('user-events','EventController@userEvents');
+        Route::post('event','EventController@getEvent');
+        Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('term-of-use','HomeController@terms');
     });
 });

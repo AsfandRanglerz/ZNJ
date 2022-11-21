@@ -9,4 +9,12 @@ class Event extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function getCoverImageAttribute($path)
+    {
+        if ($path){
+            return asset($path);
+        }else{
+            return null;
+        }
+    }
 }

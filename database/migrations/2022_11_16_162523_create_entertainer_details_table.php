@@ -19,6 +19,8 @@ class CreateEntertainerDetailsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('location')->nullable();
             $table->string('title')->nullable();
+            $table->string('image')->nullable();
+            $table->string('event_images')->nullable();
             $table->string('about_yourself')->nullable();
             $table->string('category')->nullable();
             $table->string('price')->nullable();

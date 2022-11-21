@@ -40,4 +40,22 @@ class EventController extends Controller
         Event::create($data);
         return $this->sendSuccess('Event created Successfully');
     }
+    public function getEvents(){
+        $event=Event::all();
+        return $this->sendSuccess('Events',compact('event'));
+    }
+    public function userEvents(){
+        $user_event=Event::where('user_id',auth()->id())->get();
+        return $this->sendSuccess('user events',compact('user_event'));
+    }
+    public function getEvent(Request $request){
+        $validator = Validator::make($request->all(), [
+            'event_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+        $event=Event::find($request->event_id)->get();
+        return $this->sendSuccess('Event',compact('event'));
+    }
 }
