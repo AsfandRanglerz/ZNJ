@@ -6,7 +6,7 @@
             <section class="section">
                 <div class="section-body">
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('entertainer.talent.store',$data['user_id']) }}" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('entertainer.talent.edit',$data['user_id']) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
@@ -47,15 +47,7 @@
                                                     @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label>Choose Images</label>
-                                                <input type="file" placeholder="example" name="event_photos[]" id="images"  class="form-control" multiple="multiple">
-                                                @error('images')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <div class="card-footer text-center row">
                                         <div class="col">

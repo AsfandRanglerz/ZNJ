@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EntertainerDetail;
+use App\Models\EntertainerEventPhotos;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -124,6 +125,7 @@ class EntertainerController extends Controller
      */
     public function destroy($id)
     {
+
         User::destroy($id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Entertainer Deleted sucessfully']);
     }
@@ -145,13 +147,71 @@ class EntertainerController extends Controller
             'title' => 'required',
             'category' => 'required',
             'price' => 'required',
-            'description' => 'required',
+            // 'description' => 'required',
+            // 'images'=>'required',
         ]);
+        $data = $request->only(['title','user_id', 'category', 'price']);
 
-        $data = $request->only(['title','user_id', 'category', 'price', 'description']);
-            $data['user_id'] = $id;
-            $user = EntertainerDetail::create($data);
-            return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
+        $data['user_id'] = $id;
+        $user = EntertainerDetail::create($data);
+        if ($request->file('event_photos')) {
+            foreach ($request->file('event_photos') as $data) {
+                $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                $data->move('public', $image);
+                EntertainerEventPhotos::create([
+                        'event_photos' => 'public/' . $image,
+                        'entertainer_details_id' => $user->id
+                       ]);
+            }
+        }
+         return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
         // return view('admin.entertainer.Talent.add');
+
+}
+    public function destroyTalent($id)
+    {
+
+        EntertainerDetail::destroy($id);
+        return redirect()->back()->with(['status'=>true, 'message' => 'Talent Deleted sucessfully']);
     }
+    // public function editTalent($id)
+    // {
+    //     $talent=EntertainerDetail::find($id);
+    //     $talent['user_id'] = $id;
+    //     return view('admin.entertainer.Talent.edit',compact('talent'));
+    // }
+    // public function updateTalent(Request $request, $id)
+    // {
+    //     $validator = $request->validate([
+    //         'title' => 'required',
+    //         'category' => 'required',
+    //         'price' => 'required',
+    //         // 'description' => 'required',
+    //         // 'images'=>'required',
+    //     ]);
+
+    //     $talent    = EntertainerDetail::find($id);
+    //     $talent->title       =    $request->input('title');
+    //     $talent->category      =    $request->input('category');
+    //     $talent->price      =    $request->input('price');
+    //     $talent->update();
+    // }
+
+    public function showPhoto($id)
+    {
+        //  Showing Entertainer Talent
+        $data['user_id']= EntertainerEventPhotos::where('entertainer_details_id',$id)->get();
+        // dd($data['user_id']);
+        $data['entertainer_details_id'] = $id;
+        return view('admin.entertainer.Talent.Photo.index',compact('data'));
+
+    }
+    //Photo
+    public function destroyPhoto($id)
+    {
+
+        EntertainerEventPhotos::destroy($id);
+        return redirect()->back()->with(['status'=>true, 'message' => 'Photo Deleted sucessfully']);
+    }
+
 }

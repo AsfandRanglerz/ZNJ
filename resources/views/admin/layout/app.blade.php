@@ -42,8 +42,9 @@
 <script src="{{ asset('public/admin/assets/js/scripts.js')}}"></script>
 <!-- Custom JS File -->
 <script src="{{ asset('public/admin/assets/js/custom.js')}}"></script>
+
 <script src="{{asset('public/admin/assets/toastr/js/toastr.min.js')}}"></script>
-<script src="{{ asset('public/admin/assets/js/datatables.js') }}"></script>
+<script src="{{ asset('public/admin/assets/js/datatables.js') }}"></scrip>
 <script>
     /*toastr popup function*/
     function toastrPopUp() {

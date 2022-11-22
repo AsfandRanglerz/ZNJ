@@ -52,7 +52,11 @@ Route::prefix('admin')->middleware('admin')->group(function (){
      Route::resource('entertainer', EntertainerController::class);
      Route::get('/entertainer/talent/add/{id}',[EntertainerController::class,'createTalentIndex'])->name('entertainer.talent.add');
      Route::post('/entertainer/talent/store/{id}',[EntertainerController::class,'storeTalent'])->name('entertainer.talent.store');
-//Venue
+     Route::get('/entertainer/talent/delete/{id}',[EntertainerController::class,'destroyTalent'])->name('entertainer.talent.delete');
+     Route::get('/entertainer/talent/edit/{id}',[EntertainerController::class,'updateTalent'])->name('entertainer.talent.edit');
+     Route::get('/entertainer/talent/photo/{id}',[EntertainerController::class,'showPhoto'])->name('entertainer.photo.show');
+     Route::get('/entertainer/talent/photo/delete/{id}',[EntertainerController::class,'destroyPhoto'])->name('entertainer.talent.photo.delete');
+     //Venue
      Route::resource('venue', VenueController::class);
      Route::get('/venue-providers/venue/add/{id}',[VenueController::class,'createVenueIndex'])->name('venue-providers.venue.add');
      Route::post('/venue-providers/venue/store/{id}',[VenueController::class,'storeVenue'])->name('venue-providers.venue.store');

@@ -12,48 +12,38 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="col-12">
-                                    <h4>Talent</h4>
+                                    <h4>Photos</h4>
 
                                 </div>
                             </div>
                             {{-- @dd($data) --}}
                             <div class="card-body table-striped table-bordered table-responsive">
-                                <a class="btn btn-success mb-3"
-                                       href="{{route('entertainer.talent.add',$data['user_id'])}}">Add</a>
+
                                 <table class="table" id="table_id_2">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
-                                            <th>Title</th>
-                                            <th>Category</th>
-                                            <th>Price</th>
-                                            <th>Description</th>
-                                            <th>Created at</th>
+                                            <th>Images</th>
+
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     @foreach($data['entertainer'] as $entertainer)
 
-
-                                            {{-- @dd($entertainer->title) --}}
+                                     @foreach($data['user_id'] as $photo)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $entertainer->title }}</td>
-                                                <td>{{ $entertainer->category }}</td>
-                                                <td>{{ $entertainer->price }}</td>
-                                                <td>{{ $entertainer->description }}</td>
-                                                <td>{{ $entertainer->created_at }}</td>
+                                                <td><img src="{{ asset('') . '/' . $photo->event_photos }}" alt="" height="50" width="50" class="image">
+                                                </td>
 
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 {{-- <a class="btn btn-success"
                                                href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
-                                               <a class="btn btn-primary"
-                                               href="{{route('entertainer.photo.show', $entertainer->id)}}">Photos</a>
+
                                                 <a class="btn btn-info"
-                                               href="{{route('entertainer.edit', $entertainer->id)}}">Edit</a>
-                                                        <form method="get" action="{{ route('entertainer.talent.delete', $entertainer->id) }}">
+                                               href="">Edit</a>
+                                                        <form method="get" action="{{ route('entertainer.talent.photo.delete', $photo->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>

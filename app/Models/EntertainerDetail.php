@@ -9,12 +9,13 @@ class EntertainerDetail extends Model
 {
     use HasFactory;
     protected $guarded=[];
-<<<<<<< Updated upstream
+// <<<<<<< Updated upstream
 
     public function User()
     {
         return $this->hasMany('App\Models\User','user_id','id');
-=======
+    }
+// =======
     public function getImageAttribute($path)
     {
         if ($path){
@@ -30,6 +31,6 @@ class EntertainerDetail extends Model
         }else{
             return null;
         }
->>>>>>> Stashed changes
+// >>>>>>> Stashed changes
     }
 }
