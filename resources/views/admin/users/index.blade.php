@@ -37,6 +37,7 @@
                                     <th>Phone</th>
                                     <th>Company</th>
                                     <th>Designation</th>
+                                    <th>Events</th>
                                     <th>Created At</th>
 
 
@@ -52,10 +53,20 @@
                                         <td>{{ $recruiter->phone }}</td>
                                         <td>{{ $recruiter->company }}</td>
                                         <td>{{ $recruiter->designation }}</td>
+                                        @if (count($recruiter['events']) === 0)
+                                        <td></td>
+                                        @elseif (count($recruiter['events']) > 1 )
+                                          <td>{{ implode(',',array_column(json_decode($recruiter['events'], true), 'title'))  }}</td>
+                                        @else
+                                        <td>{{ $recruiter['events'][0]['title'] }}</td>
+                                        @endif
                                         <td>{{ $recruiter->created_at }}</td>
+
 
                                         <td
                                         style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
+                                        <a class="btn btn-success"
+                                        href="{{route('recruiter.show', $recruiter->id)}}">Event</a>
                                         <a class="btn btn-info"
                                                 href="{{route('recruiter.edit', $recruiter->id)}}">Edit</a>
                                                 <form method="POST" action="{{ route('recruiter.destroy', $recruiter->id) }}">

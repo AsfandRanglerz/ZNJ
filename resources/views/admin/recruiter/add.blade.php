@@ -43,6 +43,26 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>Company</label>
+                                                <input type="text" name="company"                                                                          " id="phone"  class="form-control"
+                                                placeholder="expamle" >
+                                                @error('company')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>Designation</label>
+                                                <input type="text" name="designation"                                                                          " id="phone"  class="form-control"
+                                                placeholder="expamle" >
+                                                @error('designation')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
 
 
                                               <div class="col-sm-6 pl-sm-0 pr-sm-3">
@@ -56,6 +76,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row mx-0 px-4">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">

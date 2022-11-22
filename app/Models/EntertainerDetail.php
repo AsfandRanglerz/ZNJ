@@ -13,7 +13,13 @@ class EntertainerDetail extends Model
 
     public function User()
     {
-        return $this->hasMany('App\Models\User','user_id','id');
+// <<<<<<< Updated upstream
+// =======
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
+    public function events(){
+       return $this->belongsToMany('App\Model\Event','event_entertainers');
+// >>>>>>> Stashed changes
     }
 // =======
     public function getImageAttribute($path)
