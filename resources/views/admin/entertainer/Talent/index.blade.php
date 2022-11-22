@@ -52,7 +52,7 @@
                                                <a class="btn btn-primary"
                                                href="{{route('entertainer.photo.show', $entertainer->id)}}">Photos</a>
                                                 <a class="btn btn-info"
-                                               href="{{route('entertainer.edit', $entertainer->id)}}">Edit</a>
+                                               href="{{route('entertainer.talent.edit', $entertainer->id)}}">Edit</a>
                                                         <form method="get" action="{{ route('entertainer.talent.delete', $entertainer->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">

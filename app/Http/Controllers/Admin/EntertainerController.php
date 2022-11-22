@@ -191,10 +191,14 @@ class EntertainerController extends Controller
     //     ]);
 
     //     $talent    = EntertainerDetail::find($id);
+    //     $talent['user_id'] = $id;
     //     $talent->title       =    $request->input('title');
     //     $talent->category      =    $request->input('category');
     //     $talent->price      =    $request->input('price');
     //     $talent->update();
+
+    //     return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
+
     // }
 
     public function showPhoto($id)
