@@ -70,9 +70,10 @@ class EntertainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    /** */
     public function show($id)
     {
-        //  Showing Entertainer Talent
         $data['entertainer']= EntertainerDetail::where('user_id',$id)->get();
         $data['user_id'] = $id;
         return view('admin.entertainer.Talent.index',compact('data'));
@@ -164,7 +165,7 @@ class EntertainerController extends Controller
                        ]);
             }
         }
-         return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
+         return redirect()->route('entertainer.show',$id)->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
         // return view('admin.entertainer.Talent.add');
 
 }

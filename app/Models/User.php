@@ -19,6 +19,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Venue','user_id');
     }
+    public function events()
+    {
+        return $this->hasMany('App\Models\Event','user_id');
+    }
 
 
 

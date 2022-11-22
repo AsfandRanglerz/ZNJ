@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Event;
 
 class RecruiterController extends Controller
 {
@@ -28,7 +29,6 @@ class RecruiterController extends Controller
     public function create()
     {
         return view('admin.recruiter.add');
-
     }
 
     /**
@@ -44,24 +44,29 @@ class RecruiterController extends Controller
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
             'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'password_confirmation' => 'required',
+            'company' => 'required',
+            'designation' => 'required'
+
         ]);
-        $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
-            $data['role'] = 'recruiter';
-            $data['password'] = Hash::make($request->password);
-            $user = User::create($data);
-            return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Recruiter Created sucessfully']);
+        $data = $request->only(['name', 'email', 'role', 'phone', 'password', 'company', 'designation']);
+        $data['role'] = 'recruiter';
+        $data['password'] = Hash::make($request->password);
+        $user = User::create($data);
+        return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Created successfully']);
     }
 
     /**
-     * Display the specified resource.
+     *  Showing Recruiter Event
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-
+        $data['recruiter_event'] = Event::where('user_id', $user_id)->get();
+        $data['user_id'] = $user_id;
+        return view('admin.recruiter.event.index', compact('data'));
     }
 
     /**
@@ -70,11 +75,11 @@ class RecruiterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id)
     {
 
-        $recruiter=User::find($id);
-        return view('admin.recruiter.edit',compact('recruiter'));
+        $recruiter = User::find($user_id);
+        return view('admin.recruiter.edit', compact('recruiter'));
     }
 
     /**
@@ -84,25 +89,26 @@ class RecruiterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
+            'company' => 'required',
+            'designation' => 'required'
 
         ]);
-        $recruiter=User::find($id);
+        $recruiter = User::find($user_id);
 
         $recruiter->name       =    $request->input('name');
         $recruiter->email      =    $request->input('email');
         $recruiter->phone      =    $request->input('phone');
         $recruiter->company    =    $request->input('company');
-        $recruiter->designation=    $request->input('designation');
+        $recruiter->designation =    $request->input('designation');
         $recruiter->update();
 
-        return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Recruiter Updated sucessfully']);
-
+        return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Updated sucessfully']);
     }
 
     /**
@@ -114,6 +120,79 @@ class RecruiterController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->back()->with(['status'=>true, 'message' => 'Recruiter Deleted sucessfully']);
+        return redirect()->back()->with(['status' => true, 'message' => 'Recruiter Deleted sucessfully']);
     }
+    public function editEventIndex($event_id)
+    {
+        // dd($user_id,$event_id);
+        $data['recruiter_event'] = Event::find($event_id);
+        // $data['user_id'] = $id;
+
+        return view('admin.recruiter.event.edit', compact('data'));
+    }
+    public function updateEvent(Request $request, $event_id)
+    {
+        $request->validate([
+            'title' => 'required',
+            // 'cover_image' => 'required',
+            // 'location' => 'required',
+            'about_event' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'event_type' => 'required',
+            'joining_type' => 'required',
+            'hiring_entertainers_status' => 'required',
+            'seats' => 'required',
+            'date' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+        $recruiter = Event::find($event_id);
+        $recruiter->title = $request->title;
+        $recruiter->about_event = $request->about_event;
+        $recruiter->description  = $request->description;
+        $recruiter->price = $request->price;
+        $recruiter->event_type = $request->event_type;
+        $recruiter->joining_type = $request->joining_type;
+        $recruiter->hiring_entertainers_status = $request->hiring_entertainers_status;
+        $recruiter->seats = $request->seats;
+        $recruiter->date = $request->date;
+        $recruiter->from = $request->from;
+        $recruiter->to = $request->to;
+        $recruiter->update();
+        return redirect()->route('recruiter.show',$recruiter->user_id)->with(['status' => true, 'message' => 'Event Updated sucessfully']);
+    }
+    public function createEventIndex($user_id){
+        $data['user_id'] = $user_id;
+        return view('admin.recruiter.event.add',compact('data'));
+    }
+    public function storeEvent(Request $request,$user_id){
+        $request->validate([
+
+            'title' => 'required',
+            // 'cover_image' => 'required',
+            // 'location' => 'required',
+            'about_event' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'event_type' => 'required',
+            'joining_type' => 'required',
+            'hiring_entertainers_status' => 'required',
+            'seats' => 'required',
+            'date' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+        $data=$request->only(['title','user_id','about_event','description','price','event_type','joining_type','hiring_entertainers_status','seats','date','from','to']);
+        $data['user_id']=$user_id;
+        Event::create($data);
+        return redirect()->route('recruiter.show',$user_id)->with(['status' => true, 'message' => 'Event Added successfully']);
+
+    }
+    // public function eventEntertainersIndex(){
+
+    //     $event = Event::find(1);
+    //     dd($event->entertainerDetails);
+
+    // }
 }
