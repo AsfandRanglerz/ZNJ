@@ -19,7 +19,7 @@
                             {{-- @dd($data) --}}
                             <div class="card-body table-striped table-bordered table-responsive">
                                 <a class="btn btn-success mb-3"
-                                       href="{{route('entertainer.talent.add',$data['user_id'])}}">Add</a>
+                                       href="{{route('entertainer.talent.add',$data['user_id'])}}">Add Talent</a>
                                 <table class="table" id="table_id_2">
                                     <thead>
                                         <tr>

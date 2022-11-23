@@ -6,8 +6,8 @@
             <section class="section">
                 <div class="section-body">
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('entertainer.talent.edit',$talent['user_id']) }}" method="POST" enctype="multipart/form-data">
-                        @method('PATCH')
+                    <form id="add_student" action="{{ route('entertainer.talent.update',$talent['user_id']) }}" method="POST" enctype="multipart/form-data">
+                        
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
