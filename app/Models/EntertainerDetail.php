@@ -9,19 +9,20 @@ class EntertainerDetail extends Model
 {
     use HasFactory;
     protected $guarded=[];
-// <<<<<<< Updated upstream
+
 
     public function User()
     {
-// <<<<<<< Updated upstream
-// =======
+
         return $this->belongsTo('App\Models\User','user_id','id');
     }
     public function events(){
        return $this->belongsToMany('App\Model\Event','event_entertainers');
-// >>>>>>> Stashed changes
+
     }
-// =======
+
+
+
     public function getImageAttribute($path)
     {
         if ($path){
@@ -37,6 +38,6 @@ class EntertainerDetail extends Model
         }else{
             return null;
         }
-// >>>>>>> Stashed changes
+
     }
 }

@@ -67,5 +67,20 @@ class EntertainerController extends Controller
         }
         return $this->sendSuccess('Event created Successfully');
     }
+    public  function getEntertainer(){
+        $data=EntertainerDetail::all();
+        return $this->sendSuccess('Entertainer data',compact('data'));
+    }
+    public function getSingleEntertainer(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'entertainer_id' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+        $data=EntertainerDetail::find($request->entertainer_id);
+        return $this->sendSuccess('Entertainer data',compact('data'));
+    }
 
 }

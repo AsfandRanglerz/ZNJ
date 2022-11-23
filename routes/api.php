@@ -38,6 +38,8 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('user-events','EventController@userEvents');
         Route::post('event','EventController@getEvent');
         Route::post('create-entertainer','EntertainerController@createEntertainer');
+        Route::get('entertainers','EntertainerController@getEntertainer');
+        Route::get('entertainer','EntertainerController@getSingleEntertainer');
         Route::get('term-of-use','HomeController@terms');
     });
 });
