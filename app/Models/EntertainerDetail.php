@@ -20,9 +20,9 @@ class EntertainerDetail extends Model
     public function events(){
        return $this->belongsToMany('App\Models\Event','event_entertainers','entertainer_details_id','event_id');
     }
-
-
-
+    public function  entertainerPricePackage(){
+        return $this->belongsTo('App\Models\EntertainerPricePackage');
+    }
     public function getImageAttribute($path)
     {
         if ($path){

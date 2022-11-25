@@ -21,7 +21,7 @@
                             <div class="card-body table-striped table-bordered table-responsive">
                                 {{-- <a class="btn btn-success mb-3"
                                        href="{{route('entertainer.talent.add',$data['user_id'])}}">Add Talent</a> --}}
-                                <table class="table" id="table_id_2">
+                                <table class="table" id="table_id_event_entertainers">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
@@ -70,6 +70,16 @@
             </div>
         </section>
     </div>
+
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $('#table_id_event_entertainers').DataTable()
+
+    })
+</script>
 
 @endsection
 

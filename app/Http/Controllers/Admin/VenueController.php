@@ -8,6 +8,10 @@ use App\Models\User;
 use App\Models\Venue;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\UserLoginPassword;
+use Illuminate\Support\Facades\Mail;
+
+
 
 
 class VenueController extends Controller
@@ -52,9 +56,16 @@ class VenueController extends Controller
         ]);
         $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
             $data['role'] = 'venue';
-            $data['password'] = Hash::make($request->password);
+            $messages['password'] = random_int(10000000, 99999999);
+            $messages['email'] = $request->email;
+            $data['password'] = Hash::make($messages['password']);
+            try {
+            Mail::to($request->email)->send(new UserLoginPassword($messages));
             $user = User::create($data);
-            return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Venue Provider Created sucessfully']);
+                return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Venue Provider Created sucessfully']);
+            } catch (\Throwable $th) {
+                return $this->sendError('Something Went Wrong');
+            }
     }
 
     /**
@@ -177,7 +188,7 @@ class VenueController extends Controller
             // 'images'=>'required',
         ]);
 
-        $talent    = Venue::find($id);
+        $talent = Venue::find($id);
         $talent->title=$request->input('title');
         $talent->category=$request->input('category');
         $talent->description=$request->input('description');
@@ -186,9 +197,7 @@ class VenueController extends Controller
         $talent->epening_time=$request->input('epening_time');
         $talent->closing_time=$request->input('closing_time');
         $talent->offer_cattering=$request->input('offer_cattering');
-
         $talent->update();
-
         return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
 
     }

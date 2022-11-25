@@ -3,7 +3,6 @@
 @section('title', 'index')
 
 @section('content')
-
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
             <div class="section-body">
@@ -31,11 +30,6 @@
                                                   </td>
                                                     </tr>
                                     </tbody>
-
-
-
-
-
                                 </table>
                                 <form id="add_student" action="{{ route('intro-video.update', $data->id) }}" method="POST"
                                     enctype="multipart/form-data">

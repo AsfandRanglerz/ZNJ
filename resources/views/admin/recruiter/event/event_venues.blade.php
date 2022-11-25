@@ -21,7 +21,7 @@
                             <div class="card-body table-striped table-bordered table-responsive">
                                 {{-- <a class="btn btn-success mb-3"
                                        href="{{route('entertainer.talent.add',$data['user_id'])}}">Add Talent</a> --}}
-                                <table class="table" id="table_id_2">
+                                <table class="table" id="table_id_event_venues">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
@@ -38,18 +38,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     @foreach($data['event_venues'] as $entertainer)
+                                     @foreach($data['event_venues'] as $venue)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $entertainer->title }}</td>
-                                                <td>{{ $entertainer->category }}</td>
-                                                <td>{{ $entertainer->description }}</td>
-                                                <td>{{ $entertainer->seats }}</td>
-                                                <td>{{ $entertainer->stands }}</td>
-                                                <td>{{ $entertainer->offer_cattering }}</td>
-                                                <td>{{ $entertainer->epening_time }}</td>
-                                                <td>{{ $entertainer->closing_time }}</td>
-                                               <td>{{ $entertainer->created_at }}</td>
+                                                <td>{{ $venue->title }}</td>
+                                                <td>{{ $venue->category }}</td>
+                                                <td>{{ $venue->description }}</td>
+                                                <td>{{ $venue->seats }}</td>
+                                                <td>{{ $venue->stands }}</td>
+                                                <td>{{ $venue->offer_cattering }}</td>
+                                                <td>{{ $venue->epening_time }}</td>
+                                                <td>{{ $venue->closing_time }}</td>
+                                               <td>{{ $venue->created_at }}</td>
                                             </tr>
                                                 {{-- <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px"> --}}
@@ -78,5 +78,15 @@
             </div>
         </section>
     </div>
+
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $('#table_id_event_venues').DataTable()
+
+    })
+</script>
 
 @endsection

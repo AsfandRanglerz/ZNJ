@@ -21,7 +21,7 @@
                             <div class="card-body table-striped table-bordered table-responsive">
                                 <a class="btn btn-success mb-3"
                                        href="{{route('recruiter.event.add.index',$data['user_id'])}}">Add Event</a>
-                                <table class="table" id="table_id_2">
+                                <table class="table" id="table_id_events">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
@@ -96,6 +96,12 @@
     toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
 </script>
 @endif
+<script>
+    $(document).ready(function(){
+        $('#table_id_events').DataTable()
+
+    })
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">
 

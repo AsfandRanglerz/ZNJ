@@ -9,4 +9,7 @@ class EntertainerPricePackage extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function entertainerDetails(){
+       return $this->hasMany('App\Models\EntertainerDetail');
+    }
 }

@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Event;
 use App\Models\EntertainerDetail;
-
-
+use App\Mail\UserLoginPassword;
+use Illuminate\Support\Facades\Mail;
 
 class RecruiterController extends Controller
 {
@@ -46,19 +46,26 @@ class RecruiterController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required',
+            // 'password' => 'required|confirmed',
+            // 'password_confirmation' => 'required',
             'company' => 'required',
             'designation' => 'required'
 
         ]);
-        $data = $request->only(['name', 'email', 'role', 'phone', 'password', 'company', 'designation']);
-        $data['role'] = 'recruiter';
-        $data['password'] = Hash::make($request->password);
-        $user = User::create($data);
-        return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Created successfully']);
-    }
 
+        $data = $request->only(['name', 'email', 'role', 'phone', 'company', 'designation']);
+        $data['role'] = 'recruiter';
+        $messages['password'] = random_int(10000000, 99999999);
+        $messages['email'] = $request->email;
+        $data['password'] = Hash::make($messages['password']);
+        try {
+        Mail::to($request->email)->send(new UserLoginPassword($messages));
+        $user = User::create($data);
+            return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Created successfully']);
+        } catch (\Throwable $th) {
+            return $this->sendError('Something Went Wrong');
+        }
+    }
     /**
      *  Showing Recruiter Event
      *
@@ -199,7 +206,6 @@ class RecruiterController extends Controller
     }
     public function eventVenuesIndex($event_id){
         $data['event_venues']= Event::find($event_id)->eventVenues;
-     //   dd($data['event_entertainers']);
-         return view('admin.recruiter.event.event_entertainers',compact('data'));
+         return view('admin.recruiter.event.event_venues',compact('data'));
      }
 }

@@ -20,7 +20,7 @@
                             <div class="card-body table-striped table-bordered table-responsive">
                                 <a class="btn btn-success mb-3"
                                        href="{{route('entertainer.talent.add',$data['user_id'])}}">Add Talent</a>
-                                <table class="table" id="table_id_2">
+                                <table class="table" id="table_id_talent">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
@@ -83,7 +83,7 @@
 @endif
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        $('#table_id_talent').DataTable();
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>

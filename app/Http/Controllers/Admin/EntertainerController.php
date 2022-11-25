@@ -10,6 +10,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserLoginPassword;
+
+
 
 
 
@@ -59,9 +63,17 @@ class EntertainerController extends Controller
         ]);
         $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
             $data['role'] = 'entertainer';
-            $data['password'] = Hash::make($request->password);
+            $messages['password'] = random_int(10000000, 99999999);
+            $messages['email'] = $request->email;
+            $data['password'] = Hash::make($messages['password']);
+            try {
+            Mail::to($request->email)->send(new UserLoginPassword($messages));
             $user = User::create($data);
-            return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Entertainer Created sucessfully']);
+                return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Entertainer Created sucessfully']);
+            } catch (\Throwable $th) {
+                return $this->sendError('Something Went Wrong');
+            }
+
 
     }
 
@@ -230,7 +242,6 @@ class EntertainerController extends Controller
     {
         $validator = $request->validate([
             'event_photos' => 'required',
-
             // 'description' => 'required',
             // 'images'=>'required',
         ]);

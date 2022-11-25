@@ -19,7 +19,7 @@
                             <div class="card-body table-striped table-bordered table-responsive">
                                 <a class="btn btn-success mb-3"
                                        href="{{route('venue-providers.venue.add',$data['user_id'])}}">Add Venue</a>
-                                <table class="table" id="table_id_2">
+                                <table class="table" id="table_id_venue">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
@@ -86,7 +86,7 @@
 @endif
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        $('#table_id_venue').DataTable();
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>

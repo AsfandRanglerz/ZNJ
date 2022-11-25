@@ -44,7 +44,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Password</label>
                                                 <input type="password" placeholder="example" name="password" id="password"  class="form-control"
@@ -53,9 +53,9 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
-                                    <div class="row mx-0 px-4">
+                                    {{-- <div class="row mx-0 px-4">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Confirm Password</label>
@@ -67,7 +67,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
                                     <div class="card-footer text-center row">
                                         <div class="col">
                                             <button type="submit" class="btn btn-success mr-1 btn-bg"
