@@ -50,7 +50,16 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 // Users
     Route::get('/users/index',[UserController::class,'index'])->name('admin.user.index');
 //Recruiter
-     Route::resource('recruiter', RecruiterController::class);
+         // Recruiter
+    Route::resource('recruiter', RecruiterController::class)->parameters([
+        'recruiter' => 'user_id'
+    ]);
+    Route::get('/recruiter/event/edit/event-id-{event_id}', [RecruiterController::class, 'editEventIndex'])->name('recruiter.event.edit.index');
+    Route::post('/recruiter/event/update/event-id-{event_id}', [RecruiterController::class, 'updateEvent'])->name('recruiter.event.update');
+    Route::get('/recruiter/event/add/user-id-{event_id}', [RecruiterController::class, 'createEventIndex'])->name('recruiter.event.add.index');
+    Route::post('/recruiter/event/add/user-id-{user_id}',[RecruiterController::class, 'storeEvent'])->name('recruiter.event.store');
+    Route::get('/recruiter/event/entertainers/event-id-{event_id}',[RecruiterController::class, 'eventEntertainersIndex'])->name('recruiter.event_entertainers.index');
+    Route::get('/recruiter/event/venues/event-id-{event_id}',[RecruiterController::class, 'eventVenuesIndex'])->name('recruiter.event_venues.index');
 //Entertainer
      Route::resource('entertainer', EntertainerController::class);
      Route::get('/entertainer/talent/add/{id}',[EntertainerController::class,'createTalentIndex'])->name('entertainer.talent.add');
@@ -74,36 +83,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::resource('/pages/intro-video', IntrovideoController::class);
  //Talent
      Route::resource('/talent', TalentController::class);
-// =======
-    // Route::get('privacy-policy-edit', [SecurityController::class, 'PrivacyPolicyEdit']);
-    // Route::post('privacy-policy-update', [SecurityController::class, 'PrivacyPolicyUpdate']);
-    // Route::get('term-condition', [SecurityController::class, 'TermCondition']);
-    // Route::get('term-condition-edit', [SecurityController::class, 'TermConditionEdit']);
-    // Route::post('term-condition-update', [SecurityController::class, 'TermConditionUpdate']);
-    // Route::get('logout', [AdminController::class, 'logout']);
-    //  Users
-    Route::get('/users/index', [UserController::class, 'index'])->name('admin.user.index');
-    // Recruiter
-    Route::resource('recruiter', RecruiterController::class)->parameters([
-        'recruiter' => 'user_id'
-    ]);
-    Route::get('/recruiter/event/edit/event-id-{event_id}', [RecruiterController::class, 'editEventIndex'])->name('recruiter.event.edit.index');
-    Route::post('/recruiter/event/update/event-id-{event_id}', [RecruiterController::class, 'updateEvent'])->name('recruiter.event.update');
-    Route::get('/recruiter/event/add/user-id-{event_id}', [RecruiterController::class, 'createEventIndex'])->name('recruiter.event.add.index');
-    Route::post('/recruiter/event/add/user-id-{user_id}',[RecruiterController::class, 'storeEvent'])->name('recruiter.event.store');
-    // Route::get('/recruiter/event/check',[RecruiterController::class, 'eventEntertainersIndex']);
-    // Entertainer
-    // Route::resource('entertainer', EntertainerController::class);
-    // Route::get('/entertainer/talent/add/{id}', [EntertainerController::class, 'createTalentIndex'])->name('entertainer.talent.add');
-    // Route::post('/entertainer/talent/store/{id}', [EntertainerController::class, 'storeTalent'])->name('entertainer.talent.store');
-    //  Venue
-    // Route::resource('venue', VenueController::class);
-    // Route::get('/venue-providers/venue/add/{id}', [VenueController::class, 'createVenueIndex'])->name('venue-providers.venue.add');
-    // Route::post('/venue-providers/venue/store/{id}', [VenueController::class, 'storeVenue'])->name('venue-providers.venue.store');
-    // IntroVideo
-    // Route::resource('/pages/intro-video', IntrovideoController::class);
-// >>>>>>> Stashed changes
-    //
+
 
 });
 /*Team A routes

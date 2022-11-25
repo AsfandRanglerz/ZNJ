@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class EntertainerDetail extends Model
 {
     use HasFactory;
@@ -17,8 +18,7 @@ class EntertainerDetail extends Model
         return $this->belongsTo('App\Models\User','user_id','id');
     }
     public function events(){
-       return $this->belongsToMany('App\Model\Event','event_entertainers');
-
+       return $this->belongsToMany('App\Models\Event','event_entertainers','entertainer_details_id','event_id');
     }
 
 

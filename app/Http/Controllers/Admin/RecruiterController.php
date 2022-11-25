@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Event;
+use App\Models\EntertainerDetail;
+
+
 
 class RecruiterController extends Controller
 {
@@ -189,10 +192,14 @@ class RecruiterController extends Controller
         return redirect()->route('recruiter.show',$user_id)->with(['status' => true, 'message' => 'Event Added successfully']);
 
     }
-    // public function eventEntertainersIndex(){
-
-    //     $event = Event::find(1);
-    //     dd($event->entertainerDetails);
-
-    // }
+    public function eventEntertainersIndex($event_id){
+       $data['event_entertainers']= Event::find($event_id)->entertainerDetails;
+    //   dd($data['event_entertainers']);
+        return view('admin.recruiter.event.event_entertainers',compact('data'));
+    }
+    public function eventVenuesIndex($event_id){
+        $data['event_venues']= Event::find($event_id)->eventVenues;
+     //   dd($data['event_entertainers']);
+         return view('admin.recruiter.event.event_entertainers',compact('data'));
+     }
 }

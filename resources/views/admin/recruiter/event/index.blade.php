@@ -20,7 +20,7 @@
                             {{-- @dd($data) --}}
                             <div class="card-body table-striped table-bordered table-responsive">
                                 <a class="btn btn-success mb-3"
-                                       href="{{route('recruiter.event.add.index',$data['user_id'])}}">Add</a>
+                                       href="{{route('recruiter.event.add.index',$data['user_id'])}}">Add Event</a>
                                 <table class="table" id="table_id_2">
                                     <thead>
                                         <tr>
@@ -62,9 +62,9 @@
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-success"
-                                               href="{{route('entertainer.edit', $event->id)}}">Entertainer</a>
-                                               <a class="btn btn-success"
-                                               href="{{route('entertainer.edit', $event->id)}}">Venue</a>
+                                               href="{{route('recruiter.event_entertainers.index', $event->id)}}">Entertainer</a>
+                                               <a class="btn btn-primary"
+                                               href="{{route('recruiter.event_venues.index', $event->id)}}">Venue</a>
 
                                                 <a class="btn btn-info"
                                                href="{{route('recruiter.event.edit.index', $event->id)}}">Edit</a>

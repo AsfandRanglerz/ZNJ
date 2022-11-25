@@ -10,11 +10,14 @@ class Event extends Model
     use HasFactory;
     protected $guarded=[];
     public function entertainerDetails(){
-        return $this->belongsToMany('App\Model\EntertainerDetail','event_entertainers');
+        return $this->belongsToMany('App\Models\EntertainerDetail','event_entertainers','event_id','entertainer_details_id');
+     }
+     public function eventVenues(){
+        return $this->belongsToMany('App\Models\Venue','event_venues','event_id','venues_id');
      }
      public function User()
      {
-         return $this->hasMany('App\Models\User','user_id','id');
+         return $this->belongsTo('App\Models\User','user_id','id');
      }
     public function getCoverImageAttribute($path)
     {

@@ -13,7 +13,7 @@ class User extends Authenticatable
     protected $guarded =[];
     public function entertainerDetail()
     {
-        return $this->hasMany('App\Models\entertainerDetail','user_id');
+        return $this->hasMany('App\Models\EntertainerDetail','user_id');
     }
     public function venues()
     {
