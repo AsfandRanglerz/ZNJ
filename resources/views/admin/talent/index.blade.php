@@ -55,10 +55,19 @@
                                                        <td >{{ $talent->category }}</td>
                                                        <td
                                                        style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
+<<<<<<< Updated upstream
                                                        <a class="btn btn-info"
                                                                href="{{route('venue.edit', $talent->id)}}">Edit</a>
                                                                <form method="POST" action="{{ route('venue.destroy', $talent->id) }}">
                                                                    @csrf
+=======
+                                                       {{-- <a class="btn btn-success"
+                                                      href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
+                                                      {{-- <a class="btn btn-primary"
+                                                      href="">Edit</a> --}}
+                                                                 <form method="POST" action="{{ route('talent.destroy', $talent->id) }}">
+                                                                  @csrf
+>>>>>>> Stashed changes
                                                                    <input name="_method" type="hidden" value="DELETE">
                                                                    <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                                </form>
@@ -92,8 +101,12 @@
 @endif
 <script>
     $(document).ready(function() {
+<<<<<<< Updated upstream
         $('#table-talent-categories').DataTable();
 
+=======
+        $('#table_id').DataTable();
+>>>>>>> Stashed changes
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
@@ -119,4 +132,7 @@ $('.show_confirm').click(function(event) {
 
 </script>
 @endsection
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes

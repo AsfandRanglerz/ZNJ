@@ -25,8 +25,18 @@
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
-                                                <label>Category</label>
-                                                <input type="text" placeholder="example" name="category" id="category"  class="form-control" />
+                                                <label>Talent Category</label>
+                                                <!-- <input type="text" name="name" id="name"
+                                                    class="form-control"
+                                                    placeholder="Enter name"> -->
+                                                    <select name="category" id="category" class="form-control">
+                                                    <option value="">Please Select a Category </option>
+
+                                                        {{-- @foreach($data as $info)
+                                                        <option value="{{$info->category}}"></option>
+                                                        @endforeach --}}
+                                                    </select>
+
                                             </div>
                                             @error('category')
                                             <div class="text-danger">{{ $message }}</div>

@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Venue;
+use App\Models\VenuesPhoto;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\UserLoginPassword;
 use App\Models\VenueCategory;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\File;
 
 
 
@@ -112,10 +113,10 @@ class VenueController extends Controller
     ]);
         $recruiter=User::find($id);
 
-        $recruiter->name       =    $request->input('name');
-        $recruiter->email      =    $request->input('email');
-        $recruiter->phone      =    $request->input('phone');
-        $recruiter->venue      =    $request->input('venue');
+        $recruiter->name=$request->input('name');
+        $recruiter->email=$request->input('email');
+        $recruiter->phone=$request->input('phone');
+        $recruiter->venue=$request->input('venue');
         $recruiter->update();
 
         return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Venue Provider Updated sucessfully']);
@@ -141,22 +142,29 @@ class VenueController extends Controller
     public function storeVenue(Request $request,$id)
 
     {
-        $validator = $request->validate([
-            'title' => 'required',
-            'category' => 'required',
-            'description' => 'required',
-            'seats' => 'required',
-            'stands' => 'required',
+        $validator=$request->validate([
+            'title'=>'required',
+            'category'=>'required',
+            'description'=>'required',
+            'seats'=>'required',
+            'stands'=>'required',
             // 'offer cattering' => 'required',
             // 'opening time' =>'required',
             // 'closing time' =>'required'
-
-
         ]);
-
         $data = $request->only(['title','user_id', 'category', 'description','seats','stands','offer_cattering','epening_time','closing_time']);
             $data['user_id'] = $id;
             $user = Venue::create($data);
+            if ($request->file('photos')) {
+                foreach ($request->file('photos') as $data) {
+                    $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                    $data->move('public/admin/assets/upload/', $image);
+                    VenuesPhoto::create([
+                            'photos' => 'public/' . $image,
+                            'venue_id' => $user->id
+                           ]);
+                }
+            }
             return redirect()->route('venue.show',$user->user_id)->with(['status'=>true, 'message' => 'Venue Created sucessfully']);
         // return view('admin.entertainer.Talent.add');
     }
@@ -229,4 +237,55 @@ class VenueController extends Controller
         VenueCategory::destroy($category_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Category Deleted sucessfully']);
     }
+    //Photos
+    public function showPhoto($id)
+    {
+        //  Showing Entertainer Talent
+        $data['user_id']=VenuesPhoto::where('venue_id',$id)->get();
+        // dd($data['user_id']);
+        $data['venue_id']=$id;
+        return view('admin.venue_provider.venues.photo.index',compact('data'));
+
+    }
+    //Photo
+    public function destroyPhoto($id)
+    {
+
+        VenuesPhoto::destroy($id);
+        return redirect()->back()->with(['status'=>true, 'message' => 'Photo Deleted sucessfully']);
+    }
+    public function editPhoto($id)
+    {
+        //$data['user_id'] = EntertainerDetail::find($id);
+        $photo=VenuesPhoto::find($id);
+        $photo['venue_id'] = $id;
+        //dd( $photo['user_id']);
+        return view('admin.venue_provider.venues.photo.edit',compact('photo'));
+    }
+    public function updatePhoto(Request $request, $id)
+    {
+        $validator = $request->validate([
+            'photos' => 'required',
+            // 'description' => 'required',
+            // 'images'=>'required',
+        ]);
+        $photo=VenuesPhoto::find($id);
+        if($request->hasfile('photos')){
+            $destination=''.$photo->photos;
+           // dd($destination);
+            if(File::exists($destination))
+            {
+                File::delete($destination);
+            }
+        $file = $request->file('photos');
+        //dd($file);
+        $extension=$file->getClientOriginalExtension();
+        $filename=time().'.'.$extension;
+        $file->move('',$filename);
+        $photo->photos=$filename;
+        }
+        $photo->update();
+        return redirect()->route('admin.venue_provider.venues.photo.index',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
+
+}
 }

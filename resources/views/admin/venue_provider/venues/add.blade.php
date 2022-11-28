@@ -99,16 +99,16 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
-                                                <label>Choose Images</label>
-                                                <input type="file" placeholder="" name="stands" id="stands"  class="form-control"
-                                                    >
+                                                <label>Choose Images(Multiples)</label>
+                                                <input type="file" placeholder="" name="photos[]" id="photos"  class="form-control"
+                                                multiple="multiple">
                                                 @error('Stands')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div> --}}
+                                        </div>
                                         <div class="col-sm-4 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Offer Cattering</label>

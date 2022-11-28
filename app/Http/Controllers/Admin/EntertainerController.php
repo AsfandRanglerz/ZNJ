@@ -7,12 +7,12 @@ use App\Models\EntertainerDetail;
 use App\Models\EntertainerEventPhotos;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\TalentCategory;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserLoginPassword;
-use App\Models\TalentCategory;
 class EntertainerController extends Controller
 {
     /**
@@ -49,6 +49,11 @@ class EntertainerController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
+            'name'=>'required',
+            'email'=>'required|unique:users,email|email',
+            'phone'=>'required',
+            'password'=>'required|confirmed',
+            'password_confirmation'=>'required'
         ]);
         $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
             $data['role'] = 'entertainer';
@@ -76,8 +81,8 @@ class EntertainerController extends Controller
     /** */
     public function show($id)
     {
-        $data['entertainer']= EntertainerDetail::where('user_id',$id)->get();
-        $data['user_id'] = $id;
+        $data['entertainer']=EntertainerDetail::where('user_id',$id)->get();
+        $data['user_id']=$id;
         return view('admin.entertainer.Talent.index',compact('data'));
 
     }
@@ -104,17 +109,17 @@ class EntertainerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
+            'name'=>'required',
+            'email'=>'required|email',
+            'phone'=>'required',
 
         ]);
 
         $entertainer=User::find($id);
 
-        $entertainer->name       =    $request->input('name');
-        $entertainer->email      =    $request->input('email');
-        $entertainer->phone      =    $request->input('phone');
+        $entertainer->name=$request->input('name');
+        $entertainer->email=$request->input('email');
+        $entertainer->phone=$request->input('phone');
         $entertainer->update();
 
         return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Entertainer Updated sucessfully']);
@@ -186,7 +191,7 @@ class EntertainerController extends Controller
     }
     public function updateTalent(Request $request, $id)
     {
-        $validator = $request->validate([
+        $validator=$request->validate([
             'title' => 'required',
             'category' => 'required',
             'price' => 'required',
@@ -194,22 +199,23 @@ class EntertainerController extends Controller
             // 'images'=>'required',
         ]);
 
-        $talent    = EntertainerDetail::find($id);
-        $talent->title       =    $request->input('title');
-        $talent->category      =    $request->input('category');
-        $talent->price      =    $request->input('price');
+        $talent=EntertainerDetail::find($id);
+        $talent->title=$request->input('title');
+        $talent->category=$request->input('category');
+        $talent->price=$request->input('price');
         $talent->update();
 
         return redirect()->route('entertainer.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
 
     }
+    
 
     public function showPhoto($id)
     {
         //  Showing Entertainer Talent
-        $data['user_id']= EntertainerEventPhotos::where('entertainer_details_id',$id)->get();
+        $data['user_id']=EntertainerEventPhotos::where('entertainer_details_id',$id)->get();
         // dd($data['user_id']);
-        $data['entertainer_details_id'] = $id;
+        $data['entertainer_details_id']=$id;
         return view('admin.entertainer.Talent.Photo.index',compact('data'));
 
     }
