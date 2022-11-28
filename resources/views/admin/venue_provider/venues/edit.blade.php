@@ -65,7 +65,7 @@
                                                 <label>Opening Time</label>
                                                 <input type="time" name="epening time" id="opening_time"
                                                     Value="{{ $venue['epening_time'] }}" class="form-control">
-                                                @error('opening time')
+                                                @error('epening_time')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -73,9 +73,9 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Closing Time</label>
-                                                <input type="time" placeholder="" name="closing time" id="closing_time"
+                                                <input type="time" placeholder="" name="closing_time" id="closing_time"
                                                     Value="{{ $venue['closing_time'] }}" class="form-control">
-                                                @error('closing time')
+                                                @error('closing_time')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -120,7 +120,7 @@
                                                 <p>
 
                                                     <label>Yes</label>
-                                                    <input type="radio" name="offer cattering" value="Yes"
+                                                    <input type="radio" name="offer_cattering" value="Yes"
                                                     @if($venue['offer_cattering'] == 'Yes')  checked @endif id="">
                                                     <label>No</label>
                                                     <input type="radio" name="offer cattering" value="No" @if($venue['offer_cattering'] == 'No')  checked  @endif  id="">

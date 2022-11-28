@@ -11,15 +11,15 @@
                     <div class="col-12 col-md-4 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Add Talent</h4>
+                                <h4>Add Talent Category</h4>
                             </div>
-                            <form action="{{route('talent.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('entertainer.talent.category.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Category Name</label>
                                         <input type="text" class="form-control" name="category" required>
-                                        @error('Category Name')
+                                        @error('category')
                                         <div class="text-danger p-2">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -33,12 +33,11 @@
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Services <small class="font-weight-bold">(Note: You can drag and drop the services
-                                        as per priority...)</small></h4>
+                                <h4>All Talent Categories <small class="font-weight-bold"></small></h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered" id="table-1">
+                                    <table class="table table-striped table-bordered" id="table-talent-categories">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Sr.</th>
@@ -56,11 +55,9 @@
                                                        <td >{{ $talent->category }}</td>
                                                        <td
                                                        style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
-                                                       {{-- <a class="btn btn-success"
-                                                      href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
-                                                      <a class="btn btn-primary"
-                                                      href="">Edit</a>
-                                                               <form method="get" action="">
+                                                       <a class="btn btn-info"
+                                                               href="{{route('entertainer.talent.category.edit.index', $talent->id)}}">Edit</a>
+                                                               <form method="POST" action="{{ route('entertainer.talent.category.delete', $talent->id) }}">
                                                                    @csrf
                                                                    <input name="_method" type="hidden" value="DELETE">
                                                                    <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
@@ -86,4 +83,39 @@
             </div>
         </section>
     </div>
+@endsection
+@section ('scripts')
+@if (\Illuminate\Support\Facades\Session::has('message'))
+<script>
+    toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
+</script>
+@endif
+<script>
+    $(document).ready(function() {
+        $('#table-talent-categories').DataTable();
+
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+
+$('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          swal({
+              title: `Are you sure you want to delete this record?`,
+              text: "If you delete this, it will be gone forever.",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            }
+          });
+      });
+
+</script>
 @endsection

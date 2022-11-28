@@ -33,12 +33,29 @@
             {{-- <li class="dropdown {{ (request()->is('admin/term-condition')) ? 'active' : '' }}">
                 <a href="{{url('/admin/term-condition')}}" class="nav-link"><i data-feather="monitor"></i><span>Term&Condition</span></a>
             </li> --}}
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown">
+                    <i data-feather="layout"></i><span>Categories</span></a>
+                <ul class="dropdown-menu active">
+                    <li class="{{ (request()->is('admin/entertainer/talent/categories/*')) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/entertainer/talent/categories/')}}">Talent Category</a>
+                    </li>
+                    <li class="{{ (request()->is('admin/venue-providers/venue/categories/*')) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/venue-providers/venue/categories/')}}">Venue Category</a>
+                    </li>
+                </ul>
+            </li>
             <li class="dropdown {{ (request()->is('admin/pages/intro-video*')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{url('/admin/pages/intro-video')}}" class="nav-link"> <i class="fa fa-play-circle-o"></i><span> Introduction Video</span></a>
+                <a  href="{{url('/admin/pages/intro-video')}}" class="nav-link"> <i class="fa fa-play-circle-o"></i><span> Introduction Video</span></a>
             </li>
-            <li class="dropdown {{ (request()->is('admin/talent/index*')) ? 'active' : '' }}">
-                <a href="{{route('talent.index')}}" class="nav-link"><i class="fa fa-users"></i><span>Talent Category</span></a>
-            </li>
+
+            {{-- <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Categories</span></a>
+                <ul class="dropdown-menu active">
+                    <li><a href="{{ route('entertainer.talent.categories.index') }}" class="nav-link {{ (request()->is('/entertainer/talent/categories/*')) ? 'active' : '' }}">Talent Categories</a></li>
+                </ul>
+            </li> --}}
+
 
 
             {{-- <li class="dropdown">

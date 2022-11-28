@@ -15,6 +15,7 @@ class TalentController extends Controller
     public function index()
     {
         $data= TalentCategory::select('category')->get();
+        $data= TalentCategory::select('id','category')->get();
         return view('admin.talent.index',compact('data'));
     }
 
@@ -86,6 +87,7 @@ class TalentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        TalentCategory::destroy($id);
+        return redirect()->back()->with(['status'=>true, 'message' => 'Talent Category Deleted sucessfully']);
     }
 }

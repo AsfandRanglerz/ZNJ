@@ -71,6 +71,13 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/entertainer/talent/photo/delete/{id}',[EntertainerController::class,'destroyPhoto'])->name('entertainer.talent.photo.delete');
      Route::get('/entertainer/talent/photo/edit/{id}',[EntertainerController::class,'editPhoto'])->name('entertainer.photo.edit');
      Route::post('/entertainer/talent/photo/update/{id}',[EntertainerController::class,'updatePhoto'])->name('entertainer.photo.update');
+     Route::get('/entertainer/talent/categories/',[EntertainerController::class,'talentCategoriesIndex'])->name('entertainer.talent.categories.index');
+     Route::post('/entertainer/talent/category/',[EntertainerController::class,'talentCategoryStore'])->name('entertainer.talent.category.store');
+     Route::get('/entertainer/talent/category/edit/{category_id}',[EntertainerController::class,'talentCategoryEditIndex'])->name('entertainer.talent.category.edit.index');
+     Route::post('/entertainer/talent/category/update/{category_id}',[EntertainerController::class,'updateTalentCategory'])->name('entertainer.talent.category.update');
+     Route::delete('/entertainer/talent/category/delete/{category_id}',[EntertainerController::class,'destroyTalentCategory'])->name('entertainer.talent.category.delete');
+
+
      //Venue
      Route::resource('venue', VenueController::class);
      Route::get('/venue-providers/venue/add/{id}',[VenueController::class,'createVenueIndex'])->name('venue-providers.venue.add');
@@ -78,6 +85,18 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/venue-providers/venue/delete/{id}',[VenueController::class,'destroyVenue'])->name('venue-providers.venue.delete');
      Route::get('/venue-providers/venue/edit/{id}',[VenueController::class,'editVenue'])->name('venue-providers.venue.edit');
      Route::post('/venue-providers/venue/update/{id}',[VenueController::class,'updateVenue'])->name('venue-providers.venue.update');
+
+     Route::get('/venue-providers/venue/categories/',[VenueController::class,'venueCategoriesIndex'])->name('venue-providers.venue.categories.index');
+     Route::post('/venue-providers/venue/category/',[VenueController::class,'venueCategoryStore'])->name('venue-providers.venue.category.store');
+     Route::get('/venue-providers/venue/category/edit/{category_id}',[VenueController::class,'venueCategoryEditIndex'])->name('venue-providers.venue.category.edit.index');
+     Route::post('/venue-providers/venue/category/update/{category_id}',[VenueController::class,'updateVenueCategory'])->name('venue-providers.venue.category.update');
+     Route::delete('/venue-providers/venue/category/delete/{category_id}',[VenueController::class,'destroyVenueCategory'])->name('venue-providers.venue.category.delete');
+
+     Route::get('/venue-providers/venue/photo/{id}',[VenueController::class,'showPhoto'])->name('venue-providers.venue.photo.show');
+     Route::get('/venue-providers/venue/photo/delete/{id}',[VenueController::class,'destroyPhoto'])->name('venue-providers.venue.photo.delete');
+     Route::get('/venue-providers/venue/photo/edit/{id}',[VenueController::class,'editPhoto'])->name('venue-providers.venue.photo.edit');
+     Route::post('/venue-providers/venue/photo/update/{id}',[VenueController::class,'updatePhoto'])->name('venue-providers.venue.photo.update');
+
 
  //introVideo
      Route::resource('/pages/intro-video', IntrovideoController::class);
