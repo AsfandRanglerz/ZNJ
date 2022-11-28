@@ -27,8 +27,6 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post('confirm-token','AuthController@confirmToken');
     Route::post('submit-reset-password','AuthController@submitResetPassword');
 
-
-
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('user-location','AuthController@userLocation');
         Route::get('edit-profile','AuthController@editProfile');
@@ -38,12 +36,17 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('user-events','EventController@userEvents');
         Route::post('event','EventController@getEvent');
         Route::get('event_entertainer/{id}','EventController@getEventEntertainers');
+        Route::get('delete-event/{id}','EventController@destroy');
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');
         Route::get('entertainer/{id}','EntertainerController@getSingleEntertainer');
         Route::get('entertainer-price-package/{id}','EntertainerController@getEntertainerPricePackage');
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');
+        Route::post('create-venue','VenueController@createVenue');
+        Route::get('delete-venue/{id}','VenueController@destroy');
+        Route::get('edit-venue/{id}','VenueController@editVenue');
+        Route::post('update-venue/{id}','VenueController@updateVenue');
         Route::get('term-of-use','HomeController@terms');
     });
 });

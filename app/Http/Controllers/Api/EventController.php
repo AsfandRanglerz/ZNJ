@@ -63,4 +63,9 @@ class EventController extends Controller
         $data = EventEntertainers::where('event_id',$id)->get();
       return $this->sendSuccess('event entertainers',compact('data'));
     }
+    public function destroy($id)
+    {
+        $data = Event::find($id)->delete();
+        return $this->sendSuccess('Event Delete Successfully');
+    }
 }
