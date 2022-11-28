@@ -9,6 +9,7 @@ use App\Models\Venue;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\UserLoginPassword;
+use App\Models\VenueCategory;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -51,8 +52,6 @@ class VenueController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
         ]);
         $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
             $data['role'] = 'venue';
@@ -200,5 +199,34 @@ class VenueController extends Controller
         $talent->update();
         return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
 
+    }
+    public function venueCategoriesIndex(){
+        $data= VenueCategory::select('id','category')->get();
+        return view('admin.Categories.Venue.index',compact('data'));
+    }
+    public function venueCategoryStore(Request $request){
+        $validator =$request->validate([
+            'category' => 'required',
+        ]);
+        $data = $request->only(['category']);
+        $data = VenueCategory::create($data);
+        return redirect()->route('venue-providers.venue.categories.index')->with(['status'=>true, 'message' => 'Venue Category Created sucessfully']);
+    }
+    public function venueCategoryEditIndex($category_id){
+        $data = VenueCategory::select('id','category')->where('id',$category_id)->first();
+       return view('admin.Categories.Venue.edit',compact('data'));
+    }
+    public function updateVenueCategory(Request $request,$category_id){
+        $validator =$request->validate([
+            'category' => 'required',
+        ]);
+        $category = VenueCategory::find($category_id);
+        $category->category=$request->category;
+        $category->update();
+        return redirect()->route('venue-providers.venue.categories.index')->with(['status'=>true, 'message' => 'Venue Category Updated sucessfully']);
+    }
+    public function destroyVenueCategory($category_id){
+        VenueCategory::destroy($category_id);
+        return redirect()->back()->with(['status'=>true, 'message' => 'Category Deleted sucessfully']);
     }
 }

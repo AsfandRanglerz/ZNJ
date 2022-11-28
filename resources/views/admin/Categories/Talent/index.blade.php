@@ -13,7 +13,7 @@
                             <div class="card-header">
                                 <h4>Add Talent Category</h4>
                             </div>
-                            <form action="{{route('talent.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('entertainer.talent.category.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -56,8 +56,8 @@
                                                        <td
                                                        style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                        <a class="btn btn-info"
-                                                               href="{{route('venue.edit', $talent->id)}}">Edit</a>
-                                                               <form method="POST" action="{{ route('venue.destroy', $talent->id) }}">
+                                                               href="{{route('entertainer.talent.category.edit.index', $talent->id)}}">Edit</a>
+                                                               <form method="POST" action="{{ route('entertainer.talent.category.delete', $talent->id) }}">
                                                                    @csrf
                                                                    <input name="_method" type="hidden" value="DELETE">
                                                                    <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
@@ -119,4 +119,3 @@ $('.show_confirm').click(function(event) {
 
 </script>
 @endsection
-

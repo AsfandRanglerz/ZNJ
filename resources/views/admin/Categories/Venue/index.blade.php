@@ -11,9 +11,9 @@
                     <div class="col-12 col-md-4 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Add Talent Category</h4>
+                                <h4>Add Venue Category</h4>
                             </div>
-                            <form action="{{route('talent.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('venue-providers.venue.category.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button class="btn btn-primary mr-1" type="submit">Add Talent</button>
+                                    <button class="btn btn-primary mr-1" type="submit">Add Venue</button>
                                 </div>
                             </form>
                         </div>
@@ -33,11 +33,11 @@
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Talent Categories <small class="font-weight-bold"></small></h4>
+                                <h4>All Venue Categories <small class="font-weight-bold"></small></h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered" id="table-talent-categories">
+                                    <table class="table table-striped table-bordered" id="table-venue-categories">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Sr.</th>
@@ -46,18 +46,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($data as $talent)
+                                            @foreach($data as $venue)
 
 
                                                    {{-- @dd($entertainer->title) --}}
                                                    <tr>
                                                        <td >{{ $loop->iteration }}</td>
-                                                       <td >{{ $talent->category }}</td>
+                                                       <td >{{ $venue->category }}</td>
                                                        <td
                                                        style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                        <a class="btn btn-info"
-                                                               href="{{route('venue.edit', $talent->id)}}">Edit</a>
-                                                               <form method="POST" action="{{ route('venue.destroy', $talent->id) }}">
+                                                               href="{{route('venue-providers.venue.category.edit.index', $venue->id)}}">Edit</a>
+                                                               <form method="POST" action="{{ route('venue-providers.venue.category.delete', $venue->id) }}">
                                                                    @csrf
                                                                    <input name="_method" type="hidden" value="DELETE">
                                                                    <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
@@ -92,7 +92,7 @@
 @endif
 <script>
     $(document).ready(function() {
-        $('#table-talent-categories').DataTable();
+        $('#table-venue-categories').DataTable();
 
     });
 </script>
@@ -119,4 +119,3 @@ $('.show_confirm').click(function(event) {
 
 </script>
 @endsection
-

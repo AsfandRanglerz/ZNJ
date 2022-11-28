@@ -12,16 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserLoginPassword;
-
-
-
-
-
-
-
-
-
-
+use App\Models\TalentCategory;
 class EntertainerController extends Controller
 {
     /**
@@ -58,8 +49,6 @@ class EntertainerController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
         ]);
         $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
             $data['role'] = 'entertainer';
@@ -245,7 +234,7 @@ class EntertainerController extends Controller
             // 'description' => 'required',
             // 'images'=>'required',
         ]);
-        $photo    = EntertainerEventPhotos::find($id);
+        $photo = EntertainerEventPhotos::find($id);
         if($request->hasfile('event_photos')){
             $destination='public/'.$photo->event_photos;
             if(File::exists($destination))
@@ -260,7 +249,40 @@ class EntertainerController extends Controller
         }
         $photo->update();
         return redirect()->route('entertainer.photo.show',$photo->entertainer_details_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
-
 }
-
+/**
+     * Talent Categories
+     *
+     *
+     *
+     */
+    public function talentCategoriesIndex(){
+        $data= TalentCategory::select('id','category')->get();
+        return view('admin.Categories.Talent.index',compact('data'));
+    }
+    public function talentCategoryStore(Request $request){
+        $validator =$request->validate([
+            'category' => 'required',
+        ]);
+        $data = $request->only(['category']);
+        $data = TalentCategory::create($data);
+        return redirect()->route('entertainer.talent.categories.index')->with(['status'=>true, 'message' => 'Talent Category Created sucessfully']);
+    }
+    public function talentCategoryEditIndex($category_id){
+        $data = TalentCategory::select('id','category')->where('id',$category_id)->first();
+       return view('admin.Categories.Talent.edit',compact('data'));
+    }
+    public function updateTalentCategory(Request $request,$category_id){
+        $validator =$request->validate([
+            'category' => 'required',
+        ]);
+        $category = TalentCategory::find($category_id);
+        $category->category=$request->category;
+        $category->update();
+        return redirect()->route('entertainer.talent.categories.index')->with(['status'=>true, 'message' => 'Talent Category Updated sucessfully']);
+    }
+    public function destroyTalentCategory($category_id){
+        TalentCategory::destroy($category_id);
+        return redirect()->back()->with(['status'=>true, 'message' => 'Category Deleted sucessfully']);
+    }
 }
