@@ -25,8 +25,18 @@
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
-                                                <label>Category</label>
-                                                <input type="text" placeholder="example" name="category" id="category"  class="form-control" />
+                                                <label>Venue Category</label>
+                                                <!-- <input type="text" name="name" id="name"
+                                                    class="form-control"
+                                                    placeholder="Enter name"> -->
+                                                    <select name="category" id="category" class="form-control">
+                                                    <option value="">Please Select a Category </option>
+
+                                                        @foreach($data['venue_categories'] as $category)
+                                                        <option value="{{$category->category}}">{{$category->category}}</option>
+                                                        @endforeach
+                                                    </select>
+
                                             </div>
                                             @error('category')
                                             <div class="text-danger">{{ $message }}</div>
@@ -58,9 +68,9 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Opening Time</label>
-                                                <input type="time"  name="epening time" id="opening_time"  class="form-control"
+                                                <input type="time"  name="epening_time" id="opening_time"  class="form-control"
                                                     >
-                                                @error('opening time')
+                                                @error('epening_time')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -68,9 +78,9 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Closing Time</label>
-                                                <input type="time" placeholder="" name="closing time" id="closing_time"  class="form-control"
+                                                <input type="time" placeholder="" name="closing_time" id="closing_time"  class="form-control"
                                                     >
-                                                @error('closing time')
+                                                @error('closing_time')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -115,14 +125,14 @@
                                                 <p>
                                                 <label>Yes</label>
 
-                                                    <input type="radio"value="Yes"  name="offer cattering">
+                                                    <input type="radio"value="Yes"  name="offer_cattering">
                                                     &nbsp;
                                                 <label>No</label>
-                                                    <input type="radio" value="No" name="offer cattering" checked>
+                                                    <input type="radio" value="No" name="offer_cattering" checked>
 
                                                     </p>
 
-                                                @error('offer cattering')
+                                                @error('offer_cattering')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
