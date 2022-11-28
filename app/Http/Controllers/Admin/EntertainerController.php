@@ -141,6 +141,7 @@ class EntertainerController extends Controller
     public function createTalentIndex($id)
     {
         $data['user_id'] = $id;
+        $data['talent_categories']=TalentCategory::select('id','category')->get();
         return view('admin.entertainer.Talent.add',compact('data'));
     }
     public function storeTalent(Request $request,$id)

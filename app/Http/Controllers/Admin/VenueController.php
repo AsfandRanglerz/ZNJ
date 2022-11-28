@@ -136,6 +136,7 @@ class VenueController extends Controller
     public function createVenueIndex($id)
     {
         $data['user_id'] = $id;
+        $data['venue_categories']=VenueCategory::select('id','category')->get();
         return view('admin.venue_provider.venues.add',compact('data'));
     }
     public function storeVenue(Request $request,$id)
@@ -147,13 +148,10 @@ class VenueController extends Controller
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
-            // 'offer cattering' => 'required',
-            // 'opening time' =>'required',
-            // 'closing time' =>'required'
-
-
+            'offer_cattering' => 'required',
+            'epening_time' =>'required',
+            'closing_time' =>'required'
         ]);
-
         $data = $request->only(['title','user_id', 'category', 'description','seats','stands','offer_cattering','epening_time','closing_time']);
             $data['user_id'] = $id;
             $user = Venue::create($data);
