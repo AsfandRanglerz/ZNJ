@@ -71,16 +71,26 @@ class EntertainerController extends Controller
         $data=EntertainerDetail::all();
         return $this->sendSuccess('Entertainer data',compact('data'));
     }
-    public function getSingleEntertainer(Request $request)
+    public function getSingleEntertainer($id)
     {
-        $validator = Validator::make($request->all(), [
-            'entertainer_id' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors()->first());
+        // $validator = Validator::make($request->all(), [
+        //     'entertainer_id' => 'required'
+        // ]);
+        // if ($validator->fails()) {
+        //     return $this->sendError($validator->errors()->first());
+        // }
+        $data=EntertainerDetail::find($id);
+        if($data==null){
+            return $this->sendError("Record Not Found!");
         }
-        $data=EntertainerDetail::find($request->entertainer_id);
         return $this->sendSuccess('Entertainer data',compact('data'));
     }
 
+    public function getEntertainerPricePackage($id){
+      $data = EntertainerPricePackage::where('entertainer_details_id',$id)->get();
+      if($data==null){
+        return $this->sendError('Record Not Found!');
+      }
+      return $this->sendSuccess('Entertainer Price Package data',compact('data'));
+    }
 }

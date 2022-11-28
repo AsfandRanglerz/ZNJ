@@ -37,9 +37,13 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('events','EventController@getEvents');
         Route::get('user-events','EventController@userEvents');
         Route::post('event','EventController@getEvent');
+        Route::get('event_entertainer/{id}','EventController@getEventEntertainers');
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');
-        Route::get('entertainer','EntertainerController@getSingleEntertainer');
+        Route::get('entertainer/{id}','EntertainerController@getSingleEntertainer');
+        Route::get('entertainer-price-package/{id}','EntertainerController@getEntertainerPricePackage');
+        Route::get('venues','VenueController@getVenues');
+        Route::get('venue/{id}','VenueController@getSingleVenue');
         Route::get('term-of-use','HomeController@terms');
     });
 });

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\EventEntertainers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
@@ -57,5 +58,9 @@ class EventController extends Controller
         }
         $event=Event::find($request->event_id)->get();
         return $this->sendSuccess('Event',compact('event'));
+    }
+    public function getEventEntertainers($id){
+        $data = EventEntertainers::where('event_id',$id)->get();
+      return $this->sendSuccess('event entertainers',compact('data'));
     }
 }
