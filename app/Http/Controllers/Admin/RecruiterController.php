@@ -111,11 +111,11 @@ class RecruiterController extends Controller
         ]);
         $recruiter = User::find($user_id);
 
-        $recruiter->name       =    $request->input('name');
-        $recruiter->email      =    $request->input('email');
-        $recruiter->phone      =    $request->input('phone');
-        $recruiter->company    =    $request->input('company');
-        $recruiter->designation =    $request->input('designation');
+        $recruiter->name   = $request->input('name');
+        $recruiter->email  = $request->input('email');
+        $recruiter->phone  = $request->input('phone');
+        $recruiter->company= $request->input('company');
+        $recruiter->designation=   $request->input('designation');
         $recruiter->update();
 
         return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Updated sucessfully']);

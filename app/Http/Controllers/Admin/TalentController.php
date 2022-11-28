@@ -15,7 +15,7 @@ class TalentController extends Controller
     public function index()
     {
         $data= TalentCategory::select('category')->get();
-        return view('admin.Talent.index',compact('data'));
+        return view('admin.talent.index',compact('data'));
     }
 
     /**
