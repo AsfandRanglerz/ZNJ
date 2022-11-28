@@ -82,34 +82,39 @@ class VenueController extends Controller
         return $this->sendSuccess('Venue data', compact('data'));
     }
 
-    public function updateVenue(Request $request,$id){
-        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'epening_time', 'closing_time']);
-        $venue=Venue::find($id)->update($data);
-        // if ($request->hasfile('photos')) {
-        //     $file = $request->file('photos');
-        //     foreach ($file as $file) {
-        //         $extension = $file->getClientOriginalExtension(); // getting image extension
-        //         $filename = time() . '.' . $extension;
-        //         $file->move(public_path('/'), $filename);
-        //         $photos = [
-        //             'venue_id' => $id,
-        //             'photos' => 'public/uploads/' . $filename,
-        //         ];
-        //         VenuesPhoto::create($photos);
-        //     }
-        // }
-        for ($i = 0; $i < count($request->photos); $i++) {
-            $image = $request->file('photos' . $i);
-            $filename = hexdec(uniqid()) . '.' . strtolower($image->getClientOriginalExtension());
-            // $filename = $image->getClientOriginalName();
-            $image->move('public/image/product/', $filename);
-            $file = asset('public/image/product/' . $filename);
-            VenuesPhoto::updateOrCreate([
-                'venue_id' => $id,
-                'photos' => $file,
-            ]);
+    public function updateVenue(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'category' => 'required',
+            'about_venue' => 'required',
+            'description' => 'required',
+            'seats' => 'required',
+            'stands' => 'required',
+            'offer_cattering' => 'required',
+            'epening_time' => 'required',
+            'closing_time' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
         }
-        VenuePricing::where('venues_id',$id)->delete();
+        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'epening_time', 'closing_time']);
+        $venue = Venue::find($id)->update($data);
+        VenuesPhoto::where('venue_id', $id)->delete();
+        if ($request->hasfile('photos')) {
+            $file = $request->file('photos');
+            foreach ($file as $file) {
+                $extension = $file->getClientOriginalName(); // getting image extension
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('/'), $filename);
+                $photos = [
+                    'venue_id' => $id,
+                    'photos' => 'public/uploads/' . $filename,
+                ];
+                VenuesPhoto::create($photos);
+            }
+        }
+        VenuePricing::where('venues_id', $id)->delete();
         for ($i = 0; $i < count($request->day); $i++) {
             $data = [
                 'venues_id'  => $id,
@@ -118,8 +123,8 @@ class VenueController extends Controller
             ];
             VenuePricing::create($data);
         }
-        $venue=Venue::find($id);
-        return $this->sendSuccess('Venue Updated Successfully',compact('venue'));
+        $venue = Venue::find($id);
+        return $this->sendSuccess('Venue Updated Successfully', compact('venue'));
     }
 
     public function destroy($id)
@@ -127,5 +132,4 @@ class VenueController extends Controller
         $data = Venue::find($id)->delete();
         return $this->sendSuccess('Venue Delete Successfully');
     }
-
 }

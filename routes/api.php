@@ -40,6 +40,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');
         Route::get('entertainer/{id}','EntertainerController@getSingleEntertainer');
+        Route::post('update-entertainer/{id}','EntertainerController@updateEntertainer');
         Route::get('entertainer-price-package/{id}','EntertainerController@getEntertainerPricePackage');
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');

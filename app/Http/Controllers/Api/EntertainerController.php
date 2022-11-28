@@ -24,7 +24,7 @@ class EntertainerController extends Controller
             'event_photos' => 'required',
             'description' => 'required',
             'time' => 'required',
-            'time_price' => 'required',
+            'price_package' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
@@ -58,9 +58,9 @@ class EntertainerController extends Controller
 
         for($i=0;$i<count($request->time);$i++){
             $data=[
-              'entertainer_details_id'  =>$entertainer->id,
+              'entertainer_details_id'  => $entertainer->id,
               'time'  =>$request->time[$i],
-              'price'  =>$request->time_price[$i],
+              'price_package'  =>$request->price_package[$i],
             ];
 
             EntertainerPricePackage::create($data);
@@ -86,6 +86,62 @@ class EntertainerController extends Controller
         return $this->sendSuccess('Entertainer data',compact('data'));
     }
 
+    public function updateEntertainer(Request $request,$id){
+        // $validator = Validator::make($request->all(), [
+        //     'location' => 'required',
+        //     'title' => 'required',
+        //     'image' => 'required',
+        //     'about_yourself' => 'required',
+        //     'category' => 'required',
+        //     'price' => 'required',
+        //     'event_photos' => 'required',
+        //     'description' => 'required',
+        //     'time' => 'required',
+        //     'time_price' => 'required',
+        // ]);
+        // if ($validator->fails()) {
+        //     return $this->sendError($validator->errors()->first());
+        // }
+        $data=$request->only(['location','title','about_yourself','category','price','description']);
+        $data['user_id']=auth()->id();
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('/'), $filename);
+            $data['image'] = 'public/uploads/' . $filename;
+        }
+        $data['user_id']=auth()->id();
+
+        // $entertainer=EntertainerDetail::create($data);
+           $entertainer=EntertainerDetail::find($id)->update($data);
+           EntertainerEventPhotos::where('entertainer_details_id',$id)->delete();
+        if ($request->hasfile('event_photos')) {
+            $file = $request->file('event_photos');
+            foreach($file as $file) {
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('/'), $filename);
+                $photos=[
+                  'entertainer_details_id'=> $id,
+                  'event_photos'=>'public/uploads/' . $filename,
+                ];
+               EntertainerEventPhotos::create($photos);
+            }
+        }
+        EntertainerPricePackage::where('entertainer_details_id',$id)->delete();
+        for($i=0;$i<count($request->time);$i++){
+            $data=[
+              'entertainer_details_id'  =>$id,
+              'time'  =>$request->time[$i],
+              'price_package'  =>$request->price_package[$i],
+            ];
+
+            EntertainerPricePackage::create($data);
+        }
+        $data=EntertainerDetail::find($id);
+        return $this->sendSuccess('Entertainer updated Successfully',compact('data'));
+    }
     public function getEntertainerPricePackage($id){
       $data = EntertainerPricePackage::where('entertainer_details_id',$id)->get();
       if($data==null){
