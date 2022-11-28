@@ -15,8 +15,8 @@ class CreateVenuesPhotosTable extends Migration
     {
         Schema::create('venues_photos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('venues_id');
-            $table->foreign('venues_id')->references('id')->on('venues')->onDelete('cascade');
+            $table->unsignedBigInteger('venue_id');
+            $table->foreign('venue_id')->references('id')->on('venues')->onDelete('cascade');
             $table->string('photos')->nullable();
             $table->timestamps();
         });

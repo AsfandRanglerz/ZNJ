@@ -208,4 +208,6 @@ class RecruiterController extends Controller
         $data['event_venues']= Event::find($event_id)->eventVenues;
          return view('admin.recruiter.event.event_venues',compact('data'));
      }
+
+
 }
