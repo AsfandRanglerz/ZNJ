@@ -36,6 +36,9 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('user-events','EventController@userEvents');
         Route::post('event','EventController@getEvent');
         Route::get('event_entertainer/{id}','EventController@getEventEntertainers');
+
+        Route::post('update-event/{id}','EventController@updateEvent');
+
         Route::get('delete-event/{id}','EventController@destroy');
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');

@@ -177,7 +177,7 @@ class AuthController extends Controller
             return $this->sendError($validator->errors()->first());
         }
         $login_type = $request->login_type;
-        if($request->has('email') && !empty($request->email)) {
+        if ($request->has('email') && !empty($request->email)) {
             $find_user = User::where('email', $request->email)->first();
             if ($find_user) {
                 if (empty($find_user->name)) {
@@ -196,10 +196,10 @@ class AuthController extends Controller
                     }
                 }
                 $find_user->save();
-                $user = User::where('id',$find_user->id)->first();
+                $user = User::where('id', $find_user->id)->first();
                 $accessToken = $find_user->createToken('authToken')->accessToken;
                 $user['accessToken'] = $accessToken;
-                $this->updateFcmToken($user->id,$request->notification_token);
+                $this->updateFcmToken($user->id, $request->notification_token);
                 return $this->sendSuccess('Login Successfully', $user);
             } else {
                 $validator = Validator::make($request->all(), [
@@ -210,7 +210,7 @@ class AuthController extends Controller
                 }
                 $user = new User();
                 $user->name = $request->name;
-                $user->type= $request->type;
+                $user->type = $request->type;
                 if ($login_type == "facebook") {
                     if ($request->has('email') && !empty($request->email)) {
                         $user->email = $request->email;
@@ -223,10 +223,10 @@ class AuthController extends Controller
                     }
                     $user->facebook_social_id = $request->social_id;
                     $user->save();
-                    $user = User::where('id',$user->id)->first();
+                    $user = User::where('id', $user->id)->first();
                     $accessToken = $user->createToken('authToken')->accessToken;
                     $user['accessToken'] = $accessToken;
-                    $this->updateFcmToken($user->id,$request->notification_token);
+                    $this->updateFcmToken($user->id, $request->notification_token);
                     return $this->sendSuccess('Login Successfully', $user);
                 }
                 if ($login_type == "google") {
@@ -241,23 +241,23 @@ class AuthController extends Controller
                     }
                     $user->google_social_id = $request->social_id;
                     $user->save();
-                    $user = User::where('id',$user->id)->first();
+                    $user = User::where('id', $user->id)->first();
                     $accessToken = $user->createToken('authToken')->accessToken;
                     $user['accessToken'] = $accessToken;
-                    $this->updateFcmToken($user->id,$request->notification_token);
+                    $this->updateFcmToken($user->id, $request->notification_token);
                     return $this->sendSuccess('Login Successfully', $user);
                 }
             }
-        }else{
-            $user = User::where('facebook_social_id',$request->social_id)->orwhere('google_social_id',$request->social_id)->first();
-            if ($user){
+        } else {
+            $user = User::where('facebook_social_id', $request->social_id)->orwhere('google_social_id', $request->social_id)->first();
+            if ($user) {
                 $user->save();
-                $user = User::where('id',$user->id)->first();
+                $user = User::where('id', $user->id)->first();
                 $accessToken = $user->createToken('authToken')->accessToken;
                 $user['accessToken'] = $accessToken;
-                $this->updateFcmToken($user->id,$request->notification_token);
+                $this->updateFcmToken($user->id, $request->notification_token);
                 return $this->sendSuccess('Login Successfully', $user);
-            }else{
+            } else {
                 $validator = Validator::make($request->all(), [
                     'role' => 'required',
                 ]);
@@ -265,39 +265,40 @@ class AuthController extends Controller
                     return $this->sendError($validator->errors()->first());
                 }
                 $user = new User();
-                $user->name= $request->name;
-                $user->role= $request->role;
-                if ($request->has('phone')){
+                $user->name = $request->name;
+                $user->role = $request->role;
+                if ($request->has('phone')) {
                     $user->phone = $request->phone;
                 }
-                if ($login_type =="facebook"){
+                if ($login_type == "facebook") {
                     if ($request->has('image')) {
                         $user->image = $request->image;
                     }
                     $user->facebook_social_id = $request->social_id;
                     $user->save();
-                    $user = User::where('id',$user->id)->first();
+                    $user = User::where('id', $user->id)->first();
                     $accessToken = $user->createToken('authToken')->accessToken;
                     $user['accessToken'] = $accessToken;
-                    $this->updateFcmToken($user->id,$request->notification_token);
+                    $this->updateFcmToken($user->id, $request->notification_token);
                     return $this->sendSuccess('Login Successfully', $user);
                 }
-                if ($login_type =="google"){
+                if ($login_type == "google") {
                     if ($request->has('image')) {
                         $user->image = $request->image;
                     }
                     $user->google_social_id = $request->social_id;
                     $user->save();
-                    $user = User::where('id',$user->id)->first();
+                    $user = User::where('id', $user->id)->first();
                     $accessToken = $user->createToken('authToken')->accessToken;
                     $user['accessToken'] = $accessToken;
-                    $this->updateFcmToken($user->id,$request->notification_token);
+                    $this->updateFcmToken($user->id, $request->notification_token);
                     return $this->sendSuccess('Login Successfully', $user);
                 }
             }
         }
     }
-    public function userLocation(Request $request){
+    public function userLocation(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'longitude' => 'required',
             'latitude' => 'required',
@@ -305,36 +306,23 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data=$request->only(['longitude','latitude']);
+        $data = $request->only(['longitude', 'latitude']);
         User::find(auth()->id())->update($data);
         return $this->sendSuccess('Location Saved Successfully');
     }
-    protected function updateFcmToken($userId,$token)
+    protected function updateFcmToken($userId, $token)
     {
-        return User::where('id',$userId)->update(['notification_token'=>$token]);
+        return User::where('id', $userId)->update(['notification_token' => $token]);
     }
-    public function editProfile(){
-        $user=User::find(auth()->id());
-        return $this->sendSuccess('User data sent  successfully',compact('user'));
+    public function editProfile()
+    {
+        $user = User::find(auth()->id());
+        return $this->sendSuccess('User data sent  successfully', compact('user'));
     }
-    public  function updateProfile(Request $request){
-        if ($request->role === 'recruiter') {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'company' => 'required',
-                'designation' => 'required',
-                'email' => 'required|email',
-                'phone' => 'required',
-
-            ]);
-            if ($validator->fails()) {
-                return $this->sendError($validator->errors()->first());
-            }
-            $recruter_data = $request->only(['name', 'email', 'phone', 'password', 'role', 'company', 'designation']);
-            $recruter_data['password'] = Hash::make($request->password);
-            $user = User::find(auth()->id())->update($recruter_data);
-            return $this->sendSuccess('Recruiter updated Successfully', $user);
-        } elseif ($request->role === 'entertainer') {
+    public  function updateProfile(Request $request)
+    {
+        $data = User::where($request->id, Auth::id())->first();
+        if ($data->role === 'entertainer') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email',
@@ -344,11 +332,11 @@ class AuthController extends Controller
                 return $this->sendError($validator->errors()->first());
             }
 
-            $entertainer_data = $request->only(['name', 'email', 'role', 'phone', 'password']);
-            $entertainer_data['password'] = Hash::make($request->password);
-            $user = User::find(auth()->id())->update($entertainer_data);
-            return $this->sendSuccess('Entertainer updated Successfully', $user);
-        } elseif ($request->role === 'venue') {
+            $entertainer_data = $request->only(['name', 'email', 'phone']);
+            $user = User::find($request->id)->update($entertainer_data);
+            $data = User::find($request->id);
+            return $this->sendSuccess('Entertainer updated Successfully', compact('data'));
+        } elseif ($data->role === 'venue') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email',
@@ -359,10 +347,26 @@ class AuthController extends Controller
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
-            $venue_data = $request->only(['name', 'email', 'phone', 'password', 'role', 'venue']);
-            $venue_data['password'] = Hash::make($request->password);
-            $user = User::create($venue_data);
-            return $this->sendSuccess('Venue updated Successfully', $user);
+            $venue_data = $request->only(['name', 'email', 'phone', 'venue']);
+            // $user = User::create($venue_data);
+            $user = User::find($request->id)->update($venue_data);
+            $data = User::find($request->id);
+            return $this->sendSuccess('Venue updated Successfully', $data);
+        } elseif ($data->role === 'recruiter') {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'company' => 'required',
+                'designation' => 'required',
+                'email' => 'required|email',
+                'phone' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors()->first());
+            }
+            $recruter_data = $request->only(['name', 'email', 'phone', 'company', 'designation']);
+            $user = User::find($request->id)->update($recruter_data);
+            $data = User::find($request->id);
+            return $this->sendSuccess('Recruiter updated Successfully', $data);
         }
     }
 }

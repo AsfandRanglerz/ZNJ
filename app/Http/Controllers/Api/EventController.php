@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 class EventController extends Controller
 {
     public  function createEvent(Request $request){
-
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'cover_image' => 'required',
@@ -62,6 +61,37 @@ class EventController extends Controller
     public function getEventEntertainers($id){
         $data = EventEntertainers::where('event_id',$id)->get();
       return $this->sendSuccess('event entertainers',compact('data'));
+    }
+    public function updateEvent(Request $request,$id){
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'cover_image' => 'required',
+            'location' => 'required',
+            'about_event' => 'required',
+            'event_type' => 'required',
+            'date' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+            'joining_type' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'hiring_entertainers_status' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+        $data=$request->only(['title','location','about_event','event_type','date','to','joining_type','price','description']);
+        $data['user_id']=auth()->id();
+        if ($request->hasfile('cover_image')) {
+            $file = $request->file('cover_image');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('/'), $filename);
+            $data['cover_image'] = 'public/uploads/' . $filename;
+        }
+         Event::find($id)->update($data);
+         $data=Event::find($id);
+        return $this->sendSuccess('Event updated Successfully',compact('data'));
     }
     public function destroy($id)
     {
