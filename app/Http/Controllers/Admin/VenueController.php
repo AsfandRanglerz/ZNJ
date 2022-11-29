@@ -265,28 +265,22 @@ class VenueController extends Controller
     }
     public function updatePhoto(Request $request, $id)
     {
-        // $validator = $request->validate([
-        //     'photos' => 'required',
-        //     // 'description' => 'required',
-        //     // 'images'=>'required',
-        // ]);
-        // $photo=VenuesPhoto::find($id);
-        // if($request->hasfile('photos')){
-        //     $destination=$photo->photos;
-        //    // dd($destination);
-        //     if(File::exists($destination))
-        //     {
-        //         File::delete($destination);
-        //     }
-        // $file = $request->file('photos');
-        // //dd($file);
-        // $extension=$file->getClientOriginalExtension();
-        // $filename=time().'.'.$extension;
-        // $file->move('',$filename);
-        // $photo->photos=$filename;
-        // }
-        // $photo->update();
-        // return redirect()->route('admin.venue_provider.venues.photo.index',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
+        $validator = $request->validate([
+            'photos' => 'required',
+            // 'description' => 'required',
+            // 'images'=>'required',
+        ]);
+        $photo=VenuesPhoto::find($id);
+        if ($request->hasfile('photos')) {
+            $file = $request->file('photos');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('/'), $filename);
+            $photo->photos = 'public/' . $filename;
+        }
+        $photo->update();
+        return redirect()->route('venue-providers.venue.photo.show',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
+
 
 }
 }
