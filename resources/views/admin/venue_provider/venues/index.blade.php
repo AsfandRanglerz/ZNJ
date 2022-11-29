@@ -58,6 +58,8 @@
                                                href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
                                                <a class="btn btn-primary"
                                                href="{{route('venue-providers.venue.photo.show', $venue->id)}}">Photos</a>
+                                               <a class="btn btn-success"
+                                               href="{{route('venue-providers.venue.venue_pricings.index', $venue->id)}}">Price Packages</a>
                                                 <a class="btn btn-info"
                                                href="{{route('venue-providers.venue.edit', $venue->id)}}">Edit</a>
                                                         <form method="get" action="{{ route('venue-providers.venue.delete', $venue->id) }}">

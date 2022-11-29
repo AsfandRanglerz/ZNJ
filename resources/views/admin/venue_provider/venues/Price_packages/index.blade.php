@@ -12,39 +12,35 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="col-12">
-                                    <h4>Entertainer</h4>
+                                    <h4>Venue Price Packages</h4>
 
                                 </div>
                             </div>
                             <div class="card-body table-striped table-bordered table-responsive">
-                                <table class="table" id="table_id">
+                                <a class="btn btn-success mb-3"
+                                href="{{route('venue-providers.venue.venue_pricings.add',$data['venue_id'])}}">Add Price Package</a>
+                                <table class="table" id="table_talent_price">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Company</th>
-                                            <th>Designation</th>
-                                            <th>Venue</th>
+                                            <th>Price</th>
+                                            <th>Day</th>
+                                            <th>Created At</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     @foreach($data as $entertainer)
+                                     @foreach($data['price_packages'] as $price)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $entertainer->name }}</td>
-                                                <td>{{ $entertainer->email }}</td>
-                                                <td>{{ $entertainer->phone }}</td>
-                                                <td>{{ $entertainer->company }}</td>
-                                                <td>{{ $entertainer->designation }}</td>
-                                                <td>{{ $entertainer->venue}}</td>
+                                                <td>{{ $price->price }}</td>
+                                                <td>{{ $price->day }}</td>
+                                                <td>{{ $price->created_at }}</td>
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                                        href="{{route('entertainer.edit', $entertainer->id)}}">Edit</a>
-                                                        <form method="POST" action="{{ route('entertainer.destroy', $entertainer->id) }}">
+                                               href="{{route('venue-providers.venue.venue_pricings.edit', $price->id)}}">Edit</a>
+                                                        <form method="POST" action="{{ route('venue-providers.venue.venue_pricings.delete', $price->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
@@ -64,7 +60,6 @@
     </div>
 
 @endsection
-
 @section ('scripts')
 @if (\Illuminate\Support\Facades\Session::has('message'))
 <script>
@@ -73,7 +68,7 @@
 @endif
 <script>
     $(document).ready(function() {
-        $('#table_id').DataTable();
+        $('#table_talent_price').DataTable();
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>

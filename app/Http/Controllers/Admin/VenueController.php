@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\UserLoginPassword;
 use App\Models\VenueCategory;
+use App\Models\VenuePricing;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\File;
 
@@ -280,7 +281,46 @@ class VenueController extends Controller
         }
         $photo->update();
         return redirect()->route('venue-providers.venue.photo.show',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
-
+}
+public function pricePackagesIndex($venue_id){
+    $data['price_packages']=VenuePricing::where('venues_id',$venue_id)->get();
+    $data['venue_id']=$venue_id;
+    // dd($data['price_packages']);
+    return view('admin.venue_provider.venues.Price_packages.index',compact('data'));
+}
+public function createPricePackageIndex($venue_id){
+    $data['venue_id']=$venue_id;
+    return view('admin.venue_provider.venues.Price_packages.add',compact('data'));
+}
+public function storePricePackage(Request $request,$venue_id){
+    $validator =$request->validate([
+        'price'=>'required',
+        'day'=>'required'
+    ]);
+    $data = $request->only(['venues_id','price', 'day']);
+    $data['venues_id']=$venue_id;
+    $user = VenuePricing::create($data);
+            return redirect()->route('venue-providers.venue.venue_pricings.index',$venue_id)->with(['status'=>true, 'message' => 'Price Package Created Sucessfully']);
+}
+public function editPricePackageIndex($venue_pricing_id){
+    $data['price_package']= VenuePricing::where('id',$venue_pricing_id)->select('id','price','day')->first();
+    return view('admin.venue_provider.venues.Price_packages.edit',compact('data'));
+}
+public function updatePricePackage(Request $request,$venue_pricing_id){
+    $validator =$request->validate([
+        'price'=>'required',
+        'day'=>'required'
+    ]);
+    // dd($request->time);
+    $price_package=VenuePricing::find($venue_pricing_id);
+    $price_package->price=$request->input('price');
+    $price_package->day=$request->input('day');
+    $price_package->update();
+    return redirect()->route('venue-providers.venue.venue_pricings.index',$price_package['venues_id'])->with(['status'=>true, 'message' => 'Price Package Updated Sucessfully']);
+}
+public function destroyPricePackage($venue_pricing_id){
+    VenuePricing::where('id',$venue_pricing_id)->delete();
+    return redirect()->back()->with(['status'=>true, 'message' => 'Price Package Deleted Sucessfully']);
 
 }
 }

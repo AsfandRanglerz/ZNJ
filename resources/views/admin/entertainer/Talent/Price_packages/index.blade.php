@@ -12,50 +12,35 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="col-12">
-                                    <h4>Talent</h4>
+                                    <h4>Price Packages</h4>
 
                                 </div>
                             </div>
-                            {{-- @dd($data) --}}
                             <div class="card-body table-striped table-bordered table-responsive">
                                 <a class="btn btn-success mb-3"
-                                       href="{{route('entertainer.talent.add',$data['user_id'])}}">Add Talent</a>
-                                <table class="table" id="table_id_talent">
+                                href="{{route('entertainer.talent.price_packages.add',$data['entertainer_details_id'])}}">Add Price Package</a>
+                                <table class="table" id="table_talent_price">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
-                                            <th>Title</th>
-                                            <th>Category</th>
                                             <th>Price</th>
-                                            <th>Description</th>
-                                            <th>Created at</th>
+                                            <th>Time</th>
+                                            <th>Created At</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     @foreach($data['entertainer'] as $entertainer_details)
-
-
-                                            {{-- @dd($entertainer->title) --}}
+                                     @foreach($data['price_packages'] as $price)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $entertainer_details->title }}</td>
-                                                <td>{{ $entertainer_details->category }}</td>
-                                                <td>{{ $entertainer_details->price }}</td>
-                                                <td>{{ $entertainer_details->description }}</td>
-                                                <td>{{ $entertainer_details->created_at }}</td>
-
+                                                <td>{{ $price->price_package }}</td>
+                                                <td>{{ $price->time }}</td>
+                                                <td>{{ $price->created_at }}</td>
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
-                                                {{-- <a class="btn btn-success"
-                                               href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
-                                               <a class="btn btn-primary"
-                                               href="{{route('entertainer.photo.show', $entertainer_details->id)}}">Photos</a>
-                                               <a class="btn btn-success"
-                                               href="{{route('entertainer.talent.price_packages.index', $entertainer_details->id)}}">Price Packages</a>
                                                 <a class="btn btn-info"
-                                               href="{{route('entertainer.talent.edit', $entertainer_details->id)}}">Edit</a>
-                                                        <form method="get" action="{{ route('entertainer.talent.delete', $entertainer_details->id) }}">
+                                               href="{{route('entertainer.talent.price_packages.edit', $price->id)}}">Edit</a>
+                                                        <form method="POST" action="{{ route('entertainer.talent.price_packages.delete', $price->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
@@ -67,7 +52,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -76,7 +60,6 @@
     </div>
 
 @endsection
-
 @section ('scripts')
 @if (\Illuminate\Support\Facades\Session::has('message'))
 <script>
@@ -85,7 +68,7 @@
 @endif
 <script>
     $(document).ready(function() {
-        $('#table_id_talent').DataTable();
+        $('#table_talent_price').DataTable();
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
@@ -111,3 +94,4 @@ $('.show_confirm').click(function(event) {
 
 </script>
 @endsection
+

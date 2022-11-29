@@ -18,7 +18,7 @@ class CreateEntertainerPricePackagesTable extends Migration
             $table->unsignedBigInteger('entertainer_details_id');
             $table->foreign('entertainer_details_id')->references('id')->on('entertainer_details')->onDelete('cascade');
             $table->string('time')->nullable();
-            $table->string('price')->nullable();
+            $table->string('price_package')->nullable();
             $table->timestamps();
         });
     }

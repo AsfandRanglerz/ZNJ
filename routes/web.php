@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\EntertainerController;
 use App\Http\Controllers\Admin\VenueController;
 use App\Http\Controllers\Admin\IntrovideoController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\TalentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +77,12 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/entertainer/talent/category/edit/{category_id}',[EntertainerController::class,'talentCategoryEditIndex'])->name('entertainer.talent.category.edit.index');
      Route::post('/entertainer/talent/category/update/{category_id}',[EntertainerController::class,'updateTalentCategory'])->name('entertainer.talent.category.update');
      Route::delete('/entertainer/talent/category/delete/{category_id}',[EntertainerController::class,'destroyTalentCategory'])->name('entertainer.talent.category.delete');
+     Route::get('/entertainer/talent/price-packages/{entertainer_details_id}',[EntertainerController::class,'pricePackagesIndex'])->name('entertainer.talent.price_packages.index');
+     Route::get('/entertainer/talent/price-packages/add/{entertainer_details_id}',[EntertainerController::class,'createPricePackageIndex'])->name('entertainer.talent.price_packages.add');
+     Route::post('/entertainer/talent/price-packages/store/{entertainer_details_id}',[EntertainerController::class,'storePricePackage'])->name('entertainer.talent.price_packages.store');
+     Route::get('/entertainer/talent/price-packages/edit/{price_package_id}',[EntertainerController::class,'editPricePackageIndex'])->name('entertainer.talent.price_packages.edit');
+     Route::post('/entertainer/talent/price-packages/update/{price_package_id}',[EntertainerController::class,'updatePricePackage'])->name('entertainer.talent.price_packages.update');
+     Route::delete('/entertainer/talent/price-packages/delete/{price_package_id}',[EntertainerController::class,'destroyPricePackage'])->name('entertainer.talent.price_packages.delete');
 
 
      //Venue
@@ -99,11 +104,17 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/venue-providers/venue/photo/edit/{venue_id}',[VenueController::class,'editPhoto'])->name('venue-providers.venue.photo.edit');
      Route::post('/venue-providers/venue/photo/update/{venue_id}',[VenueController::class,'updatePhoto'])->name('venue-providers.venue.photo.update');
 
+     Route::get('/venue-providers/venue/venue-pricings/{venue_id}',[VenueController::class,'pricePackagesIndex'])->name('venue-providers.venue.venue_pricings.index');
+     Route::get('/venue-providers/venue/venue-pricings/add/{venue_id}',[VenueController::class,'createPricePackageIndex'])->name('venue-providers.venue.venue_pricings.add');
+
+     Route::post('/venue-providers/venue/venue-pricings/store/{venue_id}',[VenueController::class,'storePricePackage'])->name('venue-providers.venue.venue_pricings.store');
+     Route::get('/venue-providers/venue/venue-pricings/edit/{venue_pricing_id}',[VenueController::class,'editPricePackageIndex'])->name('venue-providers.venue.venue_pricings.edit');
+     Route::post('/venue-providers/venue/venue-pricings/update/{venue_pricing_id}',[VenueController::class,'updatePricePackage'])->name('venue-providers.venue.venue_pricings.update');
+     Route::delete('/venue-providers/venue/venue-pricings/delete/{venue_pricing_id}',[VenueController::class,'destroyPricePackage'])->name('venue-providers.venue.venue_pricings.delete');
+
 
  //introVideo
      Route::resource('/pages/intro-video', IntrovideoController::class);
- //Talent
-     Route::resource('/talent', TalentController::class);
 
 
 });
