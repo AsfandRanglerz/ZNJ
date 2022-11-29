@@ -14,7 +14,6 @@ class EntertainerDetail extends Model
 
     public function User()
     {
-
         return $this->belongsTo('App\Models\User','user_id','id');
     }
     public function events(){

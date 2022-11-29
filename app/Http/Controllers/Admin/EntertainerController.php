@@ -209,7 +209,7 @@ class EntertainerController extends Controller
         return redirect()->route('entertainer.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
 
     }
-    
+
 
     public function showPhoto($id)
     {
@@ -236,26 +236,26 @@ class EntertainerController extends Controller
     }
     public function updatePhoto(Request $request, $id)
     {
-        $validator = $request->validate([
-            'event_photos' => 'required',
-            // 'description' => 'required',
-            // 'images'=>'required',
-        ]);
-        $photo = EntertainerEventPhotos::find($id);
-        if($request->hasfile('event_photos')){
-            $destination='public/'.$photo->event_photos;
-            if(File::exists($destination))
-            {
-                File::delete($destination);
-            }
-        $file = $request->file('event_photos');
-        $extension=$file->getClientOriginalExtension();
-        $filename=time().'.'.$extension;
-        $file->move('',$filename);
-        $photo->event_photos=$filename;
-        }
-        $photo->update();
-        return redirect()->route('entertainer.photo.show',$photo->entertainer_details_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
+        // $validator = $request->validate([
+        //     'event_photos' => 'required',
+        //     // 'description' => 'required',
+        //     // 'images'=>'required',
+        // ]);
+        // $photo = EntertainerEventPhotos::find($id);
+        // if($request->hasfile('event_photos')){
+        //     $destination='public/'.$photo->event_photos;
+        //     if(File::exists($destination))
+        //     {
+        //         File::delete($destination);
+        //     }
+        // $file = $request->file('event_photos');
+        // $extension=$file->getClientOriginalExtension();
+        // $filename=time().'.'.$extension;
+        // $file->move('',$filename);
+        // $photo->event_photos=$filename;
+        // }
+        // $photo->update();
+        // return redirect()->route('entertainer.photo.show',$photo->entertainer_details_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
 }
 /**
      * Talent Categories
@@ -283,9 +283,9 @@ class EntertainerController extends Controller
         $validator =$request->validate([
             'category' => 'required',
         ]);
-        $category = TalentCategory::find($category_id);
-        $category->category=$request->category;
-        $category->update();
+        $talent_category = TalentCategory::find($category_id);
+        $talent_category->category = $request->category;
+        $talent_category->update();
         return redirect()->route('entertainer.talent.categories.index')->with(['status'=>true, 'message' => 'Talent Category Updated sucessfully']);
     }
     public function destroyTalentCategory($category_id){

@@ -18,7 +18,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Category Name</label>
-                                        <input type="text" class="form-control" name="category" required>
+                                        <input type="text" class="form-control" name="category">
                                         @error('category')
                                         <div class="text-danger p-2">{{ $message }}</div>
                                         @enderror

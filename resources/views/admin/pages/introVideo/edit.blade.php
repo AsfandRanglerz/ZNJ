@@ -118,11 +118,28 @@
                                             <div class="form-group mb-2">
                                                 <label>Offer Cattering</label>
                                                 <p>
+
+                                                    @if($venue['offer_cattering'] == 'Yes')
                                                     <label>Yes</label>
-                                                    <input type="radio" name="offer cattering" value="Yes"
-                                                    @if($venue['offer_cattering'] == 'Yes')  checked @endif id="">
+                                                    <input type="radio" name="offer_cattering" value="Yes"
+                                                      checked  id="">
+                                                      @else
+                                                      <label>Yes</label>
+                                                      <input type="radio" name="offer_cattering" value="Yes"
+                                                          id="">
+                                                      @endif
+                                                    @if ($venue['offer_cattering'] == 'No')
                                                     <label>No</label>
-                                                    <input type="radio" name="offer cattering" value="No" @if($venue['offer_cattering'] == 'No')  checked  @endif  id="">
+                                                    <input type="radio" name="offer cattering" value="No"   checked    id="">
+                                                    @else
+                                                    <label>No</label>
+                                                    <input type="radio" name="offer cattering" value="No"       id="">
+                                                    @endif
+
+
+
+
+
                                                 </p>
 
                                                 @error('offer cattering')
