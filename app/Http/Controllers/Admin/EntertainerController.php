@@ -46,9 +46,6 @@ class EntertainerController extends Controller
     public function store(Request $request)
     {
         $validator =$request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email|email',
-            'phone' => 'required',
             'name'=>'required',
             'email'=>'required|unique:users,email|email',
             'phone'=>'required',
@@ -143,13 +140,13 @@ class EntertainerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createTalentIndex($id)
+    public function createTalentIndex($user_id)
     {
-        $data['user_id'] = $id;
+        $data['user_id'] = $user_id;
         $data['talent_categories']=TalentCategory::select('id','category')->get();
         return view('admin.entertainer.Talent.add',compact('data'));
     }
-    public function storeTalent(Request $request,$id)
+    public function storeTalent(Request $request,$user_id)
 
     {
         $validator = $request->validate([
@@ -161,36 +158,36 @@ class EntertainerController extends Controller
         ]);
         $data = $request->only(['title','user_id', 'category', 'price']);
 
-        $data['user_id'] = $id;
+        $data['user_id'] = $user_id;
         $user = EntertainerDetail::create($data);
         if ($request->file('event_photos')) {
             foreach ($request->file('event_photos') as $data) {
                 $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
-                $data->move('public', $image);
+                $data->move('public/admin/assets/img/entertainer', $image);
                 EntertainerEventPhotos::create([
-                        'event_photos' => 'public/' . $image,
+                        'event_photos' => '' . $image,
                         'entertainer_details_id' => $user->id
                        ]);
             }
         }
-         return redirect()->route('entertainer.show',$id)->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
+         return redirect()->route('entertainer.show',$user_id)->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
         // return view('admin.entertainer.Talent.add');
 
 }
-    public function destroyTalent($id)
+    public function destroyTalent($user_id)
     {
 
-        EntertainerDetail::destroy($id);
+        EntertainerDetail::destroy($user_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Talent Deleted sucessfully']);
     }
-    public function editTalent($id)
+    public function editTalent($user_id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       )
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $talent=EntertainerDetail::find($id);
-        $talent['user_id'] = $id;
+        $talent=EntertainerDetail::find($user_id);
+        $talent['user_id'] = $user_id;
         return view('admin.entertainer.Talent.edit',compact('talent'));
     }
-    public function updateTalent(Request $request, $id)
+    public function updateTalent(Request $request, $user_id)
     {
         $validator=$request->validate([
             'title' => 'required',
@@ -200,7 +197,7 @@ class EntertainerController extends Controller
             // 'images'=>'required',
         ]);
 
-        $talent=EntertainerDetail::find($id);
+        $talent=EntertainerDetail::find($user_id);
         $talent->title=$request->input('title');
         $talent->category=$request->input('category');
         $talent->price=$request->input('price');
@@ -211,43 +208,43 @@ class EntertainerController extends Controller
     }
 
 
-    public function showPhoto($id)
+    public function showPhoto($entertainer_details_id)
     {
         //  Showing Entertainer Talent
-        $data['user_id']=EntertainerEventPhotos::where('entertainer_details_id',$id)->get();
+        $data['user_id']=EntertainerEventPhotos::where('entertainer_details_id',$entertainer_details_id)->get();
         // dd($data['user_id']);
-        $data['entertainer_details_id']=$id;
+        $data['entertainer_details_id']=$entertainer_details_id;
         return view('admin.entertainer.Talent.Photo.index',compact('data'));
 
     }
     //Photo
-    public function destroyPhoto($id)
+    public function destroyPhoto($entertainer_details_id)
     {
 
-        EntertainerEventPhotos::destroy($id);
+        EntertainerEventPhotos::destroy($entertainer_details_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Photo Deleted sucessfully']);
     }
-    public function editPhoto($id)
+    public function editPhoto($entertainer_details_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $photo=EntertainerEventPhotos::find($id);
-        $photo['entertainer_details_id'] = $id;
+        $photo=EntertainerEventPhotos::find($entertainer_details_id);
+        $photo['entertainer_details_id'] = $entertainer_details_id;
         return view('admin.entertainer.Talent.Photo.edit',compact('photo'));
     }
-    public function updatePhoto(Request $request, $id)
+    public function updatePhoto(Request $request, $entertainer_details_id)
     {
         $validator = $request->validate([
             'event_photos' => 'required',
             // 'description' => 'required',
             // 'images'=>'required',
         ]);
-        $photo = EntertainerEventPhotos::find($id);
+        $photo = EntertainerEventPhotos::find($entertainer_details_id);
         if ($request->hasfile('event_photos')) {
             $file = $request->file('event_photos');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename = time() . '.' . $extension;
-            $file->move(public_path('/'), $filename);
-            $photo->event_photos = 'public/' . $filename;
+            $file->move(public_path('admin/assets/img/entertainer/'), $filename);
+            $photo->event_photos = '' . $filename;
         }
         $photo->update();
         return redirect()->route('entertainer.photo.show',$photo->entertainer_details_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);

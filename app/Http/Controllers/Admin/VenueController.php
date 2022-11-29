@@ -134,13 +134,13 @@ class VenueController extends Controller
         return redirect()->back()->with(['status'=>true, 'message' => 'Venue Provider Deleted sucessfully']);
     }
 
-    public function createVenueIndex($id)
+    public function createVenueIndex($user_id)
     {
-        $data['user_id'] = $id;
+        $data['user_id'] = $user_id;
         $data['venue_categories']=VenueCategory::select('id','category')->get();
         return view('admin.venue_provider.venues.add',compact('data'));
     }
-    public function storeVenue(Request $request,$id)
+    public function storeVenue(Request $request,$user_id)
 
     {
         $validator = $request->validate([
@@ -154,14 +154,14 @@ class VenueController extends Controller
             'closing_time' =>'required'
         ]);
         $data = $request->only(['title','user_id', 'category', 'description','seats','stands','offer_cattering','epening_time','closing_time']);
-            $data['user_id'] = $id;
+            $data['user_id'] = $user_id;
             $user = Venue::create($data);
             if ($request->file('photos')) {
                 foreach ($request->file('photos') as $data) {
                     $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
-                    $data->move('public', $image);
+                    $data->move('public/admin/assets/img/venue', $image);
                     VenuesPhoto::create([
-                            'photos' => 'public/' . $image,
+                            'photos' => '' . $image,
                             'venue_id' => $user->id
                            ]);
                 }
@@ -169,21 +169,21 @@ class VenueController extends Controller
             return redirect()->route('venue.show',$user->user_id)->with(['status'=>true, 'message' => 'Venue Created sucessfully']);
         // return view('admin.entertainer.Talent.add');
     }
-    public function destroyVenue($id)
+    public function destroyVenue($user_id)
     {
-        $data=Venue::destroy($id);
+        $data=Venue::destroy($user_id);
         // return redirect()->route('admin.venue_provider.venues.index',$id)->with(['status'=>true, 'message' => 'Venue Deleted sucessfully']);
         return redirect()->back()->with(['status'=>true, 'message' => 'Venue Deleted sucessfully']);
     }
 
-    public function editVenue($id)
+    public function editVenue($user_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $venue=Venue::find($id);
-        $venue['user_id'] = $id;
+        $venue=Venue::find($user_id);
+        $venue['user_id'] = $user_id;
         return view('admin.venue_provider.venues.edit',compact('venue'));
     }
-    public function updateVenue(Request $request, $id)
+    public function updateVenue(Request $request, $user_id)
     {
         // dd($request->all());
         $validator = $request->validate([
@@ -196,7 +196,7 @@ class VenueController extends Controller
             // 'images'=>'required',
         ]);
 
-        $talent = Venue::find($id);
+        $talent = Venue::find($user_id);
         $talent->title=$request->input('title');
         $talent->category=$request->input('category');
         $talent->description=$request->input('description');
@@ -239,44 +239,44 @@ class VenueController extends Controller
         return redirect()->back()->with(['status'=>true, 'message' => 'Category Deleted sucessfully']);
     }
     //Photos
-    public function showPhoto($id)
+    public function showPhoto($venue_id)
     {
         //  Showing Entertainer Talent
-        $data['user_id']=VenuesPhoto::where('venue_id',$id)->get();
+        $data['user_id']=VenuesPhoto::where('venue_id',$venue_id)->get();
         // dd($data['user_id']);
-        $data['venue_id']=$id;
+        $data['venue_id']=$venue_id;
         return view('admin.venue_provider.venues.photo.index',compact('data'));
 
     }
     //Photo
-    public function destroyPhoto($id)
+    public function destroyPhoto($venue_id)
     {
 
-        VenuesPhoto::destroy($id);
+        VenuesPhoto::destroy($venue_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Photo Deleted sucessfully']);
     }
-    public function editPhoto($id)
+    public function editPhoto($venue_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $photo=VenuesPhoto::find($id);
-        $photo['venue_id'] = $id;
+        $photo=VenuesPhoto::find($venue_id);
+        $photo['venue_id'] = $venue_id;
         //dd( $photo['user_id']);
         return view('admin.venue_provider.venues.photo.edit',compact('photo'));
     }
-    public function updatePhoto(Request $request, $id)
+    public function updatePhoto(Request $request, $venue_id)
     {
         $validator = $request->validate([
             'photos' => 'required',
             // 'description' => 'required',
             // 'images'=>'required',
         ]);
-        $photo=VenuesPhoto::find($id);
+        $photo=VenuesPhoto::find($venue_id);
         if ($request->hasfile('photos')) {
             $file = $request->file('photos');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename = time() . '.' . $extension;
-            $file->move(public_path('/'), $filename);
-            $photo->photos = 'public/' . $filename;
+            $file->move(public_path('admin/assets/img/venue/'), $filename);
+            $photo->photos = '' . $filename;
         }
         $photo->update();
         return redirect()->route('venue-providers.venue.photo.show',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);

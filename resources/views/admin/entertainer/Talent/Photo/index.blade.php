@@ -22,18 +22,18 @@
                                 <table class="table" id="table_id_2">
                                     <thead>
                                         <tr>
-                                            <th>Sr.</th>
-                                            <th>Images</th>
+                                            <th class="text-center">Sr.</th>
+                                            <th class="text-center">Images</th>
 
-                                            <th scope="col">Action</th>
+                                            <th scope="col" class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                      @foreach($data['user_id'] as $photo)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td><img src="{{ asset('') . '/' . $photo->event_photos }}" alt="" height="50" width="50" class="image">
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center"><img src="{{ asset('public/admin/assets/img/entertainer') . '/' . $photo->event_photos }}" alt="" height="50" width="50" class="image">
                                                 </td>
 
                                                 <td

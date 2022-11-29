@@ -40,7 +40,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('profile', [AdminController::class, 'getProfile']);
     Route::post('update-profile', [AdminController::class, 'update_profile']);
     Route::post('update-password', [AdminController::class, 'profile_change_password'])->name('profile.change-password');
-// <<<<<<< Updated upstream
+
     Route::get('privacy-policy-edit',[SecurityController::class,'PrivacyPolicyEdit']);
     Route::post('privacy-policy-update',[SecurityController::class,'PrivacyPolicyUpdate']);
     Route::get('term-condition',[SecurityController::class,'TermCondition']);
@@ -62,15 +62,17 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/recruiter/event/venues/event-id-{event_id}',[RecruiterController::class, 'eventVenuesIndex'])->name('recruiter.event_venues.index');
 //Entertainer
      Route::resource('entertainer', EntertainerController::class);
-     Route::get('/entertainer/talent/add/{id}',[EntertainerController::class,'createTalentIndex'])->name('entertainer.talent.add');
-     Route::post('/entertainer/talent/store/{id}',[EntertainerController::class,'storeTalent'])->name('entertainer.talent.store');
-     Route::get('/entertainer/talent/delete/{id}',[EntertainerController::class,'destroyTalent'])->name('entertainer.talent.delete');
-     Route::get('/entertainer/talent/edit/{id}',[EntertainerController::class,'editTalent'])->name('entertainer.talent.edit');
-     Route::post('/entertainer/talent/update/{id}',[EntertainerController::class,'updateTalent'])->name('entertainer.talent.update');
-     Route::get('/entertainer/talent/photo/{id}',[EntertainerController::class,'showPhoto'])->name('entertainer.photo.show');
-     Route::get('/entertainer/talent/photo/delete/{id}',[EntertainerController::class,'destroyPhoto'])->name('entertainer.talent.photo.delete');
-     Route::get('/entertainer/talent/photo/edit/{id}',[EntertainerController::class,'editPhoto'])->name('entertainer.photo.edit');
-     Route::post('/entertainer/talent/photo/update/{id}',[EntertainerController::class,'updatePhoto'])->name('entertainer.photo.update');
+     Route::get('/entertainer/talent/add/{user_id}',[EntertainerController::class,'createTalentIndex'])->name('entertainer.talent.add');
+     Route::post('/entertainer/talent/store/{user_id}',[EntertainerController::class,'storeTalent'])->name('entertainer.talent.store');
+     Route::get('/entertainer/talent/delete/{user_id}',[EntertainerController::class,'destroyTalent'])->name('entertainer.talent.delete');
+     Route::get('/entertainer/talent/edit/{user_id}',[EntertainerController::class,'editTalent'])->name('entertainer.talent.edit');
+     Route::post('/entertainer/talent/update/{user_id}',[EntertainerController::class,'updateTalent'])->name('entertainer.talent.update');
+
+     Route::get('/entertainer/talent/photo/{entertainer_details_id}',[EntertainerController::class,'showPhoto'])->name('entertainer.photo.show');
+     Route::get('/entertainer/talent/photo/delete/{entertainer_details_id}',[EntertainerController::class,'destroyPhoto'])->name('entertainer.talent.photo.delete');
+     Route::get('/entertainer/talent/photo/edit/{entertainer_details_id}',[EntertainerController::class,'editPhoto'])->name('entertainer.photo.edit');
+     Route::post('/entertainer/talent/photo/update/{entertainer_details_id}',[EntertainerController::class,'updatePhoto'])->name('entertainer.photo.update');
+
      Route::get('/entertainer/talent/categories/',[EntertainerController::class,'talentCategoriesIndex'])->name('entertainer.talent.categories.index');
      Route::post('/entertainer/talent/category/',[EntertainerController::class,'talentCategoryStore'])->name('entertainer.talent.category.store');
      Route::get('/entertainer/talent/category/edit/{category_id}',[EntertainerController::class,'talentCategoryEditIndex'])->name('entertainer.talent.category.edit.index');
@@ -80,11 +82,11 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
      //Venue
      Route::resource('venue', VenueController::class);
-     Route::get('/venue-providers/venue/add/{id}',[VenueController::class,'createVenueIndex'])->name('venue-providers.venue.add');
-     Route::post('/venue-providers/venue/store/{id}',[VenueController::class,'storeVenue'])->name('venue-providers.venue.store');
-     Route::get('/venue-providers/venue/delete/{id}',[VenueController::class,'destroyVenue'])->name('venue-providers.venue.delete');
-     Route::get('/venue-providers/venue/edit/{id}',[VenueController::class,'editVenue'])->name('venue-providers.venue.edit');
-     Route::post('/venue-providers/venue/update/{id}',[VenueController::class,'updateVenue'])->name('venue-providers.venue.update');
+     Route::get('/venue-providers/venue/add/{user_id}',[VenueController::class,'createVenueIndex'])->name('venue-providers.venue.add');
+     Route::post('/venue-providers/venue/store/{user_id}',[VenueController::class,'storeVenue'])->name('venue-providers.venue.store');
+     Route::get('/venue-providers/venue/delete/{user_id}',[VenueController::class,'destroyVenue'])->name('venue-providers.venue.delete');
+     Route::get('/venue-providers/venue/edit/{user_id}',[VenueController::class,'editVenue'])->name('venue-providers.venue.edit');
+     Route::post('/venue-providers/venue/update/{user_id}',[VenueController::class,'updateVenue'])->name('venue-providers.venue.update');
 
      Route::get('/venue-providers/venue/categories/',[VenueController::class,'venueCategoriesIndex'])->name('venue-providers.venue.categories.index');
      Route::post('/venue-providers/venue/category/',[VenueController::class,'venueCategoryStore'])->name('venue-providers.venue.category.store');
@@ -92,10 +94,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::post('/venue-providers/venue/category/update/{category_id}',[VenueController::class,'updateVenueCategory'])->name('venue-providers.venue.category.update');
      Route::delete('/venue-providers/venue/category/delete/{category_id}',[VenueController::class,'destroyVenueCategory'])->name('venue-providers.venue.category.delete');
 
-     Route::get('/venue-providers/venue/photo/{id}',[VenueController::class,'showPhoto'])->name('venue-providers.venue.photo.show');
-     Route::get('/venue-providers/venue/photo/delete/{id}',[VenueController::class,'destroyPhoto'])->name('venue-providers.venue.photo.delete');
-     Route::get('/venue-providers/venue/photo/edit/{id}',[VenueController::class,'editPhoto'])->name('venue-providers.venue.photo.edit');
-     Route::post('/venue-providers/venue/photo/update/{id}',[VenueController::class,'updatePhoto'])->name('venue-providers.venue.photo.update');
+     Route::get('/venue-providers/venue/photo/{venue_id}',[VenueController::class,'showPhoto'])->name('venue-providers.venue.photo.show');
+     Route::get('/venue-providers/venue/photo/delete/{venue_id}',[VenueController::class,'destroyPhoto'])->name('venue-providers.venue.photo.delete');
+     Route::get('/venue-providers/venue/photo/edit/{venue_id}',[VenueController::class,'editPhoto'])->name('venue-providers.venue.photo.edit');
+     Route::post('/venue-providers/venue/photo/update/{venue_id}',[VenueController::class,'updatePhoto'])->name('venue-providers.venue.photo.update');
 
 
  //introVideo

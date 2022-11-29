@@ -33,7 +33,7 @@
                                      @foreach($data['user_id'] as $photo)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center"><img src="{{ asset('') . '/' . $photo->photos }}" alt="" height="50" width="50" class="image">
+                                                <td class="text-center"><img src="{{ asset('public/admin/assets/img/venue') . '/' . $photo->photos }}" alt="" height="50" width="50" class="image">
                                                 </td>
 
                                                 <td
