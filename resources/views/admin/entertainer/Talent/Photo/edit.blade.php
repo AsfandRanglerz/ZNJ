@@ -16,7 +16,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Choose Images</label>
-                                                <input type="file" placeholder="example" name="event_photos[]" id="images" Value="{{ $photo['event_photos'] }}" class="form-control" multiple="multiple">
+                                                <input type="file" placeholder="example" name="event_photos" id="event_photos" Value="{{ $photo['event_photos'] }}" class="form-control" multiple="multiple">
                                                 @error('images')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

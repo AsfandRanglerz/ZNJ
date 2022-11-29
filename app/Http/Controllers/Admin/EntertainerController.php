@@ -236,26 +236,22 @@ class EntertainerController extends Controller
     }
     public function updatePhoto(Request $request, $id)
     {
-        // $validator = $request->validate([
-        //     'event_photos' => 'required',
-        //     // 'description' => 'required',
-        //     // 'images'=>'required',
-        // ]);
-        // $photo = EntertainerEventPhotos::find($id);
-        // if($request->hasfile('event_photos')){
-        //     $destination='public/'.$photo->event_photos;
-        //     if(File::exists($destination))
-        //     {
-        //         File::delete($destination);
-        //     }
-        // $file = $request->file('event_photos');
-        // $extension=$file->getClientOriginalExtension();
-        // $filename=time().'.'.$extension;
-        // $file->move('',$filename);
-        // $photo->event_photos=$filename;
-        // }
-        // $photo->update();
-        // return redirect()->route('entertainer.photo.show',$photo->entertainer_details_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
+        $validator = $request->validate([
+            'event_photos' => 'required',
+            // 'description' => 'required',
+            // 'images'=>'required',
+        ]);
+        $photo = EntertainerEventPhotos::find($id);
+        if ($request->hasfile('event_photos')) {
+            $file = $request->file('event_photos');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('/'), $filename);
+            $photo->event_photos = 'public/' . $filename;
+        }
+        $photo->update();
+        return redirect()->route('entertainer.photo.show',$photo->entertainer_details_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
+
 }
 /**
      * Talent Categories
