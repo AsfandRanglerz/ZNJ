@@ -58,7 +58,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Seats</label>
-                                                <input type="text" placeholder="example" name="seats" id="seats"  class="form-control"
+                                                <input type="number" placeholder="example" name="seats" id="seats"  class="form-control"
                                                     >
                                                 @error('seats')
                                                     <div class="text-danger">{{ $message }}</div>

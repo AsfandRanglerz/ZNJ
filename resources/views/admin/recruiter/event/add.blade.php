@@ -5,6 +5,8 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-2"
+                    href="{{route('recruiter.show',$data['user_id'])}}">Back</a>
 
                     <form id="add_student" action="{{ route('recruiter.event.store',$data['user_id']) }}" method="POST" enctype="multipart/form-data">
 
@@ -12,7 +14,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
                                 <div class="card">
-                                    <h4 class="text-center my-4">Edit Event</h4>
+                                    <h4 class="text-center my-4">Add Event</h4>
                                     <div class="row mx-0 px-4">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
@@ -52,7 +54,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">PKR</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
 
                                                 </div>
                                                 @error('price')
@@ -124,9 +126,11 @@
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
-                                                <label>Seats</label>
-                                                <input type="text" name="seats" id="seats"  class="form-control"
-                                                placeholder="example" >
+                                            <div>
+                                                <label for="seats">Seats</label>
+                                                <input type="number" name="seats" id="seats"
+                                             class="form-control" placeholder="example">
+                                            </div>
                                                 @error('seats')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -211,7 +215,7 @@
                                     <div class="card-footer text-center row">
                                         <div class="col">
                                             <button type="submit" class="btn btn-success mr-1 btn-bg"
-                                                id="submit">Update</button>
+                                                id="submit">Add</button>
                                         </div>
                                     </div>
                                 </div>

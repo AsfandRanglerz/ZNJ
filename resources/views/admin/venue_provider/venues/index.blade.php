@@ -17,6 +17,8 @@
                                 </div>
                             </div>
                             <div class="card-body table-striped table-bordered table-responsive">
+                                <a class="btn btn-primary mb-3"
+                                href="{{route('admin.user.index')}}">Back</a>
                                 <a class="btn btn-success mb-3"
                                        href="{{route('venue-providers.venue.add',$data['user_id'])}}">Add Venue</a>
                                 <table class="table" id="table_id_venue">

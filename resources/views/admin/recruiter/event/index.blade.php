@@ -19,6 +19,8 @@
                             </div>
                             {{-- @dd($data) --}}
                             <div class="card-body table-striped table-bordered table-responsive">
+                                <a class="btn btn-primary mb-3"
+                                href="{{route('admin.user.index')}}">Back</a>
                                 <a class="btn btn-success mb-3"
                                        href="{{route('recruiter.event.add.index',$data['user_id'])}}">Add Event</a>
                                 <table class="table" id="table_id_events">
@@ -70,13 +72,13 @@
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-success"
-                                               href="{{route('recruiter.event_entertainers.index', $event->id)}}">Entertainer</a>
+                                               href="{{route('recruiter.event_entertainers.index',['user_id'=>$data['user_id'],'event_id'=>$event->id])}}">Entertainer</a>
                                                <a class="btn btn-primary"
-                                               href="{{route('recruiter.event_venues.index', $event->id)}}">Venue</a>
+                                               href="{{route('recruiter.event_venues.index', ['user_id'=>$data['user_id'],'event_id'=>$event->id])}}">Venue</a>
 
                                                 <a class="btn btn-info"
-                                               href="{{route('recruiter.event.edit.index', $event->id)}}">Edit</a>
-                                                        <form method="POST" action="{{ route('entertainer.destroy', $event->id) }}">
+                                               href="{{route('recruiter.event.edit.index', ['user_id'=>$data['user_id'],'event_id'=>$event->id])}}">Edit</a>
+                                                        <form method="get" action="{{ route('recruiter.event.delete', $event->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>

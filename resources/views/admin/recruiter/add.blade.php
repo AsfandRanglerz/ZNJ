@@ -47,7 +47,7 @@
                                             <div class="form-group mb-2">
                                                 <label>Company</label>
                                                 <input type="text" name="company"                                                                          " id="phone"  class="form-control"
-                                                placeholder="expamle" >
+                                                placeholder="example" >
                                                 @error('company')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -57,7 +57,7 @@
                                             <div class="form-group mb-2">
                                                 <label>Designation</label>
                                                 <input type="text" name="designation"                                                                          " id="phone"  class="form-control"
-                                                placeholder="expamle" >
+                                                placeholder="example" >
                                                 @error('designation')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

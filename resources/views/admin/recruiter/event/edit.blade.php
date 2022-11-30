@@ -5,6 +5,8 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-2"
+                    href="{{route('recruiter.show',$data['user_id'])}}">Back</a>
 
                     <form id="add_student" action="{{ route('recruiter.event.update',$data['recruiter_event']['id']) }}" method="POST" enctype="multipart/form-data">
 
@@ -52,7 +54,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">PKR</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Price" aria-label="Price" value="{{ $data['recruiter_event']['price'] }}" name="price" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" value="{{ $data['recruiter_event']['price'] }}" name="price" aria-describedby="basic-addon2">
                                                     @error('price')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -168,7 +170,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Seats</label>
-                                                <input type="text" name="seats" id="seats" Value="{{ $data['recruiter_event']['seats'] }}" class="form-control"
+                                                <input type="number" name="seats" id="seats" Value="{{ $data['recruiter_event']['seats'] }}" class="form-control"
                                                 placeholder="example" >
                                                 @error('seats')
                                                     <div class="text-danger">{{ $message }}</div>

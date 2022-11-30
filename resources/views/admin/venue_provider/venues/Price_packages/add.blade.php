@@ -15,19 +15,20 @@
                                     <div class="row mx-0 px-4">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group">
+                                                <label>Price Package</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">PKR</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
                                                 </div>
-                                                @error('price')
+                                                @error('price_package')
                                                     <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group">
+                                            <div class="form-group  mb-2">
                                                 <label>Day</label>
                                                 <select name="day"  class="form-control">
                                                     <option value="">Please Select a Category </option>
@@ -71,3 +72,6 @@
 @endif
 
 @endsection
+
+
+

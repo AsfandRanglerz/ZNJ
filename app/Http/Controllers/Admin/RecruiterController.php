@@ -12,6 +12,8 @@ use App\Models\Event;
 use App\Models\EntertainerDetail;
 use App\Mail\UserLoginPassword;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+
 
 class RecruiterController extends Controller
 {
@@ -131,12 +133,18 @@ class RecruiterController extends Controller
         User::destroy($id);
         return redirect()->back()->with(['status' => true, 'message' => 'Recruiter Deleted sucessfully']);
     }
-    public function editEventIndex($event_id)
+    public function destroyEvent($event_id)
+    {
+        $data=Event::destroy($event_id);
+        // dd($data);
+        return redirect()->back()->with(['status' => true, 'message' => 'Event Deleted sucessfully']);
+    }
+    public function editEventIndex($user_id, $event_id)
     {
         // dd($user_id,$event_id);
         $data['recruiter_event'] = Event::find($event_id);
         // $data['user_id'] = $id;
-
+        $data['user_id']= $user_id;
         return view('admin.recruiter.event.edit', compact('data'));
     }
     public function updateEvent(Request $request, $event_id)
@@ -196,13 +204,15 @@ class RecruiterController extends Controller
         Event::create($data);
         return redirect()->route('recruiter.show',$user_id)->with(['status' => true, 'message' => 'Event Added successfully']);
     }
-    public function eventEntertainersIndex($event_id){
+    public function eventEntertainersIndex($user_id,$event_id){
        $data['event_entertainers']= Event::find($event_id)->entertainerDetails;
+       $data['user_id']= $user_id;
     //   dd($data['event_entertainers']);
         return view('admin.recruiter.event.event_entertainers',compact('data'));
     }
-    public function eventVenuesIndex($event_id){
+    public function eventVenuesIndex($user_id,$event_id){
         $data['event_venues']= Event::find($event_id)->eventVenues;
+        $data['user_id']= $user_id;
          return view('admin.recruiter.event.event_venues',compact('data'));
      }
 

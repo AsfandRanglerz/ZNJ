@@ -5,6 +5,8 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-3"
+                    href="{{route('admin.user.index')}}">Back</a>
                     <form id="add_student" action="{{ route('venue.store') }}" method="POST" enctype="multipart/form-data">
 
                         @csrf

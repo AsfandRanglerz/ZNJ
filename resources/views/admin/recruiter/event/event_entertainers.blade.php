@@ -19,6 +19,8 @@
                             </div>
                             {{-- @dd($data) --}}
                             <div class="card-body table-striped table-bordered table-responsive">
+                                <a class="btn btn-primary mb-2"
+                                  href="{{route('recruiter.show',$data['user_id'])}}">Back</a>
                                 {{-- <a class="btn btn-success mb-3"
                                        href="{{route('entertainer.talent.add',$data['user_id'])}}">Add Talent</a> --}}
                                 <table class="table" id="table_id_event_entertainers">

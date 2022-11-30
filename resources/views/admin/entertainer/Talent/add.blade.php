@@ -5,6 +5,8 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-2"
+                    href="{{route('entertainer.show',$data['user_id'])}}">Back</a>
                     {{-- @dd($data) --}}
                     <form id="add_student" action="{{ route('entertainer.talent.store',$data['user_id']) }}" method="POST" enctype="multipart/form-data">
 
@@ -50,7 +52,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">PKR</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
                                                 </div>
                                                 @error('price')
                                                     <div class="text-danger">{{ $message }}</div>

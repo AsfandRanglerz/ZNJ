@@ -53,12 +53,13 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('recruiter', RecruiterController::class)->parameters([
         'recruiter' => 'user_id'
     ]);
-    Route::get('/recruiter/event/edit/event-id-{event_id}', [RecruiterController::class, 'editEventIndex'])->name('recruiter.event.edit.index');
+    Route::get('/recruiter/event/edit/{user_id}/event-id-{event_id}', [RecruiterController::class, 'editEventIndex'])->name('recruiter.event.edit.index');
     Route::post('/recruiter/event/update/event-id-{event_id}', [RecruiterController::class, 'updateEvent'])->name('recruiter.event.update');
+    Route::get('/recruiter/event/delete/event-id-{event_id}',[RecruiterController::class,'destroyEvent'])->name('recruiter.event.delete');
     Route::get('/recruiter/event/add/user-id-{event_id}', [RecruiterController::class, 'createEventIndex'])->name('recruiter.event.add.index');
     Route::post('/recruiter/event/add/user-id-{user_id}',[RecruiterController::class, 'storeEvent'])->name('recruiter.event.store');
-    Route::get('/recruiter/event/entertainers/event-id-{event_id}',[RecruiterController::class, 'eventEntertainersIndex'])->name('recruiter.event_entertainers.index');
-    Route::get('/recruiter/event/venues/event-id-{event_id}',[RecruiterController::class, 'eventVenuesIndex'])->name('recruiter.event_venues.index');
+    Route::get('/recruiter/event/entertainers/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventEntertainersIndex'])->name('recruiter.event_entertainers.index');
+    Route::get('/recruiter/event/venues/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventVenuesIndex'])->name('recruiter.event_venues.index');
 //Entertainer
      Route::resource('entertainer', EntertainerController::class);
      Route::get('/entertainer/talent/add/{user_id}',[EntertainerController::class,'createTalentIndex'])->name('entertainer.talent.add');
