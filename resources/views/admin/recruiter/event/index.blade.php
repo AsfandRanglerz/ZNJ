@@ -58,9 +58,9 @@
                                                 <td>{{ $event->price }}</td>
                                                 <td>{{ $event->date }}</td>
                                                 @if( explode(':',$event->from)[0]>=12)
-                                                <td>{{ $venue->$event->from }} PM</td>
+                                                <td>{{ $event->from }} PM</td>
                                                 @else
-                                                 <td>{{ $venue->$event->from }} AM</td>
+                                                 <td>{{ $event->from }} AM</td>
                                                 @endif
                                                 @if( explode(':',$event->to)[0]>=12)
                                                 <td>{{ $event->to }} PM</td>

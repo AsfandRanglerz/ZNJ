@@ -325,6 +325,5 @@ class EntertainerController extends Controller
     public function destroyPricePackage($price_package_id){
         EntertainerPricePackage::where('id',$price_package_id)->delete();
         return redirect()->back()->with(['status'=>true, 'message' => 'Price Package Deleted Sucessfully']);
-
     }
 }
