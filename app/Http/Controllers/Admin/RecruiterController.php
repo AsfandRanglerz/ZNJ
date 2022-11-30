@@ -110,7 +110,6 @@ class RecruiterController extends Controller
 
         ]);
         $recruiter = User::find($user_id);
-
         $recruiter->name   = $request->input('name');
         $recruiter->email  = $request->input('email');
         $recruiter->phone  = $request->input('phone');
@@ -178,7 +177,6 @@ class RecruiterController extends Controller
     }
     public function storeEvent(Request $request,$user_id){
         $request->validate([
-
             'title' => 'required',
             // 'cover_image' => 'required',
             // 'location' => 'required',
@@ -197,7 +195,6 @@ class RecruiterController extends Controller
         $data['user_id']=$user_id;
         Event::create($data);
         return redirect()->route('recruiter.show',$user_id)->with(['status' => true, 'message' => 'Event Added successfully']);
-
     }
     public function eventEntertainersIndex($event_id){
        $data['event_entertainers']= Event::find($event_id)->entertainerDetails;

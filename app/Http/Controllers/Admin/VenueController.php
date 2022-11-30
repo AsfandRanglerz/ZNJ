@@ -13,6 +13,7 @@ use App\Mail\UserLoginPassword;
 use App\Models\VenueCategory;
 use App\Models\VenuePricing;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
 
 
@@ -55,7 +56,7 @@ class VenueController extends Controller
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
         ]);
-        $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
+        $data = $request->only(['name', 'email', 'role', 'phone']);
             $data['role'] = 'venue';
             $messages['password'] = random_int(10000000, 99999999);
             $messages['email'] = $request->email;
@@ -151,10 +152,10 @@ class VenueController extends Controller
             'seats' => 'required',
             'stands' => 'required',
             'offer_cattering' => 'required',
-            'epening_time' =>'required',
+            'opening_time' =>'required',
             'closing_time' =>'required'
         ]);
-        $data = $request->only(['title','user_id', 'category', 'description','seats','stands','offer_cattering','epening_time','closing_time']);
+        $data = $request->only(['title','user_id', 'category', 'description','seats','stands','offer_cattering','opening_time','closing_time']);
             $data['user_id'] = $user_id;
             $user = Venue::create($data);
             if ($request->file('photos')) {
@@ -192,9 +193,10 @@ class VenueController extends Controller
             'category' => 'required',
             'description' => 'required',
             'seats' => 'required',
-            'stands' => 'required'
-            // 'description' => 'required',
-            // 'images'=>'required',
+            'stands' => 'required',
+            'opening_time' => 'required',
+            'closing_time'=>'required',
+            'offer_cattering'=>'required'
         ]);
 
         $talent = Venue::find($user_id);
@@ -203,7 +205,7 @@ class VenueController extends Controller
         $talent->description=$request->input('description');
         $talent->seats=$request->input('seats');
         $talent->stands=$request->input('stands');
-        $talent->epening_time=$request->input('epening_time');
+        $talent->opening_time=$request->input('opening_time');
         $talent->closing_time=$request->input('closing_time');
         $talent->offer_cattering=$request->input('offer_cattering');
         $talent->update();
@@ -247,7 +249,6 @@ class VenueController extends Controller
         // dd($data['user_id']);
         $data['venue_id']=$venue_id;
         return view('admin.venue_provider.venues.photo.index',compact('data'));
-
     }
     //Photo
     public function destroyPhoto($venue_id)

@@ -63,9 +63,9 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Opening Time</label>
-                                                <input type="time" name="epening time" id="opening_time"
-                                                    Value="{{ $venue['epening_time'] }}" class="form-control">
-                                                @error('epening_time')
+                                                <input type="time" name="opening time" id="opening_time"
+                                                    Value="{{ $venue['opening_time'] }}" class="form-control">
+                                                @error('opening_time')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>

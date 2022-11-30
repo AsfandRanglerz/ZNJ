@@ -55,8 +55,16 @@
                                                 <td>{{ $event->seats }}</td>
                                                 <td>{{ $event->price }}</td>
                                                 <td>{{ $event->date }}</td>
-                                                <td>{{ $event->from }}</td>
-                                                <td>{{ $event->to }}</td>
+                                                @if( explode(':',$event->from)[0]>=12)
+                                                <td>{{ $venue->$event->from }} PM</td>
+                                                @else
+                                                 <td>{{ $venue->$event->from }} AM</td>
+                                                @endif
+                                                @if( explode(':',$event->to)[0]>=12)
+                                                <td>{{ $event->to }} PM</td>
+                                                @else
+                                                 <td>{{ $event->to }} AM</td>
+                                                @endif
                                                <td>{{ $event->created_at }}</td>
 
                                                 <td

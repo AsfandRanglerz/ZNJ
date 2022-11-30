@@ -51,10 +51,10 @@ class EntertainerController extends Controller
             'name'=>'required',
             'email'=>'required|unique:users,email|email',
             'phone'=>'required',
-            'password'=>'required|confirmed',
-            'password_confirmation'=>'required'
+            // 'password'=>'required|confirmed',
+            // 'password_confirmation'=>'required'
         ]);
-        $data = $request->only(['name', 'email', 'role', 'phone', 'password']);
+        $data = $request->only(['name', 'email', 'role', 'phone']);
             $data['role'] = 'entertainer';
             $messages['password'] = random_int(10000000, 99999999);
             $messages['email'] = $request->email;

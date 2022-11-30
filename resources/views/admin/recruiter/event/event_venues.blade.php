@@ -47,8 +47,16 @@
                                                 <td>{{ $venue->seats }}</td>
                                                 <td>{{ $venue->stands }}</td>
                                                 <td>{{ $venue->offer_cattering }}</td>
-                                                <td>{{ $venue->epening_time }}</td>
-                                                <td>{{ $venue->closing_time }}</td>
+                                                @if( explode(':',$venue->opening_time)[0]>=12)
+                                                <td>{{ $venue->opening_time }} PM</td>
+                                                @else
+                                                 <td>{{ $venue->opening_time }} AM</td>
+                                                @endif
+                                                @if( explode(':',$venue->closing_time)[0]>=12)
+                                                <td>{{ $venue->closing_time }} PM</td>
+                                                @else
+                                                 <td>{{ $venue->closing_time }} AM</td>
+                                                @endif
                                                <td>{{ $venue->created_at }}</td>
                                             </tr>
                                                 {{-- <td
