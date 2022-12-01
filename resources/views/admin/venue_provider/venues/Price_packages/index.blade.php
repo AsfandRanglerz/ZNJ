@@ -13,7 +13,6 @@
                             <div class="card-header">
                                 <div class="col-12">
                                     <h4>Venue Price Packages</h4>
-
                                 </div>
                             </div>
                             <div class="card-body table-striped table-bordered table-responsive">
