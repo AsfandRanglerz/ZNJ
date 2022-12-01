@@ -76,12 +76,12 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
          //  Showing Entertainer Talent
 
-         $data['venue']= Venue::where('user_id',$id)->latest()->get() ;
-         $data['user_id']=$id;
+         $data['venue']= Venue::where('user_id',$user_id)->latest()->get() ;
+         $data['user_id']=$user_id;
          return view('admin.venue_provider.venues.index',compact('data'));
 
     }
@@ -92,9 +92,9 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id)
     {
-        $venue=User::find($id);
+        $venue=User::find($user_id);
         return view('admin.venue_provider.edit',compact('venue'));
     }
 
@@ -105,7 +105,7 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
            $request->validate([
         'name' => 'required',
@@ -113,7 +113,7 @@ class VenueController extends Controller
         'phone' => 'required',
 
     ]);
-        $recruiter=User::find($id);
+        $recruiter=User::find($user_id);
 
         $recruiter->name=$request->input('name');
         $recruiter->email=$request->input('email');
@@ -130,9 +130,9 @@ class VenueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user_id)
     {
-        User::destroy($id);
+        User::destroy($user_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Venue Provider Deleted sucessfully']);
     }
 
