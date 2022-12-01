@@ -17,8 +17,8 @@
                                 </div>
                             </div>
                             <div class="card-body table-striped table-bordered table-responsive">
-                                <a class="btn btn-primary mb-3"
-                                href="{{route('entertainer.show',$data['user_id'])}}">Back</a>
+                                {{-- <a class="btn btn-primary mb-3"
+                                href="{{route('entertainer.show',$data['user_id'])}}">Back</a> --}}
                                 <a class="btn btn-success mb-3"
                                 href="{{route('entertainer.talent.price_packages.add',$data['entertainer_details_id'])}}">Add Price Package</a>
                                 <table class="table" id="table_talent_price">

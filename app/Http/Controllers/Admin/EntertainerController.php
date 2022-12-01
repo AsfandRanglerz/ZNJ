@@ -288,10 +288,10 @@ class EntertainerController extends Controller
         TalentCategory::destroy($category_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Category Deleted sucessfully']);
     }
-    public function pricePackagesIndex($user_id,$entertainer_details_id){
+    public function pricePackagesIndex($entertainer_details_id){
         $data['price_packages']=EntertainerPricePackage::where('entertainer_details_id',$entertainer_details_id)->latest()->get();
         $data['entertainer_details_id']=$entertainer_details_id;
-        $data['user_id']= $user_id;
+        // $data['user_id']= $user_id;
         return view('admin.entertainer.Talent.Price_packages.index',compact('data'));
     }
     public function createPricePackageIndex($entertainer_details_id){
