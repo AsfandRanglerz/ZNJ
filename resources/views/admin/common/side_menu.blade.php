@@ -49,7 +49,7 @@
                 <a  href="{{url('/admin/pages/intro-video')}}" class="nav-link"> <i class="fa fa-play-circle-o"></i><span> Introduction Video</span></a>
             </li>
             <li class="dropdown {{ (request()->is('admin/feature-ads-packages*')) ? 'active' : '' }}">
-                <a  href="{{url('/admin/feature-ads-packages')}}" class="nav-link"> <i class="fa fa-gift"></i><span>Feature Ads Packages</span></a>
+                <a  href="{{url('/admin/feature-ads-packages')}}" class="nav-link"> <i class="fa fa-gift"></i><span>Feature Ads</span></a>
             </li>
 
             {{-- <li class="dropdown">

@@ -292,6 +292,7 @@ public function pricePackagesIndex($user_id, $venue_id){
     return view('admin.venue_provider.venues.Price_packages.index',compact('data'));
 }
 public function createPricePackageIndex($venue_id){
+    dd($venue_id);
     $data['venue_id']=$venue_id;
     return view('admin.venue_provider.venues.Price_packages.add',compact('data'));
 }
