@@ -78,10 +78,10 @@ class EntertainerController extends Controller
      */
 
     /** */
-    public function show($id)
+    public function show($user_id)
     {
-        $data['entertainer']=EntertainerDetail::where('user_id',$id)->get();
-        $data['user_id']=$id;
+        $data['entertainer']=EntertainerDetail::where('user_id',$user_id)->latest()->get();
+        $data['user_id']=$user_id;
         return view('admin.entertainer.Talent.index',compact('data'));
 
     }
@@ -92,9 +92,9 @@ class EntertainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id)
     {
-        $entertainer=User::find($id);
+        $entertainer=User::find($user_id);
         return view('admin.entertainer.edit',compact('entertainer'));
     }
 
@@ -105,7 +105,7 @@ class EntertainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
         $request->validate([
             'name'=>'required',
@@ -114,7 +114,7 @@ class EntertainerController extends Controller
 
         ]);
 
-        $entertainer=User::find($id);
+        $entertainer=User::find($user_id);
 
         $entertainer->name=$request->input('name');
         $entertainer->email=$request->input('email');
@@ -130,10 +130,10 @@ class EntertainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user_id)
     {
 
-        User::destroy($id);
+        User::destroy($user_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Entertainer Deleted sucessfully']);
     }
 
@@ -182,12 +182,13 @@ class EntertainerController extends Controller
         EntertainerDetail::destroy($user_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Talent Deleted sucessfully']);
     }
-    public function editTalent($user_id)
+    public function editTalent($user_id, $entertainer_details_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $talent=EntertainerDetail::find($user_id);
-        $talent['user_id'] = $user_id;
-        return view('admin.entertainer.Talent.edit',compact('talent'));
+        $data['entertainer_talent']=EntertainerDetail::find($entertainer_details_id);
+        // $data['user_id'] = $entertainer_details_id;
+        $data['user_id'] = $user_id;
+        return view('admin.entertainer.Talent.edit',compact('data'));
     }
     public function updateTalent(Request $request, $user_id)
     {
@@ -213,7 +214,7 @@ class EntertainerController extends Controller
     public function showPhoto($entertainer_details_id)
     {
         //  Showing Entertainer Talent
-        $data['user_id']=EntertainerEventPhotos::where('entertainer_details_id',$entertainer_details_id)->get();
+        $data['user_id']=EntertainerEventPhotos::where('entertainer_details_id',$entertainer_details_id)->latest()->get();
         // dd($data['user_id']);
         $data['entertainer_details_id']=$entertainer_details_id;
         return view('admin.entertainer.Talent.Photo.index',compact('data'));
@@ -259,7 +260,7 @@ class EntertainerController extends Controller
      *
      */
     public function talentCategoriesIndex(){
-        $data= TalentCategory::select('id','category')->get();
+        $data= TalentCategory::select('id','category')->latest()->get();
         return view('admin.Categories.Talent.index',compact('data'));
     }
     public function talentCategoryStore(Request $request){
@@ -287,9 +288,10 @@ class EntertainerController extends Controller
         TalentCategory::destroy($category_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Category Deleted sucessfully']);
     }
-    public function pricePackagesIndex($entertainer_details_id){
-        $data['price_packages']=EntertainerPricePackage::where('entertainer_details_id',$entertainer_details_id)->get();
+    public function pricePackagesIndex($user_id,$entertainer_details_id){
+        $data['price_packages']=EntertainerPricePackage::where('entertainer_details_id',$entertainer_details_id)->latest()->get();
         $data['entertainer_details_id']=$entertainer_details_id;
+        $data['user_id']= $user_id;
         return view('admin.entertainer.Talent.Price_packages.index',compact('data'));
     }
     public function createPricePackageIndex($entertainer_details_id){

@@ -5,11 +5,11 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
-                    
-                    {{-- <a class="btn btn-primary mb-2"
-                    href="{{route('entertainer.show',$talent['user_id'])}}">Back</a> --}}
+
+                    <a class="btn btn-primary mb-2"
+                    href="{{route('entertainer.show',$data['user_id'])}}">Back</a>
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('entertainer.talent.update',$talent['user_id']) }}" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('entertainer.talent.update',$data['entertainer_talent']['id']) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
@@ -20,7 +20,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
-                                                <input type="text" placeholder="example" name="title" id="title" Value="{{ $talent['title'] }}" class="form-control">
+                                                <input type="text" placeholder="example" name="title" id="title" Value="{{ $data['entertainer_talent']['title'] }}" class="form-control">
                                                 @error('title')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -29,7 +29,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
                                                 <label>Category</label>
-                                                <input type="text" placeholder="example" name="category" id="category" Value="{{ $talent['category'] }}" class="form-control" />
+                                                <input type="text" placeholder="example" name="category" id="category" Value="{{ $data['entertainer_talent']['category'] }}" class="form-control" />
                                             </div>
                                             @error('category')
                                             <div class="text-danger">{{ $message }}</div>
@@ -43,7 +43,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">PKR</span>
                                                     </div>
-                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" Value="{{ $talent['price'] }}" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" Value="{{ $data['entertainer_talent']['price'] }}" aria-describedby="basic-addon2">
                                                 </div>
                                                 @error('price')
                                                     <div class="text-danger">{{ $message }}</div>

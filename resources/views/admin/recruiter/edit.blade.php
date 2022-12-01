@@ -5,6 +5,8 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-2"
+                    href="{{route('admin.user.index')}}">Back</a>
                     <form id="recruiter" action="{{ route('recruiter.update',$recruiter->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf

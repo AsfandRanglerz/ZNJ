@@ -6,8 +6,10 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-3"
+                    href="{{route('venue.show',$venue['user_id'])}}">Back</a>
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('venue-providers.venue.update', $venue['user_id']) }}"
+                    <form id="add_student" action="{{ route('venue-providers.venue.update', $venue['id']) }}"
                         method="POST" enctype="multipart/form-data">
 
                         @csrf

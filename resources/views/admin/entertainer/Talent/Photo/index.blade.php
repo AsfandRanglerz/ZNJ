@@ -18,8 +18,6 @@
                             </div>
                             {{-- @dd($data) --}}
                             <div class="card-body table-striped table-bordered table-responsive">
-                                {{-- <a class="btn btn-primary mb-2"
-                                href="{{route('entertainer.show',$data['user_id'])}}">Back</a> --}}
                                 <table class="table" id="table_id_2">
                                     <thead>
                                         <tr>

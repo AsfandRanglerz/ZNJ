@@ -76,7 +76,7 @@ class RecruiterController extends Controller
      */
     public function show($user_id)
     {
-        $data['recruiter_event'] = Event::where('user_id', $user_id)->get();
+        $data['recruiter_event'] = Event::where('user_id', $user_id)->latest()->get();
         $data['user_id'] = $user_id;
         return view('admin.recruiter.event.index', compact('data'));
     }

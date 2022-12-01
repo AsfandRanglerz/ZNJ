@@ -80,7 +80,7 @@ class VenueController extends Controller
     {
          //  Showing Entertainer Talent
 
-         $data['venue']= Venue::where('user_id',$id)->get() ;
+         $data['venue']= Venue::where('user_id',$id)->latest()->get() ;
          $data['user_id']=$id;
          return view('admin.venue_provider.venues.index',compact('data'));
 
@@ -178,10 +178,10 @@ class VenueController extends Controller
         return redirect()->back()->with(['status'=>true, 'message' => 'Venue Deleted sucessfully']);
     }
 
-    public function editVenue($user_id)
+    public function editVenue($user_id, $venue_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $venue=Venue::find($user_id);
+        $venue=Venue::find($venue_id);
         $venue['user_id'] = $user_id;
         return view('admin.venue_provider.venues.edit',compact('venue'));
     }
@@ -213,7 +213,7 @@ class VenueController extends Controller
 
     }
     public function venueCategoriesIndex(){
-        $data= VenueCategory::select('id','category')->get();
+        $data= VenueCategory::select('id','category')->latest()->get();
         return view('admin.Categories.Venue.index',compact('data'));
     }
     public function venueCategoryStore(Request $request){
@@ -245,7 +245,7 @@ class VenueController extends Controller
     public function showPhoto($venue_id)
     {
         //  Showing Entertainer Talent
-        $data['user_id']=VenuesPhoto::where('venue_id',$venue_id)->get();
+        $data['user_id']=VenuesPhoto::where('venue_id',$venue_id)->latest()->get();
         // dd($data['user_id']);
         $data['venue_id']=$venue_id;
         return view('admin.venue_provider.venues.photo.index',compact('data'));
@@ -283,9 +283,11 @@ class VenueController extends Controller
         $photo->update();
         return redirect()->route('venue-providers.venue.photo.show',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
 }
-public function pricePackagesIndex($venue_id){
+public function pricePackagesIndex($user_id, $venue_id){
     $data['price_packages']=VenuePricing::where('venues_id',$venue_id)->get();
     $data['venue_id']=$venue_id;
+    $data['user_id']=$user_id;
+
     // dd($data['price_packages']);
     return view('admin.venue_provider.venues.Price_packages.index',compact('data'));
 }
