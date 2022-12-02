@@ -31,6 +31,8 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('user-location','AuthController@userLocation');
         Route::get('edit-profile','AuthController@editProfile');
         Route::post('update-profile','AuthController@updateProfile');
+
+
         Route::post('create-event','EventController@createEvent');
         Route::get('events','EventController@getEvents');
         Route::get('user-events','EventController@userEvents');
@@ -39,12 +41,16 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('update-event/{id}','EventController@updateEvent');
         Route::get('delete-event/{id}','EventController@destroy');
         Route::get('event-feature-packages','EventController@getEventFeaturePackages');
+        Route::post('event-select-package','EventController@EventSelectPackage');
+
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');
         Route::get('entertainer/{id}','EntertainerController@getSingleEntertainer');
         Route::post('update-entertainer/{id}','EntertainerController@updateEntertainer');
         Route::get('entertainer-price-package/{id}','EntertainerController@getEntertainerPricePackage');
         Route::get('entertainer-feature-packages','EntertainerController@getEntertainerFeaturePackages');
+        Route::post('entertainer-select-package','EntertainerController@EntertainerSelectPackage');
+
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');
         Route::post('create-venue','VenueController@createVenue');
@@ -52,6 +58,17 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('edit-venue/{id}','VenueController@editVenue');
         Route::post('update-venue/{id}','VenueController@updateVenue');
         Route::get('venue-feature-packages','VenueController@getVenueFeaturePackages');
+        Route::post('venue-select-package','VenueController@VenueSelectPackage');
+
+
+        Route::get('venues-reviews','ReviewController@getVenuesReviews');
+        Route::get('venue-review/{id}','ReviewController@getSingleVenueReview');
+        Route::get('events-reviews','ReviewController@getEventsReviews');
+        Route::get('event-review/{id}','ReviewController@getSingleEventReview');
+        Route::get('entertainers-reviews','ReviewController@getEntertainersReviews');
+        Route::get('entertainer-review/{id}','ReviewController@getSingleEntertainerReview');
+        Route::post('create-review','ReviewController@createReviews');
+
         Route::get('term-of-use','HomeController@terms');
 
 

@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\EntertainerDetail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\EntertainerEventPhotos;
 use App\Models\EntertainerPricePackage;
 use Illuminate\Support\Facades\Validator;
@@ -151,5 +152,12 @@ class EntertainerController extends Controller
     {
         $data = EntertainerFeatureAdsPackage::get();
         return $this->sendSuccess('Entertainer Ads Packages', compact('data'));
+    }
+    public function EntertainerSelectPackage(Request $request){
+        EntertainerDetail::where('user_id', Auth::id())->update([
+            'entertainer_feature_ads_packages_id' => $request->id,
+        ]);
+        $data = EntertainerDetail::where('user_id',Auth::id())->first();
+        return $this->sendSuccess('Entertainer Featured Request Successfully', compact('data'));
     }
 }

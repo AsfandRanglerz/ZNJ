@@ -7,6 +7,7 @@ use App\Models\VenuesPhoto;
 use App\Models\VenuePricing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\VenueFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
 
@@ -36,13 +37,13 @@ class VenueController extends Controller
             'seats' => 'required',
             'stands' => 'required',
             'offer_cattering' => 'required',
-            'epening_time' => 'required',
+            'opening_time' => 'required',
             'closing_time' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'epening_time', 'closing_time']);
+        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'opening_time', 'closing_time']);
         $data['user_id'] = auth()->id();
         // if ($request->hasfile('image')) {
         //     $file = $request->file('image');
@@ -93,13 +94,13 @@ class VenueController extends Controller
             'seats' => 'required',
             'stands' => 'required',
             'offer_cattering' => 'required',
-            'epening_time' => 'required',
+            'opening_time' => 'required',
             'closing_time' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'epening_time', 'closing_time']);
+        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'opening_time', 'closing_time']);
         $venue = Venue::find($id)->update($data);
         VenuesPhoto::where('venue_id', $id)->delete();
         if ($request->hasfile('photos')) {
@@ -137,5 +138,12 @@ class VenueController extends Controller
     {
         $data = VenueFeatureAdsPackage::get();
         return $this->sendSuccess('Venue Ads Packages', compact('data'));
+    }
+    public function VenueSelectPackage(Request $request){
+        Venue::where('user_id', Auth::id())->update([
+            'venue_feature_ads_packages_id' => $request->id,
+        ]);
+        $data = Venue::where('user_id',Auth::id())->first();
+        return $this->sendSuccess('Venue Featured Request Successfully', compact('data'));
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\EventEntertainers;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\EventFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
 
@@ -109,5 +110,12 @@ class EventController extends Controller
     {
         $data = EventFeatureAdsPackage::get();
         return $this->sendSuccess('Event Ads Packages', compact('data'));
+    }
+    public function EventSelectPackage(Request $request){
+        Event::where('user_id', Auth::id())->update([
+            'event_feature_ads_packages_id' => $request->id,
+        ]);
+        $data = Event::where('user_id',Auth::id())->first();
+        return $this->sendSuccess('Event Featured Request Successfully', compact('data'));
     }
 }
