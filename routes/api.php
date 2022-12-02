@@ -38,17 +38,22 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('event_entertainer/{id}','EventController@getEventEntertainers');
         Route::post('update-event/{id}','EventController@updateEvent');
         Route::get('delete-event/{id}','EventController@destroy');
+        Route::get('event-feature-packages','EventController@getEventFeaturePackages');
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');
         Route::get('entertainer/{id}','EntertainerController@getSingleEntertainer');
         Route::post('update-entertainer/{id}','EntertainerController@updateEntertainer');
         Route::get('entertainer-price-package/{id}','EntertainerController@getEntertainerPricePackage');
+        Route::get('entertainer-feature-packages','EntertainerController@getEntertainerFeaturePackages');
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');
         Route::post('create-venue','VenueController@createVenue');
         Route::get('delete-venue/{id}','VenueController@destroy');
         Route::get('edit-venue/{id}','VenueController@editVenue');
         Route::post('update-venue/{id}','VenueController@updateVenue');
+        Route::get('venue-feature-packages','VenueController@getVenueFeaturePackages');
         Route::get('term-of-use','HomeController@terms');
+
+
     });
 });

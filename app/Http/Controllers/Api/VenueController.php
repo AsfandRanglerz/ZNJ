@@ -7,6 +7,7 @@ use App\Models\VenuesPhoto;
 use App\Models\VenuePricing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\VenueFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
 
 class VenueController extends Controller
@@ -131,5 +132,10 @@ class VenueController extends Controller
     {
         $data = Venue::find($id)->delete();
         return $this->sendSuccess('Venue Delete Successfully');
+    }
+    public function getVenueFeaturePackages()
+    {
+        $data = VenueFeatureAdsPackage::get();
+        return $this->sendSuccess('Venue Ads Packages', compact('data'));
     }
 }

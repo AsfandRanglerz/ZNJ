@@ -18,7 +18,6 @@ class CreateEventsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title')->nullable();
-            $table->string('cover_image')->nullable();
             $table->string('location')->nullable();
             $table->string('about_event')->nullable();
             $table->enum('event_type',['Private','Public'])->default('Private');

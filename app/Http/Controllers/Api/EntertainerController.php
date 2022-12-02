@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\EntertainerDetail;
-use App\Models\EntertainerEventPhotos;
-use App\Models\EntertainerPricePackage;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\EntertainerDetail;
+use App\Http\Controllers\Controller;
+use App\Models\EntertainerEventPhotos;
+use App\Models\EntertainerPricePackage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\EntertainerFeatureAdsPackage;
 
 class EntertainerController extends Controller
 {
@@ -66,8 +67,8 @@ class EntertainerController extends Controller
 
             EntertainerPricePackage::create($data);
         }
-        $data=EntertainerDetail::find($entertainer->id);
-        return $this->sendSuccess('Event created Successfully',compact('data'));
+        $data = EntertainerDetail::find($entertainer->id);
+        return $this->sendSuccess('Event created Successfully', compact('data'));
     }
     public  function getEntertainer()
     {
@@ -145,5 +146,10 @@ class EntertainerController extends Controller
             return $this->sendError('Record Not Found!');
         }
         return $this->sendSuccess('Entertainer Price Package data', compact('data'));
+    }
+    public function getEntertainerFeaturePackages()
+    {
+        $data = EntertainerFeatureAdsPackage::get();
+        return $this->sendSuccess('Entertainer Ads Packages', compact('data'));
     }
 }

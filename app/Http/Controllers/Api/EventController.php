@@ -6,11 +6,13 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\EventEntertainers;
 use App\Http\Controllers\Controller;
+use App\Models\EventFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
-    public  function createEvent(Request $request){
+    public  function createEvent(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'cover_image' => 'required',
@@ -28,8 +30,8 @@ class EventController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data=$request->only(['title','location','about_event','event_type','date','to','joining_type','price','description']);
-        $data['user_id']=auth()->id();
+        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date', 'to', 'joining_type', 'price', 'description']);
+        $data['user_id'] = auth()->id();
         if ($request->hasfile('cover_image')) {
             $file = $request->file('cover_image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -40,29 +42,34 @@ class EventController extends Controller
         Event::create($data);
         return $this->sendSuccess('Event created Successfully');
     }
-    public function getEvents(){
-        $event=Event::all();
-        return $this->sendSuccess('Events',compact('event'));
+    public function getEvents()
+    {
+        $event = Event::all();
+        return $this->sendSuccess('Events', compact('event'));
     }
-    public function userEvents(){
-        $user_event=Event::where('user_id',auth()->id())->get();
-        return $this->sendSuccess('user events',compact('user_event'));
+    public function userEvents()
+    {
+        $user_event = Event::where('user_id', auth()->id())->get();
+        return $this->sendSuccess('user events', compact('user_event'));
     }
-    public function getEvent(Request $request){
+    public function getEvent(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'event_id' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $event=Event::find($request->event_id)->get();
-        return $this->sendSuccess('Event',compact('event'));
+        $event = Event::find($request->event_id)->get();
+        return $this->sendSuccess('Event', compact('event'));
     }
-    public function getEventEntertainers($id){
-        $data = EventEntertainers::where('event_id',$id)->get();
-      return $this->sendSuccess('event entertainers',compact('data'));
+    public function getEventEntertainers($id)
+    {
+        $data = EventEntertainers::where('event_id', $id)->get();
+        return $this->sendSuccess('event entertainers', compact('data'));
     }
-    public function updateEvent(Request $request,$id){
+    public function updateEvent(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'cover_image' => 'required',
@@ -80,8 +87,8 @@ class EventController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data=$request->only(['title','location','about_event','event_type','date','to','joining_type','price','description']);
-        $data['user_id']=auth()->id();
+        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date', 'to', 'joining_type', 'price', 'description']);
+        $data['user_id'] = auth()->id();
         if ($request->hasfile('cover_image')) {
             $file = $request->file('cover_image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -89,13 +96,18 @@ class EventController extends Controller
             $file->move(public_path('/'), $filename);
             $data['cover_image'] = 'public/uploads/' . $filename;
         }
-         Event::find($id)->update($data);
-         $data=Event::find($id);
-        return $this->sendSuccess('Event updated Successfully',compact('data'));
+        Event::find($id)->update($data);
+        $data = Event::find($id);
+        return $this->sendSuccess('Event updated Successfully', compact('data'));
     }
     public function destroy($id)
     {
         $data = Event::find($id)->delete();
         return $this->sendSuccess('Event Delete Successfully');
+    }
+    public function getEventFeaturePackages()
+    {
+        $data = EventFeatureAdsPackage::get();
+        return $this->sendSuccess('Event Ads Packages', compact('data'));
     }
 }
