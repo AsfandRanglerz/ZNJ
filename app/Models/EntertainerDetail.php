@@ -22,6 +22,10 @@ class EntertainerDetail extends Model
     public function  entertainerPricePackage(){
         return $this->belongsTo('App\Models\EntertainerPricePackage');
     }
+    public function entertainerFeatureAdsPackage()
+    {
+        return $this->belongsTo('App\Models\EntertainerFeatureAdsPackage','entertainer_feature_ads_packages_id','id');
+    }
     public function getImageAttribute($path)
     {
         if ($path){

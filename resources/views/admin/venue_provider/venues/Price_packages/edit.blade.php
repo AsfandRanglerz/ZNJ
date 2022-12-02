@@ -19,7 +19,7 @@
                                                 <label>Price</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon2">PKR</span>
+                                                        <span class="input-group-text" id="basic-addon2">$</span>
                                                     </div>
                                                     <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" Value="{{ $data['price_package']['price'] }}" aria-describedby="basic-addon2">
                                                 </div>

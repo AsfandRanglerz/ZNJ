@@ -14,6 +14,10 @@ class Venue extends Model
     {
         return $this->belongsTo('App\Models\User','user_id','id');
     }
+    public function venueFeatureAdsPackage ()
+    {
+        return $this->belongsTo('App\Models\VenueFeatureAdsPackage','venue_feature_ads_packages_id','id');
+    }
     public function events(){
         return $this->belongsToMany('App\Models\Event','event_venues','venues_id','event_id');
      }

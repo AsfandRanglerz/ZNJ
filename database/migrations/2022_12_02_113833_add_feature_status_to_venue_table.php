@@ -15,7 +15,7 @@ class AddFeatureStatusToVenueTable extends Migration
     {
         Schema::table('venues', function (Blueprint $table) {
             $table->string('feature_status')->default('0')->after('closing_time');
-            $table->unsignedBigInteger('venue_feature_ads_packages_id')->after('feature_status');
+            $table->unsignedBigInteger('venue_feature_ads_packages_id')->after('feature_status')->nullable();
             $table->foreign('venue_feature_ads_packages_id')->references('id')->on('venue_feature_ads_packages')->onDelete('cascade');
         });
     }

@@ -15,7 +15,7 @@ class AddFeatureStatusToEntertainerTable extends Migration
     {
         Schema::table('entertainer_details', function (Blueprint $table) {
             $table->string('feature_status')->default('0')->after('description');
-            $table->unsignedBigInteger('entertainer_feature_ads_packages_id')->after('feature_status');
+            $table->unsignedBigInteger('entertainer_feature_ads_packages_id')->after('feature_status')->nullable();
             $table->foreign('entertainer_feature_ads_packages_id')->references('id')->on('entertainer_feature_ads_packages')->onDelete('cascade');
         });
     }
