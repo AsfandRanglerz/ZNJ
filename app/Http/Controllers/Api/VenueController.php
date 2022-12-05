@@ -39,12 +39,14 @@ class VenueController extends Controller
             'offer_cattering' => 'required',
             'opening_time' => 'required',
             'closing_time' => 'required',
+            'amenities' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
         $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'opening_time', 'closing_time']);
         $data['user_id'] = auth()->id();
+        $data['amenities'] = implode(',', $request->amenities);
         // if ($request->hasfile('image')) {
         //     $file = $request->file('image');
         //     $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -101,6 +103,7 @@ class VenueController extends Controller
             return $this->sendError($validator->errors()->first());
         }
         $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'opening_time', 'closing_time']);
+        $data['amenities'] = implode(',', $request->amenities);
         $venue = Venue::find($id)->update($data);
         VenuesPhoto::where('venue_id', $id)->delete();
         if ($request->hasfile('photos')) {

@@ -69,8 +69,12 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('entertainer-review/{id}','ReviewController@getSingleEntertainerReview');
         Route::post('create-review','ReviewController@createReviews');
 
+
+
+        Route::get('home-page','HomeController@HomePage');
+        Route::get('top-rated-events','HomeController@topRatedEvents');
+        Route::get('top-rated-entertainers','HomeController@topRatedEntertainers');
+        Route::get('top-rated-venues','HomeController@topRatedVenues');
         Route::get('term-of-use','HomeController@terms');
-
-
     });
 });

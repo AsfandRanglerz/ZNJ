@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Event;
+use App\Models\Venue;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Models\EntertainerDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +46,11 @@ class ReviewController extends Controller
             $review->message = $request->message;
             $review->role = $request->role;
             $review->save();
+            $ratings = Review::where('venue_id', $request->venue_id)->get();
+            $avg=$ratings->avg('star');
+            Venue::where('id', $request->venue_id)->update([
+                'avg_rating' =>round($avg,2),
+            ]);
             return $this->sendSuccess('Reviews create successfully');
         } elseif ($request->role == 'event') {
             $validator = Validator::make($request->all(), [
@@ -60,6 +68,11 @@ class ReviewController extends Controller
             $review->message = $request->message;
             $review->role = $request->role;
             $review->save();
+            $ratings = Review::where('event_id', $request->event_id)->get();
+            $avg=$ratings->avg('star');
+            Event::where('id', $request->event_id)->update([
+                'avg_rating' =>round($avg,2),
+            ]);
             return $this->sendSuccess('Reviews create successfully');
         } elseif ($request->role == 'entertainer') {
             $validator = Validator::make($request->all(), [
@@ -77,6 +90,11 @@ class ReviewController extends Controller
             $review->message = $request->message;
             $review->role = $request->role;
             $review->save();
+            $ratings = Review::where('entertainer_id', $request->entertainer_id)->get();
+            $avg=$ratings->avg('star');
+            EntertainerDetail::where('id', $request->entertainer_id)->update([
+                'avg_rating' =>round($avg,2),
+            ]);
             return $this->sendSuccess('Reviews create successfully');
         } else {
             return $this->sendError('Please enter correct role to create review');
