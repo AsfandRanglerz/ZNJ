@@ -127,7 +127,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Pets Allowed" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="PetsAllowed">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Pets Allowed" {{ str_contains($venue->amenities, 'Pets Allowed') ? 'checked' : '' }} id="PetsAllowed">
                                                     <label class="form-check-label" for="PetsAllowed">
                                                       Pets Allowed
                                                     </label>
@@ -135,7 +135,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Bar" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Bar">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Bar" {{ str_contains($venue->amenities, 'Bar') ? 'checked' : '' }} id="Bar">
                                                     <label class="form-check-label" for="Bar">
                                                       Bar
                                                     </label>
@@ -143,7 +143,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input"  name=amenities[] type="checkbox" value="Security alam" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Securityalam">
+                                                    <input class="form-check-input"  name=amenities[] type="checkbox" value="Security alam" {{ str_contains($venue->amenities, 'Security alam') ? 'checked' : '' }} id="Securityalam">
                                                     <label class="form-check-label" for="Securityalam">
                                                       Security alam
                                                     </label>
@@ -151,7 +151,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Safety deposit box" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Safetydepositbox">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Safety deposit box" {{ str_contains($venue->amenities, 'Safety deposit box') ? 'checked' : '' }} id="Safetydepositbox">
                                                     <label class="form-check-label" for="Safetydepositbox">
                                                       Safety deposit box
                                                     </label>
@@ -159,7 +159,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Cattering" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Cattering">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Cattering" {{ str_contains($venue->amenities, 'Cattering') ? 'checked' : '' }} id="Cattering">
                                                     <label class="form-check-label" for="Cattering">
                                                         Cattering
                                                     </label>
@@ -167,7 +167,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Designated smooking area" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Designatedsmookingarea">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Designated smooking area" {{ str_contains($venue->amenities, 'Designated smooking area') ? 'checked' : '' }} id="Designatedsmookingarea">
                                                     <label class="form-check-label" for="Designatedsmookingarea">
                                                       Designated smooking area
                                                     </label>
@@ -175,7 +175,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Non-Smoking" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="NonSmoking">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Non-Smoking" {{ str_contains($venue->amenities, 'Non-Smoking') ? 'checked' : '' }} id="NonSmoking">
                                                     <label class="form-check-label" for="NonSmoking">
                                                       Non-Smoking
                                                     </label>
@@ -183,7 +183,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Business center" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Businesscenter">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Business center" {{ str_contains($venue->amenities, 'Business center') ? 'checked' : '' }} id="Businesscenter">
                                                     <label class="form-check-label" for="Businesscenter">
                                                       Business center
                                                     </label>
@@ -191,7 +191,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Terrace" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Terrace">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Terrace" {{ str_contains($venue->amenities, 'Terrace') ? 'checked' : '' }} id="Terrace">
                                                     <label class="form-check-label" for="Terrace">
                                                       Terrace
                                                     </label>
@@ -199,7 +199,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input"  name=amenities[] type="checkbox" value="CCTV outside" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="CCTVoutside">
+                                                    <input class="form-check-input"  name=amenities[] type="checkbox" value="CCTV outside" {{ str_contains($venue->amenities, 'CCTV outside') ? 'checked' : '' }} id="CCTVoutside">
                                                     <label class="form-check-label" for="CCTVoutside">
                                                       CCTV outside
                                                     </label>
@@ -207,7 +207,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Amoke alarms" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Amokealarms">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Amoke alarms" {{ str_contains($venue->amenities, 'Amoke alarms') ? 'checked' : '' }} id="Amokealarms">
                                                     <label class="form-check-label" for="Amokealarms">
                                                       Amoke alarms
                                                     </label>
@@ -215,7 +215,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Lift" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Lift">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Lift" {{ str_contains($venue->amenities, 'Lift') ? 'checked' : '' }} id="Lift">
                                                     <label class="form-check-label" for="Lift">
                                                       Lift
                                                     </label>
@@ -223,7 +223,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value=" Car hire" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Carhire">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Car hire" {{ str_contains($venue->amenities, 'Car hire') ? 'checked' : '' }} id="Carhire">
                                                     <label class="form-check-label" for="Carhire">
                                                       Car hire
                                                     </label>
@@ -231,7 +231,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="ATM/Cash machine" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="ATMCashmachine">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="ATM/Cash machine" {{ str_contains($venue->amenities, 'ATM/Cash machine') ? 'checked' : '' }} id="ATMCashmachine">
                                                     <label class="form-check-label" for="ATMCashmachine">
                                                       ATM/Cash machine
                                                     </label>
@@ -239,7 +239,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Ticket service" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Ticketservice">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Ticket service" {{ str_contains($venue->amenities, 'Ticket service') ? 'checked' : '' }} id="Ticketservice">
                                                     <label class="form-check-label" for="Ticketservice">
                                                       Ticket service
                                                     </label>
@@ -247,7 +247,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Velet Parking" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="VeletParking">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Velet Parking" {{ str_contains($venue->amenities, 'Velet Parking') ? 'checked' : '' }} id="VeletParking">
                                                     <label class="form-check-label" for="VeletParking">
                                                       Velet Parking
                                                     </label>
@@ -255,7 +255,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Wheel chair accessible" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Wheelchairaccessible">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Wheel chair accessible" {{ str_contains($venue->amenities, 'Wheel chair accessible') ? 'checked' : '' }} id="Wheelchairaccessible">
                                                     <label class="form-check-label" for="Wheelchairaccessible">
                                                       Wheel chair accessible
                                                     </label>
@@ -263,7 +263,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Shops" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Shops">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Shops" {{ str_contains($venue->amenities, 'Shops') ? 'checked' : '' }} id="Shops">
                                                     <label class="form-check-label" for="Shops">
                                                       Shops(on site)
                                                     </label>
@@ -271,7 +271,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Free Wifi" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="FreeWifi">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Free Wifi" {{ str_contains($venue->amenities, 'Free Wifi') ? 'checked' : '' }} id="FreeWifi">
                                                     <label class="form-check-label" for="FreeWifi">
                                                       Free Wifi
                                                     </label>
@@ -279,7 +279,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Garden" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Garden">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Garden" {{ str_contains($venue->amenities, 'Garden') ? 'checked' : '' }} id="Garden">
                                                     <label class="form-check-label" for="Garden">
                                                       Garden
                                                     </label>
@@ -287,7 +287,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Kids Friendly buffet" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="KidsFriendlybuffet">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Kids Friendly buffet" {{ str_contains($venue->amenities, 'Kids Friendly buffet') ? 'checked' : '' }} id="KidsFriendlybuffet">
                                                     <label class="form-check-label" for="KidsFriendlybuffet">
                                                       Kids Friendly buffet
                                                     </label>
@@ -295,7 +295,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value=" Fire extinguisher" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Fireextinguisher">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Fire extinguisher" {{ str_contains($venue->amenities, 'Fire extinguisher') ? 'checked' : '' }} id="Fireextinguisher">
                                                     <label class="form-check-label" for="Fireextinguisher">
                                                       Fire extinguisher
                                                     </label>
@@ -303,7 +303,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="24-hour security" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="security">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="24-hour security" {{ str_contains($venue->amenities, '24-hour security') ? 'checked' : '' }} id="security">
                                                     <label class="form-check-label" for="security">
                                                       24-hour security
                                                     </label>
@@ -311,7 +311,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Restaurant" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Restaurant">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Restaurant" {{ str_contains($venue->amenities, 'Restaurant') ? 'checked' : '' }} id="Restaurant">
                                                     <label class="form-check-label" for="Restaurant">
                                                       Restaurant
                                                     </label>
@@ -319,7 +319,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Air conditioning" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Airconditioning">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Air conditioning" {{ str_contains($venue->amenities, 'Air conditioning') ? 'checked' : '' }} id="Airconditioning">
                                                     <label class="form-check-label" for="Airconditioning">
                                                     Air conditioning
                                                     </label>
@@ -327,7 +327,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Fax/Photocopy" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="FaxPhotocopy">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Fax/Photocopy" {{ str_contains($venue->amenities, 'Fax/Photocopy') ? 'checked' : '' }} id="FaxPhotocopy">
                                                     <label class="form-check-label" for="FaxPhotocopy">
                                                       Fax/Photocopy
                                                     </label>
@@ -335,7 +335,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value=" Outdoor pool" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Outdoorpool">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Outdoor pool" {{ str_contains($venue->amenities, 'Outdoor pool') ? 'checked' : '' }} id="Outdoorpool">
                                                     <label class="form-check-label" for="Outdoorpool">
                                                       Outdoor pool
                                                     </label>
@@ -343,7 +343,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="on-side cafe house" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="cafehouse">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="on-side cafe house" {{ str_contains($venue->amenities, 'on-side cafe house') ? 'checked' : '' }} id="cafehouse">
                                                     <label class="form-check-label" for="cafehouse">
                                                       on-side cafe house
                                                     </label>
@@ -351,7 +351,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Special diet" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Specialdiet">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Special diet" {{ str_contains($venue->amenities, 'Special diet') ? 'checked' : '' }} id="Specialdiet">
                                                     <label class="form-check-label" for="Specialdiet">
                                                       Special diet
                                                     </label>
@@ -360,7 +360,7 @@
 
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="CCTV in common area" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="CCTV">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="CCTV in common area" {{ str_contains($venue->amenities, 'CCTV in common area') ? 'checked' : '' }} id="CCTV">
                                                     <label class="form-check-label" for="CCTV">
                                                       CCTV in common area
                                                     </label>
@@ -368,7 +368,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Heating" {{ str_contains($venue->amenities, 'Food & Drinks') ? 'checked' : '' }} id="Heating">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Heating" {{ str_contains($venue->amenities, 'Heating') ? 'checked' : '' }} id="Heating">
                                                     <label class="form-check-label" for="Heating">
                                                         Heating
                                                     </label>
@@ -376,7 +376,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Lockers" id="Lockers">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Lockers" {{ str_contains($venue->amenities, 'Lockers') ? 'checked' : '' }} id="Lockers">
                                                     <label class="form-check-label" for="Lockers">
                                                       Lockers
                                                     </label>
@@ -384,7 +384,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="V.I.P room facilities" id="roomfacilities">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="V.I.P room facilities" {{ str_contains($venue->amenities, 'V.I.P room facilities') ? 'checked' : '' }} id="roomfacilities">
                                                     <label class="form-check-label" for="roomfacilities">
                                                       V.I.P room facilities
                                                     </label>
@@ -392,7 +392,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Luggage" id="Luggage">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Luggage" {{ str_contains($venue->amenities, 'Luggage') ? 'checked' : '' }} id="Luggage">
                                                     <label class="form-check-label" for="Luggage">
                                                       Luggage
                                                     </label>
@@ -400,7 +400,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Currency exchange" id="Currencyexchange">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Currency exchange" {{ str_contains($venue->amenities, 'Currency exchange') ? 'checked' : '' }} id="Currencyexchange">
                                                     <label class="form-check-label" for="Currencyexchange">
                                                       Currency exchange
                                                     </label>
@@ -408,7 +408,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Tour desk" id="Tourdesk">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Tour desk" {{ str_contains($venue->amenities, 'Tour desk') ? 'checked' : '' }} id="Tourdesk">
                                                     <label class="form-check-label" for="Tourdesk">
                                                       Tour desk
                                                     </label>
@@ -416,7 +416,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Baby sitting service" id="Babysittingservice">
+                                                    <input class="form-check-input" name=amenities[] type="checkbox" value="Baby sitting service" {{ str_contains($venue->amenities, 'Baby sitting service') ? 'checked' : '' }} id="Babysittingservice">
                                                     <label class="form-check-label" for="Babysittingservice">
                                                       Baby sitting service
                                                     </label>
@@ -424,7 +424,7 @@
                                             </div>
                                             <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input"  name=amenities[] type="checkbox" value="Barbar/Beauty shop" id="Beautyshop">
+                                                    <input class="form-check-input"  name=amenities[] type="checkbox" value="Barbar/Beauty shop" {{ str_contains($venue->amenities, 'Barbar/Beauty shop') ? 'checked' : '' }} id="Beautyshop">
                                                     <label class="form-check-label" for="Beautyshop">
                                                       Barbar/Beauty shop
                                                     </label>
