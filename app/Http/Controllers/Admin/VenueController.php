@@ -152,11 +152,11 @@ class VenueController extends Controller
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
-            'offer_cattering' => 'required',
             'opening_time' =>'required',
             'closing_time' =>'required'
         ]);
-        $data = $request->only(['title','user_id', 'category', 'description','seats','stands','offer_cattering','opening_time','closing_time']);
+        $data = $request->only(['title','user_id', 'category', 'description','seats','stands','opening_time','closing_time']);
+        $data['amenities'] = implode(',', $request->amenities);
             $data['user_id'] = $user_id;
             $user = Venue::create($data);
             if ($request->file('photos')) {

@@ -211,13 +211,13 @@ class EntertainerController extends Controller
 
     }
 
-
     public function showPhoto($entertainer_details_id)
     {
         //  Showing Entertainer Talent
         $data['user_id']=EntertainerEventPhotos::where('entertainer_details_id',$entertainer_details_id)->latest()->get();
         // dd($data['user_id']);
         $data['entertainer_details_id']=$entertainer_details_id;
+        // dd($data['user_id']);
         return view('admin.entertainer.Talent.Photo.index',compact('data'));
 
     }

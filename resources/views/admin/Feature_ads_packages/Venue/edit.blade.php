@@ -5,6 +5,8 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-2"
+                    href="{{route('feature_ads_packages.index')}}">Back</a>
                     <form id="add_student" action="{{ route('feature_ads_packages.venue.update',$data['venue_ads_package']['id']) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">

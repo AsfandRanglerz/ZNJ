@@ -7,6 +7,8 @@
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
             <div class="section-body">
+                 {{-- <a class="btn btn-primary mb-2"
+                    href="{{route('entertainer.show',$data['user_id'])}}">Back</a> --}}
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
