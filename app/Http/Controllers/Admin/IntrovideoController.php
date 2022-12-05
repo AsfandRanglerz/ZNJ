@@ -39,7 +39,23 @@ class IntrovideoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'video'=>'required',
+
+        ]);
+        $fileName = $request->video->getClientOriginalName();
+        $filePath = 'video/'. $fileName;
+        $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
+        // File URL to access the video in frontend
+        if ($isFileUploaded) {
+            $video=new Introvideo();
+            $video->video = $filePath;
+            $video->save();
+            return redirect()->route('intro-video.index')
+            ->with(['status' => true, 'message' => 'Video created successfully']);
+        }
+            return back()
+            ->with(['status' => false, 'message'=>'Unexpected error occured']);
     }
 
     /**

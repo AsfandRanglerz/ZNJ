@@ -121,25 +121,332 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label>Offer Cattering</label>
-                                                <p>
-                                                <label>Yes</label>
 
-                                                    <input type="radio"value="Yes"  name="offer_cattering">
-                                                    &nbsp;
-                                                <label>No</label>
-                                                    <input type="radio" value="No" name="offer_cattering" checked>
-
-                                                    </p>
-
-                                                @error('offer_cattering')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
                                     </div>
+                                    <div class="row mx-0 px-4 mt-3">
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                  Default checkbox
+                                                </label>
+                                              </div>
+                                        </div>
+
+                                    </div>
+                                        </div>
                                     <div class="card-footer text-center row">
                                         <div class="col">
                                             <button type="submit" class="btn btn-success mr-1 btn-bg"

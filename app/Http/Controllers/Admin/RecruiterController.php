@@ -65,7 +65,8 @@ class RecruiterController extends Controller
         $user = User::create($data);
             return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Created successfully']);
         } catch (\Throwable $th) {
-            return $this->sendError('Something Went Wrong');
+            return back()
+            ->with(['status' => false, 'message'=>'Unexpected error occured']);
         }
     }
     /**

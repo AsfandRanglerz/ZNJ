@@ -24,6 +24,7 @@
                                     <tbody>
                                             <tr>
                                                <td>
+                                                @if (isset($data->video))
                                                 <video id="video" controls="controls autoplay"  width="300" height="150">
                                                     <source id="mp4" src="{{ asset('public/storage/'.$data->video)}}">
                                                     </video>
@@ -31,7 +32,8 @@
                                                     </tr>
                                     </tbody>
                                 </table>
-                                <form id="add_student" action="{{ route('intro-video.update', $data->id) }}" method="POST"
+
+                                <form  action="{{ route('intro-video.update', $data->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @method('PATCH')
                                     @csrf
@@ -57,8 +59,42 @@
                                             </div>
 
                                         </div>
+
+
                                     </div>
                                 </form>
+                                @else
+                                <form  action="{{ route('intro-video.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card">
+                                        <h4 class="text-center my-4"></h4>
+                                        <div class="row mx-0 px-4">
+                                            <div class="col-sm-12 pl-sm-12 pr-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label>Video Add</label>
+                                                    <input type="file" name="video" id="video"
+
+                                                         class="form-control">
+                                                    @error('video')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer text-center row">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-success mr-1 btn-bg"
+                                                    id="submit">Add</button>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </form>
+
+                                @endif
 
                             </div>
                         </div>
