@@ -19,7 +19,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
-                                                <input type="text" placeholder="example" name="title" id="title"  class="form-control">
+                                                <input type="text" placeholder="example" name="title" id="title" value="{{ old('title') }}" class="form-control">
                                                 @error('title')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -31,7 +31,7 @@
                                                 <!-- <input type="text" name="name" id="name"
                                                     class="form-control"
                                                     placeholder="Enter name"> -->
-                                                    <select name="category" id="category" class="form-control">
+                                                    <select name="category" id="category" value="{{ old('category') }}" class="form-control">
                                                     <option value="">Please Select a Category </option>
 
                                                         @foreach($data['talent_categories'] as $category)
@@ -52,7 +52,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">$</span>
                                                     </div>
-                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" value="{{ old('price') }}" aria-describedby="basic-addon2">
                                                 </div>
                                                 @error('price')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -62,7 +62,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Choose Images</label>
-                                                <input type="file" placeholder="example" name="event_photos[]" id="images"  class="form-control" multiple="multiple">
+                                                <input type="file" placeholder="example" name="event_photos[]" id="images" value="{{ old('event_photos') }}" class="form-control" multiple="multiple">
                                                 @error('images')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

@@ -19,7 +19,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
-                                                <input type="text" name="title" id="name"  class="form-control">
+                                                <input type="text" name="title" id="name" value="{{ old('title') }}" class="form-control">
                                                 @error('title')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -28,7 +28,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
                                                 <label>About Event</label>
-                                                <input type="text" name="about_event"   class="form-control" />
+                                                <input type="text" name="about_event" value="{{ old('about_event') }}"  class="form-control" />
                                             </div>
                                             @error('about_event')
                                             <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
-                                                <input type="text" name="description" id="phone"  class="form-control"
+                                                <input type="text" name="description" id="phone" value="{{ old('description') }}" class="form-control"
                                                 placeholder="example" >
                                                 @error('description')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -54,7 +54,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">$</span>
                                                     </div>
-                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" value="{{ old('price') }}" aria-describedby="basic-addon2">
 
                                                 </div>
                                                 @error('price')
@@ -69,10 +69,10 @@
                                                     <div>
                                                     <label>Public</label>
 
-                                                        <input type="radio"value="Public" name="event_type" >
+                                                        <input type="radio"value="Public" name="event_type" value="{{ old('event_type') }}" >
                                                         &nbsp;
                                                     <label>Private</label>
-                                                        <input type="radio" value="Private" name="event_type" >
+                                                        <input type="radio" value="Private" name="event_type" value="{{ old('event_type') }}" >
                                                         @error('event_type')
                                                         <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -91,10 +91,10 @@
                                                 <div>
                                                     <label>Free</label>
 
-                                                        <input type="radio"value="Free" name="joining_type" >
+                                                        <input type="radio"value="Free" name="joining_type" value="{{ old('joining_type') }}" >
                                                         &nbsp;
                                                     <label>Private</label>
-                                                        <input type="radio" value="Paid" name="joining_type" >
+                                                        <input type="radio" value="Paid" name="joining_type" value="{{ old('joining_type') }}" >
                                                         @error('joining_type')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -111,10 +111,10 @@
                                               <div>
                                                     <label>Hired</label>
 
-                                                        <input type="radio"value="hired" name="hiring_entertainers_status" >
+                                                        <input type="radio"value="hired" name="hiring_entertainers_status" value="{{ old('hiring_entertainers_status') }}" >
                                                         &nbsp;
                                                     <label>Open For Hiring</label>
-                                                        <input type="radio" value="open for hiring" name="hiring_entertainers_status" >
+                                                        <input type="radio" value="open for hiring" name="hiring_entertainers_status" value="{{ old('hiring_entertainers_status') }}" >
                                                         @error('hiring_entertainers_status')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -128,7 +128,7 @@
                                             <div class="form-group mb-2">
                                             <div>
                                                 <label for="seats">Seats</label>
-                                                <input type="number" name="seats" id="seats"
+                                                <input type="number" name="seats" id="seats" value="{{ old('seats') }}"
                                              class="form-control" placeholder="example">
                                             </div>
                                                 @error('seats')
@@ -141,7 +141,7 @@
                                             <div class="form-group mb-2">
                                                 <label>Date</label>
 
-                                                <input type="date" name="date" id="date"  class="form-control"
+                                                <input type="date" name="date" id="date" value="{{ old('date') }}"  class="form-control"
                                                 placeholder="example" >
 
                                                 @error('date')
@@ -156,7 +156,7 @@
                                             <div class="form-group mb-2">
                                                 <label>From</label>
 
-                                                <input type="time" name="from" id="from" class="form-control"
+                                                <input type="time" name="from" id="from" value="{{ old('from') }}" class="form-control"
                                                 placeholder="example" >
 
                                                 @error('from')
@@ -169,7 +169,7 @@
                                             <div class="form-group mb-2">
                                                 <label>To</label>
 
-                                                <input type="time" name="to" id="to"  class="form-control"
+                                                <input type="time" name="to" id="to" value="{{ old('to') }}" class="form-control"
                                                  >
 
                                                 @error('to')

@@ -18,7 +18,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Name </label>
-                                                <input type="text" placeholder="Name" name="name" id="name"  class="form-control">
+                                                <input type="text" placeholder="Name" name="name" id="name" value="{{ old('name') }}"  class="form-control">
                                                 @error('name')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -27,7 +27,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
                                                 <label>Email</label>
-                                                <input type="email" placeholder="example@gmail.com" name="email" id="email"  class="form-control" />
+                                                <input type="email" placeholder="example@gmail.com" name="email" id="email" value="{{ old('email') }}" class="form-control" />
                                             </div>
                                             @error('email')
                                             <div class="text-danger">{{ $message }}</div>
@@ -39,7 +39,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Phone</label>
-                                                <input type="tel" name="phone" id="phone"  class="form-control"
+                                                <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"  class="form-control"
                                                 placeholder="92 XXXXXXXXXX (Mobile Number)" >
                                                 @error('phone')
                                                     <div class="text-danger">{{ $message }}</div>

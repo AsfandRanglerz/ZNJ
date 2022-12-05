@@ -20,7 +20,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">$</span>
                                                     </div>
-                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price_package" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price_package" value="{{ old('price_package') }}" aria-describedby="basic-addon2">
                                                 </div>
                                                 @error('price_package')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -30,7 +30,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Time</label>
-                                                <input type="time" placeholder="example" name="time"   class="form-control">
+                                                <input type="time" placeholder="example" name="time" value="{{ old('time') }}"  class="form-control">
                                                 @error('time')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

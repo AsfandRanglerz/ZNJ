@@ -8,7 +8,7 @@
                     <a class="btn btn-primary mb-2"
                     href="{{route('venue.show',$data['user_id'])}}">Back</a>
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('venue-providers.venue.store',$data['user_id']) }}" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('venue-providers.venue.store',$data['user_id']) }}"  method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
@@ -19,7 +19,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
-                                                <input type="text" placeholder="example" name="title" id="title"  class="form-control">
+                                                <input type="text" placeholder="example" name="title" id="title" value="{{ old('title') }}" class="form-control">
                                                 @error('title')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -31,7 +31,7 @@
                                                 <!-- <input type="text" name="name" id="name"
                                                     class="form-control"
                                                     placeholder="Enter name"> -->
-                                                    <select name="category" id="category" class="form-control">
+                                                    <select name="category" id="category" value="{{ old('category') }}" class="form-control">
                                                     <option value="">Please Select a Category </option>
 
                                                         @foreach($data['venue_categories'] as $category)
@@ -50,7 +50,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
-                                                <input type="text" name="description" id="description"  class="form-control"
+                                                <input type="text" name="description" id="description" value="{{ old('description') }}"  class="form-control"
                                                 placeholder="example" >
                                                 @error('description')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -60,7 +60,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Seats</label>
-                                                <input type="number" placeholder="example" name="seats" id="seats"  class="form-control"
+                                                <input type="number" placeholder="example" name="seats" id="seats" value="{{ old('seats') }}" class="form-control"
                                                     >
                                                 @error('seats')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -70,7 +70,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Opening Time</label>
-                                                <input type="time"  name="opening_time" id="opening_time"  class="form-control"
+                                                <input type="time"  name="opening_time" id="opening_time" value="{{ old('opening_time') }}" class="form-control"
                                                     >
                                                 @error('opening_time')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -80,7 +80,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Closing Time</label>
-                                                <input type="time" placeholder="" name="closing_time" id="closing_time"  class="form-control"
+                                                <input type="time" placeholder="" name="closing_time" id="closing_time" value="{{ old('closing_time') }}"  class="form-control"
                                                     >
                                                 @error('closing_time')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -104,7 +104,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Stands</label>
-                                                <input type="number" placeholder="" name="stands" id="stands"  class="form-control"
+                                                <input type="number" placeholder="" name="stands" id="stands"  value="{{ old('stands') }}" class="form-control"
                                                     >
                                                 @error('Stands')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -114,7 +114,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Choose Images(Multiples)</label>
-                                                <input type="file" placeholder="" name="photos[]" id="photos"  class="form-control"
+                                                <input type="file" placeholder="" name="photos[]" id="photos" value="{{ old('photos') }}" class="form-control"
                                                 multiple="multiple">
                                                 @error('Stands')
                                                     <div class="text-danger">{{ $message }}</div>

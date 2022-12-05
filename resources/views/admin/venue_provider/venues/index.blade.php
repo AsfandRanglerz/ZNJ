@@ -30,7 +30,7 @@
                                             <th>Description</th>
                                             <th>Seats</th>
                                             <th>Stands</th>
-                                            <th>Offer Catering</th>
+                                            <th>Amenities</th>
                                             <th>Opening_time</th>
                                             <th>Closing_time</th>
                                             <th>Created_At</th>
@@ -49,7 +49,7 @@
                                                 <td>{{ $venue->description }}</td>
                                                 <td>{{ $venue->seats }}</td>
                                                 <td>{{ $venue->stands }}</td>
-                                                <td>{{ $venue->offer_cattering }}</td>
+                                                <td>{{ $venue->amenities }}</td>
                                                 @if( explode(':',$venue->opening_time)[0]>=12)
                                                 <td>{{ $venue->opening_time }} PM</td>
                                                 @else
