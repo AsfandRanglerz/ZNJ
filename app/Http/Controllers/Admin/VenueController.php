@@ -197,7 +197,7 @@ class VenueController extends Controller
             'stands' => 'required',
             'opening_time' => 'required',
             'closing_time'=>'required',
-            'offer_cattering'=>'required'
+
         ]);
 
         $talent = Venue::find($user_id);
@@ -208,7 +208,7 @@ class VenueController extends Controller
         $talent->stands=$request->input('stands');
         $talent->opening_time=$request->input('opening_time');
         $talent->closing_time=$request->input('closing_time');
-        $talent->offer_cattering=$request->input('offer_cattering');
+        $talent->amenities = implode(',', $request->amenities);
         $talent->update();
         return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
 

@@ -25,7 +25,7 @@ class CreateVenuesTable extends Migration
             $table->integer('seats')->nullable();
             $table->integer('stands')->nullable();
             $table->double('area(m2)')->nullable();
-            $table->enum('offer_cattering',['Yes','No'])->default('Yes');
+            // $table->enum('offer_cattering',['Yes','No'])->default('Yes');
             $table->string('opening_time')->nullable();
             $table->string('closing_time')->nullable();
             $table->timestamps();
