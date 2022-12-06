@@ -36,7 +36,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row mx-0 px-4">
+                                    <div class="row mx-0 px-4" id="edit_event_row_2">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
@@ -160,10 +160,7 @@
                                                         @error('hiring_entertainers_status')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
-
                                                     </div>
-
-
                                                 @endif
                                             </div>
                                         </div>
@@ -219,52 +216,147 @@
 
                                             </div>
                                         </div>
-                                        {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label>Hiring Entertainer Status</label>
-                                                <input type="text" name="hiring_entertainer_status" id="hiring_entertainer_status" Value="{{ $event['hiring_entertainer_status'] }}" class="form-control"
-                                                placeholder="example" >
-                                                @error('hiring_entertainer_status')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-                                        {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label>Company</label>
-                                                <input type="text" name="company" id="company" Value="{{ $entertainer['company'] }}" class="form-control"
-                                                    >
-                                                @error('company')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mx-0 px-4">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
-                                                <label>Designation</label>
-                                                <input type="text" name="designation" id="designation" Value="{{ $entertainer['designation'] }}" class="form-control"
-                                                    >
-                                                @error('designation')
+                                                <label>Feature Ads</label>
+                                                @if($data['recruiter_event']['feature_status']==='0')
+                                                <input type="checkbox"  name="featured_ads" data-toggle="toggle"
+                                                    data-on="Featured"
+                                                    data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
+                                                    data-offstyle="danger">
+                                                    @else
+                                                    <input type="checkbox"  name="featured_ads" data-toggle="toggle"
+                                                    data-on="Featured"
+                                                    data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
+                                                    data-offstyle="danger" checked>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3"  id='edit_feature_packages'>
+                                            <div class="form-group mb-2">
+                                                <label>Select Feature Package</label>
+                                                <select name="event_feature_ads_packages_id" class="form-control">
+                                                <option>Please Select Package</option>
+                                                <option value="1" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
+                                                <option value="2" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
+                                                <option value="3" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
+
+                                               </select>
+                                                @error('event_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
+
                                             </div>
-                                        </div> --}}
+                                        </div>
+                                        @endif
+                                        <div class="card-footer text-center row">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-success mr-1 btn-bg"
+                                                    id="submit">Update</button>
+                                            </div>
+                                        </div>
 
                                     </div>
-                                    <div class="card-footer text-center row">
-                                        <div class="col">
-                                            <button type="submit" class="btn btn-success mr-1 btn-bg"
-                                                id="submit">Update</button>
-                                        </div>
+
+
                                     </div>
+
+
                                 </div>
                             </div>
-                        </div>
                     </form>
                 </div>
             </section>
         </div>
     </body>
+@endsection
+@section('scripts')
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $(document).on('click','#show_confirm',(function(event) {
+        console.log('sss');
+        }));
+    </script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.toggle').click(function (e) {
+                e.preventDefault();
+        if($('.toggle').hasClass('btn-danger')){
+          swal({
+              title: `Are you sure you want to Feature this Ad?`,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willFeature) => {
+            if (willFeature) {
+                $(this).removeClass("btn-danger");
+                $(this).removeClass("off");
+                $(this).addClass("btn-success");
+                $('#edit_feature_packages').remove();
+                $('#edit_event_row_2').append(` <div class="col-sm-6 pl-sm-0 pr-sm-3"  id='edit_feature_packages'>
+                                            <div class="form-group mb-2">
+                                                <label>Select Feature Package</label>
+                                                <select name="event_feature_ads_packages_id" class="form-control">
+                                                <option>Please Select Package</option>
+                                                <option value="1"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
+                                                <option value="2"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
+                                                <option value="3"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'3')? 'selected' : ''  }}>Premium</option>
+
+                                               </select>
+                                                @error('event_feature_ads_packages_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+
+                                            </div>
+                                        </div>`)
+            }else{
+                $('#edit_feature_packages').remove();
+                $(this).removeClass("btn-success");
+                $(this).addClass("btn-danger");
+                $(this).addClass("off");
+            }
+          });
+        }else{
+            swal({
+              title: `Are you sure you want to Unfeature this Ad?`,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willUnfeature) => {
+            if (willUnfeature) {
+                $(this).removeClass("btn-success");
+                $(this).addClass("btn-danger");
+                $(this).addClass("off");
+                $('#edit_feature_packages').remove();
+            }else{
+                $(this).removeClass("btn-danger");
+                $(this).removeClass("off");
+                $(this).addClass("btn-success");
+                $('#edit_feature_packages').remove();
+                $('#edit_event_row_2').append(`<div class="col-sm-6 pl-sm-0 pr-sm-3" id='edit_feature_packages'>
+                                            <div class="form-group mb-2">
+                                                <label>Select Feature Package</label>
+                                                <select name="event_feature_ads_packages_id" class="form-control">
+                                                <option value="1" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
+                                                <option value="2" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
+                                                <option value="3" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
+                                               </select>
+                                                @error('event_feature_ads_packages_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+
+                                            </div>
+                                        </div>`)
+            }
+          });
+
+
+        }
+
+            });
+        });
+    </script>
 @endsection

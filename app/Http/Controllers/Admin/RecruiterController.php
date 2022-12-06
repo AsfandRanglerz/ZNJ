@@ -185,6 +185,29 @@ class RecruiterController extends Controller
         return view('admin.recruiter.event.add',compact('data'));
     }
     public function storeEvent(Request $request,$user_id){
+        if($request->has('event_feature_ads_packages_id')){
+        $request->validate([
+            'title' => 'required',
+            // 'cover_image' => 'required',
+            // 'location' => 'required',
+            'about_event' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'event_type' => 'required',
+            'joining_type' => 'required',
+            'hiring_entertainers_status' => 'required',
+            'seats' => 'required',
+            'date' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+            'event_feature_ads_packages_id'=>'required'
+        ]);
+        $data=$request->only(['title','user_id','about_event','description','price','event_type','joining_type','hiring_entertainers_status','seats','date','from','to','event_feature_ads_packages_id']);
+        $data['feature_status']=1;
+        $data['user_id']=$user_id;
+        Event::create($data);
+        return redirect()->route('recruiter.show',$user_id)->with(['status' => true, 'message' => 'Event Added successfully']);
+    }else{
         $request->validate([
             'title' => 'required',
             // 'cover_image' => 'required',
@@ -204,6 +227,8 @@ class RecruiterController extends Controller
         $data['user_id']=$user_id;
         Event::create($data);
         return redirect()->route('recruiter.show',$user_id)->with(['status' => true, 'message' => 'Event Added successfully']);
+
+    }
     }
     public function eventEntertainersIndex($user_id,$event_id){
        $data['event_entertainers']= Event::find($event_id)->entertainerDetails;

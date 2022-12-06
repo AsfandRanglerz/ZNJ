@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="{{ asset('public/admin/assets/css/datatables.css') }}">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
+    @yield('css')
 
 </head>
 
@@ -71,6 +74,8 @@
 
 
 </script>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
 @yield('js')
 <script>window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){

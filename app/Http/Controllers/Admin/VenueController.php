@@ -153,7 +153,7 @@ class VenueController extends Controller
             'seats' => 'required',
             'stands' => 'required',
             'opening_time' =>'required',
-            'closing_time' =>'required'
+            'closing_time' =>'required',
         ]);
         $data = $request->only(['title','user_id', 'category', 'description','seats','stands','opening_time','closing_time']);
         $data['amenities'] = implode(',', $request->amenities);
