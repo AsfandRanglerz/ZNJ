@@ -41,7 +41,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $entertainer->title }}</td>
                                                 <td>{{ $entertainer->category }}</td>
-                                                <td>{{ $entertainer->price }}</td>
+                                                <td>${{ $entertainer->price }}</td>
                                                 <td>{{ $entertainer->description }}</td>
                                                 <td>{{ $entertainer->created_at }}</td>
                                             </tr>

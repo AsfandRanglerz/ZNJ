@@ -43,7 +43,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $entertainer_details->title }}</td>
                                                 <td>{{ $entertainer_details->category }}</td>
-                                                <td>{{ $entertainer_details->price }}</td>
+                                                <td>${{ $entertainer_details->price }}</td>
                                                 <td>{{ $entertainer_details->description }}</td>
                                                 <td>{{ $entertainer_details->created_at }}</td>
 
@@ -60,7 +60,7 @@
                                                         <form method="get" action="{{ route('entertainer.talent.delete', $entertainer_details->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
-                                                            <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
+                                                            <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                         </form>
                                                            </td>
                                                         </tr>
