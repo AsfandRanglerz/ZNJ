@@ -16,7 +16,7 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 <div class="card">
                                     <h4 class="text-center my-4">Edit Talent</h4>
-                                    <div class="row mx-0 px-4">
+                                    <div class="row mx-0 px-4" id="edit_entertainer_row">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
@@ -50,6 +50,40 @@
                                                     @enderror
                                             </div>
                                         </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>Feature Ads</label>
+                                                @if($data['entertainer_talent']['feature_status']==='0')
+                                                <input type="checkbox"  name="feature_ads" data-toggle="toggle"
+                                                    data-on="Featured"
+                                                    data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
+                                                    data-offstyle="danger">
+                                                </div>
+                                            </div>
+                                                    @else
+                                                    <input type="checkbox"  name="feature_ads" data-toggle="toggle"
+                                                    data-on="Featured"
+                                                    data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
+                                                    data-offstyle="danger" checked>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3"  id='edit_feature_packages'>
+                                            <div class="form-group mb-2">
+                                                <label>Select Feature Package</label>
+                                                <select name="entertainer_feature_ads_packages_id" class="form-control">
+                                                <option value='null'>Please Select Package</option>
+                                                <option value="1" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
+                                                <option value="2" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
+                                                <option value="3" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
+
+                                               </select>
+                                                @error('entertainer_feature_ads_packages_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+
+                                            </div>
+                                        </div>
+                                        @endif
 
                                     </div>
                                     <div class="card-footer text-center row">
@@ -58,8 +92,11 @@
                                                 id="submit">Update</button>
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -74,5 +111,89 @@
     toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
 </script>
 @endif
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.toggle').click(function (e) {
+                e.preventDefault();
+        if($('.toggle').hasClass('btn-danger')){
+          swal({
+              title: `Are you sure you want to Feature this Ad?`,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willFeature) => {
+            if (willFeature) {
+                $(this).removeClass("btn-danger");
+                $(this).removeClass("off");
+                $(this).addClass("btn-success");
+                $('#edit_feature_packages').remove();
+                $('#edit_entertainer_row').append(`<div class="col-sm-6 pl-sm-0 pr-sm-3"  id='edit_feature_packages'>
+                                            <div class="form-group mb-2">
+                                                <label>Select Feature Package</label>
+                                                <select name="entertainer_feature_ads_packages_id" class="form-control">
+                                                <option value='null'>Please Select Package</option>
+                                                <option value="1"{{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
+                                                <option value="2"{{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
+                                                <option value="3"{{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'3')? 'selected' : ''  }}>Premium</option>
+
+                                               </select>
+                                                @error('entertainer_feature_ads_packages_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+
+                                            </div>
+                                        </div>`)
+            }else{
+                $('#edit_feature_packages').remove();
+                $(this).removeClass("btn-success");
+                $(this).addClass("btn-danger");
+                $(this).addClass("off");
+            }
+          });
+        }else{
+            swal({
+              title: `Are you sure you want to Unfeature this Ad?`,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willUnfeature) => {
+            if (willUnfeature) {
+                $(this).removeClass("btn-success");
+                $(this).addClass("btn-danger");
+                $(this).addClass("off");
+                $('#edit_feature_packages').remove();
+            }else{
+                $(this).removeClass("btn-danger");
+                $(this).removeClass("off");
+                $(this).addClass("btn-success");
+                $('#edit_feature_packages').remove();
+                $('#edit_entertainer_row').append(`<div class="col-sm-6 pl-sm-0 pr-sm-3" id='edit_feature_packages'>
+                                            <div class="form-group mb-2">
+                                                <label>Select Feature Package</label>
+                                                <select name="entertainer_feature_ads_packages_id" class="form-control">
+                                                <option value='null'>Please Select Package</option>
+                                                <option value="1" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
+                                                <option value="2" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
+                                                <option value="3" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
+                                               </select>
+                                                @error('entertainer_feature_ads_packages_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+
+                                            </div>
+                                        </div>`)
+            }
+          });
+
+
+        }
+
+            });
+        });
+    </script>
 
 @endsection

@@ -150,6 +150,8 @@ class RecruiterController extends Controller
     }
     public function updateEvent(Request $request, $event_id)
     {
+        if($request->event_feature_ads_packages_id !=='null' && $request->feature_ads==='on'){
+
         $request->validate([
             'title' => 'required',
             // 'cover_image' => 'required',
@@ -177,8 +179,45 @@ class RecruiterController extends Controller
         $recruiter->date = $request->date;
         $recruiter->from = $request->from;
         $recruiter->to = $request->to;
+        $recruiter->event_feature_ads_packages_id=$request->input('event_feature_ads_packages_id');
+        $recruiter->feature_status =1;
         $recruiter->update();
         return redirect()->route('recruiter.show',$recruiter->user_id)->with(['status' => true, 'message' => 'Event Updated sucessfully']);
+    }else if($request->event_feature_ads_packages_id ==='null' && $request->feature_ads==='on'){
+        return redirect()->back()->with(['status'=>false, 'message' => 'Feature Package Must Be Selected']);
+    }else{
+        $request->validate([
+            'title' => 'required',
+            // 'cover_image' => 'required',
+            // 'location' => 'required',
+            'about_event' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'event_type' => 'required',
+            'joining_type' => 'required',
+            'hiring_entertainers_status' => 'required',
+            'seats' => 'required',
+            'date' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+        $recruiter = Event::find($event_id);
+        $recruiter->title = $request->title;
+        $recruiter->about_event = $request->about_event;
+        $recruiter->description  = $request->description;
+        $recruiter->price = $request->price;
+        $recruiter->event_type = $request->event_type;
+        $recruiter->joining_type = $request->joining_type;
+        $recruiter->hiring_entertainers_status = $request->hiring_entertainers_status;
+        $recruiter->seats = $request->seats;
+        $recruiter->date = $request->date;
+        $recruiter->from = $request->from;
+        $recruiter->to = $request->to;
+        $recruiter->event_feature_ads_packages_id=null;
+        $recruiter->feature_status =0;
+        $recruiter->update();
+        return redirect()->route('recruiter.show',$recruiter->user_id)->with(['status' => true, 'message' => 'Event Updated sucessfully']);
+    }
     }
     public function createEventIndex($user_id){
         $data['user_id'] = $user_id;
