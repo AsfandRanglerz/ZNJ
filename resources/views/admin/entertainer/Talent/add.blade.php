@@ -19,7 +19,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
-                                                <input type="text" placeholder="example" name="title" id="title" value="{{ old('title') }}" class="form-control">
+                                                <input type="text" placeholder="Title" name="title" id="title" value="{{ old('title') }}" class="form-control">
                                                 @error('title')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -61,8 +61,8 @@
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
-                                                <label>Choose Images</label>
-                                                <input type="file" placeholder="example" name="event_photos[]" id="images" value="{{ old('event_photos') }}" class="form-control" multiple="multiple">
+                                                <label>Choose Images(Multiples)</label>
+                                                <input type="file" placeholder="Images" name="event_photos[]" id="images" value="{{ old('event_photos') }}" class="form-control" multiple="multiple">
                                                 @error('images')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -130,10 +130,9 @@
                                                 <label>Select Feature Package</label>
                                                 <select name="entertainer_feature_ads_packages_id" class="form-control">
                                                 <option>Please Select Package</option>
-                                                <option value="1">Silver</option>
-                                                <option value="2">Gold</option>
-                                                <option value="3">Premium</option>
-
+                                                @foreach($data['entertainer_feature_ads_packages'] as $feature)
+                                                <option value="{{ $feature->id }}">{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                @endforeach
                                                </select>
                                                 @error('entertainer_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -171,9 +170,9 @@
                                                 <label>Select Feature Package</label>
                                                 <select name="entertainer_feature_ads_packages_id" class="form-control">
                                                 <option>Please Select Package</option>
-                                                <option value="1">Silver</option>
-                                                <option value="2">Gold</option>
-                                                <option value="3">Premium</option>
+                                                @foreach($data['entertainer_feature_ads_packages'] as $feature)
+                                                <option value="{{ $feature->id }}">{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                @endforeach
                                                </select>
                                                 @error('entertainer_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>

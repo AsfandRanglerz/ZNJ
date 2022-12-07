@@ -8,6 +8,7 @@ use App\Models\EntertainerEventPhotos;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\TalentCategory;
+use App\Models\EntertainerFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
@@ -147,6 +148,7 @@ class EntertainerController extends Controller
     {
         $data['user_id'] = $user_id;
         $data['talent_categories']=TalentCategory::select('id','category')->get();
+        $data['entertainer_feature_ads_packages']=EntertainerFeatureAdsPackage::select('id','title','price','validity')->get();
         return view('admin.entertainer.Talent.add',compact('data'));
     }
     public function storeTalent(Request $request,$user_id)
@@ -213,6 +215,7 @@ class EntertainerController extends Controller
     {
         //$data['user_id'] = EntertainerDetail::find($id);
         $data['entertainer_talent']=EntertainerDetail::find($entertainer_details_id);
+        $data['entertainer_feature_ads_packages']=EntertainerFeatureAdsPackage::select('id','title','price','validity')->get();
         // $data['user_id'] = $entertainer_details_id;
         $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.edit',compact('data'));
@@ -221,7 +224,7 @@ class EntertainerController extends Controller
     {
         // dd($request->input());
 
-        if($request->entertainer_feature_ads_packages_id !=='null' && $request->feature_ads==='on'){
+        if($request->entertainer_feature_ads_packages_id !==null && $request->feature_ads==='on'){
         $validator=$request->validate([
             'title' => 'required',
             'category' => 'required',
@@ -232,11 +235,11 @@ class EntertainerController extends Controller
         $talent->title=$request->input('title');
         $talent->category=$request->input('category');
         $talent->price=$request->input('price');
-        $talent->entertainer_feature_ads_packages_id=$request->input('entertainer_feature_ads_packages_id');
+        $talent->entertainer_feature_ads_packages_id=$request->entertainer_feature_ads_packages_id;
         $talent->feature_status =1;
         $talent->update();
         return redirect()->route('entertainer.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated successfully']);
-    }else if ($request->entertainer_feature_ads_packages_id ==='null' && $request->feature_ads==='on'){
+    }else if ($request->entertainer_feature_ads_packages_id ===null && $request->feature_ads==='on'){
         // @dd($request->input());
         return redirect()->back()->with(['status'=>false, 'message' => 'Feature Package Must Be Selected']);
     }else{

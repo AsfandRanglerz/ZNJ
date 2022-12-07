@@ -20,7 +20,7 @@
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
 {{-- <<<<<<< Updated upstream --}}
-                                                <input type="text" name="title" id="name" value="{{ old('title') }}" class="form-control">
+                                                <input type="text" name="title" id="name" placeholder="title" value="{{ old('title') }}" class="form-control">
 {{-- =======
                                                 <input type="text" name="title" id="name" class="form-control">
 >>>>>>> Stashed changes --}}
@@ -33,7 +33,7 @@
                                             <div class="form-group mb-3">
                                                 <label>About Event</label>
 {{-- <<<<<<< Updated upstream --}}
-                                                <input type="text" name="about_event" value="{{ old('about_event') }}"  class="form-control" />
+                                                <input type="text" name="about_event" placeholder="About Event" value="{{ old('about_event') }}"  class="form-control" />
 {{-- =======
                                                 <input type="text" name="about_event" class="form-control" />
 >>>>>>> Stashed changes --}}
@@ -49,7 +49,7 @@
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
 {{-- <<<<<<< Updated upstream --}}
-                                                <input type="text" name="description" id="phone" value="{{ old('description') }}" class="form-control"
+                                                <input type="text" name="description" id="phone" placeholder="Description" value="{{ old('description') }}" class="form-control"
                                                 placeholder="example" >
 {{-- =======
                                                 <input type="text" name="description" id="phone" class="form-control"
@@ -328,9 +328,9 @@
                                                 <label>Select Feature Package</label>
                                                 <select name="event_feature_ads_packages_id" class="form-control">
                                                 <option>Please Select Package</option>
-                                                <option value="1">Silver</option>
-                                                <option value="2">Gold</option>
-                                                <option value="3">Premium</option>
+                                                @foreach($data['Event_feature_ads_packages'] as $feature)
+                                                <option value="{{ $feature->id }}">{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                @endforeach
 
                                                </select>
                                                 @error('venue_feature_ads_packages_id')
@@ -369,9 +369,9 @@
                                                 <label>Select Feature Package</label>
                                                 <select name="event_feature_ads_packages_id" class="form-control">
                                                 <option>Please Select Package</option>
-                                                <option value="1">Silver</option>
-                                                <option value="2">Gold</option>
-                                                <option value="3">Premium</option>
+                                                @foreach($data['Event_feature_ads_packages'] as $feature)
+                                                <option value="{{ $feature->id }}">{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                @endforeach
                                                </select>
                                                 @error('venue_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>

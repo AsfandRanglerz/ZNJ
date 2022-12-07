@@ -220,12 +220,12 @@
                                             <div class="form-group mb-2">
                                                 <label>Feature Ads</label>
                                                 @if($data['recruiter_event']['feature_status']==='0')
-                                                <input type="checkbox"  name="featured_ads" data-toggle="toggle"
+                                                <input type="checkbox"  name="feature_ads" data-toggle="toggle"
                                                     data-on="Featured"
                                                     data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
                                                     data-offstyle="danger">
                                                     @else
-                                                    <input type="checkbox"  name="featured_ads" data-toggle="toggle"
+                                                    <input type="checkbox"  name="feature_ads" data-toggle="toggle"
                                                     data-on="Featured"
                                                     data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
                                                     data-offstyle="danger" checked>
@@ -235,11 +235,10 @@
                                             <div class="form-group mb-2">
                                                 <label>Select Feature Package</label>
                                                 <select name="event_feature_ads_packages_id" class="form-control">
-                                                <option>Please Select Package</option>
-                                                <option value="1" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
-                                                <option value="2" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
-                                                <option value="3" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
-
+                                                    <option value='null'>Please Select Package</option>
+                                                    @foreach($data['Event_feature_ads_packages'] as $feature)
+                                                    <option value="{{ $feature->id }}"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],$feature->id)? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                    @endforeach
                                                </select>
                                                 @error('event_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -247,6 +246,7 @@
 
                                             </div>
                                         </div>
+                                    </div>
                                         @endif
                                         <div class="card-footer text-center row">
                                             <div class="col">
@@ -299,10 +299,10 @@
                                             <div class="form-group mb-2">
                                                 <label>Select Feature Package</label>
                                                 <select name="event_feature_ads_packages_id" class="form-control">
-                                                <option>Please Select Package</option>
-                                                <option value="1"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
-                                                <option value="2"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
-                                                <option value="3"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'3')? 'selected' : ''  }}>Premium</option>
+                                                    <option value='null'>Please Select Package</option>
+                                                @foreach($data['Event_feature_ads_packages'] as $feature)
+                                                <option value="{{ $feature->id }}"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],$feature->id)? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                @endforeach
 
                                                </select>
                                                 @error('event_feature_ads_packages_id')
@@ -340,10 +340,11 @@
                                             <div class="form-group mb-2">
                                                 <label>Select Feature Package</label>
                                                 <select name="event_feature_ads_packages_id" class="form-control">
-                                                <option value="1" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
-                                                <option value="2" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
-                                                <option value="3" {{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
-                                               </select>
+                                                 <option value='null'>Please Select Package</option>
+                                                @foreach($data['Event_feature_ads_packages'] as $feature)
+                                                <option value="{{ $feature->id }}"{{ str_contains($data['recruiter_event']['event_feature_ads_packages_id'],$feature->id)? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                @endforeach
+                                                </select>
                                                 @error('event_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

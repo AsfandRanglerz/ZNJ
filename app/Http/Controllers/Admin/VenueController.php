@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Venue;
 use App\Models\VenuesPhoto;
+use App\Models\VenueFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\UserLoginPassword;
@@ -141,11 +142,40 @@ class VenueController extends Controller
     {
         $data['user_id'] = $user_id;
         $data['venue_categories']=VenueCategory::select('id','category')->get();
+        $data['venue_feature_ads_packages']=VenueFeatureAdsPackage::select('id','title','price','validity')->get();
         return view('admin.venue_provider.venues.add',compact('data'));
     }
     public function storeVenue(Request $request,$user_id)
 
     {
+        if($request->has('venue_feature_ads_packages_id')){
+        $validator = $request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'seats' => 'required',
+            'stands' => 'required',
+            'opening_time' =>'required',
+            'closing_time' =>'required',
+            'venue_feature_ads_packages_id' => 'required',
+        ]);
+        $data = $request->only(['title','user_id', 'category', 'description','seats','stands','opening_time','closing_time','venue_feature_ads_packages_id']);
+        $data['feature_status']=1;
+        $data['amenities'] = implode(',', $request->amenities);
+            $data['user_id'] = $user_id;
+            $user = Venue::create($data);
+            if ($request->file('photos')) {
+                foreach ($request->file('photos') as $data) {
+                    $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                    $data->move('public/admin/assets/img/venue', $image);
+                    VenuesPhoto::create([
+                            'photos' => '' . $image,
+                            'venue_id' => $user->id
+                           ]);
+                }
+            }
+            return redirect()->route('venue.show',$user->user_id)->with(['status'=>true, 'message' => 'Venue Created sucessfully']);
+        }else{
         $validator = $request->validate([
             'title' => 'required',
             'category' => 'required',
@@ -172,6 +202,8 @@ class VenueController extends Controller
             return redirect()->route('venue.show',$user->user_id)->with(['status'=>true, 'message' => 'Venue Created sucessfully']);
         // return view('admin.entertainer.Talent.add');
     }
+
+}
     public function destroyVenue($user_id)
     {
         $data=Venue::destroy($user_id);
@@ -182,12 +214,42 @@ class VenueController extends Controller
     public function editVenue($user_id, $venue_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $venue=Venue::find($venue_id);
+        $venue['venue']=Venue::find($venue_id);
+        $venue['venue_feature_ads_packages']=VenueFeatureAdsPackage::select('id','title','price','validity')->get();
         $venue['user_id'] = $user_id;
         return view('admin.venue_provider.venues.edit',compact('venue'));
     }
     public function updateVenue(Request $request, $user_id)
     {
+        if($request->venue_feature_ads_packages_id !==null && $request->feature_ads==='on'){
+        $validator = $request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'seats' => 'required',
+            'stands' => 'required',
+            'opening_time' => 'required',
+            'closing_time'=>'required',
+
+        ]);
+
+        $talent = Venue::find($user_id);
+        $talent->title=$request->input('title');
+        $talent->category=$request->input('category');
+        $talent->description=$request->input('description');
+        $talent->seats=$request->input('seats');
+        $talent->stands=$request->input('stands');
+        $talent->opening_time=$request->input('opening_time');
+        $talent->closing_time=$request->input('closing_time');
+        $talent->amenities = implode(',', $request->amenities);
+        $talent->venue_feature_ads_packages_id=$request->venue_feature_ads_packages_id;
+        $talent->feature_status =1;
+        $talent->update();
+        return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
+    }else if ($request->venue_feature_ads_packages_id ===null && $request->feature_ads==='on'){
+        // @dd($request->input());
+        return redirect()->back()->with(['status'=>false, 'message' => 'Feature Package Must Be Selected']);
+    }else{
         // dd($request->all());
         $validator = $request->validate([
             'title' => 'required',
@@ -209,8 +271,11 @@ class VenueController extends Controller
         $talent->opening_time=$request->input('opening_time');
         $talent->closing_time=$request->input('closing_time');
         $talent->amenities = implode(',', $request->amenities);
+        $talent->venue_feature_ads_packages_id=null;
+        $talent->feature_status =0;
         $talent->update();
-        return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
+        return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
+    }
 
     }
     public function venueCategoriesIndex(){

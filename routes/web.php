@@ -63,7 +63,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/recruiter/event/add/user-id-{user_id}',[RecruiterController::class, 'storeEvent'])->name('recruiter.event.store');
     Route::get('/recruiter/event/entertainers/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventEntertainersIndex'])->name('recruiter.event_entertainers.index');
     Route::get('/recruiter/event/venues/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventVenuesIndex'])->name('recruiter.event_venues.index');
-//Entertainer
+   
+
+    //Entertainer
      Route::resource('entertainer', EntertainerController::class)->parameters([
         'recruiter' => 'user_id'
     ]);

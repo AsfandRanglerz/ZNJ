@@ -30,7 +30,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Time</label>
-                                                <input type="time" placeholder="example" name="time" value="{{ old('time') }}"  class="form-control">
+                                                <input type="time" placeholder="Time" name="time" value="{{ old('time') }}"  class="form-control">
                                                 @error('time')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

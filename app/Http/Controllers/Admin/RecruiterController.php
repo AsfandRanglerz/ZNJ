@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Event;
 use App\Models\EntertainerDetail;
+use App\Models\EventFeatureAdsPackage;
 use App\Mail\UserLoginPassword;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -144,13 +145,16 @@ class RecruiterController extends Controller
     {
         // dd($user_id,$event_id);
         $data['recruiter_event'] = Event::find($event_id);
+        $data['Event_feature_ads_packages']=EventFeatureAdsPackage::select('id','title','price','validity')->get();
         // $data['user_id'] = $id;
         $data['user_id']= $user_id;
         return view('admin.recruiter.event.edit', compact('data'));
     }
     public function updateEvent(Request $request, $event_id)
     {
+        // dd($request->input());
         if($request->event_feature_ads_packages_id !=='null' && $request->feature_ads==='on'){
+        // dd($request->input());
 
         $request->validate([
             'title' => 'required',
@@ -179,8 +183,9 @@ class RecruiterController extends Controller
         $recruiter->date = $request->date;
         $recruiter->from = $request->from;
         $recruiter->to = $request->to;
-        $recruiter->event_feature_ads_packages_id=$request->input('event_feature_ads_packages_id');
+        $recruiter->event_feature_ads_packages_id=$request->event_feature_ads_packages_id;
         $recruiter->feature_status =1;
+        // dd($recuiter);
         $recruiter->update();
         return redirect()->route('recruiter.show',$recruiter->user_id)->with(['status' => true, 'message' => 'Event Updated sucessfully']);
     }else if($request->event_feature_ads_packages_id ==='null' && $request->feature_ads==='on'){
@@ -221,6 +226,7 @@ class RecruiterController extends Controller
     }
     public function createEventIndex($user_id){
         $data['user_id'] = $user_id;
+        $data['Event_feature_ads_packages']=EventFeatureAdsPackage::select('id','title','price','validity')->get();
         return view('admin.recruiter.event.add',compact('data'));
     }
     public function storeEvent(Request $request,$user_id){
@@ -280,6 +286,13 @@ class RecruiterController extends Controller
         $data['user_id']= $user_id;
          return view('admin.recruiter.event.event_venues',compact('data'));
      }
+     //feacture ads
+    //  public function showfeature()
+    //  {
+    //     $data['Event_feature_ads_packages']=EventFeatureAdsPackage::select('id','price','validity')->get();
+    //     dd($data);
+    //     return view('admin.recruiter.event.add',compact('data'));
+    //  }
 
 
 }

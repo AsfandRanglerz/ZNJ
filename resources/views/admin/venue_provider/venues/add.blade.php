@@ -15,11 +15,11 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 <div class="card">
                                     <h4 class="text-center my-4">Add Venue</h4>
-                                    <div class="row mx-0 px-4">
+                                    <div class="row mx-0 px-4" >
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
-                                                <input type="text" placeholder="example" name="title" id="title" value="{{ old('title') }}" class="form-control">
+                                                <input type="text" placeholder="Title" name="title" id="title" value="{{ old('title') }}" class="form-control">
                                                 @error('title')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -46,12 +46,12 @@
                                         </div>
 
                                     </div>
-                                    <div class="row mx-0 px-4">
+                                    <div class="row mx-0 px-4" id="venue_row">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
                                                 <input type="text" name="description" id="description" value="{{ old('description') }}"  class="form-control"
-                                                placeholder="example" >
+                                                placeholder="Description" >
                                                 @error('description')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -60,7 +60,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Seats</label>
-                                                <input type="number" placeholder="example" name="seats" id="seats" value="{{ old('seats') }}" class="form-control"
+                                                <input type="number" name="seats" id="seats" placeholder="Seats" value="{{ old('seats') }}" class="form-control"
                                                     >
                                                 @error('seats')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -70,7 +70,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Opening Time</label>
-                                                <input type="time"  name="opening_time" id="opening_time" value="{{ old('opening_time') }}" class="form-control"
+                                                <input type="time"  name="opening_time" id="opening_time"  value="{{ old('opening_time') }}" class="form-control"
                                                     >
                                                 @error('opening_time')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -104,7 +104,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Stands</label>
-                                                <input type="number" placeholder="" name="stands" id="stands"  value="{{ old('stands') }}" class="form-control"
+                                                <input type="number" placeholder="Stands" name="stands" id="stands"  value="{{ old('stands') }}" class="form-control"
                                                     >
                                                 @error('Stands')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -119,6 +119,15 @@
                                                 @error('Stands')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>Feature Ads</label>
+                                                <input type="checkbox"  name="featured_ads" data-toggle="toggle"
+                                                    data-on="Featured"
+                                                    data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
+                                                    data-offstyle="danger">
                                             </div>
                                         </div>
 
@@ -493,4 +502,86 @@
     toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
 </script>
 @endif
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.toggle').click(function (e) {
+            e.preventDefault();
+    if($('.toggle').hasClass('btn-danger')){
+      swal({
+          title: `Are you sure you want to Feature this Ad?`,
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((willFeature) => {
+        if (willFeature) {
+            $(this).removeClass("btn-danger");
+            $(this).removeClass("off");
+            $(this).addClass("btn-success");
+            $('#feature_packages').remove();
+            $('#venue_row').append(` <div class="col-sm-6 pl-sm-0 pr-sm-3"  id='feature_packages'>
+                                        <div class="form-group mb-2">
+                                            <label>Select Feature Package</label>
+                                            <select name="venue_feature_ads_packages_id" class="form-control">
+                                            <option>Please Select Package</option>
+                                            @foreach($data['venue_feature_ads_packages'] as $feature)
+                                            <option value="{{ $feature->id }}">{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                            @endforeach
+                                           </select>
+                                            @error('venue_feature_ads_packages_id')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+
+                                        </div>
+                                    </div>`)
+        }else{
+            $('#feature_packages').remove();
+            $(this).removeClass("btn-success");
+            $(this).addClass("btn-danger");
+            $(this).addClass("off");
+        }
+      });
+    }else{
+        swal({
+          title: `Are you sure you want to Unfeature this Ad?`,
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((willUnfeature) => {
+        if (willUnfeature) {
+            $(this).removeClass("btn-success");
+            $(this).addClass("btn-danger");
+            $(this).addClass("off");
+            $('#feature_packages').remove();
+        }else{
+            $(this).removeClass("btn-danger");
+            $(this).removeClass("off");
+            $(this).addClass("btn-success");
+            $('#feature_packages').remove();
+            $('#venue_row').append(` <div class="col-sm-6 pl-sm-0 pr-sm-3" id='feature_packages'>
+                                        <div class="form-group mb-2">
+                                            <label>Select Feature Package</label>
+                                            <select name="venue_feature_ads_packages_id" class="form-control">
+                                            <option>Please Select Package</option>
+                                            @foreach($data['venue_feature_ads_packages'] as $feature)
+                                            <option value="{{ $feature->id }}">{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                            @endforeach
+                                           </select>
+                                            @error('venue_feature_ads_packages_id')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+
+                                        </div>
+                                    </div>`)
+        }
+      });
+
+
+    }
+
+        });
+    });
+</script>
 @endsection

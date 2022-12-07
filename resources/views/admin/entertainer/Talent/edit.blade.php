@@ -71,12 +71,12 @@
                                             <div class="form-group mb-2">
                                                 <label>Select Feature Package</label>
                                                 <select name="entertainer_feature_ads_packages_id" class="form-control">
-                                                <option value='null'>Please Select Package</option>
-                                                <option value="1" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
-                                                <option value="2" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
-                                                <option value="3" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
-
+                                                    <option value=''>Please Select Package</option>
+                                                    @foreach($data['entertainer_feature_ads_packages'] as $feature)
+                                                    <option value="{{ $feature->id }}" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],$feature->id)? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                    @endforeach
                                                </select>
+
                                                 @error('entertainer_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -134,12 +134,12 @@
                                             <div class="form-group mb-2">
                                                 <label>Select Feature Package</label>
                                                 <select name="entertainer_feature_ads_packages_id" class="form-control">
-                                                <option value='null'>Please Select Package</option>
-                                                <option value="1"{{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
-                                                <option value="2"{{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
-                                                <option value="3"{{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'3')? 'selected' : ''  }}>Premium</option>
-
+                                                    <option value=''>Please Select Package</option>
+                                                    @foreach($data['entertainer_feature_ads_packages'] as $feature)
+                                                    <option value="{{ $feature->id }}" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'$feature->id')? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                    @endforeach
                                                </select>
+
                                                 @error('entertainer_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -175,10 +175,10 @@
                                             <div class="form-group mb-2">
                                                 <label>Select Feature Package</label>
                                                 <select name="entertainer_feature_ads_packages_id" class="form-control">
-                                                <option value='null'>Please Select Package</option>
-                                                <option value="1" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'1')? 'selected' : ''  }}>Silver</option>
-                                                <option value="2" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'2')? 'selected' : ''  }}>Gold</option>
-                                                <option value="3" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'3')? 'selected' : '' }}>Premium</option>
+                                                    <option value=''>Please Select Package</option>
+                                                    @foreach($data['entertainer_feature_ads_packages'] as $feature)
+                                                    <option value="{{ $feature->id }}" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'$feature->id')? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                    @endforeach
                                                </select>
                                                 @error('entertainer_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>

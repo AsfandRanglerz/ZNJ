@@ -27,7 +27,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
                                                 <label>Email</label>
-                                                <input type="email" placeholder="example@gmail.com" name="email" id="email" value="{{ old('email') }}" class="form-control" />
+                                                <input type="email" placeholder="Email" name="email" id="email" value="{{ old('email') }}" class="form-control" />
                                             </div>
                                             @error('email')
                                             <div class="text-danger">{{ $message }}</div>
