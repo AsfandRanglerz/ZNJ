@@ -76,5 +76,9 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('top-rated-entertainers','HomeController@topRatedEntertainers');
         Route::get('top-rated-venues','HomeController@topRatedVenues');
         Route::get('term-of-use','HomeController@terms');
+
+        Route::post('search-data','SearchController@searchData');
+        Route::post('search-filter','SearchController@searchFilter');
+        Route::post('my-ads-filter','SearchController@myAdsFilter');
     });
 });
