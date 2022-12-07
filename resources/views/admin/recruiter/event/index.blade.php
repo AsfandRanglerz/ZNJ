@@ -55,7 +55,7 @@
                                                 <td>{{ $event->joining_type }}</td>
                                                 <td>{{ $event->hiring_entertainers_status }}</td>
                                                 <td>{{ $event->seats }}</td>
-                                                <td>{{ $event->price }}</td>
+                                                <td>${{ $event->price }}</td>
                                                 <td>{{ $event->date }}</td>
                                                 @if( explode(':',$event->from)[0]>=12)
                                                 <td>{{ $event->from }} PM</td>
@@ -81,7 +81,7 @@
                                                         <form method="get" action="{{ route('recruiter.event.delete', $event->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
-                                                            <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
+                                                            <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                         </form>
                                                            </td>
                                                         </tr>

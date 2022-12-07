@@ -8,6 +8,10 @@ body {
     overflow-x: hidden;
     position: relative;
 }
+.theme-white .nav-tabs .nav-item .nav-link {
+    color: #6c757d;
+    font-weight: bold;
+}
 .nav-tabs .nav-item .nav-link.active {
     background-color: var(--theme-color);
     border-color: var(--theme-color);

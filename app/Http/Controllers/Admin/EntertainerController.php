@@ -152,14 +152,16 @@ class EntertainerController extends Controller
     public function storeTalent(Request $request,$user_id)
 
     {
+        if($request->has('entertainer_feature_ads_packages_id')){
         $validator = $request->validate([
             'title' => 'required',
             'category' => 'required',
             'price' => 'required',
-            // 'description' => 'required',
+            'entertainer_feature_ads_packages_id' => 'required',
             // 'images'=>'required',
         ]);
-        $data = $request->only(['title','user_id', 'category', 'price']);
+        $data = $request->only(['title','user_id', 'category', 'price','entertainer_feature_ads_packages_id']);
+        $data['feature_status']=1;
 
         $data['user_id'] = $user_id;
         $user = EntertainerDetail::create($data);
@@ -174,6 +176,30 @@ class EntertainerController extends Controller
             }
         }
          return redirect()->route('entertainer.show',$user_id)->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
+    }else{
+        $validator = $request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+            // 'images'=>'required',
+        ]);
+        $data = $request->only(['title','user_id', 'category', 'price']);
+        //  If admin unfeatured the featured add
+        $data['user_id'] = $user_id;
+        $user = EntertainerDetail::create($data);
+        if ($request->file('event_photos')) {
+            foreach ($request->file('event_photos') as $data) {
+                $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                $data->move('public/admin/assets/img/entertainer', $image);
+                EntertainerEventPhotos::create([
+                        'event_photos' => '' . $image,
+                        'entertainer_details_id' => $user->id
+                       ]);
+            }
+        }
+         return redirect()->route('entertainer.show',$user_id)->with(['status'=>true, 'message' => 'Talent Created sucessfully']);
+
+    }
         // return view('admin.entertainer.Talent.add');
 
 }
@@ -193,21 +219,44 @@ class EntertainerController extends Controller
     }
     public function updateTalent(Request $request, $user_id)
     {
+        // dd($request->input());
+
+        if($request->entertainer_feature_ads_packages_id !=='null' && $request->feature_ads==='on'){
         $validator=$request->validate([
             'title' => 'required',
             'category' => 'required',
             'price' => 'required',
-            // 'description' => 'required',
             // 'images'=>'required',
         ]);
-
         $talent=EntertainerDetail::find($user_id);
         $talent->title=$request->input('title');
         $talent->category=$request->input('category');
         $talent->price=$request->input('price');
+        $talent->entertainer_feature_ads_packages_id=$request->input('entertainer_feature_ads_packages_id');
+        $talent->feature_status =1;
         $talent->update();
+        return redirect()->route('entertainer.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated successfully']);
+    }else if ($request->entertainer_feature_ads_packages_id ==='null' && $request->feature_ads==='on'){
+        // @dd($request->input());
+        return redirect()->back()->with(['status'=>false, 'message' => 'Feature Package Must Be Selected']);
+    }else{
+        // @dd($request->input());
+        $validator=$request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+            // 'images'=>'required',
+        ]);
+        $talent=EntertainerDetail::find($user_id);
+        $talent->title=$request->input('title');
+        $talent->category=$request->input('category');
+        $talent->price=$request->input('price');
+        $talent->entertainer_feature_ads_packages_id=null;
+        $talent->feature_status=0;
+        $talent->update();
+        return redirect()->route('entertainer.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated successfully']);
 
-        return redirect()->route('entertainer.show',$talent->user_id)->with(['status'=>true, 'message' => 'Talent Updated sucessfully']);
+    }
 
     }
 

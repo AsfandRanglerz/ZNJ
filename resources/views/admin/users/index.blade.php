@@ -72,7 +72,7 @@
                                                 <form method="POST" action="{{ route('recruiter.destroy', $recruiter->id) }}">
                                                     @csrf
                                                     <input name="_method" type="hidden" value="DELETE">
-                                                    <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                 </form>
                                                    </td>
                                                 </tr>
@@ -126,7 +126,7 @@
                                                 <form method="POST" action="{{ route('entertainer.destroy', $entertainer->id) }}">
                                                     @csrf
                                                     <input name="_method" type="hidden" value="DELETE">
-                                                    <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                 </form>
                                                    </td>
                                                 </tr>
@@ -183,7 +183,7 @@
                                                 <form method="POST" action="{{ route('venue.destroy', $venue->id) }}">
                                                     @csrf
                                                     <input name="_method" type="hidden" value="DELETE">
-                                                    <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                 </form>
                                                    </td>
                                                 </tr>

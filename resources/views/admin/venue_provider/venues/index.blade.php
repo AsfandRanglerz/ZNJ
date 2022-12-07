@@ -75,7 +75,7 @@
                                                         <form method="get" action="{{ route('venue-providers.venue.delete', $venue->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
-                                                            <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
+                                                            <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
                                                         </form>
                                                            </td>
                                                         </tr>
