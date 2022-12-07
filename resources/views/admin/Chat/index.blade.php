@@ -19,34 +19,27 @@
                             <div class="card-body table-striped table-bordered table-responsive">
                                 {{-- <a class="btn btn-primary mb-3"
                                 href="{{route('entertainer.show',$data['user_id'])}}">Back</a> --}}
-                                <a class="btn btn-success mb-3"
-                                href="{{route('entertainer.talent.price_packages.add',$data['entertainer_details_id'])}}">Add Price Package</a>
-                                <table class="table" id="table_talent_price">
+                                <table class="table" id="table_chat">
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
-                                            <th>Price</th>
-                                            <th>Time</th>
-                                            <th>Created At</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>User Type</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     @foreach($data['price_packages'] as $price)
+                                     @foreach($data['chat_users'] as $user)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>${{ $price->price_package }}</td>
-                                                <td>{{ $price->time }}</td>
-                                                <td>{{ $price->created_at }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email}}</td>
+                                                <td>{{ $user->role }}</td>
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                               href="{{route('entertainer.talent.price_packages.edit', $price->id)}}">Edit</a>
-                                                        <form method="POST" action="{{ route('entertainer.talent.price_packages.delete', $price->id) }}">
-                                                            @csrf
-                                                            <input name="_method" type="hidden" value="DELETE">
-                                                            <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
-                                                        </form>
+                                               href=""><i class="fa  fa-comments "></i>Chat</a>
                                                            </td>
                                                         </tr>
                                       @endforeach
@@ -70,7 +63,7 @@
 @endif
 <script>
     $(document).ready(function() {
-        $('#table_talent_price').DataTable();
+        $('#table_chat').DataTable();
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>

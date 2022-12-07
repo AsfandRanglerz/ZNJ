@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserLoginPassword;
 use App\Models\EntertainerPricePackage;
-
 class EntertainerController extends Controller
 {
     /**

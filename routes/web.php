@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\TeamAController;
 use App\Http\Controllers\Admin\VenueController;
 use App\Http\Controllers\Admin\SecurityController;
@@ -139,6 +140,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     // Notification
     Route::get('/notification',[NotificationController::class,'index'])->name('notification.index');
     Route::post('/notification/push',[NotificationController::class,'pushNotification'])->name('notification.push');
+    // Chat
+    Route::get('/chat',[ChatController::class,'index'])->name('chat.index');
 
 
 

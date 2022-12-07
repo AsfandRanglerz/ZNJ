@@ -54,8 +54,8 @@
             <li class="dropdown {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
                 <a  href="{{url('/admin/notification')}}" class="nav-link"> <i class="fa fa-bell"></i><span>Notification</span></a>
             </li>
-            <li class="dropdown {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
-                <a  href="{{url('/admin/notification')}}" class="nav-link"> <i class="fa fa-comments"></i><span>Chat</span></a>
+            <li class="dropdown {{ (request()->is('admin/chat*')) ? 'active' : '' }}">
+                <a  href="{{url('/admin/chat')}}" class="nav-link"> <i class="fa fa-comments"></i><span>Chat</span></a>
             </li>
 
             {{-- <li class="dropdown">
