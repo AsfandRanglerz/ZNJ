@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\Admin\SecurityController;
-use App\Http\Controllers\Admin\TeamAController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\TeamAController;
+use App\Http\Controllers\Admin\VenueController;
+use App\Http\Controllers\Admin\SecurityController;
 use App\Http\Controllers\Admin\RecruiterController;
+use App\Http\Controllers\Admin\IntrovideoController;
 use App\Http\Controllers\Admin\EntertainerController;
 use App\Http\Controllers\Admin\FeatureAdsPackagesController;
-use App\Http\Controllers\Admin\VenueController;
-use App\Http\Controllers\Admin\IntrovideoController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\NotificationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -132,6 +134,11 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/feature-ads-packages/talent/update/{talent_ads_package_id}',[FeatureAdsPackagesController::class,'updateTalentAdsPackage'])->name('feature_ads_packages.talent.update');
     Route::get('/feature-ads-packages/venue/edit/{venue_ads_package_id}',[FeatureAdsPackagesController::class,'editVenueAdsPackageIndex'])->name('feature_ads_packages.venue.edit.index');
     Route::post('/feature-ads-packages/venue/update/{venue_ads_package_id}',[FeatureAdsPackagesController::class,'updateVenueAdsPackage'])->name('feature_ads_packages.venue.update');
+    // Notification
+    Route::get('/notification',[NotificationController::class,'index'])->name('notification.index');
+    Route::post('/notification/push',[NotificationController::class,'pushNotification'])->name('notification.push');
+
+
 
 
 

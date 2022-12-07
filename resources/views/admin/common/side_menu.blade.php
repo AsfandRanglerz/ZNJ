@@ -35,7 +35,7 @@
             </li> --}}
             <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown">
-                    <i data-feather="layout"></i><span>Categories</span></a>
+                    <i class="fa fa-list-alt"></i><span>Categories</span></a>
                 <ul class="dropdown-menu active">
                     <li class="{{ (request()->is('admin/entertainer/talent/categories/*')) ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/entertainer/talent/categories/')}}">Talent Category</a>
@@ -50,6 +50,12 @@
             </li>
             <li class="dropdown {{ (request()->is('admin/feature-ads-packages*')) ? 'active' : '' }}">
                 <a  href="{{url('/admin/feature-ads-packages')}}" class="nav-link"> <i class="fa fa-gift"></i><span>Feature Ads</span></a>
+            </li>
+            <li class="dropdown {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
+                <a  href="{{url('/admin/notification')}}" class="nav-link"> <i class="fa fa-bell"></i><span>Notification</span></a>
+            </li>
+            <li class="dropdown {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
+                <a  href="{{url('/admin/notification')}}" class="nav-link"> <i class="fa fa-comments"></i><span>Chat</span></a>
             </li>
 
             {{-- <li class="dropdown">
