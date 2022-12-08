@@ -58,7 +58,7 @@ class VenueController extends Controller
             'phone' => 'required',
         ]);
         $data = $request->only(['name', 'email', 'role', 'phone']);
-            $data['role'] = 'venue';
+            $data['role'] = 'venue_provider';
             $messages['password'] = random_int(10000000, 99999999);
             $messages['email'] = $request->email;
             $data['password'] = Hash::make($messages['password']);

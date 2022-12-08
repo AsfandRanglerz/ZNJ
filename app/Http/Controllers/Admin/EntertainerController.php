@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\EntertainerDetail;
 use App\Models\EntertainerEventPhotos;
@@ -98,7 +97,6 @@ class EntertainerController extends Controller
         $entertainer=User::find($user_id);
         return view('admin.entertainer.edit',compact('entertainer'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -114,14 +112,11 @@ class EntertainerController extends Controller
             'phone'=>'required',
 
         ]);
-
         $entertainer=User::find($user_id);
-
         $entertainer->name=$request->input('name');
         $entertainer->email=$request->input('email');
         $entertainer->phone=$request->input('phone');
         $entertainer->update();
-
         return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Entertainer Updated sucessfully']);
     }
 
