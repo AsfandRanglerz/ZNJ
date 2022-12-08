@@ -17,7 +17,7 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 <div class="card">
                                     <h4 class="text-center my-4">Edit Venue</h4>
-                                    <div class="row mx-0 px-4" id="edit_venue_row">
+                                    <div class="row mx-0 px-4" >
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Title </label>
@@ -40,7 +40,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row mx-0 px-4">
+                                    <div class="row mx-0 px-4" id="edit_venue_row">
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
@@ -499,7 +499,7 @@
                                                 @enderror
                                             </div>
                                         </div> --}}
-                                    
+
                                     <div class="card-footer text-center row">
                                         <div class="col">
                                             <button type="submit" class="btn btn-success mr-1 btn-bg"

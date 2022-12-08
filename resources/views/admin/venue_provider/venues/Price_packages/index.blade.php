@@ -7,6 +7,8 @@
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
             <div class="section-body">
+                <a class="btn btn-primary mb-3"
+                href="{{route('venue.show', ['user_id'=>$data['user_id'],'venue_id'=>$data['venue_id']])}}">Back</a>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">

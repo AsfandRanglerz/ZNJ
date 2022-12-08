@@ -15,9 +15,6 @@ class UserController extends Controller
         $data['venue']=User::where('role','venue_provider')->with(['venues' => function ($query) {$query->select('user_id','category'); }])->latest()->get();
         $data['entertainer']=User::where('role','entertainer')->with(['entertainerDetail' => function ($query) {$query->select('user_id','category'); }])->latest()->get();
         // dd(implode(',',$data['entertainer'][0]['EntertainerDetail']));
-
-
-
         return view('admin.users.index',['data'=>$data]);
 
 

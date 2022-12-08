@@ -349,9 +349,10 @@ class VenueController extends Controller
         $photo->update();
         return redirect()->route('venue-providers.venue.photo.show',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
 }
-public function pricePackagesIndex( $venue_id){
+public function pricePackagesIndex($user_id,$venue_id){
     $data['price_packages']=VenuePricing::where('venues_id',$venue_id)->get();
     $data['venue_id']=$venue_id;
+    $data['user_id']= $user_id;
 
     // dd($data['price_packages']);
     return view('admin.venue_provider.venues.Price_packages.index',compact('data'));

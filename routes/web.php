@@ -64,7 +64,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/recruiter/event/add/user-id-{user_id}',[RecruiterController::class, 'storeEvent'])->name('recruiter.event.store');
     Route::get('/recruiter/event/entertainers/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventEntertainersIndex'])->name('recruiter.event_entertainers.index');
     Route::get('/recruiter/event/venues/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventVenuesIndex'])->name('recruiter.event_venues.index');
-   
+
 
     //Entertainer
      Route::resource('entertainer', EntertainerController::class)->parameters([
@@ -118,7 +118,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/venue-providers/venue/photo/edit/{venue_id}',[VenueController::class,'editPhoto'])->name('venue-providers.venue.photo.edit');
      Route::post('/venue-providers/venue/photo/update/{venue_id}',[VenueController::class,'updatePhoto'])->name('venue-providers.venue.photo.update');
 
-     Route::get('/venue-providers/venue/venue-pricings/{venue_id}',[VenueController::class,'pricePackagesIndex'])->name('venue-providers.venue.venue_pricings.index');
+     Route::get('/venue-providers/venue/venue-pricings/{user_id}/{venue_id}',[VenueController::class,'pricePackagesIndex'])->name('venue-providers.venue.venue_pricings.index');
      Route::get('/venue-providers/venue/venue-pricings/add/{venue_id}',[VenueController::class,'createPricePackageIndex'])->name('venue-providers.venue.venue_pricings.add');
 
      Route::post('/venue-providers/venue/venue-pricings/store/{venue_id}',[VenueController::class,'storePricePackage'])->name('venue-providers.venue.venue_pricings.store');
