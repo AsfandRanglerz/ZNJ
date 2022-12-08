@@ -57,6 +57,9 @@
             <li class="dropdown {{ (request()->is('admin/chat*')) ? 'active' : '' }}">
                 <a  href="{{url('/admin/chat')}}" class="nav-link"> <i class="fa fa-comments"></i><span>Chat</span></a>
             </li>
+            <li class="dropdown {{ (request()->is('')) ? 'active' : '' }}">
+                <a  href="{{url('')}}" class="nav-link"> <i class="fas fa-hand-holding-usd"></i><span>Finance Management</span></a>
+            </li>
 
             {{-- <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Categories</span></a>
