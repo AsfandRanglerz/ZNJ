@@ -80,6 +80,7 @@ class VenueController extends Controller
      */
     public function show($user_id)
     {
+        // dd($user_id,$venue_id);
          //  Showing Entertainer Talent
 
          $data['venue']= Venue::where('user_id',$user_id)->latest()->get() ;
@@ -373,11 +374,12 @@ public function storePricePackage(Request $request,$user_id,$venue_id){
     $user = VenuePricing::create($data);
             return redirect()->route('venue-providers.venue.venue_pricings.index',['user_id'=>$venue_id,'venue_id'=>$venue_id])->with(['status'=>true, 'message' => 'Price Package Created Sucessfully']);
 }
-public function editPricePackageIndex($venue_pricing_id){
-    $data['price_package']= VenuePricing::where('id',$venue_pricing_id)->select('id','price','day')->first();
+public function editPricePackageIndex($user_id,$venue_pricing_id){
+    $data['price_package']= VenuePricing::where('id',$venue_pricing_id)->first();
+    $data['user_id']= $user_id;
     return view('admin.venue_provider.venues.Price_packages.edit',compact('data'));
 }
-public function updatePricePackage(Request $request,$venue_pricing_id){
+public function updatePricePackage(Request $request,$user_id,$venue_pricing_id){
     $validator =$request->validate([
         'price'=>'required',
         'day'=>'required'
@@ -387,7 +389,7 @@ public function updatePricePackage(Request $request,$venue_pricing_id){
     $price_package->price=$request->input('price');
     $price_package->day=$request->input('day');
     $price_package->update();
-    return redirect()->route('venue-providers.venue.venue_pricings.index',$price_package['venues_id'])->with(['status'=>true, 'message' => 'Price Package Updated Sucessfully']);
+    return redirect()->route('venue-providers.venue.venue_pricings.index',['user_id'=>$user_id,'venue_id'=>$price_package['venues_id']])->with(['status'=>true, 'message' => 'Price Package Updated Sucessfully']);
 }
 public function destroyPricePackage($venue_pricing_id){
     VenuePricing::where('id',$venue_pricing_id)->delete();

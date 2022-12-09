@@ -2,12 +2,13 @@
 @section('title', 'Dashboard')
 @section('content')
     <body>
+        {{-- @dd($data['price_package']['venues_id']) --}}
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-2" href="{{route('venue-providers.venue.venue_pricings.index',['user_id'=>$data['user_id'],'venue_id'=>$data['price_package']['venues_id']])}}">Back</a>
                     {{-- @dd($data['price_package']) --}}
-                    <form id="add_student" action="{{ route('venue-providers.venue.venue_pricings.update',$data['price_package']['id']) }}" name="form" method="POST" enctype="multipart/form-data">
-
+                    <form id="add_student" action="{{ route('venue-providers.venue.venue_pricings.update',['user_id'=>$data['user_id'],'venue_pricing_id'=>$data['price_package']['id']]) }}" name="form" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
@@ -32,72 +33,13 @@
                                             <div class="form-group">
                                                 <label>Day</label>
                                                 <select name="day"  class="form-control">
-                                                    @if($data['price_package']['day']==='Monday')
-
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" selected>Monday</option>
-                                                    <option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option>
-                                                    <option value="Thursday">Thursday</option>
-                                                    <option value="Friday">Friday</option>
-                                                    <option value="Saturday">Saturday</option>
-                                                    <option value="Sunday">Sunday</option>
-                                                    @elseif ($data['price_package']['day']==='Tuesday')
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" >Monday</option>
-                                                    <option value="Tuesday"selected>Tuesday</option><option value="Wednesday">Wednesday</option>
-                                                    <option value="Thursday">Thursday</option>
-                                                    <option value="Friday">Friday</option>
-                                                    <option value="Saturday">Saturday</option>
-                                                    <option value="Sunday">Sunday</option>
-                                                    @elseif ($data['price_package']['day']==='Wednesday')
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" selected>Monday</option>
-                                                    <option value="Tuesday">Tuesday</option><option value="Wednesday"selected>Wednesday</option>
-                                                    <option value="Thursday">Thursday</option>
-                                                    <option value="Friday">Friday</option>
-                                                    <option value="Saturday">Saturday</option>
-                                                    <option value="Sunday">Sunday</option>
-                                                    @elseif ($data['price_package']['day']==='Thursday')
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" selected>Monday</option>
-                                                    <option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option>
-                                                    <option value="Thursday"selected>Thursday</option>
-                                                    <option value="Friday">Friday</option>
-                                                    <option value="Saturday">Saturday</option>
-                                                    <option value="Sunday">Sunday</option>
-                                                    @elseif ($data['price_package']['day']==='Friday')
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" selected>Monday</option>
-                                                    <option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option>
-                                                    <option value="Thursday">Thursday</option>
-                                                    <option value="Friday"selected>Friday</option>
-                                                    <option value="Saturday">Saturday</option>
-                                                    <option value="Sunday">Sunday</option>
-                                                    @elseif ($data['price_package']['day']==='Saturday')
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" selected>Monday</option>
-                                                    <option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option>
-                                                    <option value="Thursday">Thursday</option>
-                                                    <option value="Friday">Friday</option>
-                                                    <option value="Saturday"selected>Saturday</option>
-                                                    <option value="Sunday">Sunday</option>
-                                                    @elseif ($data['price_package']['day']==='Sunday')
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" selected>Monday</option>
-                                                    <option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option>
-                                                    <option value="Thursday">Thursday</option>
-                                                    <option value="Friday">Friday</option>
-                                                    <option value="Saturday">Saturday</option>
-                                                    <option value="Sunday"selected>Sunday</option>
-                                                    @else
-                                                    <option value="">Please Select a Category </option>
-                                                    <option value="Monday" selected>Monday</option>
-                                                    <option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option>
-                                                    <option value="Thursday">Thursday</option>
-                                                    <option value="Friday">Friday</option>
-                                                    <option value="Saturday">Saturday</option>
-                                                    <option value="Sunday">Sunday</option>
-                                                    @endif
+                                                    <option value="" {{ str_contains($data['price_package']['day'], 'null') ? 'selected' :'' }}>Please Select a Category </option>
+                                                    <option value="Monday"  {{ str_contains($data['price_package']['day'], 'Monday') ? 'selected' :'' }}>Monday</option>
+                                                    <option value="Tuesday"  {{ str_contains($data['price_package']['day'], 'Tuesday') ? 'selected' :'' }}>Tuesday</option><option value="Wednesday"  {{ str_contains($data['price_package']['day'], 'Wednesday') ? 'selected' :'' }}>Wednesday</option>
+                                                    <option value="Thursday"  {{ str_contains($data['price_package']['day'], 'Thursday') ? 'selected' :'' }}>Thursday</option>
+                                                    <option value="Friday"  {{ str_contains($data['price_package']['day'], 'Friday') ? 'selected' :'' }}>Friday</option>
+                                                    <option value="Saturday"  {{ str_contains($data['price_package']['day'], 'Saturday') ? 'selected' :'' }}>Saturday</option>
+                                                    <option value="Sunday"  {{ str_contains($data['price_package']['day'], 'Sunday') ? 'selected' :'' }}>Sunday</option>
                                                     </select>
                                                 @error('day')
                                                     <div class="text-danger">{{ $message }}</div>

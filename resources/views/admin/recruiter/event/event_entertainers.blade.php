@@ -30,7 +30,6 @@
                                             <th>Title</th>
                                             <th>Category</th>
                                             <th>Price</th>
-                                            <th>Description</th>
                                             <th>Created at</th>
                                             {{-- <th scope="col">Action</th> --}}
                                         </tr>
@@ -42,7 +41,6 @@
                                                 <td>{{ $entertainer->title }}</td>
                                                 <td>{{ $entertainer->category }}</td>
                                                 <td>${{ $entertainer->price }}</td>
-                                                <td>{{ $entertainer->description }}</td>
                                                 <td>{{ $entertainer->created_at }}</td>
                                             </tr>
                                                 {{-- <td

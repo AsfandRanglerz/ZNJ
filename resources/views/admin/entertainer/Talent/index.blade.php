@@ -29,7 +29,7 @@
                                             <th>Title</th>
                                             <th>Category</th>
                                             <th>Price</th>
-                                            <th>Description</th>
+
                                             <th>Created at</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -43,8 +43,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $entertainer_details->title }}</td>
                                                 <td>{{ $entertainer_details->category }}</td>
-                                                <td>${{ $entertainer_details->price }}</td>
-                                                <td>{{ $entertainer_details->description }}</td>
+                                                <td>$ {{ $entertainer_details->price }}</td>
                                                 <td>{{ $entertainer_details->created_at }}</td>
 
                                                 <td
@@ -54,7 +53,7 @@
                                                <a class="btn btn-primary"
                                                href="{{route('entertainer.photo.show', $entertainer_details->id)}}">Photos</a>
                                                <a class="btn btn-success"
-                                               href="{{route('entertainer.talent.price_packages.index', $entertainer_details->id)}}">Packages</a>
+                                               href="{{route('entertainer.talent.price_packages.index', ['user_id'=>$data['user_id'],'entertainer_details_id'=>$entertainer_details->id])}}">Packages</a>
                                                 <a class="btn btn-info"
                                                href="{{route('entertainer.talent.edit',['user_id'=>$data['user_id'],'entertainer_details_id'=>$entertainer_details->id])}}">Edit</a>
                                                         <form method="get" action="{{ route('entertainer.talent.delete', $entertainer_details->id) }}">

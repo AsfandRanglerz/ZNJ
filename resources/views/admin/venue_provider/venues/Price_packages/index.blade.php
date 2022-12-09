@@ -37,14 +37,14 @@
                                      @foreach($data['price_packages'] as $price)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>${{ $price->price }}</td>
+                                                <td>$ {{ $price->price }}</td>
                                                 <td>{{ $price->day }}</td>
                                                 <td>{{ $price->created_at }}</td>
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                               href="{{route('venue-providers.venue.venue_pricings.edit', $price->id)}}">Edit</a>
-                                                        <form method="POST" action="{{ route('venue-providers.venue.venue_pricings.delete', $price->id) }}">
+                                               href="{{route('venue-providers.venue.venue_pricings.edit', ['user_id'=>$data['user_id'],'venue_pricing_id'=>$price->id])}}">Edit</a>
+                                                        <form method="POST" action="{{ route('venue-providers.venue.venue_pricings.delete',['venue_pricing_id'=>$price->id]) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>

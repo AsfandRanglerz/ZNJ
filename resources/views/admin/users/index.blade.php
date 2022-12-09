@@ -177,10 +177,10 @@
                                         <td
                                         style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                         <a class="btn btn-success"
-                                                href="{{route('venue.show', $venue->id)}}">Venue</a>
+                                                href="{{route('venue.show',['user_id'=>$venue->id])}}">Venue</a>
                                         <a class="btn btn-info"
-                                                href="{{route('venue.edit', $venue->id)}}">Edit</a>
-                                                <form method="POST" action="{{ route('venue.destroy', $venue->id) }}">
+                                                href="{{route('venue.edit', ['user_id'=>$venue->id])}}">Edit</a>
+                                                <form method="POST" action="{{ route('venue.destroy', ['user_id'=>$venue->id]) }}">
                                                     @csrf
                                                     <input name="_method" type="hidden" value="DELETE">
                                                     <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>
