@@ -69,7 +69,7 @@
                                                <a class="btn btn-primary"
                                                href="{{route('venue-providers.venue.photo.show', $venue->id)}}">Photos</a>
                                                <a class="btn btn-success"
-                                               href="{{route('venue-providers.venue.venue_pricings.index', $venue->id)}}">Packages</a>
+                                               href="{{route('venue-providers.venue.venue_pricings.index',['user_id'=>$data['user_id'],'venue_id'=>$venue->id] )}}">Packages</a>
                                                 <a class="btn btn-info"
                                                href="{{route('venue-providers.venue.edit',['user_id'=>$data['user_id'],'venue_id'=>$venue->id])}})}}">Edit</a>
                                                         <form method="get" action="{{ route('venue-providers.venue.delete', $venue->id) }}">

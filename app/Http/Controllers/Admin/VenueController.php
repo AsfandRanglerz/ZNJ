@@ -349,27 +349,29 @@ class VenueController extends Controller
         $photo->update();
         return redirect()->route('venue-providers.venue.photo.show',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
 }
-public function pricePackagesIndex( $venue_id){
-    $data['price_packages']=VenuePricing::where('venues_id',$venue_id)->get();
+public function pricePackagesIndex($user_id,$venue_id){
+    $data['price_packages']=VenuePricing::where('venues_id',$venue_id)->latest()->get();
     $data['venue_id']=$venue_id;
+    $data['user_id']= $user_id;
 
     // dd($data['price_packages']);
     return view('admin.venue_provider.venues.Price_packages.index',compact('data'));
 }
-public function createPricePackageIndex($venue_id){
-    // dd($venue_id);
+public function createPricePackageIndex($user_id,$venue_id){
+    // return dd($venue_id);
     $data['venue_id']=$venue_id;
+    $data['user_id']=$user_id;
     return view('admin.venue_provider.venues.Price_packages.add',compact('data'));
 }
-public function storePricePackage(Request $request,$venue_id){
+public function storePricePackage(Request $request,$user_id,$venue_id){
     $validator =$request->validate([
         'price'=>'required',
         'day'=>'required'
     ]);
-    $data = $request->only(['venues_id','price', 'day']);
+    $data = $request->only(['price', 'day']);
     $data['venues_id']=$venue_id;
     $user = VenuePricing::create($data);
-            return redirect()->route('venue-providers.venue.venue_pricings.index',$venue_id)->with(['status'=>true, 'message' => 'Price Package Created Sucessfully']);
+            return redirect()->route('venue-providers.venue.venue_pricings.index',['user_id'=>$venue_id,'venue_id'=>$venue_id])->with(['status'=>true, 'message' => 'Price Package Created Sucessfully']);
 }
 public function editPricePackageIndex($venue_pricing_id){
     $data['price_package']= VenuePricing::where('id',$venue_pricing_id)->select('id','price','day')->first();

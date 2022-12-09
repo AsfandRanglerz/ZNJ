@@ -7,6 +7,8 @@
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
             <div class="section-body">
+                <a class="btn btn-primary mb-3"
+                href="{{route('venue.show', ['user_id'=>$data['user_id'],'venue_id'=>$data['venue_id']])}}">Back</a>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
@@ -18,8 +20,9 @@
                             <div class="card-body table-striped table-bordered table-responsive">
                                  {{-- <a class="btn btn-primary mb-3"
                                  href="{{route('venue.show',$data['user_id'])}}">Back</a> --}}
+                                 {{-- @dd($data['venue_id']) --}}
                                 <a class="btn btn-success mb-3"
-                                href="{{route('venue-providers.venue.venue_pricings.add',$data['venue_id'])}}">Add Price Package</a>
+                                href="{{route('venue-providers.venue.venue_pricings.add',['user_id'=>$data['user_id'],'venue_id'=>$data['venue_id']])}}">Add Price Package</a>
                                 <table class="table" id="table_talent_price">
                                     <thead>
                                         <tr>

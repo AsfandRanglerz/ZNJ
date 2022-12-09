@@ -6,7 +6,7 @@
             <section class="section">
                 <div class="section-body">
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('venue-providers.venue.venue_pricings.store',$data['venue_id']) }}" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('venue-providers.venue.venue_pricings.store',['user_id'=>$data['user_id'],'venue_id'=>$data['venue_id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
