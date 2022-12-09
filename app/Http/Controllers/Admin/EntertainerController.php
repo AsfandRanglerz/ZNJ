@@ -137,6 +137,7 @@ class EntertainerController extends Controller
     public function createTalentIndex($user_id)
     {
         $data['user_id'] = $user_id;
+
         $data['talent_categories'] = TalentCategory::select('id', 'category')->get();
         $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
         return view('admin.entertainer.Talent.add', compact('data'));
@@ -202,8 +203,10 @@ class EntertainerController extends Controller
     public function editTalent($user_id, $entertainer_details_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $data['entertainer_talent'] = EntertainerDetail::find($entertainer_details_id);
-        $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
+
+        $data['entertainer_talent']=EntertainerDetail::find($entertainer_details_id);
+        $data['talent_categories']=TalentCategory::select('id','category')->get();
+        $data['entertainer_feature_ads_packages']=EntertainerFeatureAdsPackage::select('id','title','price','validity')->get();
         // $data['user_id'] = $entertainer_details_id;
         $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.edit', compact('data'));

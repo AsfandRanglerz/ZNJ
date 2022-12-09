@@ -28,8 +28,15 @@
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
-                                                <label>Category</label>
-                                                <input type="text" placeholder="example" name="category" id="category" Value="{{ $data['entertainer_talent']['category'] }}" class="form-control" />
+                                                <label>Talent Category</label>
+                                                <select name="category" id="category"  class="form-control">
+                                                    <option value="">Please Select a Category </option>
+                                                        @foreach($data['talent_categories'] as $category)
+                                                        <option value="{{$category->category}}"
+                                                            {{-- @dd($data['talent_categories']) --}}
+                                                            {{ str_contains($data['entertainer_talent']['category'],$category->category)? 'selected' : ''  }}>{{$category->category}}</option>
+                                                        @endforeach
+                                                    </select>
                                             </div>
                                             @error('category')
                                             <div class="text-danger">{{ $message }}</div>
