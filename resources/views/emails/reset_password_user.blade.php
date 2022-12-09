@@ -7,7 +7,7 @@
 
 You are receiving this email because we received a password reset request for your account.
 
-<strong style="left:46%; margin-bottom: 10px;font-size:25px;">{{ $otp }}</strong>
+<strong style="left:46%; margin-bottom: 10px;font-size:25px;">{{ $data['otp'] }}</strong>
 
 This password reset OTP will expire in 60 minutes.
 

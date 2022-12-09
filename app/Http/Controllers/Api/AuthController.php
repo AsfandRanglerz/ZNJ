@@ -59,11 +59,10 @@ class AuthController extends Controller
             $user = User::create($entertainer_data);
             $user['token'] = $user->createToken('znjToken')->plainTextToken;
             return $this->sendSuccess('Entertainer Register Successfully', $user);
-        } elseif ($request->role === 'venue') {
+        } elseif ($request->role === 'venue_provider') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|unique:users,email|email',
-                'venue' => 'required',
                 'phone' => 'required',
                 'password' => 'required|confirmed',
                 'password_confirmation' => 'required'
@@ -71,7 +70,7 @@ class AuthController extends Controller
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
-            $venue_data = $request->only(['name', 'email', 'phone', 'password', 'role', 'venue']);
+            $venue_data = $request->only(['name', 'email', 'phone', 'password', 'role', 'venue_provider']);
             $venue_data['password'] = Hash::make($request->password);
             $user = User::create($venue_data);
             $user['token'] = $user->createToken('authToken')->plainTextToken;
@@ -85,11 +84,12 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required',
+            'role' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        if (!auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (!auth()->attempt(['email' => $request->email, 'password' => $request->password, 'role' => $request->role])) {
             return  $this->sendError('Invalid email or password');
         }
         $user = User::find(auth()->id());
@@ -107,62 +107,94 @@ class AuthController extends Controller
     // }
     public function forgetPassword(Request $request)
     {
+        // $validator = Validator::make($request->all(), [
+        //     'email' => 'required',
+        // ]);
+        // $user = User::where('email', $request->email)->first();
+        // if ($validator->fails()) {
+        //     return $this->sendError($validator->errors()->first());
+        // } else if (!$user) {
+        //     return $this->sendError('Email Does Not Exist');
+        // } else {
+        //     try {
+        //         $token = random_int(1000, 9999);
+        //         DB::table('password_resets')->insert([
+        //             'email' => $request->email,
+        //             'token' => $token,
+        //             'created_at' => Carbon::now()
+        //         ]);
+        //         Mail::to($request->email)->send(new ResetPasswordUser($token));
+        //         return $this->sendSuccess('Email Sent Successfully Successfully', ['email' => $user->email]);
+        //     } catch (\Throwable $th) {
+        //         return $this->sendError('Something Went Wrong');
+        //     }
+        // }
         $validator = Validator::make($request->all(), [
             'email' => 'required',
         ]);
-        $user = User::where('email', $request->email)->first();
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
-        } else if (!$user) {
-            return $this->sendError('Email Does Not Exist');
-        } else {
-            try {
-                $token = random_int(1000, 9999);
+        }
+        $user = User::where('email', $request->email)->where('role',$request->role)->first();
+        if (isset($user)) {
+            $email = DB::table('password_resets')->where('email', $request->email)->delete();
+            $email = DB::table('password_resets')->where('email', $request->email)->first();
+            if ($email) {
+                return back()->with('message', 'Otp  has been already sent');
+            } else {
+                $token =  random_int(100000, 999999);
+                $token = Str::random(30);
+                $otp = random_int(1000, 9999);
                 DB::table('password_resets')->insert([
                     'email' => $request->email,
                     'token' => $token,
+                    'otp' => $otp,
                     'created_at' => Carbon::now()
                 ]);
-                Mail::to($request->email)->send(new ResetPasswordUser($token));
-                return $this->sendSuccess('Email Sent Successfully Successfully', ['email' => $user->email]);
-            } catch (\Throwable $th) {
-                return $this->sendError('Something Went Wrong');
+                $data['otp'] = $otp;
+                Mail::to($request->email)->send(new ResetPasswordUser($data));
+                return $this->sendSuccess('Email Sent Successfully Successfully', ['email' => $request->email]);
             }
         }
+        return $this->sendError('Email does not exist');
     }
     public function confirmToken(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'token' => 'required',
+            'otp' => 'required',
             'email' => 'required|email',
         ]);
-
-        $token_data = DB::table('password_resets')->where('token', $request->token)->where('email', $request->email)->first();
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
-        } else if (!$token_data) {
-            return $this->sendError('Token Invalid or Expired or Email not exist');
+        }
+        // $second = Carbon::now()->subSecond(30);
+        // DB::table('password_resets')->where('created_at', '<', $second)->delete();
+        $token_data = DB::table('password_resets')->where('otp', $request->otp)->where('email', $request->email)->first();
+        if (isset($token_data)) {
+            DB::table('password_resets')->where('email', $request->email)->delete();
+            return $this->sendSuccess('Otp Confirmed Successfully', ['email' => $token_data->email]);
         } else {
-            DB::table('password_resets')->where('token', $request->token)->where('email', $request->email)->delete();
-            return $this->sendSuccess('Token Confirmed Successfully', ['email' => $token_data->email]);
+            return $this->sendError('Otp Invalid');
         }
     }
     public function submitResetPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'password' => 'required',
         ]);
-
         $user = User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
 
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
-        } else if (!$user) {
-            return $this->sendError('Email not exist');
-        } else {
+        }
+        if (isset($user)) {
+            // $second = Carbon::now()->subSecond(30);
+            // DB::table('password_resets')->where('created_at', '<', $second)->delete();
+
             return $this->sendSuccess('Reset Password Updated Successfully');
+        } else {
+            return $this->sendError('Email not exist');
         }
     }
     public function userSocialLogin(Request $request)
@@ -336,18 +368,17 @@ class AuthController extends Controller
             $user = User::find($request->id)->update($entertainer_data);
             $data = User::find($request->id);
             return $this->sendSuccess('Entertainer updated Successfully', compact('data'));
-        } elseif ($data->role === 'venue') {
+        } elseif ($data->role === 'venue_provider') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email',
-                'venue' => 'required',
                 'phone' => 'required',
 
             ]);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
-            $venue_data = $request->only(['name', 'email', 'phone', 'venue']);
+            $venue_data = $request->only(['name', 'email', 'phone', 'venue_provider']);
             // $user = User::create($venue_data);
             $user = User::find($request->id)->update($venue_data);
             $data = User::find($request->id);

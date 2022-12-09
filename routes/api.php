@@ -42,6 +42,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('delete-event/{id}','EventController@destroy');
         Route::get('event-feature-packages','EventController@getEventFeaturePackages');
         Route::post('event-select-package','EventController@EventSelectPackage');
+        Route::post('join-event','EventController@joinEvent');
 
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');

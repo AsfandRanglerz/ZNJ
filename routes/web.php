@@ -25,12 +25,10 @@ use App\Http\Controllers\Admin\NotificationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('Privacy-policy', [SecurityController::class, 'PrivacyPolicy']);
 
 /*Admin routes
  * */
-
 Route::get('/admin', [AuthController::class, 'getLoginPage']);
 Route::post('/login', [AuthController::class, 'Login']);
 Route::get('/admin-forgot-password', [AdminController::class, 'forgetPassword']);
@@ -64,7 +62,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/recruiter/event/add/user-id-{user_id}',[RecruiterController::class, 'storeEvent'])->name('recruiter.event.store');
     Route::get('/recruiter/event/entertainers/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventEntertainersIndex'])->name('recruiter.event_entertainers.index');
     Route::get('/recruiter/event/venues/{user_id}/event-id-{event_id}',[RecruiterController::class, 'eventVenuesIndex'])->name('recruiter.event_venues.index');
-   
+
 
     //Entertainer
      Route::resource('entertainer', EntertainerController::class)->parameters([

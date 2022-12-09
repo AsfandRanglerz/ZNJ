@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Event;
+use App\Models\EventTicket;
 use Illuminate\Http\Request;
 use App\Models\EventEntertainers;
 use App\Http\Controllers\Controller;
@@ -117,5 +118,26 @@ class EventController extends Controller
         ]);
         $data = Event::where('user_id',Auth::id())->first();
         return $this->sendSuccess('Event Featured Request Successfully', compact('data'));
+    }
+    public function joinEvent(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'surname' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+        $data = $request->only(['event_id', 'name', 'surname', 'age', 'ticket_type', 'serial_no', 'gender', 'phone', 'email']);
+        $data['user_id'] = auth()->id();
+        if ($request->hasfile('photo')) {
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('/'), $filename);
+            $data['photo'] = 'public/uploads/' . $filename;
+        }
+        $dataa=EventTicket::create($data);
+        $data = EventTicket::find($dataa->id);
+        return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
     }
 }
