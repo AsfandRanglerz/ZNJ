@@ -11,5 +11,5 @@ class VenueCategory extends Model
     protected $guarded =[];
     public function entertainerDetail(){
         return $this->hasMany('App\Models\EntertainerDetail','category');
-     }
+    }
 }

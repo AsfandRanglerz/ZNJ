@@ -15,7 +15,7 @@ class AddCategoryToEntertainerDetails extends Migration
     {
         Schema::table('entertainer_details', function (Blueprint $table) {
             $table->unsignedBigInteger('category')->after('about_yourself')->nullable();
-            $table->foreign('category')->references('id')->on('talent_categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('talent_categories')->onDelete('cascade');
         });
     }
 

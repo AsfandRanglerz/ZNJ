@@ -27,7 +27,7 @@ class EntertainerDetail extends Model
         return $this->belongsTo('App\Models\EntertainerFeatureAdsPackage','entertainer_feature_ads_packages_id','id');
     }
     public function  talentCategory(){
-        return $this->belongsTo('App\Models\TalentCategory','category','id');
+        return $this->belongsTo('App\Models\TalentCategory','category_id','id');
     }
     public function getImageAttribute($path)
     {

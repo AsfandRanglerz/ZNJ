@@ -108,9 +108,10 @@
                                         <td>{{ $entertainer->name }}</td>
                                         <td>{{ $entertainer->email }}</td>
                                         <td>{{ $entertainer->phone }}</td>
+                                        @dd($entertainer['entertainerDetail'])
                                         @if (count($entertainer['entertainerDetail']) === 0)
                                         <td></td>
-                                        @elseif (count($entertainer['entertainerDetail']) > 1 )
+                                        @elseif (count($entertainer['entertainerDetail']) === 1 )
                                           <td>{{ implode(',',array_column(json_decode($entertainer['entertainerDetail'], true), 'category'))  }}</td>
                                         @else
                                         <td>{{ $entertainer['entertainerDetail'][0]['category'] }}</td>

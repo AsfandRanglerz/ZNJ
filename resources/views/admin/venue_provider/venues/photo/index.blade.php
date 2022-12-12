@@ -1,9 +1,6 @@
 @extends('admin.layout.app')
-
 @section('title', 'index')
-
 @section('content')
-
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
             <div class="section-body">
@@ -15,7 +12,6 @@
                             <div class="card-header">
                                 <div class="col-12">
                                     <h4>Photos</h4>
-
                                 </div>
                             </div>
                             {{-- @dd($data) --}}
