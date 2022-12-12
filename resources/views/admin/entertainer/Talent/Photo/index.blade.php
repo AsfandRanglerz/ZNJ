@@ -6,16 +6,16 @@
 
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
+            {{-- @dd($data['photos']) --}}
             <div class="section-body">
-                 {{-- <a class="btn btn-primary mb-2"
-                    href="{{route('entertainer.show',$data['user_id'])}}">Back</a> --}}
+                <a class="btn btn-primary mb-3"
+                href="{{route('entertainer.show',['user_id'=>$data['user_id']])}}">Back</a>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="col-12">
                                     <h4>Photos</h4>
-
                                 </div>
                             </div>
                             {{-- @dd($data) --}}
@@ -31,7 +31,7 @@
                                     </thead>
                                     <tbody>
 
-                                     @foreach($data['user_id'] as $photo)
+                                     @foreach($data['photos'] as $photo)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-center"><img src="{{ asset('public/admin/assets/img/entertainer') . '/' . $photo->event_photos }}" alt="" height="50" width="50" class="image">
@@ -43,8 +43,8 @@
                                                href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
 
                                                 <a class="btn btn-info"
-                                                href="{{route('entertainer.photo.edit', $photo->id)}}">Edit</a>
-                                                        <form method="get" action="{{ route('entertainer.talent.photo.delete', $photo->id) }}">
+                                                href="{{route('entertainer.photo.edit', ['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_details_id'],'photo_id'=>$photo->id])}}">Edit</a>
+                                                        <form method="GET" action="{{ route('entertainer.talent.photo.delete',['photo_id'=>$photo->id]) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>

@@ -4,9 +4,12 @@
     <body>
         <div class="main-content">
             <section class="section">
+                {{-- @dd($data['photo']) --}}
                 <div class="section-body">
+                    <a class="btn btn-primary mb-3"
+                    href="{{route('entertainer.photo.show',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_details_id']])}}">Back</a>
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('entertainer.photo.update',$photo['id']) }}" method="POST" enctype="multipart/form-data">
+                    <form  action="{{ route('entertainer.photo.update',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_details_id'],'photo_id'=>$data['photo']['id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
@@ -16,7 +19,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Choose Images</label>
-                                                <input type="file" placeholder="example" name="event_photos" id="event_photos" Value="{{ $photo['event_photos'] }}" class="form-control" multiple="multiple">
+                                                <input type="file" placeholder="example" name="event_photos" id="event_photos" Value="{{ $data['photo']['event_photos'] }}" class="form-control" multiple="multiple">
                                                 @error('images')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

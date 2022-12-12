@@ -74,10 +74,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/entertainer/talent/edit/{user_id}/{entertainer_details_id}',[EntertainerController::class,'editTalent'])->name('entertainer.talent.edit');
      Route::post('/entertainer/talent/update/{user_id}',[EntertainerController::class,'updateTalent'])->name('entertainer.talent.update');
 
-     Route::get('/entertainer/talent/photo/{entertainer_details_id}',[EntertainerController::class,'showPhoto'])->name('entertainer.photo.show');
-     Route::get('/entertainer/talent/photo/delete/{entertainer_details_id}',[EntertainerController::class,'destroyPhoto'])->name('entertainer.talent.photo.delete');
-     Route::get('/entertainer/talent/photo/edit/{entertainer_details_id}',[EntertainerController::class,'editPhoto'])->name('entertainer.photo.edit');
-     Route::post('/entertainer/talent/photo/update/{entertainer_details_id}',[EntertainerController::class,'updatePhoto'])->name('entertainer.photo.update');
+     Route::get('/entertainer/talent/photo/{user_id}/{entertainer_details_id}',[EntertainerController::class,'showPhoto'])->name('entertainer.photo.show');
+     Route::get('/entertainer/talent/photo/edit/{user_id}/{entertainer_details_id}/{photo_id}',[EntertainerController::class,'editPhoto'])->name('entertainer.photo.edit');
+     Route::post('/entertainer/talent/photo/update/{user_id}/{entertainer_details_id}/{photo_id}',[EntertainerController::class,'updatePhoto'])->name('entertainer.photo.update');
+     Route::get('/entertainer/talent/photo/delete/xxx/{photo_id}',[EntertainerController::class,'destroyTalentPhoto'])->name('entertainer.talent.photo.delete');
 
      Route::get('/entertainer/talent/categories/',[EntertainerController::class,'talentCategoriesIndex'])->name('entertainer.talent.categories.index');
      Route::post('/entertainer/talent/category/',[EntertainerController::class,'talentCategoryStore'])->name('entertainer.talent.category.store');
@@ -135,11 +135,6 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/notification/push',[NotificationController::class,'pushNotification'])->name('notification.push');
     // Chat
     Route::get('/chat',[ChatController::class,'index'])->name('chat.index');
-
-
-
-
-
 });
 /*Team A routes
  * */

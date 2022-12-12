@@ -51,7 +51,7 @@
             <li class="dropdown {{ (request()->is('admin/feature-ads-packages*')) ? 'active' : '' }}">
                 <a  href="{{url('/admin/feature-ads-packages')}}" class="nav-link"> <i class="fa fa-gift"></i><span>Feature Ads</span></a>
             </li>
-            {{-- <li class="dropdown {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
+            <li class="dropdown {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
                 <a  href="{{url('/admin/notification')}}" class="nav-link"> <i class="fa fa-bell"></i><span>Notification</span></a>
             </li>
             <li class="dropdown {{ (request()->is('admin/chat*')) ? 'active' : '' }}">
@@ -59,7 +59,7 @@
             </li>
             <li class="dropdown {{ (request()->is('')) ? 'active' : '' }}">
                 <a  href="{{url('')}}" class="nav-link"> <i class="fas fa-hand-holding-usd"></i><span>Finance Management</span></a>
-            </li> --}}
+            </li>
 
             {{-- <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Categories</span></a>

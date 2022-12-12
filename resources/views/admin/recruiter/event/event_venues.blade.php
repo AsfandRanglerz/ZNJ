@@ -14,7 +14,6 @@
                             <div class="card-header">
                                 <div class="col-12">
                                     <h4>Venue</h4>
-
                                 </div>
                             </div>
                             {{-- @dd($data) --}}

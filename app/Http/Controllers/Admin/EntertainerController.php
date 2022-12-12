@@ -252,37 +252,42 @@ class EntertainerController extends Controller
         }
     }
 
-    public function showPhoto($entertainer_details_id)
+    public function showPhoto($user_id,$entertainer_details_id)
     {
         //  Showing Entertainer Talent
-        $data['user_id'] = EntertainerEventPhotos::where('entertainer_details_id', $entertainer_details_id)->latest()->get();
+        $data['photos'] = EntertainerEventPhotos::where('entertainer_details_id', $entertainer_details_id)->latest()->get();
+        // dd($data['photos']);
         // dd($data['user_id']);
+        $data['user_id']=$user_id;
         $data['entertainer_details_id'] = $entertainer_details_id;
         // dd($data['user_id']);
         return view('admin.entertainer.Talent.Photo.index', compact('data'));
     }
     //Photo
-    public function destroyPhoto($entertainer_details_id)
+    public function destroyTalentPhoto($photo_id)
     {
-
-        EntertainerEventPhotos::destroy($entertainer_details_id);
+        // dd($photo_id);
+        EntertainerEventPhotos::destroy($photo_id);
         return redirect()->back()->with(['status' => true, 'message' => 'Photo Deleted sucessfully']);
     }
-    public function editPhoto($entertainer_details_id)
+    public function editPhoto($user_id,$entertainer_details_id,$photo_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $photo = EntertainerEventPhotos::find($entertainer_details_id);
-        $photo['entertainer_details_id'] = $entertainer_details_id;
-        return view('admin.entertainer.Talent.Photo.edit', compact('photo'));
+        // dd('sa');
+        $data['user_id']=$user_id;
+        $data['entertainer_details_id'] = $entertainer_details_id;
+        $data['photo_id']=$photo_id;
+        $data['photo'] = EntertainerEventPhotos::find($photo_id);
+        return view('admin.entertainer.Talent.Photo.edit',compact('data'));
     }
-    public function updatePhoto(Request $request, $entertainer_details_id)
+    public function updatePhoto(Request $request,$user_id,$entertainer_details_id,$photo_id)
     {
         $validator = $request->validate([
             'event_photos' => 'required',
             // 'description' => 'required',
             // 'images'=>'required',
         ]);
-        $photo = EntertainerEventPhotos::find($entertainer_details_id);
+        $photo = EntertainerEventPhotos::find($photo_id);
         if ($request->hasfile('event_photos')) {
             $file = $request->file('event_photos');
             $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -291,7 +296,7 @@ class EntertainerController extends Controller
             $photo->event_photos = '' . $filename;
         }
         $photo->update();
-        return redirect()->route('entertainer.photo.show', $photo->entertainer_details_id)->with(['status' => true, 'message' => 'Photo Updated sucessfully']);
+        return redirect()->route('entertainer.photo.show', ['user_id'=>$user_id,'entertainer_details_id'=>$entertainer_details_id,'photo_id'=>$photo_id])->with(['status' => true, 'message' => 'Photo Updated sucessfully']);
     }
     /**
      * Talent Categories
@@ -311,7 +316,7 @@ class EntertainerController extends Controller
         ]);
         $data = $request->only(['category']);
         $data = TalentCategory::create($data);
-        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' => 'Talent Category Created sucessfully']);
+        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' =>'Talent Category Created sucessfully']);
     }
     public function talentCategoryEditIndex($category_id)
     {
@@ -326,7 +331,7 @@ class EntertainerController extends Controller
         $talent_category = TalentCategory::find($category_id);
         $talent_category->category = $request->category;
         $talent_category->update();
-        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' => 'Talent Category Updated sucessfully']);
+        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' =>'Talent Category Updated sucessfully']);
     }
     public function destroyTalentCategory($category_id)
     {
@@ -352,7 +357,7 @@ class EntertainerController extends Controller
             'price_package' => 'required',
             'time' => 'required'
         ]);
-        $data = $request->only(['price_package', 'time']);
+        $data = $request->only(['price_package','time']);
         $data['entertainer_details_id'] = $entertainer_details_id;
         $user = EntertainerPricePackage::create($data);
         return redirect()->route('entertainer.talent.price_packages.index',['user_id'=>$user_id ,'entertainer_details_id'=>$entertainer_details_id])->with(['status' => true, 'message' => 'Price Package Created Sucessfully']);

@@ -51,7 +51,7 @@
                                                 {{-- <a class="btn btn-success"
                                                href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
                                                <a class="btn btn-primary"
-                                               href="{{route('entertainer.photo.show', $entertainer_details->id)}}">Photos</a>
+                                               href="{{route('entertainer.photo.show', ['user_id'=>$data['user_id'],'entertainer_details_id'=>$entertainer_details->id])}}">Photos</a>
                                                <a class="btn btn-success"
                                                href="{{route('entertainer.talent.price_packages.index', ['user_id'=>$data['user_id'],'entertainer_details_id'=>$entertainer_details->id])}}">Packages</a>
                                                 <a class="btn btn-info"
