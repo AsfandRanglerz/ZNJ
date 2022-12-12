@@ -151,8 +151,9 @@ class EntertainerController extends Controller
                 'title' => 'required',
                 'category' => 'required',
                 'price' => 'required',
+               // 'photos' =>'required',
                 'entertainer_feature_ads_packages_id' => 'required',
-                // 'images'=>'required',
+                'images'=>'required',
             ]);
             $data = $request->only(['title', 'user_id', 'category', 'price', 'entertainer_feature_ads_packages_id']);
             $data['feature_status'] = 1;
@@ -175,7 +176,8 @@ class EntertainerController extends Controller
                 'title' => 'required',
                 'category' => 'required',
                 'price' => 'required',
-                // 'images'=>'required',
+               // 'photos' =>'required',
+                'images'=>'required',
             ]);
             $data = $request->only(['title', 'user_id', 'category', 'price']);
             //  If admin unfeatured the featured add

@@ -5,8 +5,10 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-3"
+                    href="{{route('venue-providers.venue.photo.show',['user_id'=>$photo['user_id'],'venue_id'=>$photo['venue_id']])}}">Back</a>
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('venue-providers.venue.photo.update',$photo['venue_id']) }}" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('venue-providers.venue.photo.update',['user_id'=>$photo['user_id'],'venue_id'=>$photo['venue_id'],'photo_id'=>$photo['photo']['id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
@@ -16,7 +18,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Choose Images</label>
-                                                <input type="file" placeholder="example" name="photos" id="photos" Value="{{ $photo['photos'] }}" class="form-control" multiple="multiple">
+                                                <input type="file" placeholder="example" name="photos" id="photos" Value="{{$photo['photo']['event_photos'] }}" class="form-control" multiple="multiple">
                                                 @error('images')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror

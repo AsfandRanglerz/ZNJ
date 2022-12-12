@@ -7,6 +7,8 @@
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
             <div class="section-body">
+                <a class="btn btn-primary mb-3"
+                href="{{route('venue.show',['user_id'=>$data['user_id']])}}">Back</a>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
@@ -30,7 +32,7 @@
                                     </thead>
                                     <tbody>
 
-                                     @foreach($data['user_id'] as $photo)
+                                     @foreach($data['photos'] as $photo)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-center"><img src="{{ asset('public/admin/assets/img/venue') . '/' . $photo->photos }}" alt="" height="50" width="50" class="image">
@@ -42,8 +44,8 @@
                                                href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
 
                                                 <a class="btn btn-info"
-                                                href="{{route('venue-providers.venue.photo.edit', $photo->id)}}">Edit</a>
-                                                        <form method="get" action="{{ route('venue-providers.venue.photo.delete', $photo->id) }}">
+                                                href="{{route('venue-providers.venue.photo.edit', ['user_id'=>$data['user_id'],'venue_id'=>$data['venue_id'],'photo_id'=>$photo->id])}}">Edit</a>
+                                                        <form method="get" action="{{ route('venue-providers.venue.photo.delete', ['photo_id'=>$photo->id]) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">
                                                             <button type="submit" class="btn btn-danger btn-flat show_confirm" data-toggle="tooltip" >Delete</button>

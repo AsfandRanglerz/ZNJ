@@ -157,6 +157,7 @@ class VenueController extends Controller
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
+            'photos' =>'required',
             'opening_time' =>'required',
             'closing_time' =>'required',
             'venue_feature_ads_packages_id' => 'required',
@@ -184,6 +185,7 @@ class VenueController extends Controller
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
+            'photos' =>'required',
             'opening_time' =>'required',
             'closing_time' =>'required',
         ]);
@@ -311,37 +313,41 @@ class VenueController extends Controller
         return redirect()->back()->with(['status'=>true, 'message' => 'Category Deleted sucessfully']);
     }
     //Photos
-    public function showPhoto($venue_id)
+    public function showPhoto($user_id,$venue_id)
     {
         //  Showing Entertainer Talent
-        $data['user_id']=VenuesPhoto::where('venue_id',$venue_id)->latest()->get();
+        $data['photos']=VenuesPhoto::where('venue_id',$venue_id)->latest()->get();
         // dd($data['user_id']);
+        $data['user_id']=$user_id;
         $data['venue_id']=$venue_id;
         return view('admin.venue_provider.venues.photo.index',compact('data'));
     }
     //Photo
-    public function destroyPhoto($venue_id)
+    public function destroyPhoto($photo_id)
     {
 
-        VenuesPhoto::destroy($venue_id);
+        VenuesPhoto::destroy($photo_id);
         return redirect()->back()->with(['status'=>true, 'message' => 'Photo Deleted sucessfully']);
     }
-    public function editPhoto($venue_id)
+    public function editPhoto($user_id,$venue_id,$photo_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $photo=VenuesPhoto::find($venue_id);
+        $photo['user_id'] = $user_id;
         $photo['venue_id'] = $venue_id;
+        $photo['photo_id'] = $photo_id;
+        $photo['photo']=VenuesPhoto::find($photo_id);
+
         //dd( $photo['user_id']);
         return view('admin.venue_provider.venues.photo.edit',compact('photo'));
     }
-    public function updatePhoto(Request $request, $venue_id)
+    public function updatePhoto(Request $request,$user_id,$venue_id,$photo_id)
     {
         $validator = $request->validate([
             'photos' => 'required',
             // 'description' => 'required',
             // 'images'=>'required',
         ]);
-        $photo=VenuesPhoto::find($venue_id);
+        $photo=VenuesPhoto::find($photo_id);
         if ($request->hasfile('photos')) {
             $file = $request->file('photos');
             $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -350,7 +356,7 @@ class VenueController extends Controller
             $photo->photos = '' . $filename;
         }
         $photo->update();
-        return redirect()->route('venue-providers.venue.photo.show',$photo->venue_id)->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
+        return redirect()->route('venue-providers.venue.photo.show', ['user_id'=>$user_id,'venue_id'=>$venue_id,'photo_id'=>$photo_id])->with(['status'=>true, 'message' => 'Photo Updated sucessfully']);
 }
 public function pricePackagesIndex($user_id,$venue_id){
     $data['price_packages']=VenuePricing::where('venues_id',$venue_id)->latest()->get();

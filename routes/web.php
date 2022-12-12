@@ -107,10 +107,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::post('/venue-providers/venue/category/update/{category_id}',[VenueController::class,'updateVenueCategory'])->name('venue-providers.venue.category.update');
      Route::delete('/venue-providers/venue/category/delete/{category_id}',[VenueController::class,'destroyVenueCategory'])->name('venue-providers.venue.category.delete');
 
-     Route::get('/venue-providers/venue/photo/{venue_id}',[VenueController::class,'showPhoto'])->name('venue-providers.venue.photo.show');
-     Route::get('/venue-providers/venue/photo/delete/{venue_id}',[VenueController::class,'destroyPhoto'])->name('venue-providers.venue.photo.delete');
-     Route::get('/venue-providers/venue/photo/edit/{venue_id}',[VenueController::class,'editPhoto'])->name('venue-providers.venue.photo.edit');
-     Route::post('/venue-providers/venue/photo/update/{venue_id}',[VenueController::class,'updatePhoto'])->name('venue-providers.venue.photo.update');
+     Route::get('/venue-providers/venue/photo/{user_id}/{venue_id}',[VenueController::class,'showPhoto'])->name('venue-providers.venue.photo.show');
+     Route::get('/venue-providers/venue/photo/edit/{user_id}/{venue_id}/{photo_id}',[VenueController::class,'editPhoto'])->name('venue-providers.venue.photo.edit');
+     Route::post('/venue-providers/venue/photo/update/{user_id}/{venue_id}/{photo_id}',[VenueController::class,'updatePhoto'])->name('venue-providers.venue.photo.update');
+     Route::get('/venue-providers/venue/photo/delete/xxx/{photo_id}',[VenueController::class,'destroyPhoto'])->name('venue-providers.venue.photo.delete');
 
      Route::get('/venue-providers/venue/venue-pricings/{user_id}/{venue_id}',[VenueController::class,'pricePackagesIndex'])->name('venue-providers.venue.venue_pricings.index');
     //  Route::get('/venue-providers/venue/venue-pricings/add/{venue_id}',[VenueController::class,'createPricePackageIndex'])->name('venue-providers.venue.venue_pricings.add');

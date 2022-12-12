@@ -67,7 +67,7 @@
                                                 {{-- <a class="btn btn-success"
                                                href="{{route('entertainer.edit', $entertainer->id)}}">Categories</a> --}}
                                                <a class="btn btn-primary"
-                                               href="{{route('venue-providers.venue.photo.show', $venue->id)}}">Photos</a>
+                                               href="{{route('venue-providers.venue.photo.show', ['user_id'=>$data['user_id'],'venue_id'=>$venue->id])}}">Photos</a>
                                                <a class="btn btn-success"
                                                href="{{route('venue-providers.venue.venue_pricings.index',['user_id'=>$data['user_id'],'venue_id'=>$venue->id] )}}">Packages</a>
                                                 <a class="btn btn-info"

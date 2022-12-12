@@ -117,7 +117,7 @@
                                                 <label>Choose Images(Multiples)</label>
                                                 <input type="file" placeholder="" name="photos[]" id="photos" value="{{ old('photos') }}" class="form-control"
                                                 multiple="multiple">
-                                                @error('Stands')
+                                                @error('photos')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
