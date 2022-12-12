@@ -83,7 +83,8 @@ class VenueController extends Controller
         // dd($user_id,$venue_id);
          //  Showing Entertainer Talent
 
-         $data['venue']= Venue::where('user_id',$user_id)->latest()->get() ;
+         $data['venue']= Venue::with('venueCategory')->where('user_id',$user_id)->latest()->get();
+        //  dd($data);
          $data['user_id']=$user_id;
          return view('admin.venue_provider.venues.index',compact('data'));
 
@@ -216,6 +217,7 @@ class VenueController extends Controller
     {
         //$data['user_id'] = EntertainerDetail::find($id);
         $venue['venue']=Venue::find($venue_id);
+        $venue['venue_categories']=VenueCategory::select('id','category')->get();
         $venue['venue_feature_ads_packages']=VenueFeatureAdsPackage::select('id','title','price','validity')->get();
         $venue['user_id'] = $user_id;
         return view('admin.venue_provider.venues.edit',compact('venue'));

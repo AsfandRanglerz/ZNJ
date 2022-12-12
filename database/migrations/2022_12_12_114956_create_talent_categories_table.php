@@ -15,7 +15,7 @@ class CreateTalentCategoriesTable extends Migration
     {
         Schema::create('talent_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }

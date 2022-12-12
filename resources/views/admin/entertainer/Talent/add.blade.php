@@ -33,8 +33,8 @@
                                                     <select name="category" id="category" value="{{ old('category') }}" class="form-control">
                                                     <option value="">Please Select a Category </option>
 
-                                                        @foreach($data['talent_categories']['id'] as $category)
-                                                        <option value="{{$category->category}}">{{$category->category}}</option>
+                                                        @foreach($data['talent_categories'] as $category)
+                                                        <option value="{{$category->id}}">{{$category->category}}</option>
                                                         @endforeach
                                                     </select>
 

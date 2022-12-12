@@ -77,7 +77,7 @@ class EntertainerController extends Controller
     /** */
     public function show($user_id)
     {
-        $data['entertainer'] = EntertainerDetail::where('user_id', $user_id)->latest()->get();
+        $data['entertainer'] = EntertainerDetail::with('talentCategory')->where('user_id', $user_id)->latest()->get();
         $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.index', compact('data'));
     }
@@ -139,6 +139,7 @@ class EntertainerController extends Controller
         $data['user_id'] = $user_id;
 
         $data['talent_categories'] = TalentCategory::select('id', 'category')->get();
+       // dd($data['talent_categories']);
         $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
         return view('admin.entertainer.Talent.add', compact('data'));
     }

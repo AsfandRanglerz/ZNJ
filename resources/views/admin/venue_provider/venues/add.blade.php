@@ -35,7 +35,8 @@
                                                     <option value="">Please Select a Category </option>
 
                                                         @foreach($data['venue_categories'] as $category)
-                                                        <option value="{{$category->category}}">{{$category->category}}</option>
+                                                        {{-- @dd($category); --}}
+                                                        <option value="{{$category->id}}">{{$category->category}}</option>
                                                         @endforeach
                                                     </select>
 

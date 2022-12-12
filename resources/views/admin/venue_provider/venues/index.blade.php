@@ -45,7 +45,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $venue->title }}</td>
-                                                <td>{{ $venue->category }}</td>
+                                                <td>{{ $venue->venueCategory->category ??'' }}</td>
                                                 <td>{{ $venue->description }}</td>
                                                 <td>{{ $venue->seats }}</td>
                                                 <td>{{ $venue->stands }}</td>

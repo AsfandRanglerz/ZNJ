@@ -9,4 +9,7 @@ class TalentCategory extends Model
 {
     use HasFactory;
     protected $guarded =[];
+    public function entertainerDetail(){
+        return $this->hasMany('App\Models\EntertainerDetail','category');
+     }
 }

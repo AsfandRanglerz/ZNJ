@@ -32,9 +32,9 @@
                                                 <select name="category" id="category"  class="form-control">
                                                     <option value="">Please Select a Category </option>
                                                         @foreach($data['talent_categories'] as $category)
-                                                        <option value="{{$category->category}}"
+                                                        <option value="{{$category->id}}"
                                                             {{-- @dd($data['talent_categories']) --}}
-                                                            {{ str_contains($data['entertainer_talent']['category'],$category->category)? 'selected' : ''  }}>{{$category->category}}</option>
+                                                            {{ str_contains($data['entertainer_talent']['category'],$category->id)? 'selected' : ''  }}>{{$category->category}}</option>
                                                         @endforeach
                                                     </select>
                                             </div>
