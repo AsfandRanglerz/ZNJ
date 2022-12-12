@@ -7,6 +7,8 @@
     <div class="main-content" style="min-height: 562px;">
         <section class="section">
             <div class="section-body">
+                <a class="btn btn-primary mb-3"
+                href="{{route('entertainer.show',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_details_id']])}}">Back</a>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
@@ -20,7 +22,7 @@
                                 {{-- <a class="btn btn-primary mb-3"
                                 href="{{route('entertainer.show',$data['user_id'])}}">Back</a> --}}
                                 <a class="btn btn-success mb-3"
-                                href="{{route('entertainer.talent.price_packages.add',$data['entertainer_details_id'])}}">Add Price Package</a>
+                                href="{{route('entertainer.talent.price_packages.add',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_details_id']])}}">Add Price Package</a>
                                 <table class="table" id="table_talent_price">
                                     <thead>
                                         <tr>
@@ -35,13 +37,17 @@
                                      @foreach($data['price_packages'] as $price)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>${{ $price->price_package }}</td>
-                                                <td>{{ $price->time }}</td>
-                                                <td>{{ $price->created_at }}</td>
+                                                <td>$ {{ $price->price_package }}</td>
+                                                @if( explode(':',$price->time)[0]>=12)
+                                                <td>{{ $price->time }} PM</td>
+                                                @else
+                                                <td>{{ $price->time }} AM</td>
+                                                @endif
+                                               <td>{{ $price->created_at }}</td>
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"
-                                               href="{{route('entertainer.talent.price_packages.edit', $price->id)}}">Edit</a>
+                                               href="{{route('entertainer.talent.price_packages.edit',['user_id'=>$data['user_id'],'price_package_id'=>$price->id])}}">Edit</a>
                                                         <form method="POST" action="{{ route('entertainer.talent.price_packages.delete', $price->id) }}">
                                                             @csrf
                                                             <input name="_method" type="hidden" value="DELETE">

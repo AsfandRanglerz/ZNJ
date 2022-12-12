@@ -2,11 +2,14 @@
 @section('title', 'Dashboard')
 @section('content')
     <body>
+        {{-- @dd($data) --}}
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-3"
+                    href="{{route('entertainer.talent.price_packages.index',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['price_package']['entertainer_details_id']])}}">Back</a>
                     {{-- @dd($data['price_package']) --}}
-                    <form id="add_student" action="{{ route('entertainer.talent.price_packages.update',$data['price_package']['id']) }}" name="form" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('entertainer.talent.price_packages.update',['user_id'=>$data['user_id'],'price_package_id'=>$data['price_package']['id']]) }}" name="form" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">

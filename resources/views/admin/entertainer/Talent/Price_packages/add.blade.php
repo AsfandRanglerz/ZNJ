@@ -2,11 +2,14 @@
 @section('title', 'Dashboard')
 @section('content')
     <body>
+        {{-- @dd($data) --}}
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-3"
+                    href="{{route('entertainer.talent.price_packages.index',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_details_id']])}}">Back</a>
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('entertainer.talent.price_packages.store',$data['entertainer_details_id']) }}" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('entertainer.talent.price_packages.store',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_details_id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
@@ -35,14 +38,15 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                            <div class="card-footer text-center row">
-                                                <div class="col">
-                                                    <button type="submit" class="btn btn-success mr-1 btn-bg"
-                                                        id="submit">Add</button>
-                                                </div>
-                                            </div>
+
                                         </div>
 
+                                    </div>
+                                    <div class="card-footer text-center row">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-success mr-1 btn-bg"
+                                                id="submit">Add</button>
+                                        </div>
                                     </div>
 
                                 </div>

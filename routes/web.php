@@ -66,7 +66,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
     //Entertainer
      Route::resource('entertainer', EntertainerController::class)->parameters([
-        'recruiter' => 'user_id'
+        'entertainer' => 'user_id'
     ]);
      Route::get('/entertainer/talent/add/{user_id}',[EntertainerController::class,'createTalentIndex'])->name('entertainer.talent.add');
      Route::post('/entertainer/talent/store/{user_id}',[EntertainerController::class,'storeTalent'])->name('entertainer.talent.store');
@@ -85,12 +85,11 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::post('/entertainer/talent/category/update/{category_id}',[EntertainerController::class,'updateTalentCategory'])->name('entertainer.talent.category.update');
      Route::delete('/entertainer/talent/category/delete/{category_id}',[EntertainerController::class,'destroyTalentCategory'])->name('entertainer.talent.category.delete');
 
-
-    Route::get('/entertainer/talent/price-packages/{entertainer_details_id}',[EntertainerController::class,'pricePackagesIndex'])->name('entertainer.talent.price_packages.index');
-    Route::get('/entertainer/talent/price-packages/add/{entertainer_details_id}', [EntertainerController::class, 'createPricePackageIndex'])->name('entertainer.talent.price_packages.add');
-    Route::post('/entertainer/talent/price-packages/store/{entertainer_details_id}', [EntertainerController::class, 'storePricePackage'])->name('entertainer.talent.price_packages.store');
-    Route::get('/entertainer/talent/price-packages/edit/{price_package_id}', [EntertainerController::class, 'editPricePackageIndex'])->name('entertainer.talent.price_packages.edit');
-    Route::post('/entertainer/talent/price-packages/update/{price_package_id}', [EntertainerController::class, 'updatePricePackage'])->name('entertainer.talent.price_packages.update');
+    Route::get('/entertainer/talent/price-packages/{user_id}/{entertainer_details_id}',[EntertainerController::class,'pricePackagesIndex'])->name('entertainer.talent.price_packages.index');
+    Route::get('/entertainer/talent/price-packages/add/{user_id}/{entertainer_details_id}', [EntertainerController::class, 'createPricePackageIndex'])->name('entertainer.talent.price_packages.add');
+    Route::post('/entertainer/talent/price-packages/store/{user_id}/{entertainer_details_id}', [EntertainerController::class, 'storePricePackage'])->name('entertainer.talent.price_packages.store');
+    Route::get('/entertainer/talent/price-packages/edit/{user_id}/{price_package_id}', [EntertainerController::class, 'editPricePackageIndex'])->name('entertainer.talent.price_packages.edit');
+    Route::post('/entertainer/talent/price-packages/update/{user_id}/{price_package_id}', [EntertainerController::class, 'updatePricePackage'])->name('entertainer.talent.price_packages.update');
     Route::delete('/entertainer/talent/price-packages/delete/{price_package_id}', [EntertainerController::class, 'destroyPricePackage'])->name('entertainer.talent.price_packages.delete');
 
 
@@ -121,11 +120,9 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/venue-providers/venue/venue-pricings/add/index/{user_id}/{venue_id}',[VenueController::class,'createPricePackageIndex'])->name('venue-providers.venue.venue_pricings.add');
 
      Route::post('/venue-providers/venue/venue-pricings/store/{user_id}/{venue_id}',[VenueController::class,'storePricePackage'])->name('venue-providers.venue.venue_pricings.store');
-     Route::get('/venue-providers/venue/venue-pricings/edit/{venue_pricing_id}',[VenueController::class,'editPricePackageIndex'])->name('venue-providers.venue.venue_pricings.edit');
-     Route::post('/venue-providers/venue/venue-pricings/update/{venue_pricing_id}',[VenueController::class,'updatePricePackage'])->name('venue-providers.venue.venue_pricings.update');
+     Route::get('/venue-providers/venue/venue-pricings/edit/{user_id}/{venue_pricing_id}',[VenueController::class,'editPricePackageIndex'])->name('venue-providers.venue.venue_pricings.edit');
+     Route::post('/venue-providers/venue/venue-pricings/update/{user_id}/{venue_pricing_id}',[VenueController::class,'updatePricePackage'])->name('venue-providers.venue.venue_pricings.update');
      Route::delete('/venue-providers/venue/venue-pricings/delete/{venue_pricing_id}',[VenueController::class,'destroyPricePackage'])->name('venue-providers.venue.venue_pricings.delete');
-
-
  //introVideo
      Route::resource('/pages/intro-video', IntrovideoController::class);
       // FeatureAdsPackages

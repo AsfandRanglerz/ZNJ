@@ -333,36 +333,39 @@ class EntertainerController extends Controller
         TalentCategory::destroy($category_id);
         return redirect()->back()->with(['status' => true, 'message' => 'Category Deleted sucessfully']);
     }
-    public function pricePackagesIndex($entertainer_details_id)
+    public function pricePackagesIndex($user_id,$entertainer_details_id)
     {
         $data['price_packages'] = EntertainerPricePackage::where('entertainer_details_id', $entertainer_details_id)->latest()->get();
         $data['entertainer_details_id'] = $entertainer_details_id;
-        // $data['user_id']= $user_id;
+        $data['user_id']=$user_id;
         return view('admin.entertainer.Talent.Price_packages.index', compact('data'));
     }
-    public function createPricePackageIndex($entertainer_details_id)
+    public function createPricePackageIndex($user_id,$entertainer_details_id)
     {
         $data['entertainer_details_id'] = $entertainer_details_id;
+        $data['user_id']=$user_id;
         return view('admin.entertainer.Talent.Price_packages.add', compact('data'));
     }
-    public function storePricePackage(Request $request, $entertainer_details_id)
+    public function storePricePackage(Request $request,$user_id, $entertainer_details_id)
     {
         $validator = $request->validate([
             'price_package' => 'required',
             'time' => 'required'
         ]);
-        $data = $request->only(['entertainer_details_id', 'price_package', 'time']);
+        $data = $request->only(['price_package', 'time']);
         $data['entertainer_details_id'] = $entertainer_details_id;
         $user = EntertainerPricePackage::create($data);
-        return redirect()->route('entertainer.talent.price_packages.index', $entertainer_details_id)->with(['status' => true, 'message' => 'Price Package Created Sucessfully']);
+        return redirect()->route('entertainer.talent.price_packages.index',['user_id'=>$user_id ,'entertainer_details_id'=>$entertainer_details_id])->with(['status' => true, 'message' => 'Price Package Created Sucessfully']);
     }
-    public function editPricePackageIndex($price_package_id)
+    public function editPricePackageIndex($user_id,$price_package_id)
     {
-        $data['price_package'] = EntertainerPricePackage::where('id', $price_package_id)->select('id', 'price_package', 'time')->first();
+        $data['price_package'] = EntertainerPricePackage::where('id', $price_package_id)->first();
+        $data['user_id']=$user_id;
         return view('admin.entertainer.Talent.Price_packages.edit', compact('data'));
     }
-    public function updatePricePackage(Request $request, $price_package_id)
+    public function updatePricePackage(Request $request,$user_id,$price_package_id)
     {
+
         $validator = $request->validate([
             'price_package' => 'required',
             'time' => 'required'
@@ -372,7 +375,7 @@ class EntertainerController extends Controller
         $price_package->price_package = $request->input('price_package');
         $price_package->time = $request->input('time');
         $price_package->update();
-        return redirect()->route('entertainer.talent.price_packages.index', $price_package['entertainer_details_id'])->with(['status' => true, 'message' => 'Price Package Updated Sucessfully']);
+        return redirect()->route('entertainer.talent.price_packages.index', ['user_id'=>$user_id ,'entertainer_details_id'=>$price_package['entertainer_details_id']])->with(['status' => true, 'message' => 'Price Package Updated Sucessfully']);
     }
     public function destroyPricePackage($price_package_id)
     {

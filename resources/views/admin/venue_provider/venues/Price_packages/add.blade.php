@@ -2,9 +2,12 @@
 @section('title', 'Dashboard')
 @section('content')
     <body>
+
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    <a class="btn btn-primary mb-2"
+                    href="{{route('venue-providers.venue.venue_pricings.index',['user_id'=>$data['user_id'],'venue_id'=>$data['venue_id']])}}">Back</a>
                     {{-- @dd($data) --}}
                     <form id="add_student" action="{{ route('venue-providers.venue.venue_pricings.store',['user_id'=>$data['user_id'],'venue_id'=>$data['venue_id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
