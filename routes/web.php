@@ -91,9 +91,6 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/entertainer/talent/price-packages/edit/{user_id}/{price_package_id}', [EntertainerController::class, 'editPricePackageIndex'])->name('entertainer.talent.price_packages.edit');
     Route::post('/entertainer/talent/price-packages/update/{user_id}/{price_package_id}', [EntertainerController::class, 'updatePricePackage'])->name('entertainer.talent.price_packages.update');
     Route::delete('/entertainer/talent/price-packages/delete/{price_package_id}', [EntertainerController::class, 'destroyPricePackage'])->name('entertainer.talent.price_packages.delete');
-
-
-
      //Venue
      Route::resource('venue', VenueController::class)->parameters([
         'venue' => 'user_id'
