@@ -77,7 +77,7 @@ class EntertainerController extends Controller
     /** */
     public function show($user_id)
     {
-        $data['entertainer'] = EntertainerDetail::with('talentCategory')->where('user_id', $user_id)->latest()->get();
+        $data['entertainer'] = EntertainerDetail::with('talentCategory')->with('entertainerFeatureAdsPackage')->where('user_id', $user_id)->latest()->get();
         $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.index', compact('data'));
     }
@@ -153,7 +153,7 @@ class EntertainerController extends Controller
                 'price' => 'required',
                // 'photos' =>'required',
                 'entertainer_feature_ads_packages_id' => 'required',
-                'images'=>'required',
+                //'images'=>'required',
             ]);
             $data = $request->only(['title', 'user_id', 'category', 'price', 'entertainer_feature_ads_packages_id']);
             $data['feature_status'] = 1;
@@ -177,7 +177,7 @@ class EntertainerController extends Controller
                 'category' => 'required',
                 'price' => 'required',
                // 'photos' =>'required',
-                'images'=>'required',
+               // 'images'=>'required',
             ]);
             $data = $request->only(['title', 'user_id', 'category', 'price']);
             //  If admin unfeatured the featured add

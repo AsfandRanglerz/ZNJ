@@ -36,6 +36,7 @@
                                             <th>Seats</th>
                                             <th>Price</th>
                                             <th>Date</th>
+                                            <th>Feature Ads</th>
                                             <th>From</th>
                                             <th>To</th>
                                             <th>Created at</th>
@@ -57,6 +58,7 @@
                                                 <td>{{ $event->seats }}</td>
                                                 <td>${{ $event->price }}</td>
                                                 <td>{{ $event->date }}</td>
+                                                <td><b>{{ $event->eventFeatureAdsPackage->title ??''  }}</b></td>
                                                 @if( explode(':',$event->from)[0]>=12)
                                                 <td>{{ $event->from }} PM</td>
                                                 @else

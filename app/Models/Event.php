@@ -21,7 +21,7 @@ class Event extends Model
      }
      public function eventFeatureAdsPackage  ()
      {
-         return $this->belongsTo('App\Models\EventFeatureAdsPackage ','event_feature_ads_packages_id','id');
+         return $this->belongsTo('App\Models\EventFeatureAdsPackage','event_feature_ads_packages_id','id');
      }
     public function getCoverImageAttribute($path)
     {

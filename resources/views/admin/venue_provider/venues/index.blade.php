@@ -31,6 +31,7 @@
                                             <th>Seats</th>
                                             <th>Stands</th>
                                             <th>Amenities</th>
+                                            <th>Feature Ads</th>
                                             <th>Opening_time</th>
                                             <th>Closing_time</th>
                                             <th>Created_At</th>
@@ -50,6 +51,7 @@
                                                 <td>{{ $venue->seats }}</td>
                                                 <td>{{ $venue->stands }}</td>
                                                 <td>{{ $venue->amenities }}</td>
+                                                <td><b>{{ $venue->venueFeatureAdsPackage->title ??''  }}</b></td>
                                                 @if( explode(':',$venue->opening_time)[0]>=12)
                                                 <td>{{ $venue->opening_time }} PM</td>
                                                 @else

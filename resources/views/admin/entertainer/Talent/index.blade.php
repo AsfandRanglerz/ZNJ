@@ -29,7 +29,7 @@
                                             <th>Title</th>
                                             <th>Category</th>
                                             <th>Price</th>
-
+                                            <th>Feature Ads</th>
                                             <th>Created at</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -44,6 +44,7 @@
                                                 <td>{{ $entertainer_details->title }}</td>
                                                 <td>{{ $entertainer_details->talentCategory->category ??'' }}</td>
                                                 <td>$ {{ $entertainer_details->price }}</td>
+                                                <th>{{$entertainer_details->entertainerFeatureAdsPackage->title ??''  }}</th>
                                                 <td>{{ $entertainer_details->created_at }}</td>
 
                                                 <td

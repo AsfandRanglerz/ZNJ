@@ -28,7 +28,7 @@
                                         <tr>
                                             <th>Sr.</th>
                                             <th>Price</th>
-                                            <th>Time</th>
+                                            <th>Number of Hours</th>
                                             <th>Created At</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -39,9 +39,9 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>$ {{ $price->price_package }}</td>
                                                 @if( explode(':',$price->time)[0]>=12)
-                                                <td>{{ $price->time }} PM</td>
+                                                <td>{{ $price->time }}</td>
                                                 @else
-                                                <td>{{ $price->time }} AM</td>
+                                                <td>{{ $price->time }}</td>
                                                 @endif
                                                <td>{{ $price->created_at }}</td>
                                                 <td
