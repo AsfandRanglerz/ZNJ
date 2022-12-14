@@ -139,7 +139,7 @@ class EntertainerController extends Controller
         $data['user_id'] = $user_id;
 
         $data['talent_categories'] = TalentCategory::select('id', 'category')->get();
-       // dd($data['talent_categories']);
+        // dd($data['talent_categories']);
         $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
         return view('admin.entertainer.Talent.add', compact('data'));
     }
@@ -148,14 +148,15 @@ class EntertainerController extends Controller
     {
         if ($request->has('entertainer_feature_ads_packages_id')) {
             $validator = $request->validate([
-                'title' => 'required',
+
                 'category' => 'required',
                 'price' => 'required',
-               // 'photos' =>'required',
+                // 'photos' =>'required',
                 'entertainer_feature_ads_packages_id' => 'required',
                 //'images'=>'required',
             ]);
-            $data = $request->only(['title', 'user_id', 'category', 'price', 'entertainer_feature_ads_packages_id']);
+            $data = $request->only(['user_id', 'price', 'entertainer_feature_ads_packages_id', 'height', 'weight', 'shoe_size', 'own_equipments', 'awards', 'bio', 'description', 'events_completed']);
+            $data['category_id'] = $request->category;
             $data['feature_status'] = 1;
 
             $data['user_id'] = $user_id;
@@ -173,14 +174,14 @@ class EntertainerController extends Controller
             return redirect()->route('entertainer.show', $user_id)->with(['status' => true, 'message' => 'Talent Created sucessfully']);
         } else {
             $validator = $request->validate([
-                'title' => 'required',
                 'category' => 'required',
                 'price' => 'required',
-               // 'photos' =>'required',
-               // 'images'=>'required',
+                // 'photos' =>'required',
+                // 'images'=>'required',
             ]);
-            $data = $request->only(['title', 'user_id', 'category', 'price']);
-            //  If admin unfeatured the featured add
+            $data = $request->only(['user_id', 'price', 'height', 'weight', 'shoe_size', 'own_equipments', 'awards', 'bio', 'description', 'events_completed']);
+            $data['category_id'] = $request->category;
+            $data['feature_status'] = 0;
             $data['user_id'] = $user_id;
             $user = EntertainerDetail::create($data);
             if ($request->file('event_photos')) {
@@ -207,9 +208,9 @@ class EntertainerController extends Controller
     {
         //$data['user_id'] = EntertainerDetail::find($id);
 
-        $data['entertainer_talent']=EntertainerDetail::find($entertainer_details_id);
-        $data['talent_categories']=TalentCategory::select('id','category')->get();
-        $data['entertainer_feature_ads_packages']=EntertainerFeatureAdsPackage::select('id','title','price','validity')->get();
+        $data['entertainer_talent'] = EntertainerDetail::find($entertainer_details_id);
+        $data['talent_categories'] = TalentCategory::select('id', 'category')->get();
+        $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
         // $data['user_id'] = $entertainer_details_id;
         $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.edit', compact('data'));
@@ -255,13 +256,13 @@ class EntertainerController extends Controller
         }
     }
 
-    public function showPhoto($user_id,$entertainer_details_id)
+    public function showPhoto($user_id, $entertainer_details_id)
     {
         //  Showing Entertainer Talent
         $data['photos'] = EntertainerEventPhotos::where('entertainer_details_id', $entertainer_details_id)->latest()->get();
         // dd($data['photos']);
         // dd($data['user_id']);
-        $data['user_id']=$user_id;
+        $data['user_id'] = $user_id;
         $data['entertainer_details_id'] = $entertainer_details_id;
         // dd($data['user_id']);
         return view('admin.entertainer.Talent.Photo.index', compact('data'));
@@ -273,17 +274,17 @@ class EntertainerController extends Controller
         EntertainerEventPhotos::destroy($photo_id);
         return redirect()->back()->with(['status' => true, 'message' => 'Photo Deleted sucessfully']);
     }
-    public function editPhoto($user_id,$entertainer_details_id,$photo_id)
+    public function editPhoto($user_id, $entertainer_details_id, $photo_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
         // dd('sa');
-        $data['user_id']=$user_id;
+        $data['user_id'] = $user_id;
         $data['entertainer_details_id'] = $entertainer_details_id;
-        $data['photo_id']=$photo_id;
+        $data['photo_id'] = $photo_id;
         $data['photo'] = EntertainerEventPhotos::find($photo_id);
-        return view('admin.entertainer.Talent.Photo.edit',compact('data'));
+        return view('admin.entertainer.Talent.Photo.edit', compact('data'));
     }
-    public function updatePhoto(Request $request,$user_id,$entertainer_details_id,$photo_id)
+    public function updatePhoto(Request $request, $user_id, $entertainer_details_id, $photo_id)
     {
         $validator = $request->validate([
             'event_photos' => 'required',
@@ -299,7 +300,7 @@ class EntertainerController extends Controller
             $photo->event_photos = '' . $filename;
         }
         $photo->update();
-        return redirect()->route('entertainer.photo.show', ['user_id'=>$user_id,'entertainer_details_id'=>$entertainer_details_id,'photo_id'=>$photo_id])->with(['status' => true, 'message' => 'Photo Updated sucessfully']);
+        return redirect()->route('entertainer.photo.show', ['user_id' => $user_id, 'entertainer_details_id' => $entertainer_details_id, 'photo_id' => $photo_id])->with(['status' => true, 'message' => 'Photo Updated sucessfully']);
     }
     /**
      * Talent Categories
@@ -319,7 +320,7 @@ class EntertainerController extends Controller
         ]);
         $data = $request->only(['category']);
         $data = TalentCategory::create($data);
-        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' =>'Talent Category Created sucessfully']);
+        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' => 'Talent Category Created sucessfully']);
     }
     public function talentCategoryEditIndex($category_id)
     {
@@ -334,44 +335,44 @@ class EntertainerController extends Controller
         $talent_category = TalentCategory::find($category_id);
         $talent_category->category = $request->category;
         $talent_category->update();
-        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' =>'Talent Category Updated sucessfully']);
+        return redirect()->route('entertainer.talent.categories.index')->with(['status' => true, 'message' => 'Talent Category Updated sucessfully']);
     }
     public function destroyTalentCategory($category_id)
     {
         TalentCategory::destroy($category_id);
         return redirect()->back()->with(['status' => true, 'message' => 'Category Deleted sucessfully']);
     }
-    public function pricePackagesIndex($user_id,$entertainer_details_id)
+    public function pricePackagesIndex($user_id, $entertainer_details_id)
     {
         $data['price_packages'] = EntertainerPricePackage::where('entertainer_details_id', $entertainer_details_id)->latest()->get();
         $data['entertainer_details_id'] = $entertainer_details_id;
-        $data['user_id']=$user_id;
+        $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.Price_packages.index', compact('data'));
     }
-    public function createPricePackageIndex($user_id,$entertainer_details_id)
+    public function createPricePackageIndex($user_id, $entertainer_details_id)
     {
         $data['entertainer_details_id'] = $entertainer_details_id;
-        $data['user_id']=$user_id;
+        $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.Price_packages.add', compact('data'));
     }
-    public function storePricePackage(Request $request,$user_id, $entertainer_details_id)
+    public function storePricePackage(Request $request, $user_id, $entertainer_details_id)
     {
         $validator = $request->validate([
             'price_package' => 'required',
             'time' => 'required'
         ]);
-        $data = $request->only(['price_package','time']);
+        $data = $request->only(['price_package', 'time']);
         $data['entertainer_details_id'] = $entertainer_details_id;
         $user = EntertainerPricePackage::create($data);
-        return redirect()->route('entertainer.talent.price_packages.index',['user_id'=>$user_id ,'entertainer_details_id'=>$entertainer_details_id])->with(['status' => true, 'message' => 'Price Package Created Sucessfully']);
+        return redirect()->route('entertainer.talent.price_packages.index', ['user_id' => $user_id, 'entertainer_details_id' => $entertainer_details_id])->with(['status' => true, 'message' => 'Price Package Created Sucessfully']);
     }
-    public function editPricePackageIndex($user_id,$price_package_id)
+    public function editPricePackageIndex($user_id, $price_package_id)
     {
         $data['price_package'] = EntertainerPricePackage::where('id', $price_package_id)->first();
-        $data['user_id']=$user_id;
+        $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.Price_packages.edit', compact('data'));
     }
-    public function updatePricePackage(Request $request,$user_id,$price_package_id)
+    public function updatePricePackage(Request $request, $user_id, $price_package_id)
     {
 
         $validator = $request->validate([
@@ -383,7 +384,7 @@ class EntertainerController extends Controller
         $price_package->price_package = $request->input('price_package');
         $price_package->time = $request->input('time');
         $price_package->update();
-        return redirect()->route('entertainer.talent.price_packages.index', ['user_id'=>$user_id ,'entertainer_details_id'=>$price_package['entertainer_details_id']])->with(['status' => true, 'message' => 'Price Package Updated Sucessfully']);
+        return redirect()->route('entertainer.talent.price_packages.index', ['user_id' => $user_id, 'entertainer_details_id' => $price_package['entertainer_details_id']])->with(['status' => true, 'message' => 'Price Package Updated Sucessfully']);
     }
     public function destroyPricePackage($price_package_id)
     {
