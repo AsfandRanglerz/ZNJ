@@ -108,13 +108,22 @@
                                         <td>{{ $entertainer->name }}</td>
                                         <td>{{ $entertainer->email }}</td>
                                         <td>{{ $entertainer->phone }}</td>
-                                        @dd($entertainer['entertainerDetail'])
-                                        @if (count($entertainer['entertainerDetail']) === 0)
-                                        <td></td>
-                                        @elseif (count($entertainer['entertainerDetail']) === 1 )
-                                          <td>{{ implode(',',array_column(json_decode($entertainer['entertainerDetail'], true), 'category'))  }}</td>
+                                        {{-- @dd(json_decode($entertainer['entertainerDetail'][0]['talentCategory'],true)) --}}
+                                        {{-- @dd(count($entertainer['entertainerDetail'])) --}}
+
+                                     {{-- {!! $dat[] = json_decode($entertainer['entertainerDetail'][0]['talentCategory'],true)  !!} --}}
+                                      {{-- {!! $dat[]=json_decode($entertainer['entertainerDetail'][0]['talentCategory'],true) !!} --}}
+                                      {{-- @dd($dat) --}}
+
+                                        @if (count($entertainer['entertainerDetail']) === 1)
+                                        <td>{{ $entertainer['entertainerDetail'][0]['talentCategory']['category'] }}</td>
+                                        @elseif (count($entertainer['entertainerDetail']) > 1 )
+                                        @for ($i=0; $i < count($entertainer['entertainerDetail']) ; $i++)
+                                          <?php  $dat[] = json_decode($entertainer['entertainerDetail'][$i]['talentCategory'],true)?>
+                                        @endfor
+                                          <td>{{ implode(',',array_column($dat,'category')) }}</td>
                                         @else
-                                        <td>{{ $entertainer['entertainerDetail'][0]['category'] }}</td>
+                                        <td></td>
                                         @endif
                                         <td>{{ $entertainer->created_at }}</td>
 
@@ -166,12 +175,15 @@
                                         <td>{{ $venue->name }}</td>
                                         <td>{{ $venue->email }}</td>
                                         <td>{{ $venue->phone }}</td>
-                                        @if (count($venue['venues']) === 0)
-                                        <td></td>
+                                        @if (count($venue['venues']) === 1)
+                                        <td>{{ $venue['venues'][0]['venueCategory']['category'] }}</td>
                                         @elseif (count($venue['venues']) > 1 )
-                                          <td>{{ implode(',',array_column(json_decode($venue['venues'], true), 'category'))  }}</td>
+                                        @for ($i=0; $i < count($venue['venues']) ; $i++)
+                                        <?php  $venue_category[] = json_decode($venue['venues'][$i]['venueCategory'],true)?>
+                                      @endfor
+                                        <td>{{ implode(',',array_column($venue_category,'category')) }}</td>
                                         @else
-                                        <td>{{ $venue['venues'][0]['category'] }}</td>
+                                        <td></td>
                                         @endif
                                         <td>{{ $venue->created_at }}</td>
 

@@ -88,18 +88,11 @@
                                                     <label>Public</label>
 
 {{-- <<<<<<< Updated upstream --}}
-                                                        <input type="radio"value="Public" name="event_type" value="{{ old('event_type') }}" >
+                                                        <input type="radio" name="event_type" value="{{ old('event_type') }}" >
                                                         &nbsp;
                                                     <label>Private</label>
                                                         <input type="radio" value="Private" name="event_type" value="{{ old('event_type') }}" >
                                                         @error('event_type')
-{{-- =======
-                                                    <input type="radio"value="Public" name="event_type">
-                                                    &nbsp;
-                                                    <label>Private</label>
-                                                    <input type="radio" value="Private" name="event_type">
-                                                    @error('event_type')
->>>>>>> Stashed changes --}}
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>

@@ -21,8 +21,7 @@ class CreateEntertainerDetailsTable extends Migration
             $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->string('event_images')->nullable();
-            $table->string('about_yourself')->nullable();
-           
+            $table->string('bio')->nullable();
             $table->string('price')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

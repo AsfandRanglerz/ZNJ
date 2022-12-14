@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index(){
         $data['recruiter']=User::where('role','recruiter')->with(['events' => function ($query) {$query->select('user_id','title'); }])->latest()->get();
-        $data['venue']=User::where('role','venue_provider')->with(['venues' => function ($query) {$query->select('user_id','category'); }])->latest()->get();
+        $data['venue']=User::where('role','venue_provider')->with(['venues' => function ($query) {$query->with('venueCategory'); }])->latest()->get();
         // $data['entertainer'] = TalentCategory::with('items')->get();
         $data['entertainer']=User::select('id','name','email','role','phone','created_at')->where('role','entertainer')->with(['entertainerDetail' => function ($query) {$query->with('talentCategory'); }])->latest()->get();
         // $data['entertainer']=TalentCategory::find(2)->user;

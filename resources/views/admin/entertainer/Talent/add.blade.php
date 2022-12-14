@@ -43,7 +43,87 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
-
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>Name</label>
+                                                <input type="text" placeholder="Name" name="name"  value="{{ old('name') }}" class="form-control">
+                                                @error('name')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>DOB</label>
+                                                <input type="date" placeholder="Date of birth" name="dob"  value="{{ old('dob') }}" class="form-control">
+                                                @error('dob')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Contact</label>
+                                                    <input type="tel" name="contact"  value="{{ old('contact') }}"  class="form-control"
+                                                    placeholder="92 XXXXXXXXXX (Mobile Number)" >
+                                                    @error('contact')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Country</label>
+                                                    <input type="text" placeholder="Country" name="country"  value="{{ old('country') }}" class="form-control">
+                                                    @error('country')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>City</label>
+                                                    <input type="text" placeholder="city" name="city"  value="{{ old('city') }}" class="form-control">
+                                                    @error('city')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Gender</label>
+                                                <div>
+                                                    <label>Male</label>
+                                                        <input type="radio"value="Male" name="gender" value="{{ old('gender') }}" >
+                                                        &nbsp;
+                                                    <label>Private</label>
+                                                        <input type="radio" value="Female" name="gender" value="{{ old('gender') }}" >
+                                                        <label>Others</label>
+                                                        <input type="radio" value="Others" name="gender" value="{{ old('gender') }}" >
+                                                        @error('gender')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Nationality</label>
+                                                    <input type="text" placeholder="Nationality" name="nationality"  value="{{ old('nationality') }}" class="form-control">
+                                                    @error('nationality')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>City</label>
+                                                    <input type="text" placeholder="city" name="city"  value="{{ old('city') }}" class="form-control">
+                                                    @error('city')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Price</label>

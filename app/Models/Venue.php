@@ -22,6 +22,6 @@ class Venue extends Model
         return $this->belongsToMany('App\Models\Event','event_venues','venues_id','event_id');
      }
      public function  venueCategory(){
-        return $this->belongsTo('App\Models\VenueCategory','category','id');
+        return $this->belongsTo('App\Models\VenueCategory','category_id','id');
      }
 }

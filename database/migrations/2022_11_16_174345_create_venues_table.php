@@ -19,7 +19,6 @@ class CreateVenuesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('image')->nullable();
             $table->string('title')->nullable();
-            
             $table->string('about_venue')->nullable();
             $table->string('description')->nullable();
             $table->integer('seats')->nullable();
