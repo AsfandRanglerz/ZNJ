@@ -73,7 +73,6 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      Route::get('/entertainer/talent/delete/{user_id}',[EntertainerController::class,'destroyTalent'])->name('entertainer.talent.delete');
      Route::get('/entertainer/talent/edit/{user_id}/{entertainer_details_id}',[EntertainerController::class,'editTalent'])->name('entertainer.talent.edit');
      Route::post('/entertainer/talent/update/{user_id}',[EntertainerController::class,'updateTalent'])->name('entertainer.talent.update');
-
      Route::get('/entertainer/talent/photo/{user_id}/{entertainer_details_id}',[EntertainerController::class,'showPhoto'])->name('entertainer.photo.show');
      Route::get('/entertainer/talent/photo/edit/{user_id}/{entertainer_details_id}/{photo_id}',[EntertainerController::class,'editPhoto'])->name('entertainer.photo.edit');
      Route::post('/entertainer/talent/photo/update/{user_id}/{entertainer_details_id}/{photo_id}',[EntertainerController::class,'updatePhoto'])->name('entertainer.photo.update');

@@ -14,13 +14,6 @@ class AddCategoryColoumnsToEntertainerDetailsTable extends Migration
     public function up()
     {
         Schema::table('entertainer_details', function (Blueprint $table) {
-            $table->string('name')->after('location')->nullable();
-            $table->string('dob')->after('image')->nullable();
-            $table->string('contact')->after('image')->nullable();
-            $table->string('country')->after('image')->nullable();
-            $table->string('city')->after('image')->nullable();
-            $table->string('gender')->after('image')->nullable();
-            $table->string('nationality')->after('image')->nullable();
             $table->string('awards')->after('image')->nullable();
             $table->string('height')->after('image')->nullable();
             $table->string('weight')->after('image')->nullable();
