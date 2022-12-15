@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\TalentCategory;
 use App\Models\EntertainerDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class EntertainerController extends Controller
             'location' => 'required',
             'title' => 'required',
             'image' => 'required',
-            'about_yourself' => 'required',
+            'bio' => 'required',
             'category' => 'required',
             'price' => 'required',
             'event_photos' => 'required',
@@ -32,7 +33,7 @@ class EntertainerController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['location', 'title', 'about_yourself', 'category', 'price', 'description']);
+        $data = $request->only(['location', 'title', 'bio', 'category', 'price', 'description']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -91,7 +92,7 @@ class EntertainerController extends Controller
             'location' => 'required',
             'title' => 'required',
             'image' => 'required',
-            'about_yourself' => 'required',
+            'bio' => 'required',
             'category' => 'required',
             'price' => 'required',
             'event_photos' => 'required',
@@ -102,7 +103,7 @@ class EntertainerController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['location', 'title', 'about_yourself', 'category', 'price', 'description']);
+        $data = $request->only(['location', 'title', 'bio', 'category', 'price', 'description']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -159,5 +160,9 @@ class EntertainerController extends Controller
         ]);
         $data = EntertainerDetail::where('user_id',Auth::id())->first();
         return $this->sendSuccess('Entertainer Featured Request Successfully', compact('data'));
+    }
+    public function talentCategory(){
+    $data  =  TalentCategory::get();
+    return $this->sendSuccess('Talent Categories', compact('data'));
     }
 }

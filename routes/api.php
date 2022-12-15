@@ -31,7 +31,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('user-location','AuthController@userLocation');
         Route::get('edit-profile','AuthController@editProfile');
         Route::post('update-profile','AuthController@updateProfile');
-
+        Route::post('update-password','AuthController@updatePassword');
 
         Route::post('create-event','EventController@createEvent');
         Route::get('events','EventController@getEvents');
@@ -51,6 +51,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('entertainer-price-package/{id}','EntertainerController@getEntertainerPricePackage');
         Route::get('entertainer-feature-packages','EntertainerController@getEntertainerFeaturePackages');
         Route::post('entertainer-select-package','EntertainerController@EntertainerSelectPackage');
+        Route::get('talent-categories','EntertainerController@talentCategory');
 
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');

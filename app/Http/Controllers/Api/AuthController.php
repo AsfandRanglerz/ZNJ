@@ -39,10 +39,16 @@ class AuthController extends Controller
         } elseif ($request->role === 'entertainer') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
+                'role' => 'required',
                 'email' => 'required|unique:users,email|email',
                 'phone' => 'required',
                 'password' => 'required|confirmed',
-                'password_confirmation' => 'required'
+                'password_confirmation' => 'required',
+                'nationality' => 'required',
+                'gender' => 'required',
+                'city' => 'required',
+                'country' => 'required',
+                'dob' => 'required',
             ]);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
@@ -52,10 +58,15 @@ class AuthController extends Controller
                 'role' => $request->role,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'nationality' => $request->nationality,
+                'gender' => $request->gender,
+                'city' => $request->city,
+                'country' => $request->country,
+                'dob' => $request->dob,
             ];
-            $entertainer_data = $request->only(['name', 'email', 'role', 'phone', 'password']);
-            $entertainer_data['password'] = Hash::make($request->password);
+            // $entertainer_data = $request->only(['name', 'email', 'role', 'phone','nationality','gender','city','country','dob','password']);
+            // $entertainer_data['password'] = Hash::make($request->password);
             $user = User::create($entertainer_data);
             $user['token'] = $user->createToken('znjToken')->plainTextToken;
             return $this->sendSuccess('Entertainer Register Successfully', $user);
@@ -135,7 +146,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $user = User::where('email', $request->email)->where('role',$request->role)->first();
+        $user = User::where('email', $request->email)->where('role', $request->role)->first();
         if (isset($user)) {
             $email = DB::table('password_resets')->where('email', $request->email)->delete();
             $email = DB::table('password_resets')->where('email', $request->email)->first();
@@ -153,7 +164,7 @@ class AuthController extends Controller
                 ]);
                 $data['otp'] = $otp;
                 Mail::to($request->email)->send(new ResetPasswordUser($data));
-                return $this->sendSuccess('Email Sent Successfully Successfully', ['email' => $request->email]);
+                return $this->sendSuccess('Email Sent Successfully', ['email' => $request->email]);
             }
         }
         return $this->sendError('Email does not exist');
@@ -353,51 +364,87 @@ class AuthController extends Controller
     }
     public  function updateProfile(Request $request)
     {
-        $data = User::where($request->id, Auth::id())->first();
+        $data = User::find(Auth::id());
         if ($data->role === 'entertainer') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|unique:users,email|email',
                 'phone' => 'required',
+                'nationality' => 'required',
+                'gender' => 'reqired',
+                'city' => 'required',
+                'country' => 'required',
+                'dob' => 'required',
             ]);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
 
-            $entertainer_data = $request->only(['name', 'email', 'phone']);
-            $user = User::find($request->id)->update($entertainer_data);
-            $data = User::find($request->id);
+            $entertainer_data = $request->only(['name', 'email', 'phone', 'nationality', 'gender', 'city', 'country', 'dob',]);
+            if ($request->hasfile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('images'), $filename);
+                $entertainer_data['image'] = 'public/images/' . $filename;
+            }
+            $user = User::find(Auth::id())->updateOrCreate($entertainer_data);
+            $data = User::find($user->id);
             return $this->sendSuccess('Entertainer updated Successfully', compact('data'));
         } elseif ($data->role === 'venue_provider') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required|email',
+                // 'email' => 'required|email',
                 'phone' => 'required',
-
             ]);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
             $venue_data = $request->only(['name', 'email', 'phone', 'venue_provider']);
-            // $user = User::create($venue_data);
-            $user = User::find($request->id)->update($venue_data);
-            $data = User::find($request->id);
+            if ($request->hasfile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('images'), $filename);
+                $venue_data['image'] = 'public/images/' . $filename;
+            }
+            $user = User::find(Auth::id())->updateOrCreate($venue_data);
+            $data = User::find($user->id);
             return $this->sendSuccess('Venue updated Successfully', $data);
         } elseif ($data->role === 'recruiter') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'company' => 'required',
                 'designation' => 'required',
-                'email' => 'required|email',
+                // 'email' => 'required|email',
                 'phone' => 'required',
             ]);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
             $recruter_data = $request->only(['name', 'email', 'phone', 'company', 'designation']);
-            $user = User::find($request->id)->update($recruter_data);
-            $data = User::find($request->id);
+            if ($request->hasfile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('images'), $filename);
+                $recruter_data['image'] = 'public/images/' . $filename;
+            }
+            $user = User::find(Auth::id())->updateOrCreate($recruter_data);
+            $data = User::find($user->id);
             return $this->sendSuccess('Recruiter updated Successfully', $data);
         }
+    }
+    public function updatePassword(Request $request){
+        $id = Auth::user()->id;
+        $password = Auth::user()->password;
+        if ((Hash::check($request->old_password, Auth::user()->password))) {
+            $user = User::find($id)
+                ->update(['password' => Hash::make($request->new_password)]);
+                return $this->sendSuccess('Password updated successfully');
+        } else {
+            return $this->sendSuccess('Incorrect old password');
+        }
+
     }
 }

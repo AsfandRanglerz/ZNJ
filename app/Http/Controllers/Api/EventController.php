@@ -41,8 +41,9 @@ class EventController extends Controller
             $file->move(public_path('/'), $filename);
             $data['cover_image'] = 'public/uploads/' . $filename;
         }
-        Event::create($data);
-        return $this->sendSuccess('Event created Successfully');
+        $event = Event::create($data);
+        $data = Event::find($event->id);
+        return $this->sendSuccess('Event created Successfully', $data);
     }
     public function getEvents()
     {
@@ -112,14 +113,16 @@ class EventController extends Controller
         $data = EventFeatureAdsPackage::get();
         return $this->sendSuccess('Event Ads Packages', compact('data'));
     }
-    public function EventSelectPackage(Request $request){
+    public function EventSelectPackage(Request $request)
+    {
         Event::where('user_id', Auth::id())->update([
             'event_feature_ads_packages_id' => $request->id,
         ]);
-        $data = Event::where('user_id',Auth::id())->first();
+        $data = Event::where('user_id', Auth::id())->first();
         return $this->sendSuccess('Event Featured Request Successfully', compact('data'));
     }
-    public function joinEvent(Request $request){
+    public function joinEvent(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'surname' => 'required',
@@ -136,7 +139,7 @@ class EventController extends Controller
             $file->move(public_path('/'), $filename);
             $data['photo'] = 'public/uploads/' . $filename;
         }
-        $dataa=EventTicket::create($data);
+        $dataa = EventTicket::create($data);
         $data = EventTicket::find($dataa->id);
         return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
     }
