@@ -33,6 +33,20 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3" id='myCategoryDiv'>
+                                            <div class="form-group mb-2">
+                                                <label>Price</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon2">$</span>
+                                                    </div>
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" value="{{ old('price') }}" aria-describedby="basic-addon2">
+                                                </div>
+                                                @error('price')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                            </div>
+                                        </div>
                                         {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>DOB</label>
@@ -95,20 +109,6 @@
                                                     @enderror
                                                 </div>
                                             </div> --}}
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-3" id='myCategoryDiv'>
-                                            <div class="form-group mb-2">
-                                                <label>Price</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon2">$</span>
-                                                    </div>
-                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" value="{{ old('price') }}" aria-describedby="basic-addon2">
-                                                </div>
-                                                @error('price')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                            </div>
-                                        </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
@@ -178,7 +178,8 @@
          $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
-            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'><div class="col-sm-6 pl-sm-0 pr-sm-3">
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
+                <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
                                                     <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
@@ -232,7 +233,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
+
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>
@@ -242,6 +243,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                        </div>
 `);
          }else if(categoryValue !=="null"){
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">

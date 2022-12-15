@@ -26,6 +26,14 @@ class User extends Authenticatable
     // public function talentCategory(){
     //     return $this->belongsToMany('App\Models\TalentCategory','entertainer_details','user_id','category_id');
     //  }
+    public function getImageAttribute($path)
+    {
+        if ($path){
+            return asset($path);
+        }else{
+            return null;
+        }
+    }
 
 
 

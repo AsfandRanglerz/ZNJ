@@ -1,13 +1,14 @@
 @extends('admin.layout.app')
 @section('title', 'Dashboard')
 @section('content')
+
     <body>
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
-                    <a class="btn btn-primary mb-3"
-                    href="{{route('admin.user.index')}}">Back</a>
-                    <form id="add_student" action="{{ route('entertainer.store') }}" method="POST" enctype="multipart/form-data">
+                    <a class="btn btn-primary mb-3" href="{{ route('admin.user.index') }}">Back</a>
+                    <form id="add_student" action="{{ route('entertainer.store') }}" method="POST"
+                        enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
@@ -18,7 +19,8 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label> Name </label>
-                                                <input type="text" placeholder="Name" name="name" id="name" value="{{ old('name') }}"  class="form-control">
+                                                <input type="text" placeholder="Name" name="name" id="name"
+                                                    value="{{ old('name') }}" class="form-control">
                                                 @error('name')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -27,11 +29,12 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2">
                                             <div class="form-group mb-3">
                                                 <label>Email</label>
-                                                <input type="email" placeholder="Email" name="email" id="email" value="{{ old('email') }}" class="form-control" />
+                                                <input type="email" placeholder="Email" name="email" id="email"
+                                                    value="{{ old('email') }}" class="form-control" />
                                             </div>
                                             @error('email')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                     </div>
@@ -39,8 +42,9 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Phone</label>
-                                                <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"  class="form-control"
-                                                placeholder="92 XXXXXXXXXX (Mobile Number)" >
+                                                <input type="tel" name="phone" id="phone"
+                                                    value="{{ old('phone') }}" class="form-control"
+                                                    placeholder="92 XXXXXXXXXX (Mobile Number)">
                                                 @error('phone')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -56,6 +60,63 @@
                                                 @enderror
                                             </div>
                                         </div> --}}
+
+                                    <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="form-group mb-2">
+                                            <label>DOB</label>
+                                            <input type="date" placeholder="Date of birth" name="dob"
+                                                value="{{ old('dob') }}" class="form-control">
+                                            @error('dob')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="form-group mb-2">
+                                            <label>Country</label>
+                                            <input type="text" placeholder="Country" name="country"
+                                                value="{{ old('country') }}" class="form-control">
+                                            @error('country')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="form-group mb-2">
+                                            <label>City</label>
+                                            <input type="text" placeholder="city" name="city"
+                                                value="{{ old('city') }}" class="form-control">
+                                            @error('city')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Gender</label>
+                                                <div>
+                                                    <label>Male</label>
+                                                        <input type="radio"value="Male" name="gender" value="{{ old('gender') }}" >
+                                                        &nbsp;
+                                                    <label>Female</label>
+                                                        <input type="radio" value="Female" name="gender" value="{{ old('gender') }}" >
+                                                        <label>Others</label>
+                                                        <input type="radio" value="Others" name="gender" value="{{ old('gender') }}" >
+                                                        @error('gender')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                </div>
+                                     </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Nationality</label>
+                                                    <input type="text" placeholder="Nationality" name="nationality"  value="{{ old('nationality') }}" class="form-control">
+                                                    @error('nationality')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                     </div>
                                     <div class="row mx-0 px-4">
                                         {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
@@ -69,27 +130,27 @@
                                             </div>
                                         </div> --}}
 
-                                    </div>
-                                    <div class="card-footer text-center row">
-                                        <div class="col">
-                                            <button type="submit" class="btn btn-success mr-1 btn-bg"
-                                                id="submit">Add</button>
-                                        </div>
+                                </div>
+                                <div class="card-footer text-center row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-success mr-1 btn-bg"
+                                            id="submit">Add</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
-            </section>
+                </form>
+        </div>
+        </section>
         </div>
     </body>
 @endsection
 
-@section ('scripts')
-@if (\Illuminate\Support\Facades\Session::has('message'))
-<script>
-    toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
-</script>
-@endif
+@section('scripts')
+    @if (\Illuminate\Support\Facades\Session::has('message'))
+        <script>
+            toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
+        </script>
+    @endif
 @endsection

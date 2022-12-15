@@ -49,21 +49,27 @@ class EntertainerController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
+            'gender' => 'required',
+            'dob' => 'required',
+            'nationality'=>'required',
+            'country'=>'required',
+            'city'=>'required'
             // 'password'=>'required|confirmed',
             // 'password_confirmation'=>'required'
         ]);
-        $data = $request->only(['name', 'email', 'role', 'phone']);
+        $data = $request->only(['name', 'email', 'role', 'phone','gender','dob','nationality','country','city']);
         $data['role'] = 'entertainer';
-        $messages['password'] = random_int(10000000, 99999999);
-        $messages['email'] = $request->email;
-        $data['password'] = Hash::make($messages['password']);
+        $data['password'] = random_int(10000000, 99999999);
+        $data['email'] = $request->email;
+        $data['password'] = Hash::make($data['password']);
         try {
-            Mail::to($request->email)->send(new UserLoginPassword($messages));
+            Mail::to($request->email)->send(new UserLoginPassword($data));
             $user = User::create($data);
             return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Entertainer Created sucessfully']);
         } catch (\Throwable $th) {
+            // dd($th->getMessage());
             return back()
-                ->with(['status' => false, 'message' => 'Unexpected error occured']);
+                ->with(['status' => false, 'message' => $th->getMessage()]);
         }
     }
 

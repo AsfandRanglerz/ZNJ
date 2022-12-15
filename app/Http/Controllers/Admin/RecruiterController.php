@@ -49,20 +49,22 @@ class RecruiterController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
-            // 'password' => 'required|confirmed',
-            // 'password_confirmation' => 'required',
+            'gender' => 'required',
+            'dob' => 'required',
+            'nationality'=>'required',
+            'country'=>'required',
+            'city'=>'required',
             'company' => 'required',
             'designation' => 'required'
-
         ]);
 
-        $data = $request->only(['name', 'email', 'role', 'phone', 'company', 'designation']);
+        $data = $request->only(['name', 'email', 'role', 'phone', 'company', 'designation','gender','dob','nationality','country','city']);
         $data['role'] = 'recruiter';
-        $messages['password'] = random_int(10000000, 99999999);
-        $messages['email'] = $request->email;
-        $data['password'] = Hash::make($messages['password']);
+        $data['password'] = random_int(10000000, 99999999);
+        $data['email'] = $request->email;
+        $data['password'] = Hash::make($data['password']);
         try {
-        Mail::to($request->email)->send(new UserLoginPassword($messages));
+        Mail::to($request->email)->send(new UserLoginPassword($data));
         $user = User::create($data);
             return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Created successfully']);
         } catch (\Throwable $th) {
@@ -80,7 +82,7 @@ class RecruiterController extends Controller
     {
         $data['recruiter_event'] = Event::with('eventFeatureAdsPackage')->where('user_id', $user_id)->
         latest()->get();
-        
+
         $data['user_id'] = $user_id;
         return view('admin.recruiter.event.index', compact('data'));
     }

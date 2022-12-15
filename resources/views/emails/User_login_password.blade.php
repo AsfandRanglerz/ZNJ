@@ -1,9 +1,9 @@
 @component('mail::message')
 # Introduction
 
-{{ $messages['password'] }}
+{{ $data['password'] }}
 
-{{ $messages['email'] }}
+{{ $data['email'] }}
 
 
 Thanks,<br>
