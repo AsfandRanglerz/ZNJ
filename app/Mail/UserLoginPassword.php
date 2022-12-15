@@ -17,10 +17,10 @@ class UserLoginPassword extends Mailable
      * @return void
      */
 
-
-    public function __construct($data)
+     protected $message;
+    public function __construct($message)
     {
-        $this->data=$data;
+        $this->message = $message;
     }
 
     /**
@@ -30,6 +30,6 @@ class UserLoginPassword extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.User_login_password')->with('data',$this->data);
+        return $this->markdown('emails.User_login_password')->with('message',$this->message);
     }
 }

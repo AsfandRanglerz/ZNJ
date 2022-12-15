@@ -175,11 +175,15 @@
         //  let categoryName = $(this).text();
          let categoryName = $('#myCategory').find(':selected').text();
          let categoryValue = $('#myCategory').find(':selected').val();
+
          $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
-            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
-                <div class="col-sm-6 pl-sm-0 pr-sm-3">
+            $("#myCategoryDiv").after(`
+            <div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
+
+                                   <div class="col-sm-6 pl-sm-0 pr-sm-3">
+
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
                                                     <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
@@ -235,6 +239,7 @@
                                             </div>
 
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
+
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>
                                                     <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
@@ -243,7 +248,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
+                                            </div>
 `);
          }else if(categoryValue !=="null"){
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
@@ -281,17 +286,13 @@
                                                     @error('own_equipments')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
+
                                                 </div>
                                             </div>
                                             </div>
 `)
 
-
-         }
-
-
-
-         console.log(selectedValue);
+                                        }
 
 });
 

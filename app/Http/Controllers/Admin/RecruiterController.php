@@ -60,14 +60,20 @@ class RecruiterController extends Controller
 
         $data = $request->only(['name', 'email', 'role', 'phone', 'company', 'designation','gender','dob','nationality','country','city']);
         $data['role'] = 'recruiter';
-        $data['password'] = random_int(10000000, 99999999);
-        $data['email'] = $request->email;
-        $data['password'] = Hash::make($data['password']);
-        try {
-        Mail::to($request->email)->send(new UserLoginPassword($data));
+        $password = random_int(10000000, 99999999);
+        $data = $request->only(['name', 'email', 'role', 'phone','gender','dob','nationality','country','city']);
+        $data['role'] = 'entertainer';
+
+        $data['password'] = Hash::make($password);
+        // dd($message);
         $user = User::create($data);
+        $message['email'] = $request->email;
+        $message['password']=$password;
+        try {
+        Mail::to($request->email)->send(new UserLoginPassword($message));
             return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Recruiter Created successfully']);
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return back()
             ->with(['status' => false, 'message'=>'Unexpected error occured']);
         }

@@ -64,12 +64,15 @@ class VenueController extends Controller
         ]);
         $data = $request->only(['name', 'email', 'role', 'phone','gender','dob','nationality','country','city']);
             $data['role'] = 'venue_provider';
-            $data['password'] = random_int(10000000, 99999999);
-            $data['email'] = $request->email;
-            $data['password'] = Hash::make($data['password']);
+        $password = random_int(10000000, 99999999);
+
+        $data['password'] = Hash::make($password);
+        // dd($message);
+        $user = User::create($data);
+        $message['email'] = $request->email;
+        $message['password']=$password;
             try {
-            Mail::to($request->email)->send(new UserLoginPassword($data));
-            $user = User::create($data);
+            Mail::to($request->email)->send(new UserLoginPassword($message));
                 return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Venue Provider Created sucessfully']);
             } catch (\Throwable $th) {
                 return back()

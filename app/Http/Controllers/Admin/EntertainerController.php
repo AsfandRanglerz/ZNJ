@@ -57,17 +57,21 @@ class EntertainerController extends Controller
             // 'password'=>'required|confirmed',
             // 'password_confirmation'=>'required'
         ]);
+        $password = random_int(10000000, 99999999);
         $data = $request->only(['name', 'email', 'role', 'phone','gender','dob','nationality','country','city']);
         $data['role'] = 'entertainer';
-        $data['password'] = random_int(10000000, 99999999);
-        $data['email'] = $request->email;
-        $data['password'] = Hash::make($data['password']);
+
+        $data['password'] = Hash::make($password);
+        // dd($message);
+        $user = User::create($data);
+        $message['email'] = $request->email;
+        $message['password']=$password;
+
         try {
-            Mail::to($request->email)->send(new UserLoginPassword($data));
-            $user = User::create($data);
+            Mail::to($request->email)->send(new UserLoginPassword($message));
             return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Entertainer Created sucessfully']);
         } catch (\Throwable $th) {
-            // dd($th->getMessage());
+            dd($th->getMessage());
             return back()
                 ->with(['status' => false, 'message' => $th->getMessage()]);
         }
@@ -214,7 +218,8 @@ class EntertainerController extends Controller
     {
         //$data['user_id'] = EntertainerDetail::find($id);
 
-        $data['entertainer_talent'] = EntertainerDetail::find($entertainer_details_id);
+        $data['entertainer_talent'] = EntertainerDetail::find($entertainer_details_id)->with('talentCategory')->first();
+        // dd($data['entertainer_talent']);
         $data['talent_categories'] = TalentCategory::select('id', 'category')->get();
         $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
         // $data['user_id'] = $entertainer_details_id;

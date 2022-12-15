@@ -5,6 +5,7 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    {{-- @dd($data['entertainer_talent']['talentCategory']['category']) --}}
 
                     <a class="btn btn-primary mb-2"
                     href="{{route('entertainer.show',$data['user_id'])}}">Back</a>
@@ -17,24 +18,15 @@
                                 <div class="card">
                                     <h4 class="text-center my-4">Edit Talent</h4>
                                     <div class="row mx-0 px-4" id="edit_entertainer_row">
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label> Title </label>
-                                                <input type="text" placeholder="example" name="title" id="title" Value="{{ $data['entertainer_talent']['title'] }}" class="form-control">
-                                                @error('title')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-2">
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-2" >
                                             <div class="form-group mb-3">
                                                 <label>Talent Category</label>
-                                                <select name="category" id="category"  class="form-control">
-                                                    <option value="">Please Select a Category </option>
+                                                <select name="category" id="myCategory"  class="form-control">
+                                                    <option value="null">Please Select a Category </option>
                                                         @foreach($data['talent_categories'] as $category)
                                                         <option value="{{$category->id}}"
                                                             {{-- @dd($data['talent_categories']) --}}
-                                                            {{ str_contains($data['entertainer_talent']['category'],$category->id)? 'selected' : ''  }}>{{$category->category}}</option>
+                                                            {{ str_contains($data['entertainer_talent']['talentCategory']['category'],$category->category)? 'selected' : ''  }}>{{$category->category}}</option>
                                                         @endforeach
                                                     </select>
                                             </div>
@@ -43,7 +35,7 @@
                                         @enderror
                                         </div>
 
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3" id='myCategoryDiv'>
                                             <div class="form-group mb-2">
                                                 <label>Price</label>
                                                 <div class="input-group">
@@ -122,6 +114,232 @@
 
     <script>
         $(document).ready(function () {
+        let categoryName = $('#myCategory').find(':selected').text();
+        let categoryValue = $('#myCategory').find(':selected').val();
+        $('#myCategoryFieldsDiv').remove();
+         $('#myCategoryFieldsDiv2').remove();
+         if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
+                <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Awards</label>
+                                                    <input type="text" placeholder="No of awards" name="awards" value="{{ old('awards') }}" class="form-control">
+                                                    @error('awards')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Height</label>
+                                                    <input type="text" placeholder="Height" name="height"  value="{{ old('height') }}" class="form-control">
+                                                    @error('height')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Weight</label>
+                                                    <input type="text" placeholder="Weight" name="weight"  value="{{ old('weight') }}" class="form-control">
+                                                    @error('weight')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Waist</label>
+                                                    <input type="text" placeholder="Waist" name="waist"  value="{{ old('waist') }}" class="form-control">
+                                                    @error('waist')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Shoe Size</label>
+                                                    <input type="text" placeholder="Shoe Size" name="shoe_size"  value="{{ old('shoe_size') }}" class="form-control">
+                                                    @error('shoe_size')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Bio</label>
+                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ old('bio') }}" class="form-control">
+                                                    @error('bio')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Events Completed</label>
+                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
+                                                    @error('events_completed')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+`);
+         }else if(categoryValue !=="null"){
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Awards</label>
+                                                    <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
+                                                    @error('awards')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Bio</label>
+                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ old('bio') }}" class="form-control">
+                                                    @error('bio')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Events Completed</label>
+                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
+                                                    @error('events_completed')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Own Equipments</label>
+                                                    <input type="text" placeholder="Equipments" name="own_equipments"  value="{{ old('own_equipments') }}" class="form-control">
+                                                    @error('own_equipments')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+
+                                                </div>
+                                            </div>
+                                            </div>
+`)
+
+                                        }
+                                        $("#myCategory").change(function(e) {
+        e.preventDefault()
+        //  let categoryName = $(this).text();
+         let categoryName = $('#myCategory').find(':selected').text();
+         let categoryValue = $('#myCategory').find(':selected').val();
+
+         $('#myCategoryFieldsDiv').remove();
+         $('#myCategoryFieldsDiv2').remove();
+         if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
+                <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Awards</label>
+                                                    <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
+                                                    @error('awards')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Height</label>
+                                                    <input type="text" placeholder="Height" name="height"  value="{{ old('height') }}" class="form-control">
+                                                    @error('height')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Weight</label>
+                                                    <input type="text" placeholder="Weight" name="weight"  value="{{ old('weight') }}" class="form-control">
+                                                    @error('weight')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Waist</label>
+                                                    <input type="text" placeholder="Waist" name="waist"  value="{{ old('waist') }}" class="form-control">
+                                                    @error('waist')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Shoe Size</label>
+                                                    <input type="text" placeholder="Shoe Size" name="shoe_size"  value="{{ old('shoe_size') }}" class="form-control">
+                                                    @error('shoe_size')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Bio</label>
+                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ old('bio') }}" class="form-control">
+                                                    @error('bio')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+`);
+         }else if(categoryValue !=="null"){
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Awards</label>
+                                                    <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
+                                                    @error('awards')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Bio</label>
+                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ old('bio') }}" class="form-control">
+                                                    @error('bio')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Events Completed</label>
+                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
+                                                    @error('events_completed')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Own Equipments</label>
+                                                    <input type="text" placeholder="Equipments" name="own_equipments"  value="{{ old('own_equipments') }}" class="form-control">
+                                                    @error('own_equipments')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+
+                                                </div>
+                                            </div>
+                                            </div>
+`)
+
+                                        }
+
+});
+
             $('.toggle').click(function (e) {
                 e.preventDefault();
         if($('.toggle').hasClass('btn-danger')){
