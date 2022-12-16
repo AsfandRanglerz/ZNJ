@@ -5,12 +5,13 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
-                    {{-- @dd($data['entertainer_talent']['talentCategory']['category']) --}}
 
+                    {{-- @dd($data['entertainer_talent']) --}}
+                    {{-- @dd($data['entertainer_talent']) --}}
                     <a class="btn btn-primary mb-2"
                     href="{{route('entertainer.show',$data['user_id'])}}">Back</a>
                     {{-- @dd($data) --}}
-                    <form id="add_student" action="{{ route('entertainer.talent.update',$data['entertainer_talent']['id']) }}" method="POST" enctype="multipart/form-data">
+                    <form id="add_student" action="{{ route('entertainer.talent.update',['user_id'=>$data['user_id'],'entertainer_details_id'=>$data['entertainer_talent']['id']]) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <div class="row">
@@ -21,20 +22,25 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-2" >
                                             <div class="form-group mb-3">
                                                 <label>Talent Category</label>
-                                                <select name="category" id="myCategory"  class="form-control">
-                                                    <option value="null">Please Select a Category </option>
+                                                <select name="category_id" id="myCategory"  class="form-control">
+                                                    <option value='' >Please Select a Category </option>
+                                                    @if(isset($data['entertainer_talent']['talentCategory']['category']))
                                                         @foreach($data['talent_categories'] as $category)
                                                         <option value="{{$category->id}}"
-                                                            {{-- @dd($data['talent_categories']) --}}
-                                                            {{ str_contains($data['entertainer_talent']['talentCategory']['category'],$category->category)? 'selected' : ''  }}>{{$category->category}}</option>
+                                                            {{ str_contains($data['entertainer_talent']['talentCategory']['category'],$category->category)?'selected' : ''}}>{{$category->category}}</option>
                                                         @endforeach
+                                                        @else
+                                                        @foreach($data['talent_categories'] as $category)
+                                                        <option value="{{$category->id}}"
+                                                           >{{$category->category}}</option>
+                                                        @endforeach
+                                                        @endif
                                                     </select>
                                             </div>
-                                            @error('category')
+                                            @error('category_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
-
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3" id='myCategoryDiv'>
                                             <div class="form-group mb-2">
                                                 <label>Price</label>
@@ -42,7 +48,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">$</span>
                                                     </div>
-                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" Value="{{ $data['entertainer_talent']['price'] }}" aria-describedby="basic-addon2">
+                                                    <input type="number" class="form-control" placeholder="Price" aria-label="Price" name="price" Value="{{ $data['entertainer_talent']['price']}}" aria-describedby="basic-addon2">
                                                 </div>
                                                 @error('price')
                                                     <div class="text-danger">{{ $message }}</div>
@@ -53,17 +59,21 @@
                                             <div class="form-group mb-2">
                                                 <label>Feature Ads</label>
                                                 @if($data['entertainer_talent']['feature_status']==='0')
-                                                <input type="checkbox"  name="feature_ads" data-toggle="toggle"
+                                                <div>
+                                                <input type="checkbox" id="feature_ads"  name="feature_ads" data-toggle="toggle"
                                                     data-on="Featured"
                                                     data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
                                                     data-offstyle="danger">
                                                 </div>
                                             </div>
+                                            </div>
                                                     @else
-                                                    <input type="checkbox"  name="feature_ads" data-toggle="toggle"
+                                                    <div>
+                                                    <input type="checkbox" id="feature_ads"  name="feature_ads" data-toggle="toggle"
                                                     data-on="Featured"
                                                     data-toggle="tooltip" data-off="Unfeatured" data-onstyle="success"
                                                     data-offstyle="danger" checked>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3"  id='edit_feature_packages'>
@@ -119,11 +129,13 @@
         $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
+            // console.log('dsds');
+
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
                 <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
-                                                    <input type="text" placeholder="No of awards" name="awards" value="{{ old('awards') }}" class="form-control">
+                                                    <input type="text" placeholder="No of awards" name="awards" value="{{ $data['entertainer_talent']['awards'] }}" class="form-control">
                                                     @error('awards')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -132,7 +144,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Height</label>
-                                                    <input type="text" placeholder="Height" name="height"  value="{{ old('height') }}" class="form-control">
+                                                    <input type="text" placeholder="Height" name="height"  value="{{ $data['entertainer_talent']['height'] }}" class="form-control">
                                                     @error('height')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -141,7 +153,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Weight</label>
-                                                    <input type="text" placeholder="Weight" name="weight"  value="{{ old('weight') }}" class="form-control">
+                                                    <input type="text" placeholder="Weight" name="weight"  value="{{ $data['entertainer_talent']['weight'] }}" class="form-control">
                                                     @error('weight')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -150,7 +162,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Waist</label>
-                                                    <input type="text" placeholder="Waist" name="waist"  value="{{ old('waist') }}" class="form-control">
+                                                    <input type="text" placeholder="Waist" name="waist"  value="{{ $data['entertainer_talent']['waist'] }}" class="form-control">
                                                     @error('waist')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -159,7 +171,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Shoe Size</label>
-                                                    <input type="text" placeholder="Shoe Size" name="shoe_size"  value="{{ old('shoe_size') }}" class="form-control">
+                                                    <input type="text" placeholder="Shoe Size" name="shoe_size"  value="{{ $data['entertainer_talent']['shoe_size'] }}" class="form-control">
                                                     @error('shoe_size')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -168,7 +180,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Bio</label>
-                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ old('bio') }}" class="form-control">
+                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ $data['entertainer_talent']['bio'] }}" class="form-control">
                                                     @error('bio')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -178,7 +190,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>
-                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
+                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ $data['entertainer_talent']['events_completed'] }}" class="form-control">
                                                     @error('events_completed')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -186,7 +198,8 @@
                                             </div>
                                         </div>
 `);
-         }else if(categoryValue !=="null"){
+         }else if(categoryValue!==''){
+            console.log('dsds');
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
@@ -205,7 +218,6 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>
@@ -234,10 +246,15 @@
         //  let categoryName = $(this).text();
          let categoryName = $('#myCategory').find(':selected').text();
          let categoryValue = $('#myCategory').find(':selected').val();
+        //  console.log('this',categoryValue,typeof(categoryValue));
+        // console.log(categoryValue !== ' ');
+
 
          $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
+            // console.log('dsds');
+
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
                 <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
@@ -292,10 +309,21 @@
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Events Completed</label>
+                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
+                                                    @error('events_completed')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
 `);
-         }else if(categoryValue !=="null"){
+         }else if(categoryValue!== ''){
+            // console.log('dsds');\
+
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
@@ -332,11 +360,9 @@
                                                     @enderror
 
                                                 </div>
+                                        </div>
                                             </div>
-                                            </div>
-`)
-
-                                        }
+`)}
 
 });
 
@@ -361,10 +387,9 @@
                                                 <select name="entertainer_feature_ads_packages_id" class="form-control">
                                                     <option value=''>Please Select Package</option>
                                                     @foreach($data['entertainer_feature_ads_packages'] as $feature)
-                                                    <option value="{{ $feature->id }}" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'$feature->id')? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                    <option value="{{ $feature->id }}" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],$feature->id)? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
                                                     @endforeach
                                                </select>
-
                                                 @error('entertainer_feature_ads_packages_id')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -400,9 +425,9 @@
                                             <div class="form-group mb-2">
                                                 <label>Select Feature Package</label>
                                                 <select name="entertainer_feature_ads_packages_id" class="form-control">
-                                                    <option value=''>Please Select Package</option>
+                                                <option value=''>Please Select Package</option>
                                                     @foreach($data['entertainer_feature_ads_packages'] as $feature)
-                                                    <option value="{{ $feature->id }}" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],'$feature->id')? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
+                                                    <option value="{{ $feature->id }}" {{ str_contains($data['entertainer_talent']['entertainer_feature_ads_packages_id'],$feature->id)? 'selected' : ''  }}>{{ $feature->title }} - $ {{ $feature->price }} - {{ $feature->validity }}</option>
                                                     @endforeach
                                                </select>
                                                 @error('entertainer_feature_ads_packages_id')

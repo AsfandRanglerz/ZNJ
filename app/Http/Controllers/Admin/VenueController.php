@@ -56,13 +56,8 @@ class VenueController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
-            'gender' => 'required',
-            'dob' => 'required',
-            'nationality'=>'required',
-            'country'=>'required',
-            'city'=>'required',
         ]);
-        $data = $request->only(['name', 'email', 'role', 'phone','gender','dob','nationality','country','city']);
+        $data = $request->only(['name', 'email', 'role', 'phone']);
             $data['role'] = 'venue_provider';
         $password = random_int(10000000, 99999999);
 

@@ -5,6 +5,7 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-body">
+                    {{-- @dd('ss') --}}
                     <a class="btn btn-primary mb-3"
                     href="{{route('admin.user.index')}}">Back</a>
                     <form id="add_student" action="{{ route('entertainer.update',$entertainer->id) }}" method="POST" enctype="multipart/form-data">
@@ -46,6 +47,63 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                    <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="form-group mb-2">
+                                            <label>DOB</label>
+                                            <input type="date" placeholder="Date of birth" name="dob"
+                                                value="{{$entertainer['dob']  }}" class="form-control">
+                                            @error('dob')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="form-group mb-2">
+                                            <label>Country</label>
+                                            <input type="text" placeholder="Country" name="country"
+                                                value="{{ $entertainer['country']  }}" class="form-control">
+                                            @error('country')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="form-group mb-2">
+                                            <label>City</label>
+                                            <input type="text" placeholder="city" name="city"
+                                                value="{{ $entertainer['city']  }}" class="form-control">
+                                            @error('city')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Gender</label>
+                                                <div>
+                                                    <label>Male</label>
+                                                        <input type="radio"value="Male" name="gender" value="Male" {{ $entertainer['gender'] === 'Male' ? 'checked' : '' }} >
+                                                        &nbsp;
+                                                   <label>Female</label>
+                                                        <input type="radio"  name="gender" value="Female"  {{ $entertainer['gender'] === 'Female' ? 'checked' : '' }} >
+                                                        <label>Others</label>
+                                                        <input type="radio" value="Others" name="gender" value="Others"  {{ $entertainer['gender'] === 'Others' ? 'checked' : '' }} >
+                                                        @error('gender')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                </div>
+                                     </div>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                                <div class="form-group mb-2">
+                                                    <label>Nationality</label>
+                                                    <input type="text" placeholder="Nationality" name="nationality"  value="{{  $entertainer['nationality'] }}" class="form-control">
+                                                    @error('nationality')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Company</label>
@@ -68,6 +126,7 @@
                                                 @enderror
                                             </div>
                                         </div> --}}
+
 
                                     </div>
                                     <div class="card-footer text-center row">

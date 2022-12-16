@@ -21,15 +21,15 @@
                                                 <!-- <input type="text" name="name" id="name"
                                                     class="form-control"
                                                     placeholder="Enter name"> -->
-                                                    <select name="category" id="myCategory" value="{{ old('category') }}" class="form-control">
-                                                    <option value="null">Please Select a Category</option>
+                                                    <select name="category_id" id="myCategory" class="form-control">
+                                                    <option value="">Please Select a Category</option>
 
                                                         @foreach($data['talent_categories'] as $category)
                                                         <option value="{{$category->id}}">{{$category->category}}</option>
                                                         @endforeach
                                                     </select>
                                             </div>
-                                            @error('category')
+                                            @error('category_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         </div>
@@ -181,9 +181,7 @@
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
             $("#myCategoryDiv").after(`
             <div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
-
                                    <div class="col-sm-6 pl-sm-0 pr-sm-3">
-
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
                                                     <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
@@ -239,7 +237,6 @@
                                             </div>
 
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
-
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>
                                                     <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
@@ -249,8 +246,9 @@
                                                 </div>
                                             </div>
                                             </div>
+
 `);
-         }else if(categoryValue !=="null"){
+         }else if(categoryValue !==""){
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
@@ -269,7 +267,6 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>

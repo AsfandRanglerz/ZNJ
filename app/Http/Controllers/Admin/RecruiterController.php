@@ -49,19 +49,13 @@ class RecruiterController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
             'phone' => 'required',
-            'gender' => 'required',
-            'dob' => 'required',
-            'nationality'=>'required',
-            'country'=>'required',
-            'city'=>'required',
             'company' => 'required',
             'designation' => 'required'
         ]);
 
-        $data = $request->only(['name', 'email', 'role', 'phone', 'company', 'designation','gender','dob','nationality','country','city']);
+        $data = $request->only(['name', 'email', 'role', 'phone', 'company', 'designation']);
         $data['role'] = 'recruiter';
         $password = random_int(10000000, 99999999);
-        $data = $request->only(['name', 'email', 'role', 'phone','gender','dob','nationality','country','city']);
         $data['role'] = 'entertainer';
 
         $data['password'] = Hash::make($password);
@@ -88,11 +82,9 @@ class RecruiterController extends Controller
     {
         $data['recruiter_event'] = Event::with('eventFeatureAdsPackage')->where('user_id', $user_id)->
         latest()->get();
-
         $data['user_id'] = $user_id;
         return view('admin.recruiter.event.index', compact('data'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *

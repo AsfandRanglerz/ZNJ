@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\TalentCategory;
 use App\Models\EntertainerFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
@@ -88,6 +89,7 @@ class EntertainerController extends Controller
     public function show($user_id)
     {
         $data['entertainer'] = EntertainerDetail::with('talentCategory')->with('entertainerFeatureAdsPackage')->where('user_id', $user_id)->latest()->get();
+        // dd($data['entertainer']);
         $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.index', compact('data'));
     }
@@ -116,12 +118,22 @@ class EntertainerController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
+            'gender' => 'required',
+            'dob' => 'required',
+            'nationality'=>'required',
+            'country'=>'required',
+            'city'=>'required'
 
         ]);
         $entertainer = User::find($user_id);
         $entertainer->name = $request->input('name');
         $entertainer->email = $request->input('email');
         $entertainer->phone = $request->input('phone');
+        $entertainer->gender = $request->input('gender');
+        $entertainer->dob = $request->input('dob');
+        $entertainer->nationality = $request->input('nationality');
+        $entertainer->country = $request->input('country');
+        $entertainer->city = $request->input('city');
         $entertainer->update();
         return redirect()->route('admin.user.index')->with(['status' => true, 'message' => 'Entertainer Updated sucessfully']);
     }
@@ -147,28 +159,25 @@ class EntertainerController extends Controller
     public function createTalentIndex($user_id)
     {
         $data['user_id'] = $user_id;
-
         $data['talent_categories'] = TalentCategory::select('id', 'category')->get();
         // dd($data['talent_categories']);
         $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
-        return view('admin.entertainer.Talent.add', compact('data'));
+        return view('admin.entertainer.Talent.add',compact('data'));
     }
     public function storeTalent(Request $request, $user_id)
 
     {
         if ($request->has('entertainer_feature_ads_packages_id')) {
             $validator = $request->validate([
-
-                'category' => 'required',
+                'category_id' => 'required',
                 'price' => 'required',
-                // 'photos' =>'required',
+                // 'images'=>'required',
                 'entertainer_feature_ads_packages_id' => 'required',
-                //'images'=>'required',
-            ]);
-            $data = $request->only(['user_id', 'price', 'entertainer_feature_ads_packages_id', 'height', 'weight', 'shoe_size', 'own_equipments', 'awards', 'bio', 'description', 'events_completed']);
-            $data['category_id'] = $request->category;
+                ], [
+                'category_id.required' => 'Category field is required',
+                ]);
+            $data = $request->only(['user_id', 'price', 'entertainer_feature_ads_packages_id', 'height', 'weight', 'shoe_size', 'own_equipments', 'awards', 'bio', 'description', 'events_completed','category_id']);
             $data['feature_status'] = 1;
-
             $data['user_id'] = $user_id;
             $user = EntertainerDetail::create($data);
             if ($request->file('event_photos')) {
@@ -184,13 +193,12 @@ class EntertainerController extends Controller
             return redirect()->route('entertainer.show', $user_id)->with(['status' => true, 'message' => 'Talent Created sucessfully']);
         } else {
             $validator = $request->validate([
-                'category' => 'required',
+                'category_id' => 'required',
                 'price' => 'required',
-                // 'photos' =>'required',
-                // 'images'=>'required',
-            ]);
-            $data = $request->only(['user_id', 'price', 'height', 'weight', 'shoe_size', 'own_equipments', 'awards', 'bio', 'description', 'events_completed']);
-            $data['category_id'] = $request->category;
+                ], [
+                'category_id.required' => 'Category field is required',
+                ]);
+            $data = $request->only(['user_id', 'price', 'height', 'weight', 'shoe_size', 'own_equipments', 'awards', 'bio', 'description', 'events_completed','category_id']);
             $data['feature_status'] = 0;
             $data['user_id'] = $user_id;
             $user = EntertainerDetail::create($data);
@@ -218,7 +226,7 @@ class EntertainerController extends Controller
     {
         //$data['user_id'] = EntertainerDetail::find($id);
 
-        $data['entertainer_talent'] = EntertainerDetail::find($entertainer_details_id)->with('talentCategory')->first();
+        $data['entertainer_talent'] = EntertainerDetail::where('id',$entertainer_details_id)->with('talentCategory')->first();
         // dd($data['entertainer_talent']);
         $data['talent_categories'] = TalentCategory::select('id', 'category')->get();
         $data['entertainer_feature_ads_packages'] = EntertainerFeatureAdsPackage::select('id', 'title', 'price', 'validity')->get();
@@ -226,44 +234,43 @@ class EntertainerController extends Controller
         $data['user_id'] = $user_id;
         return view('admin.entertainer.Talent.edit', compact('data'));
     }
-    public function updateTalent(Request $request, $user_id)
+    public function updateTalent(Request $request,$user_id, $entertainer_details_id)
     {
         // dd($request->input());
 
         if ($request->entertainer_feature_ads_packages_id !== null && $request->feature_ads === 'on') {
             $validator = $request->validate([
-                'title' => 'required',
-                'category' => 'required',
+                'category_id' => 'required',
                 'price' => 'required',
                 // 'images'=>'required',
-            ]);
-            $talent = EntertainerDetail::find($user_id);
-            $talent->title = $request->input('title');
-            $talent->category = $request->input('category');
-            $talent->price = $request->input('price');
-            $talent->entertainer_feature_ads_packages_id = $request->entertainer_feature_ads_packages_id;
-            $talent->feature_status = 1;
-            $talent->update();
-            return redirect()->route('entertainer.show', $talent->user_id)->with(['status' => true, 'message' => 'Talent Updated successfully']);
+                ], [
+                'category_id.required' => 'Category field is required',
+                ]);
+
+
+            $data = $request->only(['price', 'awards', 'height', 'weight', 'waist', 'shoe_size','bio', 'events_completed','entertainer_feature_ads_packages_id','category_id']);
+            $data['feature_status'] = 1;
+            $talent = EntertainerDetail::find($entertainer_details_id);
+            $talent->update($data);
+            return redirect()->route('entertainer.show', $user_id)->with(['status' => true, 'message' => 'Talent Updated successfully']);
         } else if ($request->entertainer_feature_ads_packages_id === null && $request->feature_ads === 'on') {
             // @dd($request->input());
             return redirect()->back()->with(['status' => false, 'message' => 'Feature Package Must Be Selected']);
         } else {
             // @dd($request->input());
             $validator = $request->validate([
-                'title' => 'required',
-                'category' => 'required',
+                'category_id' => 'nullable',
                 'price' => 'required',
                 // 'images'=>'required',
-            ]);
-            $talent = EntertainerDetail::find($user_id);
-            $talent->title = $request->input('title');
-            $talent->category = $request->input('category');
-            $talent->price = $request->input('price');
-            $talent->entertainer_feature_ads_packages_id = null;
-            $talent->feature_status = 0;
-            $talent->update();
-            return redirect()->route('entertainer.show', $talent->user_id)->with(['status' => true, 'message' => 'Talent Updated successfully']);
+                ], [
+                'category_id.required' => 'Category field is required',
+                ]);
+            $data = $request->only(['price', 'awards', 'height', 'weight', 'waist', 'shoe_size','bio', 'events_completed','category_id']);
+            $data['entertainer_feature_ads_packages_id'] = null;
+            $data['feature_status'] = 0;
+            $talent = EntertainerDetail::find($entertainer_details_id);
+            $talent->update($data);
+            return redirect()->route('entertainer.show', $user_id)->with(['status' => true, 'message' => 'Talent Updated successfully']);
         }
     }
 
