@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Event;
+use App\Models\EventVenue;
 use App\Models\EventTicket;
 use Illuminate\Http\Request;
 use App\Models\EventEntertainers;
@@ -26,13 +27,14 @@ class EventController extends Controller
             'to' => 'required',
             'joining_type' => 'required',
             'price' => 'required',
+            'seats' => 'required',
             'description' => 'required',
             'hiring_entertainers_status' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date', 'to', 'joining_type', 'price', 'description']);
+        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date', 'to', 'joining_type', 'price', 'description', 'seats']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('cover_image')) {
             $file = $request->file('cover_image');
@@ -42,6 +44,21 @@ class EventController extends Controller
             $data['cover_image'] = 'public/uploads/' . $filename;
         }
         $event = Event::create($data);
+
+        if (isset($request->entertainer_details_id)) {
+            for ($i = 0; $i < count($request->entertainer_details_id); $i++) {
+                $event_entertainer = new EventEntertainers;
+                $event_entertainer->event_id = $event->id;
+                $event_entertainer->entertainer_details_id = $request->entertainer_details_id[$i];
+                $event_entertainer->save();
+            }
+        }
+        if (isset($request->venues_id)) {
+            $event_venue = new EventVenue;
+            $event_venue->event_id = $event->id;
+            $event_venue->venues_id = $request->venues_id;
+            $event_venue->save();
+        }
         $data = Event::find($event->id);
         return $this->sendSuccess('Event created Successfully', $data);
     }

@@ -26,7 +26,6 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post('forget-password','AuthController@forgetPassword');
     Route::post('confirm-token','AuthController@confirmToken');
     Route::post('submit-reset-password','AuthController@submitResetPassword');
-
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('user-location','AuthController@userLocation');
         Route::get('edit-profile','AuthController@editProfile');

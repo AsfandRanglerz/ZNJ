@@ -365,13 +365,24 @@ class AuthController extends Controller
     public  function updateProfile(Request $request)
     {
         $data = User::find(Auth::id());
-        if ($data->role === 'entertainer') {
+        if ($data->role == 'entertainer') {
+            // $validator = Validator::make($request->all(), [
+            //     'name' => 'required',
+            //     'phone' => 'required',
+            //     'nationality' => 'required',
+            //     'gender' => 'reqired',
+            //     'city' => 'required',
+            //     'country' => 'required',
+            //     'dob' => 'required',
+            // ]);
+            // if ($validator->fails()) {
+            //     return $this->sendError($validator->errors()->first());
+            // }
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required|unique:users,email|email',
                 'phone' => 'required',
                 'nationality' => 'required',
-                'gender' => 'reqired',
+                'gender'=> 'required|in:male,female',
                 'city' => 'required',
                 'country' => 'required',
                 'dob' => 'required',
@@ -379,8 +390,7 @@ class AuthController extends Controller
             if ($validator->fails()) {
                 return $this->sendError($validator->errors()->first());
             }
-
-            $entertainer_data = $request->only(['name', 'email', 'phone', 'nationality', 'gender', 'city', 'country', 'dob',]);
+            $entertainer_data = $request->only(['name', 'phone', 'nationality', 'gender', 'city', 'country', 'dob',]);
             if ($request->hasfile('image')) {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -388,13 +398,12 @@ class AuthController extends Controller
                 $file->move(public_path('images'), $filename);
                 $entertainer_data['image'] = 'public/images/' . $filename;
             }
-            $user = User::find(Auth::id())->updateOrCreate($entertainer_data);
-            $data = User::find($user->id);
-            return $this->sendSuccess('Entertainer updated Successfully', compact('data'));
+            $user = User::find(Auth::id())->update($entertainer_data);
+            $data = User::find(Auth::id());
+            return $this->sendSuccess('Entertainer updated Successfully',compact('data'));
         } elseif ($data->role === 'venue_provider') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                // 'email' => 'required|email',
                 'phone' => 'required',
             ]);
             if ($validator->fails()) {
@@ -408,15 +417,14 @@ class AuthController extends Controller
                 $file->move(public_path('images'), $filename);
                 $venue_data['image'] = 'public/images/' . $filename;
             }
-            $user = User::find(Auth::id())->updateOrCreate($venue_data);
-            $data = User::find($user->id);
-            return $this->sendSuccess('Venue updated Successfully', $data);
+            $user = User::find(Auth::id())->update($venue_data);
+            $data = User::find(Auth::id());
+            return $this->sendSuccess('Venue updated Successfully',compact('data'));
         } elseif ($data->role === 'recruiter') {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'company' => 'required',
                 'designation' => 'required',
-                // 'email' => 'required|email',
                 'phone' => 'required',
             ]);
             if ($validator->fails()) {
@@ -430,9 +438,9 @@ class AuthController extends Controller
                 $file->move(public_path('images'), $filename);
                 $recruter_data['image'] = 'public/images/' . $filename;
             }
-            $user = User::find(Auth::id())->updateOrCreate($recruter_data);
-            $data = User::find($user->id);
-            return $this->sendSuccess('Recruiter updated Successfully', $data);
+            $user = User::find(Auth::id())->update($recruter_data);
+            $data = User::find(Auth::id());
+            return $this->sendSuccess('Recruiter updated Successfully',compact('data'));
         }
     }
     public function updatePassword(Request $request){
@@ -443,7 +451,7 @@ class AuthController extends Controller
                 ->update(['password' => Hash::make($request->new_password)]);
                 return $this->sendSuccess('Password updated successfully');
         } else {
-            return $this->sendSuccess('Incorrect old password');
+            return $this->sendError('Incorrect old password');
         }
 
     }
