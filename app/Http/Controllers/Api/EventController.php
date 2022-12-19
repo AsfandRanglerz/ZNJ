@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\EventVenue;
 use App\Models\EventTicket;
 use Illuminate\Http\Request;
+use App\Models\EntertainerDetail;
 use App\Models\EventEntertainers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
+    public function entertainer_tallents(){
+      $data = EntertainerDetail::with('User')->get();
+      return $this->sendSuccess('Entertainers with Talent', compact('data'));
+    }
     public  function createEvent(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -44,7 +49,6 @@ class EventController extends Controller
             $data['cover_image'] = 'public/uploads/' . $filename;
         }
         $event = Event::create($data);
-
         if (isset($request->entertainer_details_id)) {
             for ($i = 0; $i < count($request->entertainer_details_id); $i++) {
                 $event_entertainer = new EventEntertainers;
@@ -59,7 +63,7 @@ class EventController extends Controller
             $event_venue->venues_id = $request->venues_id;
             $event_venue->save();
         }
-        $data = Event::find($event->id);
+        $data = Event::with('entertainerDetails','eventVenues')->find($event->id);
         return $this->sendSuccess('Event created Successfully', $data);
     }
     public function getEvents()
@@ -116,8 +120,8 @@ class EventController extends Controller
             $file->move(public_path('/'), $filename);
             $data['cover_image'] = 'public/uploads/' . $filename;
         }
-        Event::find($id)->update($data);
-        $data = Event::find($id);
+        $event=Event::find($id)->update($data);
+        $data = Event::find($event->id);
         return $this->sendSuccess('Event updated Successfully', compact('data'));
     }
     public function destroy($id)
