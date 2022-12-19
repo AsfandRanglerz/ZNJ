@@ -129,8 +129,6 @@
         $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
-            // console.log('dsds');
-
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
                 <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
@@ -199,7 +197,7 @@
                                         </div>
 `);
          }else if(categoryValue!==''){
-            console.log('dsds');
+            // console.log('dsds');
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
@@ -239,7 +237,6 @@
                                             </div>
                                             </div>
 `)
-
                                         }
                                         $("#myCategory").change(function(e) {
         e.preventDefault()
@@ -253,8 +250,6 @@
          $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
-            // console.log('dsds');
-
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
                 <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
@@ -322,8 +317,6 @@
                                         </div>
 `);
          }else if(categoryValue!== ''){
-            // console.log('dsds');\
-
             $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
