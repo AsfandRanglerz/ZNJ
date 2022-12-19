@@ -48,7 +48,7 @@
                                                 @if (str_contains($entertainer_details->entertainerFeatureAdsPackage->title,'Silver'))
                                                     <th>
                                                         <button type="button" class="btn btn-secondary"
-                                                            style="background-color: rgb(145, 145, 145); border-color: rgb(150, 148, 148)">{{ $entertainer_details->entertainerFeatureAdsPackage->title }}</button>
+                                                            style="background-color: silver; border-color: silver">{{ $entertainer_details->entertainerFeatureAdsPackage->title }}</button>
                                                     </th>
                                                 @elseif (str_contains($entertainer_details->entertainerFeatureAdsPackage->title,'Gold'))
                                                     <th>

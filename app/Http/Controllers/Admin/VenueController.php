@@ -125,7 +125,6 @@ class VenueController extends Controller
         $recruiter->name=$request->input('name');
         $recruiter->email=$request->input('email');
         $recruiter->phone=$request->input('phone');
-        $recruiter->venue=$request->input('venue');
         $recruiter->update();
 
         return redirect()->route('admin.user.index')->with(['status'=>true, 'message' => 'Venue Provider Updated sucessfully']);

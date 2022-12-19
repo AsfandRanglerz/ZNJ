@@ -51,7 +51,27 @@
                                                 <td>{{ $venue->seats }}</td>
                                                 <td>{{ $venue->stands }}</td>
                                                 <td>{{ $venue->amenities }}</td>
-                                                <td><b>{{ $venue->venueFeatureAdsPackage->title ??''  }}</b></td>
+                                                @if (isset($venue->venueFeatureAdsPackage->title))
+                                                @if (str_contains($venue->venueFeatureAdsPackage->title,'Silver'))
+                                                    <th>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            style="background-color: silver; border-color: silver">{{ $venue->venueFeatureAdsPackage->title }}</button>
+                                                    </th>
+                                                @elseif (str_contains($venue->venueFeatureAdsPackage->title,'Gold'))
+                                                    <th>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            style="background-color: gold; border-color: gold">{{ $venue->venueFeatureAdsPackage->title }}
+                                                            </button>
+                                                    </th>
+                                                @else
+                                                    <th>
+                                                        <button type="button" class="btn btn-secondary" style="background-color: purple; border-color: purple">{{ $venue->venueFeatureAdsPackage->title }}</button>
+                                                    </th>
+                                                @endif
+                                                @else
+                                                <th><button class="btn btn-danger">Unfeatured</button></th>
+                                               @endif
+
                                                 @if( explode(':',$venue->opening_time)[0]>=12)
                                                 <td>{{ $venue->opening_time }} PM</td>
                                                 @else
