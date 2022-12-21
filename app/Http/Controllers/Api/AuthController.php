@@ -118,28 +118,7 @@ class AuthController extends Controller
     // }
     public function forgetPassword(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'email' => 'required',
-        // ]);
-        // $user = User::where('email', $request->email)->first();
-        // if ($validator->fails()) {
-        //     return $this->sendError($validator->errors()->first());
-        // } else if (!$user) {
-        //     return $this->sendError('Email Does Not Exist');
-        // } else {
-        //     try {
-        //         $token = random_int(1000, 9999);
-        //         DB::table('password_resets')->insert([
-        //             'email' => $request->email,
-        //             'token' => $token,
-        //             'created_at' => Carbon::now()
-        //         ]);
-        //         Mail::to($request->email)->send(new ResetPasswordUser($token));
-        //         return $this->sendSuccess('Email Sent Successfully Successfully', ['email' => $user->email]);
-        //     } catch (\Throwable $th) {
-        //         return $this->sendError('Something Went Wrong');
-        //     }
-        // }
+
         $validator = Validator::make($request->all(), [
             'email' => 'required',
         ]);
@@ -366,18 +345,6 @@ class AuthController extends Controller
     {
         $data = User::find(Auth::id());
         if ($data->role == 'entertainer') {
-            // $validator = Validator::make($request->all(), [
-            //     'name' => 'required',
-            //     'phone' => 'required',
-            //     'nationality' => 'required',
-            //     'gender' => 'reqired',
-            //     'city' => 'required',
-            //     'country' => 'required',
-            //     'dob' => 'required',
-            // ]);
-            // if ($validator->fails()) {
-            //     return $this->sendError($validator->errors()->first());
-            // }
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'phone' => 'required',

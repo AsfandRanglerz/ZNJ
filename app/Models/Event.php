@@ -23,6 +23,10 @@ class Event extends Model
      {
          return $this->belongsTo('App\Models\EventFeatureAdsPackage','event_feature_ads_packages_id','id');
      }
+     public function reviews()
+     {
+         return $this->hasMany('App\Models\Review','event_id','id');
+     }
     public function getCoverImageAttribute($path)
     {
         if ($path){
