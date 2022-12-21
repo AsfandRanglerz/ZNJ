@@ -31,12 +31,11 @@ class VenueController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'about_venue' => 'required',
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
-            'offer_cattering' => 'required',
             'opening_time' => 'required',
             'closing_time' => 'required',
             'amenities' => 'required',
@@ -44,7 +43,7 @@ class VenueController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'opening_time', 'closing_time']);
+        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'opening_time', 'closing_time']);
         $data['user_id'] = auth()->id();
         $data['amenities'] = implode(',', $request->amenities);
         // if ($request->hasfile('image')) {
@@ -55,7 +54,6 @@ class VenueController extends Controller
         //     $data['image'] = 'public/uploads/' . $filename;
         // }
         // $data['user_id'] = auth()->id();
-
         $venue = Venue::create($data);
         if ($request->hasfile('photos')) {
             $file = $request->file('photos');
@@ -78,7 +76,8 @@ class VenueController extends Controller
             ];
             VenuePricing::create($data);
         }
-        return $this->sendSuccess('Venue created Successfully');
+        $data=Venue::find($venue->id);
+        return $this->sendSuccess('Venue created Successfully',compact('data'));
     }
     public function editVenue($id)
     {
@@ -90,19 +89,18 @@ class VenueController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'about_venue' => 'required',
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
-            'offer_cattering' => 'required',
             'opening_time' => 'required',
             'closing_time' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'offer_cattering', 'opening_time', 'closing_time']);
+        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'opening_time', 'closing_time']);
         $data['amenities'] = implode(',', $request->amenities);
         $venue = Venue::find($id)->update($data);
         VenuesPhoto::where('venue_id', $id)->delete();
@@ -143,7 +141,7 @@ class VenueController extends Controller
         return $this->sendSuccess('Venue Ads Packages', compact('data'));
     }
     public function VenueSelectPackage(Request $request){
-        Venue::where('user_id', Auth::id())->update([
+        Venue::where('user_id',Auth::id())->update([
             'venue_feature_ads_packages_id' => $request->id,
         ]);
         $data = Venue::where('user_id',Auth::id())->first();

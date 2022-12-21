@@ -41,7 +41,6 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $entertainer_details->title }}</td>
                                                 <td>{{ $entertainer_details->talentCategory->category ?? '' }}</td>
-
                                                 <td>$ {{ $entertainer_details->price }}</td>
                                                 @if (isset($entertainer_details->entertainerFeatureAdsPackage->title))
 
