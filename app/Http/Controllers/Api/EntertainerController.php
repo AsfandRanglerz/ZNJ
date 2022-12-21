@@ -17,44 +17,41 @@ class EntertainerController extends Controller
 {
     public function createEntertainer(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'location' => 'required',
-            'title' => 'required',
+            // 'title' => 'required',
             'image' => 'required',
             'bio' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'price' => 'required',
             'event_photos' => 'required',
             'description' => 'required',
             'time' => 'required',
-            'price_package' => 'required',
+            // 'price_package' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['location', 'title', 'bio', 'category', 'price', 'description']);
+        $data = $request->only(['location', 'title', 'bio', 'category_id', 'price', 'description','own_equipment','shoe_size','waist','weight','height','awards']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename = time() . '.' . $extension;
-            $file->move(public_path('/'), $filename);
-            $data['image'] = 'public/uploads/' . $filename;
+            $file->move(public_path('images'), $filename);
+            $data['image'] = 'public/images/' . $filename;
         }
-        $data['user_id'] = auth()->id();
-
+        // $data['user_id'] = auth()->id();
         $entertainer = EntertainerDetail::create($data);
-
         if ($request->hasfile('event_photos')) {
             $file = $request->file('event_photos');
             foreach ($file as $file) {
                 $extension = $file->getClientOriginalExtension(); // getting image extension
                 $filename = time() . '.' . $extension;
-                $file->move(public_path('/'), $filename);
+                $file->move(public_path('images'), $filename);
                 $photos = [
                     'entertainer_details_id' => $entertainer->id,
-                    'event_photos' => 'public/uploads/' . $filename,
+                    'event_photos' => 'public/images/' . $filename,
                 ];
                 EntertainerEventPhotos::create($photos);
             }
@@ -69,7 +66,7 @@ class EntertainerController extends Controller
 
             EntertainerPricePackage::create($data);
         }
-        $data = EntertainerDetail::find($entertainer->id);
+        $data = EntertainerDetail::with('entertainerEventPhotos','entertainerPricePackage')->find($entertainer->id);
         return $this->sendSuccess('Event created Successfully', compact('data'));
     }
     public  function getEntertainer()
@@ -90,10 +87,10 @@ class EntertainerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'location' => 'required',
-            'title' => 'required',
+            // 'title' => 'required',
             'image' => 'required',
             'bio' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'price' => 'required',
             'event_photos' => 'required',
             'description' => 'required',
@@ -103,14 +100,14 @@ class EntertainerController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['location', 'title', 'bio', 'category', 'price', 'description']);
+        $data = $request->only(['location', 'title', 'bio', 'category_id', 'price', 'description','own_equipment','shoe_size','waist','weight','height','awards']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename = time() . '.' . $extension;
-            $file->move(public_path('/'), $filename);
-            $data['image'] = 'public/uploads/' . $filename;
+            $file->move(public_path('images'), $filename);
+            $data['image'] = 'public/images/' . $filename;
         }
         $data['user_id'] = auth()->id();
         $entertainer = EntertainerDetail::find($id)->update($data);
@@ -120,10 +117,10 @@ class EntertainerController extends Controller
             foreach ($file as $file) {
                 $extension = $file->getClientOriginalExtension(); // getting image extension
                 $filename = time() . '.' . $extension;
-                $file->move(public_path('/'), $filename);
+                $file->move(public_path('images'), $filename);
                 $photos = [
                     'entertainer_details_id' => $id,
-                    'event_photos' => 'public/uploads/' . $filename,
+                    'event_photos' => 'public/images/' . $filename,
                 ];
                 EntertainerEventPhotos::create($photos);
             }

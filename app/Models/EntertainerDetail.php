@@ -20,10 +20,10 @@ class EntertainerDetail extends Model
        return $this->belongsToMany('App\Models\Event','event_entertainers','entertainer_details_id','event_id');
     }
     public function  entertainerEventPhotos(){
-        return $this->hasMany('App\Models\EntertainerEventPhotos');
+        return $this->hasMany(EntertainerEventPhotos::class,'entertainer_details_id','id');
     }
     public function  entertainerPricePackage(){
-        return $this->hasMany('App\Models\EntertainerPricePackage');
+        return $this->hasMany(EntertainerPricePackage::class,'entertainer_details_id','id');
     }
     public function entertainerFeatureAdsPackage()
     {
