@@ -24,4 +24,11 @@ class Venue extends Model
      public function  venueCategory(){
         return $this->belongsTo('App\Models\VenueCategory','category_id','id');
      }
+     public function  venuePhoto(){
+        return $this->hasMany('App\Models\VenuesPhoto');
+    }
+    public function  venuePricing(){
+        return $this->hasMany('App\Models\VenuesPricing');
+    }
+
 }

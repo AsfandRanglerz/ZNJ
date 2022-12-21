@@ -9,4 +9,7 @@ class EntertainerEventPhotos extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function entertainerDetails(){
+        return $this->belongsTo('App\Models\EntertainerDetail');
+     }
 }

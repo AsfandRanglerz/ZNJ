@@ -10,6 +10,6 @@ class EntertainerPricePackage extends Model
     use HasFactory;
     protected $guarded=[];
     public function entertainerDetails(){
-       return $this->hasMany('App\Models\EntertainerDetail');
+       return $this->belongsTo('App\Models\EntertainerDetail');
     }
 }

@@ -58,7 +58,7 @@
                 <a  href="{{url('/admin/chat')}}" class="nav-link"> <i class="fa fa-comments"></i><span>Chat</span></a>
             </li>
             <li class="dropdown {{ (request()->is('')) ? 'active' : '' }}">
-                <a  href="{{url('')}}" class="nav-link"> <i class="fas fa-hand-holding-usd"></i><span>Finance Management</span></a>
+                <a  href="{{url('#')}}" class="nav-link"> <i class="fas fa-hand-holding-usd"></i><span>Finance Management</span></a>
             </li>
 
             {{-- <li class="dropdown">

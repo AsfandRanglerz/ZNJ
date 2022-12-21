@@ -9,4 +9,7 @@ class VenuesPhoto extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function Venue(){
+        return $this->belongsTo('App\Models\Venue');
+     }
 }

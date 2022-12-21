@@ -104,7 +104,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6 col-12">
                                                     <label>Old Password</label>
-                                                    <input type="password" name="current_password" id="current_password" value="" class="form-control" >
+                                                    <input type="password" placeholder="old password" name="current_password" id="current_password" value="" class="form-control" >
                                                     {{-- @error('current_password')
                                                     <div class="text-danger">
                                                         The old password is incorrect
@@ -113,7 +113,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6 col-12">
                                                     <label>New Password</label>
-                                                    <input type="password" name="new_password" id="new_password" value="" class="form-control">
+                                                    <input type="password" name="new_password" placeholder="new password" id="new_password" value="" class="form-control">
                                                     @error('new_password')
                                                     <div class="text-danger">
                                                         Please fill the new password

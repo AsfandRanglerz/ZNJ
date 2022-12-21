@@ -19,8 +19,11 @@ class EntertainerDetail extends Model
     public function events(){
        return $this->belongsToMany('App\Models\Event','event_entertainers','entertainer_details_id','event_id');
     }
+    public function  entertainerEventPhotos(){
+        return $this->hasMany('App\Models\EntertainerEventPhotos');
+    }
     public function  entertainerPricePackage(){
-        return $this->belongsTo('App\Models\EntertainerPricePackage');
+        return $this->hasMany('App\Models\EntertainerPricePackage');
     }
     public function entertainerFeatureAdsPackage()
     {
