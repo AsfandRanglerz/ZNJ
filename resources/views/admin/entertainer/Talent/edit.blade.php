@@ -57,6 +57,15 @@
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
+                                                <label>Description</label>
+                                                <input type="text" placeholder="Description" name="description" Value="{{ $data['entertainer_talent']['description']}}"  class="form-control">
+                                                @error('description')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
                                                 <label>Feature Ads</label>
                                                 @if($data['entertainer_talent']['feature_status']==='0')
                                                 <div>
@@ -129,7 +138,7 @@
         $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
-            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-6" id='myCategoryFieldsDiv'>
                 <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
@@ -198,10 +207,10 @@
 `);
          }else if(categoryValue!==''){
             // console.log('dsds');
-            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-6" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
-                                                    <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
+                                                    <input type="text" placeholder="No of awards" name="awards" value="{{ $data['entertainer_talent']['awards'] }}"  class="form-control">
                                                     @error('awards')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -210,7 +219,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Bio</label>
-                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ old('bio') }}" class="form-control">
+                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ $data['entertainer_talent']['bio'] }}" class="form-control">
                                                     @error('bio')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -219,7 +228,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>
-                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
+                                                    <input type="text" placeholder="Events Completed" name="events_completed" value="{{ $data['entertainer_talent']['events_completed'] }}"  class="form-control">
                                                     @error('events_completed')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -228,7 +237,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Own Equipments</label>
-                                                    <input type="text" placeholder="Equipments" name="own_equipments"  value="{{ old('own_equipments') }}" class="form-control">
+                                                    <input type="text" placeholder="Equipments" name="own_equipments" value="{{ $data['entertainer_talent']['own_equipments'] }}"  class="form-control">
                                                     @error('own_equipments')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -250,7 +259,7 @@
          $('#myCategoryFieldsDiv').remove();
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
-            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-6" id='myCategoryFieldsDiv'>
                 <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
@@ -317,10 +326,10 @@
                                         </div>
 `);
          }else if(categoryValue!== ''){
-            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
+            $("#myCategoryDiv").after(`<div class="row mx-0 px-6" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
-                                                    <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
+                                                    <input type="text" placeholder="No of awards" name="awards"  value="{{ $data['entertainer_talent']['awards'] }}" class="form-control">
                                                     @error('awards')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -329,7 +338,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Bio</label>
-                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ old('bio') }}" class="form-control">
+                                                    <input type="text" placeholder="Bio" name="bio"  value="{{ $data['entertainer_talent']['bio'] }}" class="form-control">
                                                     @error('bio')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -338,7 +347,7 @@
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Events Completed</label>
-                                                    <input type="text" placeholder="Events Completed" name="events_completed"  value="{{ old('events_completed') }}" class="form-control">
+                                                    <input type="text" placeholder="Events Completed" name="events_completed" value="{{ $data['entertainer_talent']['events_completed'] }}" class="form-control">
                                                     @error('events_completed')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -347,7 +356,7 @@
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Own Equipments</label>
-                                                    <input type="text" placeholder="Equipments" name="own_equipments"  value="{{ old('own_equipments') }}" class="form-control">
+                                                    <input type="text" placeholder="Equipments" name="own_equipments"  value="{{ $data['entertainer_talent']['own_equipments'] }}" class="form-control">
                                                     @error('own_equipments')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

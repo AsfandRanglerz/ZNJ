@@ -180,8 +180,8 @@
          $('#myCategoryFieldsDiv2').remove();
          if (categoryName === 'Actor/Actress' || categoryName === 'Host/Hostess' || categoryName === 'Model' ) {
             $("#myCategoryDiv").after(`
-            <div class="row mx-0 px-4" id='myCategoryFieldsDiv'>
-                                   <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                        <div class="row mx-0 px-6" id='myCategoryFieldsDiv'>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
                                                     <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
@@ -249,7 +249,9 @@
 
 `);
          }else if(categoryValue !==""){
-            $("#myCategoryDiv").after(`<div class="row mx-0 px-4" id='myCategoryFieldsDiv2'><div class="col-sm-6 pl-sm-0 pr-sm-3">
+            $("#myCategoryDiv").after(`
+                                           <div class="row mx-0 px-6" id='myCategoryFieldsDiv2'>
+                                            <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
                                                     <input type="text" placeholder="No of awards" name="awards"  value="{{ old('awards') }}" class="form-control">
@@ -286,8 +288,9 @@
 
                                                 </div>
                                             </div>
+                                            
                                             </div>
-`)
+`);
 
                                         }
 
