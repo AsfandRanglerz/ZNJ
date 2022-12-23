@@ -140,7 +140,7 @@ class EventController extends Controller
         $data = Event::with('entertainerDetails','eventVenues')->find($id);
         return $this->sendSuccess('Event updated Successfully', compact('data'));
     }
-    public function destroy($id)
+    public function delete_event($id)
     {
         $data = Event::find($id)->delete();
         return $this->sendSuccess('Event Delete Successfully');
@@ -180,4 +180,5 @@ class EventController extends Controller
         $data = EventTicket::find($dataa->id);
         return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
     }
+
 }

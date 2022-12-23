@@ -39,10 +39,10 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('event','EventController@getEvent');
         Route::get('event_entertainer/{id}','EventController@getEventEntertainers');
         Route::post('update-event/{id}','EventController@updateEvent');
-        Route::get('delete-event/{id}','EventController@destroy');
         Route::get('event-feature-packages','EventController@getEventFeaturePackages');
         Route::post('event-select-package','EventController@EventSelectPackage');
         Route::post('join-event','EventController@joinEvent');
+        Route::post('delete-event/{id}','EventController@delete_event');
 
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');
@@ -52,6 +52,8 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('entertainer-feature-packages','EntertainerController@getEntertainerFeaturePackages');
         Route::post('entertainer-select-package','EntertainerController@EntertainerSelectPackage');
         Route::get('talent-categories','EntertainerController@talentCategory');
+        Route::post('delete-talent/{id}','EntertainerController@delete_talent');
+
 
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');

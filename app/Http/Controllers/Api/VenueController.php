@@ -55,17 +55,27 @@ class VenueController extends Controller
         // }
         // $data['user_id'] = auth()->id();
         $venue = Venue::create($data);
-        if ($request->hasfile('photos')) {
-            $file = $request->file('photos');
-            foreach ($file as $file) {
-                $extension = $file->getClientOriginalExtension(); // getting image extension
-                $filename = time() . '.' . $extension;
-                $file->move(public_path('/'), $filename);
-                $photos = [
-                    'venue_id' => $venue->id,
-                    'photos' => 'public/uploads/' . $filename,
-                ];
-                VenuesPhoto::create($photos);
+        // if ($request->hasfile('photos')) {
+        //     $file = $request->file('photos');
+        //     foreach ($file as $file) {
+        //         $extension = $file->getClientOriginalExtension(); // getting image extension
+        //         $filename = time() . '.' . $extension;
+        //         $file->move(public_path('images'), $filename);
+        //         $photos = [
+        //             'venue_id' => $venue->id,
+        //             'photos' => 'public/uploads/' . $filename,
+        //         ];
+        //         VenuesPhoto::create($photos);
+        //     }
+        // }
+        if ($request->file('photos')) {
+            foreach ($request->file('photos') as $data) {
+                $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                $data->move(public_path('images'), $image);
+                VenuesPhoto::create([
+                    'photos' =>  'public/images/' . $image,
+                    'venue_id' => $venue->id
+                ]);
             }
         }
         for ($i = 0; $i < count($request->day); $i++) {
@@ -109,7 +119,7 @@ class VenueController extends Controller
             foreach ($file as $file) {
                 $extension = $file->getClientOriginalName(); // getting image extension
                 $filename = time() . '.' . $extension;
-                $file->move(public_path('/'), $filename);
+                $file->move(public_path('images'), $filename);
                 $photos = [
                     'venue_id' => $id,
                     'photos' => 'public/uploads/' . $filename,

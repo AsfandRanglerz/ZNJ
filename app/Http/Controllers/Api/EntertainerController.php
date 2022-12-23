@@ -24,15 +24,15 @@ class EntertainerController extends Controller
             'bio' => 'required',
             'category_id' => 'required',
             'price' => 'required',
-            'event_photos' => 'required',
+            // 'event_photos' => 'required',
             'description' => 'required',
-            'time' => 'required',
+            // 'time' => 'required',
             // 'price_package' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['location', 'title', 'bio', 'category_id', 'price', 'description','own_equipment','shoe_size','waist','weight','height','awards']);
+        $data = $request->only(['location', 'bio', 'category_id', 'price', 'description', 'own_equipment', 'shoe_size', 'waist', 'weight', 'height', 'awards']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -43,20 +43,31 @@ class EntertainerController extends Controller
         }
         // $data['user_id'] = auth()->id();
         $entertainer = EntertainerDetail::create($data);
-        if ($request->hasfile('event_photos')) {
-            $file = $request->file('event_photos');
-            foreach ($file as $file) {
-                $extension = $file->getClientOriginalExtension(); // getting image extension
-                $filename = time() . '.' . $extension;
-                $file->move(public_path('images'), $filename);
-                $photos = [
-                    'entertainer_details_id' => $entertainer->id,
-                    'event_photos' => 'public/images/' . $filename,
-                ];
-                EntertainerEventPhotos::create($photos);
+        // if ($request->hasfile('event_photos')) {
+        //     $file = $request->file('event_photos');
+        //     foreach ($file as $file) {
+        //         $extension = $file->getClientOriginalExtension(); // getting image extension
+        //         $filename = time() . '.' . $extension;
+        //         $file->move(public_path('images'), $filename);
+        //         $photos = [
+        //             'entertainer_details_id' => $entertainer->id,
+        //             'event_photos' => 'public/images/' . $filename,
+        //         ];
+        //         EntertainerEventPhotos::create($photos);
+        //     }
+        // }
+        if ($request->file('event_photos')) {
+            foreach ($request->file('event_photos') as $data) {
+                $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                $data->move(public_path('images'), $image);
+                EntertainerEventPhotos::create([
+                    'event_photos' =>  'public/images/' . $image,
+                    'entertainer_details_id' => $entertainer->id
+                ]);
             }
         }
 
+        if(isset($request->time)){
         for ($i = 0; $i < count($request->time); $i++) {
             $data = [
                 'entertainer_details_id'  => $entertainer->id,
@@ -66,8 +77,9 @@ class EntertainerController extends Controller
 
             EntertainerPricePackage::create($data);
         }
-        $data = EntertainerDetail::with('entertainerEventPhotos','entertainerPricePackage')->find($entertainer->id);
-        return $this->sendSuccess('Event created Successfully', compact('data'));
+    }
+        $data = EntertainerDetail::with('entertainerEventPhotos', 'entertainerPricePackage')->find($entertainer->id);
+        return $this->sendSuccess('Talent created Successfully', compact('data'));
     }
     public  function getEntertainer()
     {
@@ -100,7 +112,7 @@ class EntertainerController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['location', 'title', 'bio', 'category_id', 'price', 'description','own_equipment','shoe_size','waist','weight','height','awards']);
+        $data = $request->only(['location', 'title', 'bio', 'category_id', 'price', 'description', 'own_equipment', 'shoe_size', 'waist', 'weight', 'height', 'awards']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -135,7 +147,7 @@ class EntertainerController extends Controller
 
             EntertainerPricePackage::create($data);
         }
-        $data = EntertainerDetail::find($id);
+        $data = EntertainerDetail::with('entertainerEventPhotos', 'entertainerPricePackage')->find($id);
         return $this->sendSuccess('Entertainer updated Successfully', compact('data'));
     }
     public function getEntertainerPricePackage($id)
@@ -151,15 +163,22 @@ class EntertainerController extends Controller
         $data = EntertainerFeatureAdsPackage::get();
         return $this->sendSuccess('Entertainer Ads Packages', compact('data'));
     }
-    public function EntertainerSelectPackage(Request $request){
+    public function EntertainerSelectPackage(Request $request)
+    {
         EntertainerDetail::where('user_id', Auth::id())->update([
             'entertainer_feature_ads_packages_id' => $request->id,
         ]);
-        $data = EntertainerDetail::where('user_id',Auth::id())->first();
+        $data = EntertainerDetail::where('user_id', Auth::id())->first();
         return $this->sendSuccess('Entertainer Featured Request Successfully', compact('data'));
     }
-    public function talentCategory(){
-    $data  =  TalentCategory::get();
-    return $this->sendSuccess('Talent Categories', compact('data'));
+    public function talentCategory()
+    {
+        $data  =  TalentCategory::get();
+        return $this->sendSuccess('Talent Categories', compact('data'));
+    }
+    public function delete_talent($id)
+    {
+        EntertainerDetail::destroy($id);
+        return $this->sendSuccess('Entertainer deleted Successfully');
     }
 }

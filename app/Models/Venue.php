@@ -8,27 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class Venue extends Model
 {
     use HasFactory;
-    protected $guarded=[];
+    protected $guarded = [];
 
     public function User()
     {
-        return $this->belongsTo('App\Models\User','user_id','id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-    public function venueFeatureAdsPackage ()
+    public function venueFeatureAdsPackage()
     {
-        return $this->belongsTo('App\Models\VenueFeatureAdsPackage','venue_feature_ads_packages_id','id');
+        return $this->belongsTo('App\Models\VenueFeatureAdsPackage', 'venue_feature_ads_packages_id', 'id');
     }
-    public function events(){
-        return $this->belongsToMany('App\Models\Event','event_venues','venues_id','event_id');
-     }
-     public function  venueCategory(){
-        return $this->belongsTo('App\Models\VenueCategory','category_id','id');
-     }
-     public function  venuePhoto(){
+    public function events()
+    {
+        return $this->belongsToMany('App\Models\Event', 'event_venues', 'venues_id', 'event_id');
+    }
+    public function  venueCategory()
+    {
+        return $this->belongsTo('App\Models\VenueCategory', 'category_id', 'id');
+    }
+    public function  venuePhoto()
+    {
         return $this->hasMany('App\Models\VenuesPhoto');
     }
-    public function  venuePricing(){
+    public function  venuePricing()
+    {
         return $this->hasMany('App\Models\VenuesPricing');
     }
-
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review', 'event_id', 'id');
+    }
 }
