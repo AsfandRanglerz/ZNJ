@@ -6,6 +6,7 @@ use App\Models\Venue;
 use App\Models\VenuesPhoto;
 use App\Models\VenuePricing;
 use Illuminate\Http\Request;
+use App\Models\VenueCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\VenueFeatureAdsPackage;
@@ -37,13 +38,13 @@ class VenueController extends Controller
             'seats' => 'required',
             'stands' => 'required',
             'opening_time' => 'required',
-            'closing_time' => 'required',
-            'amenities' => 'required',
+            // 'closing_time' => 'required',
+            // 'amenities' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'opening_time', 'closing_time']);
+        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)']);
         $data['user_id'] = auth()->id();
         $data['amenities'] = implode(',', $request->amenities);
         // if ($request->hasfile('image')) {
@@ -55,19 +56,6 @@ class VenueController extends Controller
         // }
         // $data['user_id'] = auth()->id();
         $venue = Venue::create($data);
-        // if ($request->hasfile('photos')) {
-        //     $file = $request->file('photos');
-        //     foreach ($file as $file) {
-        //         $extension = $file->getClientOriginalExtension(); // getting image extension
-        //         $filename = time() . '.' . $extension;
-        //         $file->move(public_path('images'), $filename);
-        //         $photos = [
-        //             'venue_id' => $venue->id,
-        //             'photos' => 'public/uploads/' . $filename,
-        //         ];
-        //         VenuesPhoto::create($photos);
-        //     }
-        // }
         if ($request->file('photos')) {
             foreach ($request->file('photos') as $data) {
                 $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
@@ -78,14 +66,18 @@ class VenueController extends Controller
                 ]);
             }
         }
+        if(isset($request->day)){
         for ($i = 0; $i < count($request->day); $i++) {
             $data = [
                 'venues_id'  => $venue->id,
                 'day'  => $request->day[$i],
                 'price'  => $request->price[$i],
+                'opening_time'=> $request->opening_time[$i],
+                'closing_time'=> $request->closing_time[$i],
             ];
             VenuePricing::create($data);
         }
+    }
         $data=Venue::find($venue->id);
         return $this->sendSuccess('Venue created Successfully',compact('data'));
     }
@@ -104,38 +96,39 @@ class VenueController extends Controller
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
-            'opening_time' => 'required',
-            'closing_time' => 'required',
+            // 'opening_time' => 'required',
+            // 'closing_time' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)', 'opening_time', 'closing_time']);
+        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)']);
         $data['amenities'] = implode(',', $request->amenities);
         $venue = Venue::find($id)->update($data);
         VenuesPhoto::where('venue_id', $id)->delete();
-        if ($request->hasfile('photos')) {
-            $file = $request->file('photos');
-            foreach ($file as $file) {
-                $extension = $file->getClientOriginalName(); // getting image extension
-                $filename = time() . '.' . $extension;
-                $file->move(public_path('images'), $filename);
-                $photos = [
-                    'venue_id' => $id,
-                    'photos' => 'public/uploads/' . $filename,
-                ];
-                VenuesPhoto::create($photos);
+        if ($request->file('photos')) {
+            foreach ($request->file('photos') as $data) {
+                $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                $data->move(public_path('images'), $image);
+                VenuesPhoto::create([
+                    'photos' =>  'public/images/' . $image,
+                    'venue_id' => $id
+                ]);
             }
         }
+        if(isset($request->day)){
         VenuePricing::where('venues_id', $id)->delete();
         for ($i = 0; $i < count($request->day); $i++) {
             $data = [
                 'venues_id'  => $id,
                 'day'  => $request->day[$i],
                 'price'  => $request->price[$i],
+                'opening_time'=> $request->opening_time[$i],
+                'closing_time'=> $request->closing_time[$i],
             ];
             VenuePricing::create($data);
         }
+    }
         $venue = Venue::find($id);
         return $this->sendSuccess('Venue Updated Successfully', compact('venue'));
     }
@@ -156,5 +149,9 @@ class VenueController extends Controller
         ]);
         $data = Venue::where('user_id',Auth::id())->first();
         return $this->sendSuccess('Venue Featured Request Successfully', compact('data'));
+    }
+    public function venue_category(){
+    $data = VenueCategory::get();
+    return $this->sendSuccess('Venue Categories', compact('data'));
     }
 }

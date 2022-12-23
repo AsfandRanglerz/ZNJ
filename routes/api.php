@@ -63,7 +63,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('update-venue/{id}','VenueController@updateVenue');
         Route::get('venue-feature-packages','VenueController@getVenueFeaturePackages');
         Route::post('venue-select-package','VenueController@VenueSelectPackage');
-
+        Route::get('venue-category','VenueController@venue_category');
 
         Route::get('venues-reviews','ReviewController@getVenuesReviews');
         Route::get('venue-review/{id}','ReviewController@getSingleVenueReview');
