@@ -11,5 +11,5 @@ class VenuesPhoto extends Model
     protected $guarded=[];
     public function Venue(){
         return $this->belongsTo('App\Models\Venue');
-     }
+    }
 }

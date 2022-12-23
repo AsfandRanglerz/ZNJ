@@ -9,7 +9,7 @@ class VenueCategory extends Model
 {
     use HasFactory;
     protected $guarded =[];
-    public function entertainerDetail(){
-        return $this->hasMany('App\Models\EntertainerDetail','category_id');
+    public function Venue(){
+        return $this->hasMany('App\Models\Venue','category_id','id');
     }
 }

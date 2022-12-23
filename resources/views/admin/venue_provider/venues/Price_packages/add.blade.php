@@ -31,6 +31,26 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>Opening Time</label>
+                                                <input type="time"  name="opening_time" id="opening_time"  value="{{ old('opening_time') }}" class="form-control"
+                                                    >
+                                                @error('opening_time')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
+                                            <div class="form-group mb-2">
+                                                <label>Closing Time</label>
+                                                <input type="time" placeholder="" name="closing_time" id="closing_time" value="{{ old('closing_time') }}"  class="form-control"
+                                                    >
+                                                @error('closing_time')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group  mb-2">
                                                 <label>Day</label>
                                                 <select name="day" value="{{ old('day') }}" class="form-control">

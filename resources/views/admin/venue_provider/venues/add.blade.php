@@ -31,7 +31,7 @@
                                                 <!-- <input type="text" name="name" id="name"
                                                     class="form-control"
                                                     placeholder="Enter name"> -->
-                                                    <select name="category" id="category" value="{{ old('category') }}" class="form-control">
+                                                    <select name="category_id" id="category" class="form-control">
                                                     <option value="">Please Select a Category </option>
 
                                                         @foreach($data['venue_categories'] as $category)

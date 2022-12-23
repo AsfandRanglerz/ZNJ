@@ -20,9 +20,9 @@ use App\Models\Venue;
 class AdminController extends Controller
 {
     public function getdashboard()
-    {   $data['venue']=User::where('role','Venue')->count();
-        $data['recruiter']=User::where('role','Recruiter')->count();
-        $data['entertainer']=User::where('role','Entertainer')->count();
+    {   $data['venue']=User::where('role','venue_provider')->count();
+        $data['recruiter']=User::where('role','recruiter')->count();
+        $data['entertainer']=User::where('role','entertainer')->count();
         $data['venues'] = Venue::count();
         // dd($data);
         return view('admin.index',compact('data'));

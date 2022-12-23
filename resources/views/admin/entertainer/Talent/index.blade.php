@@ -26,7 +26,7 @@
                                     <thead>
                                         <tr>
                                             <th>Sr.</th>
-                                            <th>Title</th>
+
                                             <th>Category</th>
                                             <th>Price</th>
                                             <th>Feature Ads</th>
@@ -39,7 +39,6 @@
                                             {{-- @dd($entertainer->title) --}}
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $entertainer_details->title }}</td>
                                                 <td>{{ $entertainer_details->talentCategory->category ?? '' }}</td>
                                                 <td>$ {{ $entertainer_details->price }}</td>
                                                 @if (isset($entertainer_details->entertainerFeatureAdsPackage->title))

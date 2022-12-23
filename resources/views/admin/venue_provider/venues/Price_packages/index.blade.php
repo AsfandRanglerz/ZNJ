@@ -26,6 +26,8 @@
                                             <th>Sr.</th>
                                             <th>Price</th>
                                             <th>Day</th>
+                                            <th>Opening Time</th>
+                                            <th>Closing Time</th>
                                             <th>Created At</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -36,7 +38,18 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>$ {{ $price->price }}</td>
                                                 <td>{{ $price->day }}</td>
-                                                <td>{{ $price->created_at }}</td>
+
+                                                @if( explode(':',$price->opening_time)[0]>=12)
+                                                <td>{{ $price->opening_time }} PM</td>
+                                                @else
+                                                 <td>{{ $price->opening_time }} AM</td>
+                                                @endif
+                                                @if( explode(':',$price->closing_time)[0]>=12)
+                                                <td>{{ $price->closing_time }} PM</td>
+                                                @else
+                                                 <td>{{ $price->closing_time }} AM</td>
+                                                @endif
+                                               <td>{{ $price->created_at }}</td>
                                                 <td
                                                 style="display: flex;align-items: center;justify-content: center;column-gap: 8px">
                                                 <a class="btn btn-info"

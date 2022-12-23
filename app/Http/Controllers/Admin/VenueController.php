@@ -85,14 +85,13 @@ class VenueController extends Controller
     {
         // dd($user_id,$venue_id);
          //  Showing Entertainer Talent
+        //  dd('ssa');
 
-         $data['venue']= Venue::with('venueCategory')->with('venueFeatureAdsPackage')->where('user_id',$user_id)->latest()->get();
+         $data['venue']= Venue::with('venueFeatureAdsPackage')->with('venueCategory')->where('user_id',$user_id)->latest()->get();
         //  dd($data);
          $data['user_id']=$user_id;
          return view('admin.venue_provider.venues.index',compact('data'));
-
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -155,7 +154,7 @@ class VenueController extends Controller
         if($request->has('venue_feature_ads_packages_id')){
         $validator = $request->validate([
             'title' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
@@ -164,11 +163,13 @@ class VenueController extends Controller
             'closing_time' =>'required',
             'venue_feature_ads_packages_id' => 'required',
         ]);
-        $data = $request->only(['title','user_id', 'category', 'description','seats','stands','opening_time','closing_time','venue_feature_ads_packages_id']);
+        $data = $request->only(['title','user_id', 'category_id','description','seats','stands','opening_time','closing_time','venue_feature_ads_packages_id']);
         $data['feature_status']=1;
+        if( $request->has('amenities')){
         $data['amenities'] = implode(',', $request->amenities);
-            $data['user_id'] = $user_id;
-            $user = Venue::create($data);
+        }
+        $data['user_id'] = $user_id;
+        $user = Venue::create($data);
             if ($request->file('photos')) {
                 foreach ($request->file('photos') as $data) {
                     $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
@@ -183,7 +184,7 @@ class VenueController extends Controller
         }else{
         $validator = $request->validate([
             'title' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
@@ -191,8 +192,12 @@ class VenueController extends Controller
             'opening_time' =>'required',
             'closing_time' =>'required',
         ]);
-        $data = $request->only(['title','user_id', 'category', 'description','seats','stands','opening_time','closing_time']);
-        $data['amenities'] = implode(',', $request->amenities);
+        // dd($request->input());
+        $data = $request->only(['title','user_id', 'category_id', 'description','seats','stands','opening_time','closing_time']);
+        // $data['amenities'] = implode(',', $request->amenities);
+        if( $request->has('amenities')){
+            $data['amenities'] = implode(',', $request->amenities);
+            }
             $data['user_id'] = $user_id;
             $user = Venue::create($data);
             if ($request->file('photos')) {
@@ -205,6 +210,7 @@ class VenueController extends Controller
                            ]);
                 }
             }
+            // dd('ss');
             return redirect()->route('venue.show',$user->user_id)->with(['status'=>true, 'message' => 'Venue Created sucessfully']);
         // return view('admin.entertainer.Talent.add');
     }
@@ -220,18 +226,21 @@ class VenueController extends Controller
     public function editVenue($user_id, $venue_id)
     {
         //$data['user_id'] = EntertainerDetail::find($id);
-        $venue['venue']=Venue::find($venue_id);
+        $venue['venue'] = Venue::where('id',$venue_id)->with('venueCategory')->get();
+        // $venue['venue']=Venue::find($venue_id);
         $venue['venue_categories']=VenueCategory::select('id','category')->get();
         $venue['venue_feature_ads_packages']=VenueFeatureAdsPackage::select('id','title','price','validity')->get();
+        // dd('ss');
         $venue['user_id'] = $user_id;
         return view('admin.venue_provider.venues.edit',compact('venue'));
     }
     public function updateVenue(Request $request, $user_id)
     {
+        // dd($request->input());
         if($request->venue_feature_ads_packages_id !==null && $request->feature_ads==='on'){
         $validator = $request->validate([
             'title' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
@@ -239,28 +248,32 @@ class VenueController extends Controller
             'closing_time'=>'required',
 
         ]);
+        // dd($request->input());
 
-        $talent = Venue::find($user_id);
-        $talent->title=$request->input('title');
-        $talent->category=$request->input('category');
-        $talent->description=$request->input('description');
-        $talent->seats=$request->input('seats');
-        $talent->stands=$request->input('stands');
-        $talent->opening_time=$request->input('opening_time');
-        $talent->closing_time=$request->input('closing_time');
-        $talent->amenities = implode(',', $request->amenities);
-        $talent->venue_feature_ads_packages_id=$request->venue_feature_ads_packages_id;
-        $talent->feature_status =1;
-        $talent->update();
-        return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
+        $venue = Venue::find($user_id);
+
+        $venue->title=$request->input('title');
+        $venue->description=$request->input('description');
+        $venue->seats=$request->input('seats');
+        $venue->stands=$request->input('stands');
+        $venue->opening_time=$request->input('opening_time');
+        $venue->closing_time=$request->input('closing_time');
+        $venue->category_id=$request->input('category_id');
+        if($request->has('amenities')){
+        $venue->amenities = implode(',', $request->amenities);
+        }
+        $venue->venue_feature_ads_packages_id=$request->venue_feature_ads_packages_id;
+        $venue->feature_status =1;
+        $venue->update();
+        return redirect()->route('venue.show',$venue->user_id)->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
     }else if ($request->venue_feature_ads_packages_id ===null && $request->feature_ads==='on'){
-        // @dd($request->input());
+        dd($request->input());
         return redirect()->back()->with(['status'=>false, 'message' => 'Feature Package Must Be Selected']);
     }else{
         // dd($request->all());
         $validator = $request->validate([
             'title' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
@@ -268,20 +281,23 @@ class VenueController extends Controller
             'closing_time'=>'required',
 
         ]);
+        // dd($request->input());
 
-        $talent = Venue::find($user_id);
-        $talent->title=$request->input('title');
-        $talent->category=$request->input('category');
-        $talent->description=$request->input('description');
-        $talent->seats=$request->input('seats');
-        $talent->stands=$request->input('stands');
-        $talent->opening_time=$request->input('opening_time');
-        $talent->closing_time=$request->input('closing_time');
-        $talent->amenities = implode(',', $request->amenities);
-        $talent->venue_feature_ads_packages_id=null;
-        $talent->feature_status =0;
-        $talent->update();
-        return redirect()->route('venue.show',$talent->user_id)->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
+        $venue = Venue::find($user_id);
+        $venue->title=$request->input('title');
+        $venue->category_id=$request->input('category_id');
+        $venue->description=$request->input('description');
+        $venue->seats=$request->input('seats');
+        $venue->stands=$request->input('stands');
+        $venue->opening_time=$request->input('opening_time');
+        $venue->closing_time=$request->input('closing_time');
+        if($request->has('amenities')){
+            $venue->amenities = implode(',', $request->amenities);
+            }
+        $venue->venue_feature_ads_packages_id=null;
+        $venue->feature_status =0;
+        $venue->update();
+        return redirect()->route('venue.show',$venue->user_id)->with(['status'=>true, 'message' => 'Venue Updated sucessfully']);
     }
 
     }
@@ -377,9 +393,11 @@ public function createPricePackageIndex($user_id,$venue_id){
 public function storePricePackage(Request $request,$user_id,$venue_id){
     $validator =$request->validate([
         'price'=>'required',
-        'day'=>'required'
+        'day'=>'required',
+        'opening_time' => 'required',
+        'closing_time'=>'required'
     ]);
-    $data = $request->only(['price', 'day']);
+    $data = $request->only(['price', 'day','opening_time','closing_time']);
     $data['venues_id']=$venue_id;
     $user = VenuePricing::create($data);
             return redirect()->route('venue-providers.venue.venue_pricings.index',['user_id'=>$venue_id,'venue_id'=>$venue_id])->with(['status'=>true, 'message' => 'Price Package Created Sucessfully']);
@@ -392,12 +410,18 @@ public function editPricePackageIndex($user_id,$venue_pricing_id){
 public function updatePricePackage(Request $request,$user_id,$venue_pricing_id){
     $validator =$request->validate([
         'price'=>'required',
-        'day'=>'required'
+        'day'=>'required',
+        'opening_time' => 'required',
+        'closing_time'=>'required'
     ]);
     // dd($request->time);
     $price_package=VenuePricing::find($venue_pricing_id);
     $price_package->price=$request->input('price');
     $price_package->day=$request->input('day');
+    $price_package->day=$request->input('opening_time');
+    $price_package->day=$request->input('closing_time');
+
+
     $price_package->update();
     return redirect()->route('venue-providers.venue.venue_pricings.index',['user_id'=>$user_id,'venue_id'=>$price_package['venues_id']])->with(['status'=>true, 'message' => 'Price Package Updated Sucessfully']);
 }

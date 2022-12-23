@@ -15,7 +15,7 @@
                                 <div class="card">
                                     <h4 class="text-center my-4">Add Talent</h4>
                                     <div class="row mx-0 px-4" id='entertainer_row'>
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-2">
+                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-3">
                                                 <label>Talent Category</label>
                                                 <!-- <input type="text" name="name" id="name"
@@ -47,68 +47,6 @@
                                                     @enderror
                                             </div>
                                         </div>
-                                        {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label>DOB</label>
-                                                <input type="date" placeholder="Date of birth" name="dob"  value="{{ old('dob') }}" class="form-control">
-                                                @error('dob')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-                                            {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                                <div class="form-group mb-2">
-                                                    <label>Country</label>
-                                                    <input type="text" placeholder="Country" name="country"  value="{{ old('country') }}" class="form-control">
-                                                    @error('country')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
-                                            {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                                <div class="form-group mb-2">
-                                                    <label>City</label>
-                                                    <input type="text" placeholder="city" name="city"  value="{{ old('city') }}" class="form-control">
-                                                    @error('city')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
-                                            {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                                <div class="form-group mb-2">
-                                                    <label>Gender</label>
-                                                <div>
-                                                    <label>Male</label>
-                                                        <input type="radio"value="Male" name="gender" value="{{ old('gender') }}" >
-                                                        &nbsp;
-                                                    <label>Female</label>
-                                                        <input type="radio" value="Female" name="gender" value="{{ old('gender') }}" >
-                                                        <label>Others</label>
-                                                        <input type="radio" value="Others" name="gender" value="{{ old('gender') }}" >
-                                                        @error('gender')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                                </div>
-                                            </div> --}}
-                                            {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                                <div class="form-group mb-2">
-                                                    <label>Nationality</label>
-                                                    <input type="text" placeholder="Nationality" name="nationality"  value="{{ old('nationality') }}" class="form-control">
-                                                    @error('nationality')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
-                                            {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                                <div class="form-group mb-2">
-                                                    <label>City</label>
-                                                    <input type="text" placeholder="city" name="city"  value="{{ old('city') }}" class="form-control">
-                                                    @error('city')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
                                         <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                             <div class="form-group mb-2">
                                                 <label>Description</label>
@@ -250,7 +188,7 @@
 `);
          }else if(categoryValue !==""){
             $("#myCategoryDiv").after(`
-                                           <div class="row mx-0 px-6" id='myCategoryFieldsDiv2'>
+                                           <div class="row mx-0 px-6 w-100" id='myCategoryFieldsDiv2'>
                                             <div class="col-sm-6 pl-sm-0 pr-sm-3">
                                                 <div class="form-group mb-2">
                                                     <label>Awards</label>
@@ -288,7 +226,7 @@
 
                                                 </div>
                                             </div>
-                                            
+
                                             </div>
 `);
 
