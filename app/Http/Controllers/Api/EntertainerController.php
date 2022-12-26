@@ -43,19 +43,6 @@ class EntertainerController extends Controller
         }
         // $data['user_id'] = auth()->id();
         $entertainer = EntertainerDetail::create($data);
-        // if ($request->hasfile('event_photos')) {
-        //     $file = $request->file('event_photos');
-        //     foreach ($file as $file) {
-        //         $extension = $file->getClientOriginalExtension(); // getting image extension
-        //         $filename = time() . '.' . $extension;
-        //         $file->move(public_path('images'), $filename);
-        //         $photos = [
-        //             'entertainer_details_id' => $entertainer->id,
-        //             'event_photos' => 'public/images/' . $filename,
-        //         ];
-        //         EntertainerEventPhotos::create($photos);
-        //     }
-        // }
         if ($request->file('event_photos')) {
             foreach ($request->file('event_photos') as $data) {
                 $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
@@ -104,10 +91,10 @@ class EntertainerController extends Controller
             'bio' => 'required',
             'category_id' => 'required',
             'price' => 'required',
-            'event_photos' => 'required',
+            // 'event_photos' => 'required',
             'description' => 'required',
-            'time' => 'required',
-            'price_package' => 'required',
+            // 'time' => 'required',
+            // 'price_package' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
@@ -124,17 +111,14 @@ class EntertainerController extends Controller
         $data['user_id'] = auth()->id();
         $entertainer = EntertainerDetail::find($id)->update($data);
         EntertainerEventPhotos::where('entertainer_details_id', $id)->delete();
-        if ($request->hasfile('event_photos')) {
-            $file = $request->file('event_photos');
-            foreach ($file as $file) {
-                $extension = $file->getClientOriginalExtension(); // getting image extension
-                $filename = time() . '.' . $extension;
-                $file->move(public_path('images'), $filename);
-                $photos = [
-                    'entertainer_details_id' => $id,
-                    'event_photos' => 'public/images/' . $filename,
-                ];
-                EntertainerEventPhotos::create($photos);
+        if ($request->file('event_photos')) {
+            foreach ($request->file('event_photos') as $data) {
+                $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
+                $data->move(public_path('images'), $image);
+                EntertainerEventPhotos::create([
+                    'event_photos' =>  'public/images/' . $image,
+                    'entertainer_details_id' => $id
+                ]);
             }
         }
         EntertainerPricePackage::where('entertainer_details_id', $id)->delete();

@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
-    public function entertainer_tallents(){
-      $data = EntertainerDetail::with('User')->get();
-      return $this->sendSuccess('Entertainers with Talent', compact('data'));
+    public function entertainer_tallents()
+    {
+        $data = EntertainerDetail::with('User')->get();
+        return $this->sendSuccess('Entertainers with Talent', compact('data'));
     }
     public  function createEvent(Request $request)
     {
@@ -39,7 +40,7 @@ class EventController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date','from','to', 'joining_type', 'price', 'description', 'seats']);
+        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date', 'from', 'to', 'joining_type', 'price', 'description', 'seats']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('cover_image')) {
             $file = $request->file('cover_image');
@@ -64,7 +65,7 @@ class EventController extends Controller
             $event_venue->venues_id = $request->venues_id;
             $event_venue->save();
         }
-        $data = Event::with('entertainerDetails','eventVenues')->find($event->id);
+        $data = Event::with('entertainerDetails', 'eventVenues')->find($event->id);
         return $this->sendSuccess('Event created Successfully', $data);
     }
     public function getEvents()
@@ -74,7 +75,7 @@ class EventController extends Controller
     }
     public function userEvents()
     {
-        $user_event = Event::with('User','reviews.user')->where('user_id', auth()->id())->get();
+        $user_event = Event::with('User', 'reviews.user')->where('user_id', auth()->id())->get();
         // $user_event = Event::join('users', 'events.user_id', '=', 'users.id')->where('user_id', auth()->id())->get(['events.*', 'users.name','users.image']);
         return $this->sendSuccess('user events', compact('user_event'));
     }
@@ -113,7 +114,7 @@ class EventController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date','from','to', 'joining_type', 'price', 'description']);
+        $data = $request->only(['title', 'location', 'about_event', 'event_type', 'date', 'from', 'to', 'joining_type', 'price', 'description']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('cover_image')) {
             $file = $request->file('cover_image');
@@ -122,8 +123,8 @@ class EventController extends Controller
             $file->move(public_path('images'), $filename);
             $data['cover_image'] = 'public/images/' . $filename;
         }
-        $event=Event::find($id)->update($data);
-        EventEntertainers::where('event_id',$id)->delete();
+        $event = Event::find($id)->update($data);
+        EventEntertainers::where('event_id', $id)->delete();
         if (isset($request->entertainer_details_id)) {
             for ($i = 0; $i < count($request->entertainer_details_id); $i++) {
                 $event_entertainer = new EventEntertainers;
@@ -137,7 +138,7 @@ class EventController extends Controller
                 'venues_id' => $request->venues_id,
             ]);
         }
-        $data = Event::with('entertainerDetails','eventVenues')->find($id);
+        $data = Event::with('entertainerDetails', 'eventVenues')->find($id);
         return $this->sendSuccess('Event updated Successfully', compact('data'));
     }
     public function delete_event($id)
@@ -180,5 +181,4 @@ class EventController extends Controller
         $data = EventTicket::find($dataa->id);
         return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
     }
-
 }
