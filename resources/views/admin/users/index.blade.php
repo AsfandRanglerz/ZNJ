@@ -93,6 +93,13 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>DOB</th>
+                                    <th>Country</th>
+                                    <th>City</th>
+                                    <th>Gender</th>
+                                    <th>Nationality
+
+                                    </th>
                                     <th>Category</th>
                                     <th>Created at</th>
                                     <th scope="col">Action</th>
@@ -108,6 +115,11 @@
                                         <td>{{ $entertainer->name }}</td>
                                         <td>{{ $entertainer->email }}</td>
                                         <td>{{ $entertainer->phone }}</td>
+                                        <td>{{ $entertainer->dob }}</td>
+                                        <td>{{ $entertainer->country }}</td>
+                                        <td>{{ $entertainer->city }}</td>
+                                        <td>{{ $entertainer->gender }}</td>
+                                        <td>{{ $entertainer->nationality }}</td>
                                         {{-- @dd(json_decode($entertainer['entertainerDetail'][0]['talentCategory'],true)) --}}
                                         {{-- @dd(count($entertainer['entertainerDetail'])) --}}
 

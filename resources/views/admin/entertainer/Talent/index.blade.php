@@ -30,6 +30,14 @@
                                             <th>Category</th>
                                             <th>Price</th>
                                             <th>Feature Ads</th>
+                                            <th>Awards</th>
+                                            <th>Bio</th>
+                                            <th>Events Completed</th>
+                                            <th>Owns Equipments</th>
+                                            <th>Height</th>
+                                            <th>Weight</th>
+                                            <th>Waist</th>
+                                            <th>Shoe Size</th>
                                             <th>Created at</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -64,7 +72,14 @@
                                                @endif
 
 
-
+                                               <td>{{ $entertainer_details->awards }}</td>
+                                               <td>{{ $entertainer_details->bio }}</td>
+                                               <td>{{ $entertainer_details->events_completed }}</td>
+                                               <td>{{ $entertainer_details->own_equipments }}</td>
+                                               <td>{{ $entertainer_details->height }}</td>
+                                               <td>{{ $entertainer_details->weight }}</td>
+                                               <td>{{ $entertainer_details->waist }}</td>
+                                               <td>{{ $entertainer_details->shoe_size }}</td>
                                                 <td>{{ $entertainer_details->created_at }}</td>
 
                                                 <td

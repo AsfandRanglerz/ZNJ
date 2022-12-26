@@ -133,334 +133,61 @@
                                         </div>
 
                                     </div>
-
                                     <div class="row mx-0 px-4 mt-3">
-                                        {{-- <select name="amenities[]" value="amenities"
-                                       multiselect-select-all="true"> --}}
+                                    <?php $arr = [
+                                        'Free Parking',
+                                        'Food & Drinks',
+                                        'Pets Allowed',
+                                        'Bar',
+                                        'Security alam',
+                                        'Safety deposit box',
+                                        'Cattering',
+                                        'Designated smooking area',
+                                        'Non-Smoking',
+                                        'Business center',
+                                        'Terrace',
+                                        'CCTV outside',
+                                        'Amoke alarms',
+                                        'Lift',
+                                        'Car hire',
+                                        'ATM/Cash machine',
+                                        'Ticket service',
+                                        'Velet Parking',
+                                        'Wheel chair accessible',
+                                        'Shops(on site)',
+                                        'Free Wifi',
+                                        'Garden',
+                                        'Kids Friendly buffet',
+                                        'Fire extinguisher',
+                                        '24-hour security',
+                                        'Restaurant',
+                                        'Air conditioning',
+                                        'Fax/Photocopy',
+                                        'Outdoor pool',
+                                        'on-side cafe house',
+                                        'Special diet',
+                                        'CCTV in common area',
+                                        'Heating',
+                                        'Lockers',
+                                        'V.I.P room facilities',
+                                        'Luggage',
+                                        'Currency exchange',
+                                        'Tour desk',
+                                        'Baby sitting service',
+                                        'Barber/Beauty shop',
+                                      ]; ?>
+                                        @foreach ($arr as $amenities)
                                         <div class="col-sm-3 pl-sm-0 pr-sm-2">
                                             <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Free Parking" id="FreeParking">
-                                                <label class="form-check-label" for="FreeParking">
-                                                  Free Parking
+                                                <input class="form-check-input"  name="amenities[]"type="checkbox" value="{{$amenities}}" id="{{$amenities}}">
+                                                <label class="form-check-label" for="{{$amenities}}">
+                                                   {{ $amenities }}
                                                 </label>
                                               </div>
                                         </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input"  name=amenities[] type="checkbox" value="Food & Drinks" id="Food&Drinks">
-                                                <label class="form-check-label" for="Food&Drinks">
-                                                  Food & Drinks
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Pets Allowed" id="PetsAllowed">
-                                                <label class="form-check-label" for="PetsAllowed">
-                                                  Pets Allowed
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Bar" id="Bar">
-                                                <label class="form-check-label" for="Bar">
-                                                  Bar
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input"  name=amenities[] type="checkbox" value="Security alam" id="Securityalam">
-                                                <label class="form-check-label" for="Securityalam">
-                                                  Security alam
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Safety deposit box" id="Safetydepositbox">
-                                                <label class="form-check-label" for="Safetydepositbox">
-                                                  Safety deposit box
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Cattering" id="Cattering">
-                                                <label class="form-check-label" for="Cattering">
-                                                    Cattering
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Designated smooking area" id="Designatedsmookingarea">
-                                                <label class="form-check-label" for="Designatedsmookingarea">
-                                                  Designated smooking area
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Non-Smoking" id="NonSmoking">
-                                                <label class="form-check-label" for="NonSmoking">
-                                                  Non-Smoking
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Business center" id="Businesscenter">
-                                                <label class="form-check-label" for="Businesscenter">
-                                                  Business center
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Terrace" id="Terrace">
-                                                <label class="form-check-label" for="Terrace">
-                                                  Terrace
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input"  name=amenities[] type="checkbox" value="CCTV outside" id="CCTVoutside">
-                                                <label class="form-check-label" for="CCTVoutside">
-                                                  CCTV outside
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Amoke alarms" id="Amokealarms">
-                                                <label class="form-check-label" for="Amokealarms">
-                                                  Amoke alarms
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Lift" id="Lift">
-                                                <label class="form-check-label" for="Lift">
-                                                  Lift
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value=" Car hire" id="Carhire">
-                                                <label class="form-check-label" for="Carhire">
-                                                  Car hire
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="ATM/Cash machine" id="ATMCashmachine">
-                                                <label class="form-check-label" for="ATMCashmachine">
-                                                  ATM/Cash machine
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Ticket service" id="Ticketservice">
-                                                <label class="form-check-label" for="Ticketservice">
-                                                  Ticket service
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Velet Parking" id="VeletParking">
-                                                <label class="form-check-label" for="VeletParking">
-                                                  Velet Parking
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Wheel chair accessible" id="Wheelchairaccessible">
-                                                <label class="form-check-label" for="Wheelchairaccessible">
-                                                  Wheel chair accessible
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Shops" id="Shops">
-                                                <label class="form-check-label" for="Shops">
-                                                  Shops(on site)
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Free Wifi" id="FreeWifi">
-                                                <label class="form-check-label" for="FreeWifi">
-                                                  Free Wifi
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Garden" id="Garden">
-                                                <label class="form-check-label" for="Garden">
-                                                  Garden
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Kids Friendly buffet" id="KidsFriendlybuffet">
-                                                <label class="form-check-label" for="KidsFriendlybuffet">
-                                                  Kids Friendly buffet
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value=" Fire extinguisher" id="Fireextinguisher">
-                                                <label class="form-check-label" for="Fireextinguisher">
-                                                  Fire extinguisher
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="24-hour security" id="security">
-                                                <label class="form-check-label" for="security">
-                                                  24-hour security
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Restaurant" id="Restaurant">
-                                                <label class="form-check-label" for="Restaurant">
-                                                  Restaurant
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Air conditioning" id="Airconditioning">
-                                                <label class="form-check-label" for="Airconditioning">
-                                                Air conditioning
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Fax/Photocopy" id="FaxPhotocopy">
-                                                <label class="form-check-label" for="FaxPhotocopy">
-                                                  Fax/Photocopy
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value=" Outdoor pool" id="Outdoorpool">
-                                                <label class="form-check-label" for="Outdoorpool">
-                                                  Outdoor pool
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="on-side cafe house" id="cafehouse">
-                                                <label class="form-check-label" for="cafehouse">
-                                                  on-side cafe house
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Special diet" id="Specialdiet">
-                                                <label class="form-check-label" for="Specialdiet">
-                                                  Special diet
-                                                </label>
-                                              </div>
-                                        </div>
-
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="CCTV in common area" id="CCTV">
-                                                <label class="form-check-label" for="CCTV">
-                                                  CCTV in common area
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Heating" id="Heating">
-                                                <label class="form-check-label" for="Heating">
-                                                    Heating
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Lockers" id="Lockers">
-                                                <label class="form-check-label" for="Lockers">
-                                                  Lockers
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="V.I.P room facilities" id="roomfacilities">
-                                                <label class="form-check-label" for="roomfacilities">
-                                                  V.I.P room facilities
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Luggage" id="Luggage">
-                                                <label class="form-check-label" for="Luggage">
-                                                  Luggage
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Currency exchange" id="Currencyexchange">
-                                                <label class="form-check-label" for="Currencyexchange">
-                                                  Currency exchange
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Tour desk" id="Tourdesk">
-                                                <label class="form-check-label" for="Tourdesk">
-                                                  Tour desk
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name=amenities[] type="checkbox" value="Baby sitting service" id="Babysittingservice">
-                                                <label class="form-check-label" for="Babysittingservice">
-                                                  Baby sitting service
-                                                </label>
-                                              </div>
-                                        </div>
-                                        <div class="col-sm-3 pl-sm-0 pr-sm-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input"  name=amenities[] type="checkbox" value="Barbar/Beauty shop" id="Beautyshop">
-                                                <label class="form-check-label" for="Beautyshop">
-                                                  Barbar/Beauty shop
-                                                </label>
-                                              </div>
-                                        </div>
-
-
+                                        @endforeach
                                     </div>
+
                                     <div class="card-footer text-center row">
                                         <div class="col">
                                             <button type="submit" class="btn btn-success mr-1 btn-bg"
