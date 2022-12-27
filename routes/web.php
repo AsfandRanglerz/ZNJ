@@ -93,7 +93,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
      //Venue
      Route::resource('venue', VenueController::class)->parameters([
         'venue' => 'user_id'
-    ]);;
+    ]);
      Route::get('/venue-providers/venue/add/{user_id}',[VenueController::class,'createVenueIndex'])->name('venue-providers.venue.add');
      Route::post('/venue-providers/venue/store/{user_id}',[VenueController::class,'storeVenue'])->name('venue-providers.venue.store');
      Route::get('/venue-providers/venue/delete/{user_id}',[VenueController::class,'destroyVenue'])->name('venue-providers.venue.delete');

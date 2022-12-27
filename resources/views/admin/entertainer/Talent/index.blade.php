@@ -70,8 +70,6 @@
                                                 @else
                                                 <th><button class="btn btn-danger">Unfeatured</button></th>
                                                @endif
-
-
                                                <td>{{ $entertainer_details->awards }}</td>
                                                <td>{{ $entertainer_details->bio }}</td>
                                                <td>{{ $entertainer_details->events_completed }}</td>
@@ -80,6 +78,7 @@
                                                <td>{{ $entertainer_details->weight }}</td>
                                                <td>{{ $entertainer_details->waist }}</td>
                                                <td>{{ $entertainer_details->shoe_size }}</td>
+
                                                 <td>{{ $entertainer_details->created_at }}</td>
 
                                                 <td
