@@ -32,10 +32,18 @@ class Venue extends Model
     }
     public function  venuePricing()
     {
-        return $this->hasMany('App\Models\VenuesPricing');
+        return $this->hasMany('App\Models\VenuePricing','venues_id','id');
     }
     public function reviews()
     {
         return $this->hasMany('App\Models\Review', 'event_id', 'id');
+    }
+    public function getImageAttribute($path)
+    {
+        if ($path){
+            return asset($path);
+        }else{
+            return null;
+        }
     }
 }

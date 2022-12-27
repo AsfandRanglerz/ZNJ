@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Venue;
 use App\Models\VenuesPhoto;
 use App\Models\VenuePricing;
@@ -16,12 +17,12 @@ class VenueController extends Controller
 {
     public  function getVenues()
     {
-        $data = Venue::all();
+        $data = Venue::with('User','reviews','venueCategory','venuePhoto','venuePricing')->get();
         return $this->sendSuccess('Venue data', compact('data'));
     }
     public function getSingleVenue($id)
     {
-        $data = Venue::find($id);
+        $data = User::with('venues','venues.venueCategory','venues.venuePhoto','venues.venuePricing','venues.reviews')->find($id);
         if ($data == null) {
             return $this->sendError("Record Not Found!");
         }
@@ -37,16 +38,18 @@ class VenueController extends Controller
             'description' => 'required',
             'seats' => 'required',
             'stands' => 'required',
-            'opening_time' => 'required',
+            // 'opening_time' => 'required',
             // 'closing_time' => 'required',
             // 'amenities' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)']);
+        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area']);
         $data['user_id'] = auth()->id();
+        if(isset($request->amenities)){
         $data['amenities'] = implode(',', $request->amenities);
+        }
         // if ($request->hasfile('image')) {
         //     $file = $request->file('image');
         //     $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -78,15 +81,14 @@ class VenueController extends Controller
             VenuePricing::create($data);
         }
     }
-        $data=Venue::find($venue->id);
+        $data=Venue::with('User','reviews','venueCategory','venuePhoto','venuePricing')->find($venue->id);
         return $this->sendSuccess('Venue created Successfully',compact('data'));
     }
     public function editVenue($id)
     {
-        $data = Venue::find($id);
+        $data = Venue::with('User','reviews','venueCategory','venuePhoto','venuePricing')->find($id);
         return $this->sendSuccess('Venue data', compact('data'));
     }
-
     public function updateVenue(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -102,7 +104,7 @@ class VenueController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area(m2)']);
+        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area']);
         $data['amenities'] = implode(',', $request->amenities);
         $venue = Venue::find($id)->update($data);
         VenuesPhoto::where('venue_id', $id)->delete();
@@ -129,7 +131,7 @@ class VenueController extends Controller
             VenuePricing::create($data);
         }
     }
-        $venue = Venue::find($id);
+        $venue = Venue::with('User','reviews','venueCategory','venuePhoto','venuePricing')->find($id);
         return $this->sendSuccess('Venue Updated Successfully', compact('venue'));
     }
 
@@ -147,7 +149,7 @@ class VenueController extends Controller
         Venue::where('user_id',Auth::id())->update([
             'venue_feature_ads_packages_id' => $request->id,
         ]);
-        $data = Venue::where('user_id',Auth::id())->first();
+        $data = Venue::with('User','reviews','venueCategory','venuePhoto','venuePricing')->where('user_id',Auth::id())->first();
         return $this->sendSuccess('Venue Featured Request Successfully', compact('data'));
     }
     public function venue_category(){

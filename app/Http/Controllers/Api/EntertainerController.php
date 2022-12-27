@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\TalentCategory;
@@ -70,12 +71,13 @@ class EntertainerController extends Controller
     }
     public  function getEntertainer()
     {
-        $data = EntertainerDetail::all();
+        $data = EntertainerDetail::with('entertainerEventPhotos', 'entertainerPricePackage')->get();
         return $this->sendSuccess('Entertainer data', compact('data'));
     }
     public function getSingleEntertainer($id)
     {
-        $data = EntertainerDetail::find($id);
+        // , 'entertainerDetail.entertainerPricePackage'
+        $data = User::with('entertainerDetail.entertainerEventPhotos','entertainerDetail.entertainerPricePackage','entertainerDetail.talentCategory')->find($id);
         if ($data == null) {
             return $this->sendError("Record Not Found!");
         }

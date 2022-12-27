@@ -12,4 +12,12 @@ class VenuesPhoto extends Model
     public function Venue(){
         return $this->belongsTo('App\Models\Venue');
     }
+    public function getPhotosAttribute($path)
+    {
+        if ($path){
+            return asset($path);
+        }else{
+            return null;
+        }
+    }
 }
