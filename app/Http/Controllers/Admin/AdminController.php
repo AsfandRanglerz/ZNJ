@@ -24,7 +24,6 @@ class AdminController extends Controller
         $data['recruiter']=User::where('role','recruiter')->count();
         $data['entertainer']=User::where('role','entertainer')->count();
         $data['venues'] = Venue::count();
-        // dd($data);
         return view('admin.index',compact('data'));
     }
     public function getProfile()
@@ -76,7 +75,6 @@ class AdminController extends Controller
     }
     public function change_password($id)
     {
-
         $user = DB::table('password_resets')->where('token', $id)->first();
         if (isset($user)) {
             return view('admin.auth.chnagePassword', compact('user'));

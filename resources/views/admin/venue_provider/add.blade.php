@@ -8,7 +8,6 @@
                     <a class="btn btn-primary mb-3"
                     href="{{route('admin.user.index')}}">Back</a>
                     <form id="add_student" action="{{ route('venue.store') }}" method="POST" enctype="multipart/form-data">
-
                         @csrf
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">
@@ -46,30 +45,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        {{-- <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label>Password</label>
-                                                <input type="password" placeholder="example" name="password" id="password"  class="form-control"
-                                                    >
-                                                @error('password')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
                                     </div>
-                                    {{-- <div class="row mx-0 px-4">
-                                        <div class="col-sm-6 pl-sm-0 pr-sm-3">
-                                            <div class="form-group mb-2">
-                                                <label>Confirm Password</label>
-                                                <input type="password" placeholder="Example" name="password_confirmation" id="password" class="form-control"
-                                                    >
-                                                @error('password_confirmation')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                    </div> --}}
                                     <div class="card-footer text-center row">
                                         <div class="col">
                                             <button type="submit" class="btn btn-success mr-1 btn-bg"

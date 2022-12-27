@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +18,6 @@ class IntrovideoController extends Controller
         $data=Introvideo::first();
         return view('admin.pages.introVideo.index',['data'=>$data]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -57,7 +54,6 @@ class IntrovideoController extends Controller
             return back()
             ->with(['status' => false, 'message'=>'Unexpected error occured']);
     }
-
     /**
      * Display the specified resource.
      *
@@ -77,7 +73,6 @@ class IntrovideoController extends Controller
      */
     public function edit($id)
     {
-
     }
 
     /**
@@ -106,11 +101,6 @@ class IntrovideoController extends Controller
             return back()
             ->with(['status' => false, 'message'=>'Unexpected error occured']);
     }
-
-
-
-
-
     /**
      * Remove the specified resource from storage.
      *
