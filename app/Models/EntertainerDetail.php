@@ -38,7 +38,7 @@ class EntertainerDetail extends Model
     }
     public function reviews()
     {
-        return $this->hasMany('App\Models\Review', 'event_id', 'id');
+        return $this->hasMany('App\Models\Review', 'entertainer_id', 'id');
     }
     public function getImageAttribute($path)
     {

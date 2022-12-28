@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Event;
+use App\Mail\JoinEvent;
 use App\Models\EventVenue;
 use App\Models\EventTicket;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use App\Models\EntertainerDetail;
 use App\Models\EventEntertainers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\EventFeatureAdsPackage;
 use Illuminate\Support\Facades\Validator;
 
@@ -168,17 +170,50 @@ class EventController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['event_id', 'name', 'surname', 'age', 'ticket_type', 'serial_no', 'gender', 'phone', 'email']);
-        $data['user_id'] = auth()->id();
-        if ($request->hasfile('photo')) {
-            $file = $request->file('photo');
-            $extension = $file->getClientOriginalExtension(); // getting image extension
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('/'), $filename);
-            $data['photo'] = 'public/uploads/' . $filename;
+        $last_record = EventTicket::orderby('id','DESC')->limit(1)->first();
+        if(isset($last_record)){
+            $ticket = EventTicket::where('user_id', Auth::id())->where('event_id', $request->event_id)->first();
+            if (isset($ticket)) {
+                return $this->sendError('You already have purchased ticket for this event');
+            } else {
+                $data = $request->only(['name', 'surname', 'age', 'ticket_type', 'gender', 'phone', 'email']);
+                $data['user_id'] = auth()->id();
+                $data['event_id'] = $request->event_id;
+                $data['serial_no'] = $last_record->serial_no + 1;
+                if ($request->hasfile('photo')) {
+                    $file = $request->file('photo');
+                    $extension = $file->getClientOriginalExtension(); // getting image extension
+                    $filename = time() . '.' . $extension;
+                    $file->move(public_path('images'), $filename);
+                    $data['photo'] = 'public/images/' . $filename;
+                }
+                $dataa = EventTicket::create($data);
+                Mail::to($dataa->User->email)->send(new JoinEvent($dataa));
+                $data = EventTicket::find($dataa->id);
+                return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
+            }
+        }else{
+            $ticket = EventTicket::where('user_id', Auth::id())->where('event_id', $request->event_id)->first();
+            if (isset($ticket)) {
+                return $this->sendError('You already have purchased ticket for this event');
+            } else {
+                $data = $request->only(['name', 'surname', 'age', 'ticket_type', 'gender', 'phone', 'email']);
+                $data['user_id'] = auth()->id();
+                $data['event_id'] = $request->event_id;
+                $data['serial_no'] = 1;
+                if ($request->hasfile('photo')) {
+                    $file = $request->file('photo');
+                    $extension = $file->getClientOriginalExtension(); // getting image extension
+                    $filename = time() . '.' . $extension;
+                    $file->move(public_path('images'), $filename);
+                    $data['photo'] = 'public/images/' . $filename;
+                }
+                $dataa = EventTicket::create($data);
+                Mail::to($dataa->User->email)->send(new JoinEvent($dataa));
+                $data = EventTicket::find($dataa->id);
+                return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
+            }
         }
-        $dataa = EventTicket::create($data);
-        $data = EventTicket::find($dataa->id);
-        return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
+
     }
 }

@@ -53,7 +53,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('entertainer-select-package','EntertainerController@EntertainerSelectPackage');
         Route::get('talent-categories','EntertainerController@talentCategory');
         Route::post('delete-talent/{id}','EntertainerController@delete_talent');
-
+        Route::get('talent-reviews/{id}','EntertainerController@entertainer_reviews');
 
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');
@@ -64,6 +64,8 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('venue-feature-packages','VenueController@getVenueFeaturePackages');
         Route::post('venue-select-package','VenueController@VenueSelectPackage');
         Route::get('venue-category','VenueController@venue_category');
+        Route::post('book-venue','VenueController@book_venue');
+        Route::get('venue-reviews/{id}','VenueController@venue_reviews');
 
         Route::get('venues-reviews','ReviewController@getVenuesReviews');
         Route::get('venue-review/{id}','ReviewController@getSingleVenueReview');

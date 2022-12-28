@@ -15,8 +15,8 @@ class HomeController extends Controller
     public function HomePage()
     {
         $data['event'] = Event::with('User')->orderBy('avg_rating', 'DESC')->get();
-        $data['entertainer'] = EntertainerDetail::with('User','reviews','entertainerEventPhotos','entertainerPricePackage','talentCategory')->orderBy('avg_rating', 'DESC')->get();
-        $data['venue'] = Venue::with('User','reviews','venueCategory','venuePhoto','venuePricing')->orderBy('avg_rating', 'DESC')->get();
+        $data['entertainer'] = EntertainerDetail::with('User','reviews.user','entertainerEventPhotos','entertainerPricePackage','talentCategory')->orderBy('avg_rating', 'DESC')->get();
+        $data['venue'] = Venue::with('User','reviews.user','venueCategory','venuePhoto','venuePricing')->orderBy('avg_rating', 'DESC')->get();
         return $this->sendSuccess('Home Page Data', compact('data'));
     }
     public function topRatedEvents()
