@@ -16,7 +16,7 @@ class ChatFavourite extends Model
     }
     public function admin()
     {
-        return $this->belongsTo('App\Models\admin', 'admin_id', 'id');
+        return $this->belongsTo('App\Models\Admin', 'admin_id', 'id');
     }
     public function chatmessage()
     {

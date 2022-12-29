@@ -135,7 +135,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/chat',[ChatController::class,'index'])->name('chat.index');
     Route::post('/chat/store',[ChatController::class,'store'])->name('chat.store');
     Route::get('/chat-messages',[ChatController::class,'get_ChatMessages'])->name('chat.messages');
-
+    Route::get('/chat-deleted',[ChatController::class,'user_favourite_deleted']);
 
 });
 /*Team A routes

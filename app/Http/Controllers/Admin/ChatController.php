@@ -80,4 +80,28 @@ class ChatController extends Controller
 
         return  response()->json($data);
     }
+
+    public function user_favourite_deleted(Request $id)
+{
+   $user = ChatFavourite::where('user_id', $id)->first();
+    if ($user->user_deleted == 0) {
+        ChatFavourite::where('user_id', $id)->update('admin_deleted',1)->first();
+    } else {
+        ChatFavourite::where('user_id', $id)->delete();
+    }
+    return redirect()->route('chat.index');
+}
+
+    public function user_message_deleted(Request $id){
+        $user = ChatMessage::where('id', $id)->first();
+    if ($user->user_deleted == 0) {
+        ChatMessage::where('id', $id)->update('admin_deleted',1)->first();
+    } else {
+        ChatMessage::where('id', $id)->delete();
+    }
+    return redirect()->route('chat.index');
+    }
+
+
+
 }
