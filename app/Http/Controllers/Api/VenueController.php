@@ -110,8 +110,8 @@ class VenueController extends Controller
         $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area']);
         $data['amenities'] = implode(',', $request->amenities);
         $venue = Venue::find($id)->update($data);
-        VenuesPhoto::where('venue_id', $id)->delete();
         if ($request->file('photos')) {
+            VenuesPhoto::where('venue_id', $id)->delete();
             foreach ($request->file('photos') as $data) {
                 $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
                 $data->move(public_path('images'), $image);
@@ -179,8 +179,17 @@ class VenueController extends Controller
             return $this->sendSuccess('Venue Book successfully', compact('data'));
         }
     }
-    public function venue_reviews($id){
-        $data=Venue::with('User','reviews.user')->find($id);
-        return $this->sendSuccess('Venue reviews',compact('data'));
+    public function venue_reviews($id)
+    {
+        $data = Venue::with('User', 'reviews.user')->find($id);
+        return $this->sendSuccess('Venue reviews', compact('data'));
     }
+    public function singleVenue($id){
+     $data = Venue::with( 'venueCategory', 'venuePhoto', 'venuePricing','reviews.user',)->find($id);
+     if(isset($data)){
+     return $this->sendSuccess('Venue', compact('data'));
+    }else{
+        return $this->sendError('Record Not Found !');
+    }
+}
 }

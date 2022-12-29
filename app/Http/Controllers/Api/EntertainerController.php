@@ -97,7 +97,7 @@ class EntertainerController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['location', 'title', 'bio', 'category_id', 'price', 'description', 'own_equipment', 'shoe_size', 'waist', 'weight', 'height', 'awards']);
+        $data = $request->only(['location', 'bio', 'category_id', 'price', 'description', 'own_equipment', 'shoe_size', 'waist', 'weight', 'height', 'awards']);
         $data['user_id'] = auth()->id();
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -166,8 +166,18 @@ class EntertainerController extends Controller
         EntertainerDetail::destroy($id);
         return $this->sendSuccess('Entertainer deleted Successfully');
     }
-    public function entertainer_reviews($id){
-        $data=EntertainerDetail::with('User','reviews.user')->find($id);
-        return $this->sendSuccess('Entertainer reviews',compact('data'));
+    public function entertainer_reviews($id)
+    {
+        $data = EntertainerDetail::with('User', 'reviews.user')->find($id);
+        return $this->sendSuccess('Entertainer reviews', compact('data'));
+    }
+    public function getSingleTalent($id)
+    {
+        $data = EntertainerDetail::with('entertainerEventPhotos', 'entertainerPricePackage','talentCategory','reviews.user')->find($id);
+        if (isset($data)) {
+            return $this->sendSuccess('Talent data', compact('data'));
+        }else{
+            return $this->sendError("Record Not Found!");
+        }
     }
 }

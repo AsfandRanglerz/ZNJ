@@ -170,8 +170,8 @@ class EventController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $last_record = EventTicket::orderby('id','DESC')->limit(1)->first();
-        if(isset($last_record)){
+        $last_record = EventTicket::orderby('id', 'DESC')->limit(1)->first();
+        if (isset($last_record)) {
             $ticket = EventTicket::where('user_id', Auth::id())->where('event_id', $request->event_id)->first();
             if (isset($ticket)) {
                 return $this->sendError('You already have purchased ticket for this event');
@@ -192,7 +192,7 @@ class EventController extends Controller
                 $data = EventTicket::find($dataa->id);
                 return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
             }
-        }else{
+        } else {
             $ticket = EventTicket::where('user_id', Auth::id())->where('event_id', $request->event_id)->first();
             if (isset($ticket)) {
                 return $this->sendError('You already have purchased ticket for this event');
@@ -214,6 +214,24 @@ class EventController extends Controller
                 return $this->sendSuccess('Event Ticket created Successfully', compact('data'));
             }
         }
-
     }
+    public function myBookingEvent()
+    {
+        $data = EventTicket::with('event')->where('user_id', Auth::id())->get();
+        if (isset($data)) {
+            return $this->sendSuccess('Booked event', compact('data'));
+        } else {
+            return $this->sendError('Record Not Found !');
+        }
+    }
+    public function myBooking()
+    {
+        $data = Event::with('entertainerDetails', 'eventVenues')->where('user_id', Auth::id())->get();
+        if (isset($data)) {
+            return $this->sendSuccess('My Booking', compact('data'));
+        } else {
+            return $this->sendError('Record Not Found !');
+        }
+    }
+
 }
