@@ -11,17 +11,20 @@ use Pusher\Pusher;
 class ChatController extends Controller
 {
     public function index(){
+        // dd('ss');
         $data['chatfavourites']= ChatFavourite::where('user_deleted',0)->with('User')->latest()->get();
         return view('admin.Chat.index',compact('data'));
     }
      public function store(Request $request)
     {
-        $exists = ChatFavourite::where('user_id', $request->user_id)->exists();
+        return response()->json($request);
+
+        $exists = ChatFavourite::where('user_id', 24)->exists();
         if (!$exists) {
             // create a new chatfavourite record
             $chatfavourite= ChatFavourite::create([
                 'user_id' => $request->user_id,
-                'admin_id' => '1',
+                'admin_id' => 1,
             ]);
             $data['chatfavourite']= $chatfavourite;
             if ($request->hasFile('body')) {
@@ -29,7 +32,7 @@ class ChatController extends Controller
 
                 // create a new chatmessage instance with the file path
                 $data['chatdata'] = ChatMessage::create([
-                    'chatfavourites_id'=> $chatfavourite->id ,
+                    'chat_favourites_id'=> $chatfavourite->id ,
                     'sender_type'=>$request->sender_type,
                     'body'=>$filePath,
                 ]);
@@ -37,7 +40,7 @@ class ChatController extends Controller
                 // request body does not include a file
                 // create a new chatmessage instance without the file path
                 $data['chatdata'] = ChatMessage::create([
-                    'chatfavourites_id'=> $chatfavourite->id,
+                    'chat_favourites_id'=> $chatfavourite->id,
                     'sender_type'=>$request->sender_type,
                     'body'=>$request->body,
                 ]);
@@ -47,38 +50,37 @@ class ChatController extends Controller
                 $filePath = $request->file('body')->store('uploads');
                 // create a new chatmessage instance with the file path
                 $data['chatdata'] = ChatMessage::create([
-                    'chatfavourites_id'=> $request->chatfavourites_id ,
+                    'chat_favourites_id'=> $request->chatfavourites_id ,
                     'sender_type'=>$request->sender_type,
                     'body'=>$filePath,
                 ]);
             } else {
                 $data['chatdata'] = ChatMessage::create([
-                    'chatfavourites_id'=> $request->chatfavourites_id,
+                    'chat_favourites_id'=> $request->chat_favourites_id,
                     'sender_type'=>$request->sender_type,
                     'body'=>$request->body,
                 ]);
             }
         }
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
-                'encrypted' => true,
-            ]
-        );
-        $pusher->trigger('chat', 'new-message', [
-            'message' => $data,
-        ]);
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     [
+        //         'cluster' => env('PUSHER_APP_CLUSTER'),
+        //         'encrypted' => true,
+        //     ]
+        // );
+        // $pusher->trigger('chat', 'new-message', [
+        //     'message' => $data,
+        // ]);
         return response()->json($data);
     }
     public function get_ChatMessages(Request $request)
     {
     //    $data['chatfavourite']= ChatFavourite::where('user_id',$request->user_id ,'and','user_deleted',0)->first();
-       $data['chatmessages'] = ChatMessage::where('chat_favourites_id', $request->chatfavourite_id)->get();
-
-        return  response()->json($data);
+       $data['chat_messages'] = ChatMessage::where('chat_favourites_id', $request->chatfavourite_id)->get();
+        return  response($data);
     }
 
     public function user_favourite_deleted(Request $id)
