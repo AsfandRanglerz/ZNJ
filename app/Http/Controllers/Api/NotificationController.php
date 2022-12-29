@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    public function index(){
-        return view('admin.Notification.index');
+    public function pushNotification(Request $request){
+        dd($request->input());
     }
 }

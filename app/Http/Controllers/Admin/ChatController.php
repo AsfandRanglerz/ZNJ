@@ -13,4 +13,5 @@ class ChatController extends Controller
         $data['chat_users'] = User::all();
         return view('admin.Chat.index',compact('data'));
     }
+    
 }
