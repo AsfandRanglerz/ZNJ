@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +43,9 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('event-select-package','EventController@EventSelectPackage');
         Route::post('join-event','EventController@joinEvent');
         Route::post('delete-event/{id}','EventController@delete_event');
+        Route::get('event-feature-packages','EventController@getEventFeaturePackages');
+        Route::get('my-booking-event','EventController@myBookingEvent');
+        Route::get('my-booking','EventController@myBooking');
 
         Route::post('create-entertainer','EntertainerController@createEntertainer');
         Route::get('entertainers','EntertainerController@getEntertainer');
@@ -55,6 +57,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('talent-categories','EntertainerController@talentCategory');
         Route::post('delete-talent/{id}','EntertainerController@delete_talent');
         Route::get('talent-reviews/{id}','EntertainerController@entertainer_reviews');
+        Route::get('single-talent/{id}','EntertainerController@getSingleTalent');
 
         Route::get('venues','VenueController@getVenues');
         Route::get('venue/{id}','VenueController@getSingleVenue');
@@ -67,6 +70,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('venue-category','VenueController@venue_category');
         Route::post('book-venue','VenueController@book_venue');
         Route::get('venue-reviews/{id}','VenueController@venue_reviews');
+        Route::get('single-venue/{id}','VenueController@singleVenue');
 
         Route::get('venues-reviews','ReviewController@getVenuesReviews');
         Route::get('venue-review/{id}','ReviewController@getSingleVenueReview');
@@ -85,8 +89,5 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('search-data','SearchController@searchData');
         Route::post('search-filter','SearchController@searchFilter');
         Route::post('my-ads-filter','SearchController@myAdsFilter');
-
-
     });
-    // Route::post('notification/push',[NotificationController::class,'pushNotification'])->name('notification.push');
 });
