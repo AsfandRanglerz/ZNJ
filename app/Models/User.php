@@ -21,6 +21,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Event','user_id');
     }
+    public function chatfavourites()
+    {
+        return $this->hasMany('App\Models\ChatFavourite','user_id');
+    }
+
+
     // public function talentCategory(){
     //     return $this->belongsToMany('App\Models\TalentCategory','entertainer_details','user_id','category_id');
     //  }

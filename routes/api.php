@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -75,8 +76,6 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('entertainer-review/{id}','ReviewController@getSingleEntertainerReview');
         Route::post('create-review','ReviewController@createReviews');
 
-
-
         Route::get('home-page','HomeController@HomePage');
         Route::get('top-rated-events','HomeController@topRatedEvents');
         Route::get('top-rated-entertainers','HomeController@topRatedEntertainers');
@@ -86,5 +85,8 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('search-data','SearchController@searchData');
         Route::post('search-filter','SearchController@searchFilter');
         Route::post('my-ads-filter','SearchController@myAdsFilter');
+
+
     });
+    // Route::post('notification/push',[NotificationController::class,'pushNotification'])->name('notification.push');
 });

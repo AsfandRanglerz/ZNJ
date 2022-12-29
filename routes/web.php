@@ -131,9 +131,12 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/feature-ads-packages/venue/update/{venue_ads_package_id}',[FeatureAdsPackagesController::class,'updateVenueAdsPackage'])->name('feature_ads_packages.venue.update');
     // Notification
     Route::get('/notification',[NotificationController::class,'index'])->name('notification.index');
-    Route::post('/notification/push',[NotificationController::class,'pushNotification'])->name('notification.push');
     // Chat
     Route::get('/chat',[ChatController::class,'index'])->name('chat.index');
+    Route::post('/chat/store',[ChatController::class,'store'])->name('chat.store');
+    Route::get('/chat-messages',[ChatController::class,'get_ChatMessages'])->name('chat.messages');
+
+
 });
 /*Team A routes
  * */
