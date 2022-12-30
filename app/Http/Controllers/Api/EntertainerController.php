@@ -115,7 +115,7 @@ class EntertainerController extends Controller
                 $image = hexdec(uniqid()) . '.' . strtolower($data->getClientOriginalExtension());
                 $data->move(public_path('images'), $image);
                 EntertainerEventPhotos::create([
-                    'event_photos' =>  'public/images/' . $image,
+                    'event_photos' =>  'public/images/'.$image,
                     'entertainer_details_id' => $id
                 ]);
             }
