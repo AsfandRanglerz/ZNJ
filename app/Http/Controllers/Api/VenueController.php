@@ -95,7 +95,7 @@ class VenueController extends Controller
     public function updateVenue(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
+            // 'title' => 'required',
             'category_id' => 'required',
             'about_venue' => 'required',
             'description' => 'required',
@@ -107,8 +107,10 @@ class VenueController extends Controller
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
-        $data = $request->only(['title', 'category_id', 'about_venue', 'description', 'seats', 'stands', 'area']);
-        $data['amenities'] = implode(',', $request->amenities);
+        $data = $request->only(['category_id', 'about_venue', 'description', 'seats', 'stands', 'area']);
+        if (isset($request->amenities)) {
+            $data['amenities'] = implode(',', $request->amenities);
+        }
         $venue = Venue::find($id)->update($data);
         if ($request->file('photos')) {
             VenuesPhoto::where('venue_id', $id)->delete();
@@ -184,12 +186,13 @@ class VenueController extends Controller
         $data = Venue::with('User', 'reviews.user')->find($id);
         return $this->sendSuccess('Venue reviews', compact('data'));
     }
-    public function singleVenue($id){
-     $data = Venue::with( 'venueCategory', 'venuePhoto', 'venuePricing','reviews.user',)->find($id);
-     if(isset($data)){
-     return $this->sendSuccess('Venue', compact('data'));
-    }else{
-        return $this->sendError('Record Not Found !');
+    public function singleVenue($id)
+    {
+        $data = Venue::with('venueCategory', 'venuePhoto', 'venuePricing', 'reviews.user',)->find($id);
+        if (isset($data)) {
+            return $this->sendSuccess('Venue', compact('data'));
+        } else {
+            return $this->sendError('Record Not Found !');
+        }
     }
-}
 }
