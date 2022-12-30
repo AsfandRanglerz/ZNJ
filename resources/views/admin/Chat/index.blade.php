@@ -289,40 +289,36 @@
         <section class="section">
             <div class="container-fluid h-100">
                 <div class="row justify-content-center h-100">
-                    <div class="col-md-4 col-xl-3 chat">
-                        <div class="card mb-sm-3 mb-md-0 contacts_card">
-                            <div class="card-header">
-                                <div class="input-group">
-                                    <input type="text" placeholder="Search..." name=""
-                                        class="form-control search">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
-                                    </div>
+                    <div class="col-md-4 col-xl-3 chat"><div class="card mb-sm-3 mb-md-0 contacts_card">
+                        <div class="card-header">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search..." name="" class="form-control search">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
                                 </div>
                             </div>
-                            <div class="card-body contacts_body">
-                                <ul class="contacts">
-                                    @foreach ($data['chatfavourites'] as $favourites)
-                                        <li class="favourites"  data-id="{{ $favourites['id'] }}">
-                                            <div class="d-flex bd-highlight">
-                                                <div class="img_cont">
-                                                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                                        class="rounded-circle user_img">
-                                                    {{-- <span class="online_icon"></span> --}}
-                                                </div>
-                                                <div class="user_info">
-                                                    {{-- <span id="" style="visibility: hidden;">{{ $favourites['id'] }}</span> --}}
-                                                    <span>{{ $favourites['User']['name'] }}</span>
-                                                    <p>{{ $favourites['User']['role'] }}</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="card-footer"></div>
                         </div>
-                    </div>
+                        <div class="card-body contacts_body">
+                            <ul class="contacts">
+                            @foreach ($data['chatfavourites'] as $favourites )
+                            <li class="favourites" data-id="{{ $favourites['id'] }}">
+                                <div class="d-flex bd-highlight">
+                                    <div class="img_cont">
+                                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+                                        {{-- <span class="online_icon"></span> --}}
+                                    </div>
+                                    <div class="user_info" >
+                                        {{-- <span id="" style="visibility: hidden;">{{ $favourites['id'] }}</span> --}}
+                                        <span>{{ $favourites['User']['name'] }}</span>
+                                        <p>{{ $favourites['User']['role'] }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            @endforeach
+                            </ul>
+                        </div>
+                        <div class="card-footer"></div>
+                    </div></div>
                     <div class="col-md-8 col-xl-6 chat-section">
                     </div>
                 </div>
@@ -331,9 +327,12 @@
     </div>
 
 @endsection
-@section('scripts')
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-
+@section ('scripts')
+@if (\Illuminate\Support\Facades\Session::has('message'))
+<script>
+    toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
+</script>
+@endif
     <script>
         var pusher = new Pusher('a6f05771eaf600538637',{
             cluster: 'ap2',
@@ -341,52 +340,21 @@
         });
         var channel = pusher.subscribe('chat');
         channel.bind('new-message', function(data) {
-            // console.log(data.message.chatdata.sender_type);
-            if(data.message.chatdata.sender_type === 'Admin'){
-                $('.msg_card_body').append(`<div class="d-flex justify-content-end mb-4" data-id = ${data.message.chatdata.id}>
-                                    <div class="msg_cotainer_send">
-                                        ${data.message.chatdata.body}
-                                        <span class="msg_time_send">${data.message.chatdata.created_at}</span>
-                                    </div>
-                                    <div class="img_cont_msg">
-                                    </div>
-                                </div>`)
-
-                            } else {
-                                $('.msg_card_body').append(`
-								<div class="d-flex justify-content-start mb-4" data-id = ${data.message.chatdata.id}>
-                                    <div class="img_cont_msg">
-                                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        ${data.message.chatdata.body}
-                                        <span class="msg_time">${data.message.chatdata.created_at}</span>
-                                    </div>
-                                </div>`)
-
-                            }
-
-           // if contain favourite then different scenarion
-            // if contain  meessages than differnet
+            console.log(data);
+			// if contain favourite then different scenarion
+			// if contain  meessages than differnet
             // var messagesElement = document.getElementById('messages');
             // messagesElement.innerHTML = data.join('<br>');
         });
     </script>
-    @if (\Illuminate\Support\Facades\Session::has('message'))
-        <script>
-            toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
-        </script>
-    @endif
-    <script>
-        $(document).ready(function() {
-            $(document).on('click', '#send_admin_btn', function(e) {
-                e.preventDefault();
-                // console.log('dsasa');
-                let body = $('.type_msg').val();
-                $('.type_msg').val('');
-                let chat_favourites_id = $('div.message-card').attr('id');
-                   console.log(chat_favourites_id);
-                let chat_user_id = $('div.message-card').data('user_id');
+<script>
+    $(document).ready(function () {
+		$(document).on('click','#send_admin_btn',function (e) {
+			e.preventDefault();
+            // console.log('dsasa');
+			let body = $('.type_msg').val();
+       let chat_favourites_id = $('.active').data('id');
+       console.log(chat_favourites_id);
 
                 $.ajaxSetup({
                     headers: {
@@ -394,41 +362,32 @@
                     }
                 });
 
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('chat.store') }}",
-                    data: {
-                        'user_id':chat_user_id,
-                        'chat_favourites_id': chat_favourites_id,
-                        'sender_type': 'Admin',
-                        'body': body
-                    },
-                    success: function(response) {
-                        console.log(response,'ssad');
-                    }
-                });
-            });
+        $.ajax({
+            type: "POST",
+            url: "{{ route('chat.store') }}",
+            data: {'chat_favourites_id':chat_favourites_id,'sender_type':'Admin','body':body},
+            success: function (response) {
+                console.log(response);
+            }
+        });
+		});
+        $('.favourites').click(function() {
+       let id = $(this).data('id');
+       $('.favourites').removeClass('active');
+       $(this).addClass('active');
+       $('.message-card').remove();
 
-            $('.favourites').click(function() {
-                let id = $(this).data('id');
-                $('.favourites').removeClass('active');
-                $(this).addClass('active');
-                $('.message-card').remove();
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('chat.messages') }}",
-                    data: {
-                        'chatfavourite_id': id
-                    },
-                    success: function(response) {
-                        // console.log(response.chat_favourite.id);
-                        $('.chat-section').append(` <div class="card message-card" id='${response.chat_favourite.id}' data-user_id='${response.chat_favourite.user.id}'>
+       $.ajaxSetup({
+        headers: {
+       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+});
+       $.ajax({
+        type: "GET",
+        url: "{{ route('chat.messages') }}",
+        data: {'chatfavourite_id':id},
+        success: function (response) {
+            // console.log(response.chat_messages[0]);
+            $('.chat-section').append(` <div class="card message-card">
                             <div class="card-header msg_head">
                                 <div class="d-flex bd-highlight">
                                     <div class="img_cont">
@@ -495,21 +454,21 @@
                         });
 
 
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#table_chat').DataTable();
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></scrip>
-    <script type="text/javascript"></script>
-    <script>
-        $(document).ready(function() {
+        }
+       });
+});
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#table_chat').DataTable();
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+</script>
+<script>
+    $(document).ready(function () {
 
         });
     </script>
