@@ -82,7 +82,7 @@ class ChatController extends Controller
        $data['chat_messages'] = ChatMessage::where('chat_favourites_id', $request->chatfavourite_id)->get();
         return  response($data);
     }
-
+// All message deleted by admin
     public function user_favourite_deleted(Request $id)
 {
    $user = ChatFavourite::where('user_id', $id)->first();
@@ -93,17 +93,28 @@ class ChatController extends Controller
     }
     return redirect()->route('chat.index');
 }
-
+// single message deleted
     public function user_message_deleted(Request $id){
-        $user = ChatMessage::where('id', $id)->first();
+        $user = ChatMessage::find('id', $id)->first();
     if ($user->user_deleted == 0) {
-        ChatMessage::where('id', $id)->update('admin_deleted',1)->first();
+        ChatMessage::find('id', $id)->update('admin_deleted',1)->first();
     } else {
-        ChatMessage::where('id', $id)->delete();
+        ChatMessage::find('id', $id)->delete();
     }
     return redirect()->route('chat.index');
     }
-
+    //seen message
+    public function mark_as_seen($id)
+    {
+    $user = ChatMessage::where('chat_favourites_id', $id)->first();
+    if ($user->seen == 0) {
+        ChatMessage::where('chat_favourites_id', $id)->limit(1)->update(['seen' => 1]);
+    }
+    else
+    {
+        ChatMessage::where('chat_favourites_id', $id)->limit(1)->update(['seen' => 0]);
+    }
+    }
 
 
 }
