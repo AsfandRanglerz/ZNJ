@@ -17,7 +17,9 @@ class ChatController extends Controller
     }
      public function store(Request $request)
     {
-        return response()->json($request);
+        dd('usman');
+        return 'usman';
+        // return response()->json($request);
 
         $exists = ChatFavourite::where('user_id', 24)->exists();
         if (!$exists) {
@@ -55,30 +57,29 @@ class ChatController extends Controller
                     'body'=>$filePath,
                 ]);
             } else {
-                $data['chatdata'] = ChatMessage::create([
-                    'chat_favourites_id'=> $request->chat_favourites_id,
-                    'sender_type'=>$request->sender_type,
-                    'body'=>$request->body,
-                ]);
+                $data = $request->json()->all();
+                $data['chatdata'] = ChatMessage::create($data);
+
             }
         }
-        // $pusher = new Pusher(
-        //     env('PUSHER_APP_KEY'),
-        //     env('PUSHER_APP_SECRET'),
-        //     env('PUSHER_APP_ID'),
-        //     [
-        //         'cluster' => env('PUSHER_APP_CLUSTER'),
-        //         'encrypted' => true,
-        //     ]
-        // );
-        // $pusher->trigger('chat', 'new-message', [
-        //     'message' => $data,
-        // ]);
-        return response()->json($data);
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            [
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'encrypted' => true,
+            ]
+        );
+        $pusher->trigger('chat', 'new-message', [
+            'message' => $data,
+        ]);
+        dd($pusher);
+        return response()->json($pusher);
     }
     public function get_ChatMessages(Request $request)
     {
-    //    $data['chatfavourite']= ChatFavourite::where('user_id',$request->user_id ,'and','user_deleted',0)->first();
+       $data['chat_favourite']= ChatFavourite::where('id',$request->chatfavourite_id)->with('User')->first();
        $data['chat_messages'] = ChatMessage::where('chat_favourites_id', $request->chatfavourite_id)->get();
         return  response($data);
     }

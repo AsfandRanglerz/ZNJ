@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
 <style>
     	body,html{
 			height: 100%;
@@ -289,28 +289,14 @@
     toastr.success('{{ \Illuminate\Support\Facades\Session::get('message') }}');
 </script>
 @endif
-    <script>
-        var pusher = new Pusher('a6f05771eaf600538637',{
-            cluster: 'ap2',
-            encrypted: true
-        });
-        var channel = pusher.subscribe('chat');
-        channel.bind('new-message', function(data) {
-            console.log(data);
-			// if contain favourite then different scenarion
-			// if contain  meessages than differnet
-            // var messagesElement = document.getElementById('messages');
-            // messagesElement.innerHTML = data.join('<br>');
-        });
-    </script>
 <script>
     $(document).ready(function () {
 		$(document).on('click','#send_admin_btn',function (e) {
 			e.preventDefault();
             // console.log('dsasa');
 			let body = $('.type_msg').val();
-       let chat_favourites_id = $('.active').data('id');
-       console.log(chat_favourites_id);
+       let chat_favourites_id = $('div.message-card').attr('id');
+    //    console.log(chat_favourites_id);
 
             $.ajaxSetup({
   headers: {
@@ -342,8 +328,8 @@
         url: "{{ route('chat.messages') }}",
         data: {'chatfavourite_id':id},
         success: function (response) {
-            // console.log(response.chat_messages[0]);
-            $('.chat-section').append(` <div class="card message-card">
+            // console.log(response.chat_favourite.id);
+            $('.chat-section').append(` <div class="card message-card" id='${response.chat_favourite.id}'>
                             <div class="card-header msg_head">
                                 <div class="d-flex bd-highlight">
                                     <div class="img_cont">
@@ -351,7 +337,7 @@
                                         {{-- <span class="online_icon"></span> --}}
                                     </div>
                                     <div class="user_info">
-                                        <span>Chat with Khalid</span>
+                                        <span>Chat with ${response.chat_favourite.user.name}</span>
                                     </div>
                                     <div class="video_cam">
                                         <span><i class="fas fa-video"></i></span>
@@ -414,6 +400,23 @@
        });
 });
     });
+</script>
+<script src="https://js.pusher.com/7.0/pusher.min.js.map"></script>
+<script>
+
+	var pusher = new Pusher('a6f05771eaf600538637',{
+		cluster: 'ap2',
+		encrypted: true,
+        debug: true
+	});
+	var channel = pusher.subscribe('chat');
+	channel.bind('new-message', function(data) {
+		console.log(data,'ssad');
+		// if contain favourite then different scenarion
+		// if contain  meessages than differnet
+		// var messagesElement = document.getElementById('messages');
+		// messagesElement.innerHTML = data.join('<br>');
+	});
 </script>
 <script>
     $(document).ready(function() {
