@@ -17,13 +17,9 @@ class ChatController extends Controller
     }
      public function store(Request $request)
     {
-        dd('usman');
-        return 'usman';
         // return response()->json($request);
-
-        $exists = ChatFavourite::where('user_id', 24)->exists();
+        $exists = ChatFavourite::where('user_id', $request->user_id)->exists();
         if (!$exists) {
-            // create a new chatfavourite record
             $chatfavourite= ChatFavourite::create([
                 'user_id' => $request->user_id,
                 'admin_id' => 1,
@@ -32,15 +28,13 @@ class ChatController extends Controller
             if ($request->hasFile('body')) {
                 $filePath = $request->file('body')->store('uploads');
 
-                // create a new chatmessage instance with the file path
                 $data['chatdata'] = ChatMessage::create([
                     'chat_favourites_id'=> $chatfavourite->id ,
                     'sender_type'=>$request->sender_type,
                     'body'=>$filePath,
                 ]);
             } else {
-                // request body does not include a file
-                // create a new chatmessage instance without the file path
+
                 $data['chatdata'] = ChatMessage::create([
                     'chat_favourites_id'=> $chatfavourite->id,
                     'sender_type'=>$request->sender_type,
@@ -50,18 +44,24 @@ class ChatController extends Controller
         }else{
             if ($request->hasFile('body')) {
                 $filePath = $request->file('body')->store('uploads');
-                // create a new chatmessage instance with the file path
+
                 $data['chatdata'] = ChatMessage::create([
                     'chat_favourites_id'=> $request->chatfavourites_id ,
                     'sender_type'=>$request->sender_type,
                     'body'=>$filePath,
                 ]);
             } else {
-                $data = $request->json()->all();
-                $data['chatdata'] = ChatMessage::create($data);
+        // return response($request->chat_favourites_id);
+
+                $data['chatdata'] = ChatMessage::create([
+                    'chat_favourites_id'=> $request->chat_favourites_id ,
+                    'sender_type'=>$request->sender_type,
+                    'body'=>$request->body,
+                ]);
 
             }
         }
+
         $pusher = new Pusher(
             env('PUSHER_APP_KEY'),
             env('PUSHER_APP_SECRET'),
@@ -74,8 +74,8 @@ class ChatController extends Controller
         $pusher->trigger('chat', 'new-message', [
             'message' => $data,
         ]);
-        dd($pusher);
-        return response()->json($pusher);
+        return response($request->body);
+
     }
     public function get_ChatMessages(Request $request)
     {
