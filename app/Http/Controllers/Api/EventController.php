@@ -226,7 +226,7 @@ class EventController extends Controller
     }
     public function myBooking()
     {
-        $data = Event::with('entertainerDetails', 'eventVenues')->where('user_id', Auth::id())->get();
+        $data = Event::with('entertainerDetails.talentCategory','entertainerDetails.reviews','eventVenues.venueCategory','eventVenues.reviews')->where('user_id', Auth::id())->get();
         if (isset($data)) {
             return $this->sendSuccess('My Booking', compact('data'));
         } else {
