@@ -343,6 +343,34 @@
             console.log(data);
 			// if contain favourite then different scenarion
 			// if contain  meessages than differnet
+            // console.log(data.message.chatdata.sender_type);
+            if(data.message.chatdata.sender_type === 'Admin'){
+                $('.msg_card_body').append(`<div class="d-flex justify-content-end mb-4" data-id = ${data.message.chatdata.id}>
+                                    <div class="msg_cotainer_send">
+                                        ${data.message.chatdata.body}
+                                        <span class="msg_time_send">${data.message.chatdata.created_at}</span>
+                                    </div>
+                                    <div class="img_cont_msg">
+                                    </div>
+                                </div>`)
+
+                            } else {
+                                $('.msg_card_body').append(`
+								<div class="d-flex justify-content-start mb-4" data-id = ${data.message.chatdata.id}>
+                                    <div class="img_cont_msg">
+                                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+                                    </div>
+                                    <div class="msg_cotainer">
+                                        ${data.message.chatdata.body}
+                                        <span class="msg_time">${data.message.chatdata.created_at}</span>
+                                    </div>
+                                </div>`)
+
+                            }
+
+
+           // if contain favourite then different scenarion
+            // if contain  meessages than differnet
             // var messagesElement = document.getElementById('messages');
             // messagesElement.innerHTML = data.join('<br>');
         });
