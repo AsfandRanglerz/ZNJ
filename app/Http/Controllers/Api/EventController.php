@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Mail\JoinEvent;
 use App\Models\EventVenue;
@@ -217,7 +218,7 @@ class EventController extends Controller
     }
     public function myBookingEvent()
     {
-        $data = EventTicket::with('event')->where('user_id', Auth::id())->get();
+        $data = User::with('eventTicket.event')->find(Auth::id());
         if (isset($data)) {
             return $this->sendSuccess('Booked event', compact('data'));
         } else {
@@ -226,12 +227,11 @@ class EventController extends Controller
     }
     public function myBooking()
     {
-        $data = Event::with('entertainerDetails.talentCategory','entertainerDetails.reviews','eventVenues.venueCategory','eventVenues.reviews')->where('user_id', Auth::id())->get();
+        $data = Event::with('entertainerDetails.talentCategory', 'entertainerDetails.reviews', 'eventVenues.venueCategory', 'eventVenues.reviews')->where('user_id', Auth::id())->get();
         if (isset($data)) {
             return $this->sendSuccess('My Booking', compact('data'));
         } else {
             return $this->sendError('Record Not Found !');
         }
     }
-
 }

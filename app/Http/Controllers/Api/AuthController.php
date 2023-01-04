@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Mail\Registration;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Mail\ResetPasswordUser;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Mail\ResetPasswordUser;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -35,6 +36,7 @@ class AuthController extends Controller
             $recruter_data['password'] = Hash::make($request->password);
             $user = User::create($recruter_data);
             $user['token'] = $user->createToken('znjToken')->plainTextToken;
+            Mail::to($request->email)->send(new Registration($user));
             return $this->sendSuccess('Recruter Register Successfully', $user);
         } elseif ($request->role === 'entertainer') {
             $validator = Validator::make($request->all(), [
@@ -69,6 +71,7 @@ class AuthController extends Controller
             // $entertainer_data['password'] = Hash::make($request->password);
             $user = User::create($entertainer_data);
             $user['token'] = $user->createToken('znjToken')->plainTextToken;
+            Mail::to($request->email)->send(new Registration($user));
             return $this->sendSuccess('Entertainer Register Successfully', $user);
         } elseif ($request->role === 'venue_provider') {
             $validator = Validator::make($request->all(), [
@@ -85,6 +88,7 @@ class AuthController extends Controller
             $venue_data['password'] = Hash::make($request->password);
             $user = User::create($venue_data);
             $user['token'] = $user->createToken('authToken')->plainTextToken;
+            Mail::to($request->email)->send(new Registration($user));
             return $this->sendSuccess('Venue Register Successfully', $user);
         } else {
             return $this->sendError('Role Is Invalid');
