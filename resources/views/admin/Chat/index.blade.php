@@ -207,10 +207,19 @@
             margin-top: auto;
             margin-bottom: auto;
             margin-right: 10px;
-            border-radius: 25px;
+            border-radius: 8px;
             background-color: #78e08f;
             padding: 10px;
             position: relative;
+        }
+
+        .del-btn {
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            cursor: pointer;
+            font-size: 10px;
+            color: #bd0707;
         }
 
         .msg_time {
@@ -303,28 +312,38 @@
                             <div class="card-body contacts_body">
                                 <ul class="contacts">
                                     @foreach ($data['chatfavourites'] as $favourites)
-                                        <li class="favourites"  data-id="{{ $favourites['id'] }}">
-                                            <div class="d-flex bd-highlight">
-                                                <div class="img_cont">
-                                                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                                        class="rounded-circle user_img">
-                                                    {{-- <span class="online_icon"></span> --}}
+                                        <li>
+                                            <div class="d-flex" id="favorit{{ $favourites['id'] }}">
+                                                <div class="d-flex bd-highlight favourites"
+                                                    data-id="{{ $favourites['id'] }}">
+                                                    <div class="img_cont">
+                                                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                                            class="rounded-circle user_img">
+                                                        <span class="online_icon"></span>
+                                                    </div>
+                                                    <div class="pt-2 user_info">
+                                                        <span>{{ $favourites['User']['name'] }}</span>
+                                                        <p>{{ $favourites['User']['role'] }}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="user_info">
-                                                    {{-- <span id="" style="visibility: hidden;">{{ $favourites['id'] }}</span> --}}
-                                                    <span>{{ $favourites['User']['name'] }}</span>
-                                                    <p>{{ $favourites['User']['role'] }}</p>
+                                                <div class="pt-3">
+                                                    <button class="favorit-delete" id="{{ $favourites['id'] }}">
+                                                        <span class="ml-2 fa fa-trash text-danger small delete"></span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </li>
                                     @endforeach
+
                                 </ul>
+
                             </div>
                             <div class="card-footer"></div>
                         </div>
                     </div>
                     <div class="col-md-8 col-xl-6 chat-section">
                     </div>
+
                 </div>
             </div>
         </section>
@@ -332,28 +351,29 @@
 
 @endsection
 @section('scripts')
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
     <script>
-        var pusher = new Pusher('a6f05771eaf600538637',{
+        var pusher = new Pusher('a6f05771eaf600538637', {
             cluster: 'ap2',
             encrypted: true
         });
         var channel = pusher.subscribe('chat');
         channel.bind('new-message', function(data) {
             // console.log(data.message.chatdata.sender_type);
-             if(data.message.chatdata.sender_type === 'Admin'){
-                $('.msg_card_body').append(`<div class="d-flex justify-content-end mb-4" data-id = ${data.message.chatdata.id}>
+            if (data.message.chatdata.sender_type === 'Admin') {
+                $('.msg_card_body').append(`<div class="d-flex justify-content-end mb-4" id="delete-message${data.message.chatdata.id}" data-id = ${data.message.chatdata.id}>
                                     <div class="msg_cotainer_send">
                                         ${data.message.chatdata.body}
+                                        <span class="fa fa-trash del-btn messages" message-id=${data.message.chatdata.id}></span>
                                         <span class="msg_time_send">${data.message.chatdata.created_at}</span>
                                     </div>
                                     <div class="img_cont_msg">
                                     </div>
                                 </div>`)
 
-                            } else {
-                                $('.msg_card_body').append(`
+            } else {
+                $('.msg_card_body').append(`
                                 <div class="d-flex justify-content-start mb-4" data-id = ${data.message.chatdata.id}>
                                     <div class="img_cont_msg">
                                         <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
@@ -364,9 +384,9 @@
                                     </div>
                                 </div>`)
 
-                            }
+            }
 
-           // if contain favourite then different scenarion
+            // if contain favourite then different scenarion
             // if contain  meessages than differnet
             // var messagesElement = document.getElementById('messages');
             // messagesElement.innerHTML = data.join('<br>');
@@ -385,7 +405,7 @@
                 let body = $('.type_msg').val();
                 $('.type_msg').val('');
                 let chat_favourites_id = $('div.message-card').attr('id');
-                   console.log(chat_favourites_id);
+                console.log(chat_favourites_id);
                 let chat_user_id = $('div.message-card').data('user_id');
 
                 $.ajaxSetup({
@@ -398,19 +418,20 @@
                     type: "POST",
                     url: "{{ route('chat.store') }}",
                     data: {
-                        'user_id':chat_user_id,
+                        'user_id': chat_user_id,
                         'chat_favourites_id': chat_favourites_id,
                         'sender_type': 'Admin',
                         'body': body
                     },
                     success: function(response) {
-                        console.log(response,'ssad');
+                        console.log(response, 'ssad');
                     }
                 });
             });
 
             $('.favourites').click(function() {
                 let id = $(this).data('id');
+                // alert(id);
                 $('.favourites').removeClass('active');
                 $(this).addClass('active');
                 $('.message-card').remove();
@@ -427,8 +448,8 @@
                         'chatfavourite_id': id
                     },
                     success: function(response) {
-                        // console.log(response.chat_favourite.id);
-                        $('.chat-section').append(` <div class="card message-card" id='${response.chat_favourite.id}' data-user_id='${response.chat_favourite.user.id}'>
+                        //alert(response.chat_favourite.user.id);
+                        $('.chat-section').append(` <div class="card message-card" id='${response.chat_favourite.id}' data-user_id='${response.chat_favourite.user.id}' >
                             <div class="card-header msg_head">
                                 <div class="d-flex bd-highlight">
                                     <div class="img_cont">
@@ -469,11 +490,13 @@
                         </div>`)
                         response.chat_messages.forEach(messages => {
                             if (messages.sender_type === 'Admin') {
-                                $('.msg_card_body').append(`<div class="d-flex justify-content-end mb-4" data-id = ${messages.id}>
+                                $('.msg_card_body').append(`<div class="d-flex justify-content-end mb-4" id="delete-message${messages.id}" data-id = ${messages.id}>
                                     <div class="msg_cotainer_send">
                                         ${messages.body}
-                                        <span class="msg_time_send">${messages.created_at}</span>
+                                        <span class="fa fa-trash del-btn messages" message-id= ${messages.id} ></span>
+                                        <span class="msg_time_send" class="ml-2 fa fa-trash text-danger small">${messages.created_at}</span>
                                     </div>
+
                                     <div class="img_cont_msg">
                                     </div>
                                 </div>`)
@@ -498,15 +521,77 @@
                 });
             });
         });
+
+
+        $(document).on('click', '.favorit-delete', function() {
+            var id = $(this).attr('id');
+            // alert(id);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-Token': '{{ csrf_token() }}',
+                },
+                url: '{{ url('admin/chat-deleted') }}',
+                data: {
+                    'id': id
+                },
+                success: function(response) {
+                    console.log(response);
+                    console.log(response.user.user_id);
+                    $(`#favorit${id}`).removeClass('d-flex');
+                    $(`#favorit${id}`).addClass('d-none');
+                    var a = $(".message-card").attr("data-user_id");
+                    if (a = response.user.user_id) {
+                        $(".message-card").addClass("d-none");
+                    }
+                    toastr.success("Chat Deleted Successfully", 'success');
+
+
+
+                }
+            });
+        });
+
+        $(document).on('click', '.messages', function() {
+            var id = $(this).attr('message-id');
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-Token': '{{ csrf_token() }}',
+                },
+                url: '{{ url('admin/message-deleted') }}',
+                data: {
+                    'id': id
+                },
+                success: function(response) {
+                    console.log(response);
+                    // $(`${hide-id}`).removeClass('d-flex');
+                    // let a = $(`#delete-message${id}`).attr('data-id');
+                    // if (a = response.user.id) {
+                        $(`#delete-message${id}`).removeClass('d-flex');
+                        $(`#delete-message${id}`).addClass('d-none');
+                    //}
+                   // toastr.success("Chat Deleted Successfully", 'success');
+
+
+
+                }
+            });
+        });
     </script>
+
 
     <script>
         $(document).ready(function() {
             $('#table_chat').DataTable();
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></scrip>
-    <script type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js">
+        < /scrip> <
+        script type = "text/javascript" >
+    </script>
     <script>
         $(document).ready(function() {
 

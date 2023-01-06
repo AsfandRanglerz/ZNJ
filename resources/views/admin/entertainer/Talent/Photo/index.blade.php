@@ -33,8 +33,9 @@
 
                                      @foreach($data['photos'] as $photo)
                                             <tr>
+                                                {{-- @dd($photo->event_photos) --}}
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center"><img src="{{ asset('public/admin/assets/img/entertainer') . '/' . $photo->event_photos }}" alt="" height="50" width="50" class="image">
+                                                <td class="text-center"><img src="{{ asset('public/admin/assets/img/entertainer') . '/' . basename($photo->event_photos) }}" alt="" height="50" width="50" class="image">
                                                 </td>
 
                                                 <td

@@ -135,7 +135,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/chat',[ChatController::class,'index'])->name('chat.index');
     Route::post('/chat/store',[ChatController::class,'store'])->name('chat.store');
     Route::get('/chat-messages',[ChatController::class,'get_ChatMessages'])->name('chat.messages');
-    Route::get('/chat-deleted',[ChatController::class,'user_favourite_deleted']);
+    Route::post('/chat-deleted',[ChatController::class,'favouriteDeleted'])->name('chat.favourite');
+    Route::post('/message-deleted',[ChatController::class,'MessageDeleted'])->name('chat.messagedeleted');
     Route::post('/seen-message',[ChatController::class,'mark_as_seen']);
 
 });

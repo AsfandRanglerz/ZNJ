@@ -56,7 +56,7 @@ class RecruiterController extends Controller
         $data = $request->only(['name', 'email', 'role', 'phone', 'company', 'designation']);
         $data['role'] = 'recruiter';
         $password = random_int(10000000, 99999999);
-        $data['role'] = 'entertainer';
+        // $data['role'] = 'entertainer';
 
         $data['password'] = Hash::make($password);
         // dd($message);

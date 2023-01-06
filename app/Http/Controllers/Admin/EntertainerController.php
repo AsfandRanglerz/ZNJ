@@ -283,6 +283,7 @@ class EntertainerController extends Controller
         $data['user_id'] = $user_id;
         $data['entertainer_details_id'] = $entertainer_details_id;
         // dd($data['user_id']);
+
         return view('admin.entertainer.Talent.Photo.index', compact('data'));
     }
     //Photo

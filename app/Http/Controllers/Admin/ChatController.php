@@ -12,10 +12,10 @@ class ChatController extends Controller
 {
     public function index(){
         // dd('ss');
-        $data['chatfavourites']= ChatFavourite::where('user_deleted',0)->with('User')->latest()->get();
+        $data['chatfavourites']= ChatFavourite::where('admin_deleted',0)->with('User')->latest()->get();
         return view('admin.Chat.index',compact('data'));
     }
-     public function store(Request $request)
+    public function store(Request $request)
     {
         // return response()->json($request);
         $exists = ChatFavourite::where('user_id', $request->user_id)->exists();
@@ -80,29 +80,45 @@ class ChatController extends Controller
     public function get_ChatMessages(Request $request)
     {
        $data['chat_favourite']= ChatFavourite::where('id',$request->chatfavourite_id)->with('User')->first();
-       $data['chat_messages'] = ChatMessage::where('chat_favourites_id', $request->chatfavourite_id)->get();
+       $data['chat_messages'] = ChatMessage::where('chat_favourites_id', $request->chatfavourite_id)->where('admin_deleted',0)->get();
         return  response($data);
     }
 // All message deleted by admin
-    public function user_favourite_deleted(Request $id)
-{
-   $user = ChatFavourite::where('user_id', $id)->first();
-    if ($user->user_deleted == 0) {
-        ChatFavourite::where('user_id', $id)->update('admin_deleted',1)->first();
-    } else {
-        ChatFavourite::where('user_id', $id)->delete();
+
+    /** delete the favorite user */
+    public function favouriteDeleted(Request $request)
+    {
+        $user = ChatFavourite::find($request->id);
+       // return response()->json($user);
+        if ($user->user_deleted == 0) {
+            $user->update(['admin_deleted' => 1]);
+            //return response()->json($user);
+        } else {
+            $user->delete();
+        }
+        return response()->json([
+            'success' => 'user deleted successfully',
+            'user' => $user,
+        ]);
+        //return redirect()->route('chat.index');
     }
-    return redirect()->route('chat.index');
-}
 // single message deleted
-    public function user_message_deleted(Request $id){
-        $user = ChatMessage::find('id', $id)->first();
-    if ($user->user_deleted == 0) {
-        ChatMessage::find('id', $id)->update('admin_deleted',1)->first();
-    } else {
-        ChatMessage::find('id', $id)->delete();
-    }
-    return redirect()->route('chat.index');
+    public function MessageDeleted(Request $request)
+    {
+        $user = ChatMessage::find($request->id);
+      // return response()->json($user);
+        if ($user->user_deleted == 0) {
+            $user->update(['admin_deleted' => 1]);
+            //return response()->json($user);
+        } else {
+            $user->delete();
+        }
+       // $user = ChatMessage::where('admin_deleted',0)->get();
+        return response()->json([
+            'success' => 'user deleted successfully',
+            'user' => $user,
+        ]);
+        //return redirect()->route('chat.index');
     }
     //seen message
     public function mark_as_seen($id)

@@ -12,7 +12,7 @@ class EntertainerEventPhotos extends Model
     public function entertainerDetails(){
         return $this->belongsTo('App\Models\EntertainerDetail');
      }
-    //
+
     public function getEventPhotosAttribute($path)
     {
         if ($path){
