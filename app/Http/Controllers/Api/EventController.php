@@ -151,6 +151,7 @@ class EventController extends Controller
     }
     public function getEventFeaturePackages()
     {
+        
         $data = EventFeatureAdsPackage::get();
         return $this->sendSuccess('Event Ads Packages', compact('data'));
     }
